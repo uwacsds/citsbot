@@ -1,4 +1,12 @@
 {
     "prefix": "!",
-    "pattern": "!(\\S*) (.*)"
+    "modules": {
+        "welcome": {
+            "channel": 692302529668841542
+        },
+        "announcer": {
+            "channel": 692302529668841542,
+            "crontab": "0 0 * * 1"
+        }
+    }
 }

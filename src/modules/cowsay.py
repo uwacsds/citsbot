@@ -1,4 +1,6 @@
 import textwrap
+import discord.ext.commands as commands
+
 
 line_max_len = 40
 cow_art = \
@@ -9,6 +11,7 @@ cow_art = \
              ||----w |
              ||     ||
 '''
+
 
 def normalize_text(msg):
     lines = textwrap.wrap(msg, line_max_len)
@@ -27,18 +30,19 @@ def get_border(lines, index):
         return ['|', '|']
 
 
-async def cowsay(msg):
-    lines = normalize_text(msg.content)
-    border_size = len(lines[0])
-    bubble = ['  ' + '_' * border_size]
-    for index, line in enumerate(lines):
-        border = get_border(lines, index)
-        bubble.append(f'{border[0]} {line} {border[1]}')
-    bubble.append('  ' + '-' * border_size)
-    await msg.channel.send('```\n' + '\n'.join(bubble) + cow_art + '\n```')
+class Cowsay(commands.Cog):
+    def __init__(self, bot, cfg):
+        self.bot = bot
+        self.cfg = cfg
 
-
-def commands():
-    return {
-        'cowsay': cowsay
-    }
+    @commands.command()
+    async def cowsay(self, ctx, *, txt):
+        print('running cowsay!')
+        lines = normalize_text(txt)
+        border_size = len(lines[0])
+        bubble = ['  ' + '_' * border_size]
+        for index, line in enumerate(lines):
+            border = get_border(lines, index)
+            bubble.append(f'{border[0]} {line} {border[1]}')
+        bubble.append('  ' + '-' * border_size)
+        await ctx.channel.send('```\n' + '\n'.join(bubble) + cow_art + '\n```')
