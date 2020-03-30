@@ -1,7 +1,0 @@
-version: '3'
-
-services:
-  citsbot:
-    build: ./
-    env_file: .env
-    command: python ./src/main.py
