@@ -5,7 +5,12 @@ import discord.utils
 class MessageRoles(commands.Cog):
     def __init__(self, bot, cfg):
         self.bot = bot
-        self.cfg = cfg
+        self.cfg = cfg.modules.message_roles
+
+    @commands.Cog.listener()
+    async def on_ready(self):
+        # TODO: automatically register all units which are provided in the config file
+        ...
 
     @commands.command()
     async def register_course(self, ctx, *, txt):
