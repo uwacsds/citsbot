@@ -8,6 +8,16 @@ class MessageRoles(commands.Cog):
         self.cfg = cfg
 
     @commands.command()
+    async def register_course(self, ctx, *, txt):
+        # TODO: allow administrators to add new courses which users can allocate to themselves
+        ...
+
+    @commands.command()
+    async def remove_course(self, ctx, *, txt):
+        # TODO: allow administrators to add remove courses which they previously added
+        ...
+
+    @commands.command()
     async def add(self, ctx, *, txt):
         # TODO: allow users to add roles with !add
         ...
