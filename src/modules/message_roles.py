@@ -24,7 +24,7 @@ class MessageRoles(commands.Cog):
 
     @commands.command()
     async def add(self, ctx, *courses):
-        print(ctx.channel.id, self.cfg.channel)
+
         if ctx.channel.id != self.cfg.channel:
             return
             
@@ -32,13 +32,11 @@ class MessageRoles(commands.Cog):
             # TODO: user has not assigned any courses, what to do?
             ...
             
-        print(self.cfg.units)
-        print(type(self.cfg.units))
-
         for course in list(courses):
             try:
-                role_id = self.cfg.units[course]
-                await ctx.message.author.add_roles(role_id)
+                role_id = self.cfg.units._asdict()[course]
+                role = ctx.guild.get_role(role_id)
+                await ctx.author.add_roles(role)
             except KeyError as NotValid:
                 # TODO: alert user the role they selected doesn't exist
                 ...
