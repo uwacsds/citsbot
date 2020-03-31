@@ -13,16 +13,14 @@ class WelcomeConfig:
 
 
 class Welcome(commands.Cog):
-    def __init__(self, bot, cfg):
+    def __init__(self, bot, cfg, logger):
         self.bot = bot
+        self.logger = logger
         self.cfg = WelcomeConfig(cfg)
 
     @commands.Cog.listener()
     async def on_ready(self):
-        try:
-            self.welcome_channel = self.bot.get_channel(self.cfg.channel)
-        except:
-            print(f"Failed to get channel '{self.cfg.channel}'")
+        self.welcome_channel = self.bot.get_channel(self.cfg.channel)
 
     @commands.Cog.listener()
     async def on_member_join(self, member) -> None:

@@ -1,5 +1,6 @@
 {
     "prefix": "!",
+    "log_channel": 694591716803477624,
     "modules": {
         "cowsay": {
             "line_max_len": 40,

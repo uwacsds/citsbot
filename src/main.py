@@ -3,6 +3,7 @@ import dotenv
 import config
 import discord.ext.commands as commands
 
+from logger import Logger
 import modules.cowsay
 import modules.welcome
 import modules.announcer
@@ -18,10 +19,13 @@ def main():
     # set up bot and register modules
     print("Registering modules")
     bot = commands.Bot(command_prefix=cfg.prefix)
-    bot.add_cog(modules.cowsay.Cowsay(bot, cfg))
-    bot.add_cog(modules.welcome.Welcome(bot, cfg))
-    bot.add_cog(modules.announcer.Announcer(bot, cfg))
-    bot.add_cog(modules.react_roles.ReactRoles(bot, cfg))
+    logger = Logger(bot, cfg)
+
+    bot.add_cog(modules.cowsay.Cowsay(bot, cfg, logger))
+    bot.add_cog(modules.welcome.Welcome(bot, cfg, logger))
+    bot.add_cog(modules.announcer.Announcer(bot, cfg, logger))
+    bot.add_cog(modules.react_roles.ReactRoles(bot, cfg, logger))
+    bot.add_cog(logger)
     print("Starting bot")
     bot.run(os.getenv("DISCORD_TOKEN"))
 

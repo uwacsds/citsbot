@@ -1,6 +1,7 @@
 import discord
 import discord.ext.commands as commands
 import discord.utils
+from logger import handle_error
 
 
 class ReactRolesConfig:
@@ -21,10 +22,15 @@ class ReactRolesConfig:
 
 
 class ReactRoles(commands.Cog):
-    def __init__(self, bot, cfg):
+    def __init__(self, bot, cfg, logger):
         self.bot = bot
+        self.logger = logger
         self.cfg = ReactRolesConfig(cfg)
         self.watching = {}
+
+    @commands.Cog.listener()
+    async def on_command_error(self, ctx, error):
+        await handle_error(self, ctx, error)
 
     def get_emoji(self, name):
         # try get a custom emoji first
@@ -35,27 +41,12 @@ class ReactRoles(commands.Cog):
 
     async def setup_react(self, msg, react):
         emoji = self.get_emoji(name=react.emoji)
-        try:
-            await msg.add_reaction(emoji)
-        except:
-            print("Failed to add reaction", emoji, "to message", msg)
+        await msg.add_reaction(emoji)
 
     async def setup_msg(self, cfgmsg):
-        try:
-            msg = await self.bot.get_channel(cfgmsg.channel).fetch_message(cfgmsg.id)
-        except:
-            print(
-                f"Failed to fetch message '{cfgmsg.id}' from channel '{cfgmsg.channel}'"
-            )
-
+        msg = await self.bot.get_channel(cfgmsg.channel).fetch_message(cfgmsg.id)
         for react in cfgmsg.reactions:
             await self.setup_react(msg, react)
-
-    def get_role(self, guildid, roleid):
-        try:
-            role = self.bot.get_guild(guildid).get_role(roleid)
-        except:
-            print(f"Failed to get role '{roleid}' from guild '{guildid}'")
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -65,7 +56,7 @@ class ReactRoles(commands.Cog):
     async def add_role(self, cfgmsg, emoji, member):
         for cfgreact in cfgmsg.reactions:
             if cfgreact.emoji == emoji.name:
-                role = self.get_role(cfgmsg.guild, cfgmsg.role)
+                role = self.bot.get_guild(cfgmsg.guild).get_role(cfgreact.role)
                 await member.add_roles(role)
 
     @commands.Cog.listener()
@@ -80,7 +71,7 @@ class ReactRoles(commands.Cog):
     async def remove_role(self, cfgmsg, emoji, member):
         for cfgreact in cfgmsg.reactions:
             if cfgreact.emoji == emoji.name:
-                role = self.get_role(cfgmsg.guild, cfgmsg.role)
+                role = self.bot.get_guild(cfgmsg.guild).get_role(cfgreact.role)
                 await member.remove_roles(role)
 
     @commands.Cog.listener()

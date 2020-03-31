@@ -1,5 +1,6 @@
 import textwrap
 import discord.ext.commands as commands
+from logger import ErrorLevel
 
 
 class CowsayConfig:
@@ -14,8 +15,9 @@ class CowsayConfig:
 
 
 class Cowsay(commands.Cog):
-    def __init__(self, bot, cfg):
+    def __init__(self, bot, cfg, logger):
         self.bot = bot
+        self.logger = logger
         self.cfg = CowsayConfig(cfg)
 
     def normalize_text(self, msg):
@@ -30,12 +32,10 @@ class Cowsay(commands.Cog):
             return ["/", "\\"]
         elif index == len(lines) - 1:
             return ["\\", "/"]
-        else:
-            return ["|", "|"]
+        return ["|", "|"]
 
     @commands.command()
     async def cowsay(self, ctx, *, txt):
-        print("running cowsay!")
         lines = self.normalize_text(txt)
         border_size = len(lines[0])
         bubble = ["  " + "_" * border_size]
@@ -44,3 +44,10 @@ class Cowsay(commands.Cog):
             bubble.append(f"{border[0]} {line} {border[1]}")
         bubble.append("  " + "-" * border_size)
         await ctx.channel.send("```\n" + "\n".join(bubble) + self.cfg.cow_art + "\n```")
+
+    @cowsay.error
+    async def cowsay_handler(self, ctx, error):
+        if isinstance(error, commands.MissingRequiredArgument):
+            return await ctx.channel.send("usage: cowsay <message>")
+
+        await self.logger.log(ctx, error, ErrorLevel.INFO)
