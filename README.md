@@ -3,7 +3,8 @@
 ### Local Development with Docker
 
 1. Install docker https://www.docker.com/products/docker-desktop
-2. Use `run.sh` to build and run the bot
+2. Configure the bot by following steps 3, 4, and 5 from Local Development with Virtual Env
+3. Use `run.sh` to build and run the bot
 
 ### Local Development with Virtual Env
 
@@ -44,7 +45,7 @@
     2. So get IDs go to your discord settings and enable developer mode. The toggle can be found at the bottom of the "Appearance" section under Advanced.
     3. You can now right click on channels, users, roles, etc. to copy their ID which you can put in your `config.json` file
 
-5. Run the bot
+6. Run the bot
 
     1. Start the bot with `python src/bot.py`
     2. The bot should now be online in your server
