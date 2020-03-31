@@ -23,13 +23,25 @@ class MessageRoles(commands.Cog):
         ...
 
     @commands.command()
-    async def add(self, ctx, *, txt):
-        # TODO: allow users to add roles with !add
-        try:
-            role_id = self.cfg.units[txt]
-        except KeyError as NotValid:
-            # TODO: alert user the role they selected doesn't exist
+    async def add(self, ctx, *courses):
+        print(ctx.channel.id, self.cfg.channel)
+        if ctx.channel.id != self.cfg.channel:
+            return
+            
+        if len(courses) == 0:
+            # TODO: user has not assigned any courses, what to do?
             ...
+            
+        print(self.cfg.units)
+        print(type(self.cfg.units))
+
+        for course in list(courses):
+            try:
+                role_id = self.cfg.units[course]
+                await ctx.message.author.add_roles(role_id)
+            except KeyError as NotValid:
+                # TODO: alert user the role they selected doesn't exist
+                ...
 
     @commands.command()
     async def remove(self, ctx, *, txt):
