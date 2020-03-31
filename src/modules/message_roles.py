@@ -25,7 +25,11 @@ class MessageRoles(commands.Cog):
     @commands.command()
     async def add(self, ctx, *, txt):
         # TODO: allow users to add roles with !add
-        ...
+        try:
+            role_id = self.cfg.units[txt]
+        except KeyError as NotValid:
+            # TODO: alert user the role they selected doesn't exist
+            ...
 
     @commands.command()
     async def remove(self, ctx, *, txt):
