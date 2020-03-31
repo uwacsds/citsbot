@@ -21,6 +21,7 @@ def main():
     bot.add_cog(modules.welcome.Welcome(bot, cfg))
     bot.add_cog(modules.announcer.Announcer(bot, cfg))
     bot.add_cog(modules.react_roles.ReactRoles(bot, cfg))
+    bot.add_cog(modules.message_roles.MessageRoles(bot, cfg))
     print("Starting bot")
     bot.run(os.getenv('DISCORD_TOKEN'))
 
