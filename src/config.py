@@ -1,8 +1,6 @@
 import os
 import json
 from collections import namedtuple
-from jsonschema import validate
-from jsonschema.exceptions import ValidationError
 
 
 def load_config(path=os.getenv("CONFIG") or "config.json"):
