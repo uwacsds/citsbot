@@ -1,6 +1,11 @@
 # CITS Bot
 
-### Local development
+### Local Development with Docker
+
+1. Install docker https://www.docker.com/products/docker-desktop
+2. Use `run.sh` to build and run the bot
+
+### Local Development with Virtual Env
 
 1. Install python3.8 and pip for your operating system
 

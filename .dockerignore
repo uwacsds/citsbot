@@ -5,3 +5,4 @@ venv/
 .vscode/
 __pycache__/
 docker-compose.yaml
+run.sh
