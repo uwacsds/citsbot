@@ -7,6 +7,7 @@ import modules.cowsay
 import modules.welcome
 import modules.announcer
 import modules.react_roles
+import modules.message_roles
 
 def main():
     print("Loading config from file")
