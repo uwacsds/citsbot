@@ -46,16 +46,9 @@ class Logger(commands.Cog):
         self.channel = self.bot.get_channel(self.cfg.log_channel)
 
     async def log(self, ctx, error, lvl=ErrorLevel.WARN):
-        traceback.print_exception(
-            type(error), error, error.__traceback__, file=sys.stderr
-        )
-
-        exp_name = error.split("\n")[-1]
+        exp_name = error.strip().split("\n")[-1]
         now = datetime.now()
-
         emb = discord.Embed(title=f"{lvl.name}: {exp_name}", colour=error_colour[lvl])
-        emb.add_field(
-            name="Time", value=f"{now.strftime('%Y/%m/%d %H:%M:%S')}", inline=False
-        )
+        emb.add_field(name="Time", value=f"{now.strftime('%Y/%m/%d %H:%M:%S')}", inline=False)
         emb.add_field(name="Traceback", value=f"```python\n{error}\n```", inline=False)
         await self.channel.send(embed=emb)

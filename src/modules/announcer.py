@@ -30,9 +30,7 @@ class Announcer(commands.Cog):
     async def on_ready(self):
         self.announce_channel = self.bot.get_channel(self.cfg.channel)
         self.scheduler = AsyncIOScheduler()
-        self.scheduler.add_job(
-            self.announce_week, trigger=CronTrigger.from_crontab(self.cfg.crontab),
-        )
+        self.scheduler.add_job(self.announce_week, trigger=CronTrigger.from_crontab(self.cfg.crontab))
         self.scheduler.start()
 
     @commands.command()
@@ -49,9 +47,7 @@ class Announcer(commands.Cog):
         title = "Welcome to Week 9 of Semester 2"
         desc = "Here are some things happening this week"
 
-        emb = discord.Embed(
-            title=title, description=desc, colour=discord.Colour.from_rgb(8, 100, 165)
-        )
+        emb = discord.Embed(title=title, description=desc, colour=discord.Colour.from_rgb(8, 100, 165))
         for e in events:
             emb.add_field(name=e["title"], value=e["content"])
 

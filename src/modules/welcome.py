@@ -25,9 +25,7 @@ class Welcome(commands.Cog):
     @commands.Cog.listener()
     async def on_member_join(self, member) -> None:
         emb = discord.Embed(
-            title="Hello, world!",
-            description=f"Hey {member.name}",
-            colour=discord.Colour.from_rgb(8, 100, 165),
+            title="Hello, world!", description=f"Hey {member.name}", colour=discord.Colour.from_rgb(8, 100, 165)
         )
         emb.set_thumbnail(url=member.avatar_url)
         emb.add_field(name="Hot tip", value="Check out the rules at #overview")

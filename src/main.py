@@ -1,4 +1,5 @@
 import os
+import traceback
 import dotenv
 import config
 import discord.ext.commands as commands
@@ -26,6 +27,13 @@ def main():
     bot.add_cog(modules.announcer.Announcer(bot, cfg, logger))
     bot.add_cog(modules.react_roles.ReactRoles(bot, cfg, logger))
     bot.add_cog(logger)
+
+    async def on_error(event_method, *args, **kwargs):
+        traceback.print_exc()
+        await logger.log(None, traceback.format_exc())
+
+    bot.on_error = on_error
+
     print("Starting bot")
     bot.run(os.getenv("DISCORD_TOKEN"))
 
