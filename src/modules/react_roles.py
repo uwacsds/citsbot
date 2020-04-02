@@ -1,7 +1,6 @@
 import discord
 import discord.ext.commands as commands
 import discord.utils
-from logger import handle_error
 
 
 class ReactRolesConfig:
@@ -27,10 +26,6 @@ class ReactRoles(commands.Cog):
         self.logger = logger
         self.cfg = ReactRolesConfig(cfg)
         self.watching = {}
-
-    @commands.Cog.listener()
-    async def on_command_error(self, ctx, error):
-        await handle_error(self, ctx, error)
 
     def get_emoji(self, name):
         # try get a custom emoji first

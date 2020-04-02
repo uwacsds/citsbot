@@ -5,19 +5,7 @@ from datetime import datetime
 from enum import Enum
 
 
-async def handle_error(self, ctx, error):
-    # prevent commands with their own handlers being handled here
-    if hasattr(ctx.command, "on_error"):
-        return
-    # ignore user error that isnt handled by command handlers
-    ignored = (commands.CommandNotFound, commands.UserInputError)
-    error = getattr(error, "original", error)
-    if isinstance(error, ignored):
-        return
-    if isinstance(error, commands.DisabledCommand):
-        return await ctx.send(f"{ctx.command} is currently disabled.")
-    # send the unhandled error to the logger
-    await self.logger.log(ctx, error, ErrorLevel.ERROR)
+max_msg_len = 1000
 
 
 class ErrorLevel(Enum):
@@ -30,9 +18,13 @@ class ErrorLevel(Enum):
 error_colour = {
     ErrorLevel.INFO: discord.Colour.from_rgb(150, 246, 255),
     ErrorLevel.WARN: discord.Colour.from_rgb(255, 242, 0),
-    ErrorLevel.ERROR: discord.Colour.from_rgb(201, 71, 0),
-    ErrorLevel.FATAL: discord.Colour.from_rgb(201, 0, 0),
+    ErrorLevel.ERROR: discord.Colour.from_rgb(240, 71, 71),
+    ErrorLevel.FATAL: discord.Colour.from_rgb(255, 0, 0),
 }
+
+
+def truncate(text, maxlen=max_msg_len):
+    return text[: min(len(text), maxlen)]
 
 
 class Logger(commands.Cog):
@@ -45,10 +37,35 @@ class Logger(commands.Cog):
     async def on_ready(self):
         self.channel = self.bot.get_channel(self.cfg.log_channel)
 
-    async def log(self, ctx, error, lvl=ErrorLevel.WARN):
-        exp_name = error.strip().split("\n")[-1]
+    async def handle_command_error(self, ctx, error):
+        # prevent commands with their own handlers being handled here
+        if hasattr(ctx.command, "on_error"):
+            return
+        # ignore user error that isnt handled by command handlers
+        ignored = (commands.CommandNotFound, commands.UserInputError)
+        error = getattr(error, "original", error)
+        if isinstance(error, ignored):
+            return
+        if isinstance(error, commands.DisabledCommand):
+            return await ctx.send(f"{ctx.command} is currently disabled.")
+        # raise the unhandled exception so the main on_error can handle it
+        raise error
+
+    async def log_exception(self):
+        # send the most recently raised exception to the log channel
+        err = traceback.format_exc().strip().split("\n\n")[0]
+        err_title = err.split("\n")[-1]
+        err = truncate(err, max_msg_len - 30)  # account for ```python markup
+        await self.log(err_title, f"```python\n{err}\n```", ErrorLevel.ERROR)
+
+    async def log(self, title, msg, lvl=ErrorLevel.WARN):
+        # send a message to the log channel
+        short_msg = truncate(msg)
         now = datetime.now()
-        emb = discord.Embed(title=f"{lvl.name}: {exp_name}", colour=error_colour[lvl])
+        emb = discord.Embed(title=f"{lvl.name}: {title}", colour=error_colour[lvl])
         emb.add_field(name="Time", value=f"{now.strftime('%Y/%m/%d %H:%M:%S')}", inline=False)
-        emb.add_field(name="Traceback", value=f"```python\n{error}\n```", inline=False)
-        await self.channel.send(embed=emb)
+        emb.add_field(name="Message", value=short_msg, inline=False)
+        if self.channel:
+            await self.channel.send(embed=emb)
+        else:
+            print("Failed to send log message: No log channel found")

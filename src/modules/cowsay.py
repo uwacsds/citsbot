@@ -49,5 +49,4 @@ class Cowsay(commands.Cog):
     async def cowsay_handler(self, ctx, error):
         if isinstance(error, commands.MissingRequiredArgument):
             return await ctx.channel.send("usage: cowsay <message>")
-
-        await self.logger.log(ctx, error, ErrorLevel.INFO)
+        raise error

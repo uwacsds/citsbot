@@ -2,7 +2,6 @@ import discord
 import discord.ext.commands as commands
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
-from logger import handle_error
 
 
 class AnnouncerConfig:
@@ -21,10 +20,6 @@ class Announcer(commands.Cog):
         self.bot = bot
         self.logger = logger
         self.cfg = AnnouncerConfig(cfg)
-
-    @commands.Cog.listener()
-    async def on_command_error(self, ctx, error):
-        await handle_error(self, ctx, error)
 
     @commands.Cog.listener()
     async def on_ready(self):

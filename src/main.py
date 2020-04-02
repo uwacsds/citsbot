@@ -21,18 +21,22 @@ def main():
     print("Registering modules")
     bot = commands.Bot(command_prefix=cfg.prefix)
     logger = Logger(bot, cfg)
-
+    bot.add_cog(logger)
     bot.add_cog(modules.cowsay.Cowsay(bot, cfg, logger))
     bot.add_cog(modules.welcome.Welcome(bot, cfg, logger))
     bot.add_cog(modules.announcer.Announcer(bot, cfg, logger))
     bot.add_cog(modules.react_roles.ReactRoles(bot, cfg, logger))
-    bot.add_cog(logger)
 
+    # set up error handlers
     async def on_error(event_method, *args, **kwargs):
         traceback.print_exc()
-        await logger.log(None, traceback.format_exc())
+        await logger.log_exception()
+
+    async def on_command_error(context, exception):
+        await logger.handle_command_error(context, exception)
 
     bot.on_error = on_error
+    bot.on_command_error = on_command_error
 
     print("Starting bot")
     bot.run(os.getenv("DISCORD_TOKEN"))
