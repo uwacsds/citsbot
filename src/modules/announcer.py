@@ -4,19 +4,28 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
 
 
+class AnnouncerConfig:
+    def __init__(self, cfg):
+        try:
+            mod = cfg.modules.announcer
+            self.channel = mod.channel
+            self.crontab = mod.crontab
+        except AttributeError as e:
+            self.enabled = False
+            print(f"Failed to parse {__name__} config:", e)
+
+
 class Announcer(commands.Cog):
-    def __init__(self, bot, cfg):
+    def __init__(self, bot, cfg, logger):
         self.bot = bot
-        self.cfg = cfg
+        self.logger = logger
+        self.cfg = AnnouncerConfig(cfg)
 
     @commands.Cog.listener()
     async def on_ready(self):
-        self.announce_channel = self.bot.get_channel(self.cfg.modules.announcer.channel)
+        self.announce_channel = self.bot.get_channel(self.cfg.channel)
         self.scheduler = AsyncIOScheduler()
-        self.scheduler.add_job(
-            self.announce_week,
-            trigger=CronTrigger.from_crontab(self.cfg.modules.announcer.crontab),
-        )
+        self.scheduler.add_job(self.announce_week, trigger=CronTrigger.from_crontab(self.cfg.crontab))
         self.scheduler.start()
 
     @commands.command()
@@ -33,9 +42,7 @@ class Announcer(commands.Cog):
         title = "Welcome to Week 9 of Semester 2"
         desc = "Here are some things happening this week"
 
-        emb = discord.Embed(
-            title=title, description=desc, colour=discord.Colour.from_rgb(8, 100, 165)
-        )
+        emb = discord.Embed(title=title, description=desc, colour=discord.Colour.from_rgb(8, 100, 165))
         for e in events:
             emb.add_field(name=e["title"], value=e["content"])
 
