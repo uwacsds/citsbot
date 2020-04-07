@@ -49,12 +49,34 @@
             ]
         },
         "message_roles": {
-            "guild": 694562330431717497,
-            "channel": 694576984440832071,
-            "units": {
-                "CITS1001": 694583771281752104,
-                "CITS1002": 694583771281752105,
-                "CITS1003": 694583771281752106
+            "guild": 207797201232068608,
+            "channel": 697093937596334110,
+            "roles": {
+                "thumbs_up": 692612452394729522,
+                "ok_hand": 692612508527231026,
+                "watermelon": 692612553607479326,
+                
+                "CITS1001": null,
+                "CITS1401": null,
+                "CITS1402": null,
+                "STAT1400": null,
+                
+                "CITS2002": null,
+                "CITS2200": null,
+                "CITS2211": null,
+                "CITS2401": null,
+                "CITS2402": null,
+                "STAT2401": null,
+                "STAT2402": null,
+                
+                "CITS3001": null,
+                "CITS3002": null,
+                "CITS3003": null,
+                "CITS3004": null,
+                "CITS3200": null,
+                "CITS3401": null,
+                "CITS3402": null,
+                "CITS3403": null
             }
                     
         }
