@@ -50,7 +50,7 @@ class MessageRoles(commands.Cog):
         if ctx.channel.id != self.cfg.channel:
             return
         if len(roles) <= 0:
-            return await ctx.channel.send("usage")
+            return await ctx.channel.send("No roles provided.")
 
         roles_objs = []
         for role in roles:
