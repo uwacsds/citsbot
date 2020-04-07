@@ -1,6 +1,11 @@
 {
     "prefix": "!",
+    "log_channel": 694591716803477624,
     "modules": {
+        "cowsay": {
+            "line_max_len": 40,
+            "cow_art": "\n     \\   ^__^\n      \\  (oo)\\_______\n         (__)\\       )\\/\\\n             ||----w |\n             ||     ||"
+        },
         "welcome": {
             "channel": 692302529668841542
         },
@@ -25,7 +30,7 @@
                         },
                         { 
                             "role": 692612529343692841,
-                            "emoji": "🙂" 
+                            "emoji": "🙂"
                         },
                         { 
                             "role": 692612553607479326, 
@@ -33,15 +38,11 @@
                         },
                         { 
                             "role": 692612579155247148, 
-                            "emoji": "coolPepe" 
+                            "emoji": "python" 
                         },
                         { 
                             "role": 692612600130961438, 
-                            "emoji": "chompers" 
-                        },
-                        { 
-                            "role": 692612619219107850, 
-                            "emoji": "boomer" 
+                            "emoji": "discord" 
                         }
                     ]
                 }
