@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  citsbot:
+    build: ./
+    env_file: .env
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./src:/app/src
+    command: python ./src/main.py
