@@ -34,7 +34,7 @@ class Announcer(commands.Cog):
 
     @commands.command()
     async def deploy_test(self, ctx):
-        await self.channel.send("CD is working!")
+        await ctx.channel.send("CD is working!")
 
     async def announce_week(self):
         events = [
