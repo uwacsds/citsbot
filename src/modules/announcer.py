@@ -3,6 +3,11 @@ import discord.ext.commands as commands
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
 
+from datetime import datetime
+from datetime import timedelta
+
+from utils import deadlines
+from utils import academic_calendar
 
 class AnnouncerConfig:
     def __init__(self, cfg):
@@ -37,16 +42,32 @@ class Announcer(commands.Cog):
         await ctx.channel.send("CD is working!")
 
     async def announce_week(self):
-        events = [
-            {"title": "CITS1001", "content": "Lab 8 is due this week"},
-            {"title": "CITS3402", "content": "Assignment 2 is due this week"},
-            {"title": "STAT2401", "content": "Exam is this week"},
-        ]
+        # The announcer runs once every Monday, assume that the current date falls on a Monday
+        week_start = datetime.now()
 
-        title = "Welcome to Week 9 of Semester 2"
-        desc = "Here are some things happening this week"
+        d = deadlines.Deadlines(week_start)
+        ac = academic_calendar.AcademicCalendar()
 
-        emb = discord.Embed(title=title, description=desc, colour=discord.Colour.from_rgb(8, 100, 165))
+        events = d.fetch_deadlines()
+
+        semester = ac.get_semester(str(week_start.date()))
+        week = ac.get_week(str(week_start.date()))
+
+        title = None
+        desc = None
+        
+        if "Study Break" in week:
+            title = f"Welcome to Semester {semester} {week}"
+        elif "Exams" in week:
+            title = f"Welcome to Semester {semester} {week}"
+        else:
+            title = f"Welcome to Week {week} of Semester {semester}"
+
+        if len(events) > 0:
+            desc = "Here are some things happening this week"
+
+        emb = discord.Embed(title=title, description=desc,
+                            colour=discord.Colour.from_rgb(8, 100, 165))
         for e in events:
             emb.add_field(name=e["title"], value=e["content"])
 
