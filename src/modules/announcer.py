@@ -6,8 +6,8 @@ from apscheduler.triggers.cron import CronTrigger
 from datetime import datetime
 from datetime import timedelta
 
-from utils import deadlines
-from utils import academic_calendar
+from utils.deadlines import Deadlines
+from utils.academic_calendar import AcademicCalendar
 
 
 class AnnouncerConfig:
@@ -44,20 +44,18 @@ class Announcer(commands.Cog):
 
     async def announce_week(self):
         # The announcer runs once every Monday, assume that the current date falls on a Monday
-        week_start = datetime.now()
+        now = datetime.now()
+        this_monday = now - timedelta(days=now.weekday())
 
-        d = deadlines.Deadlines(week_start)
-        ac = academic_calendar.AcademicCalendar()
-        await d.fetch_data()
-        await ac.fetch_data()
+        dlines = Deadlines()
+        accal = AcademicCalendar()
+        await dlines.fetch_data()
+        await accal.fetch_data()
 
-        events = d.fetch_deadlines()
+        events = dlines.get_deadlines_this_week(now)
 
-        semester = ac.get_semester(str(week_start.date()))
-        week = ac.get_week(str(week_start.date()))
-
-        title = None
-        desc = None
+        semester = accal.get_semester(str(this_monday.date()))
+        week = accal.get_week(str(this_monday.date()))
 
         if "Study Break" in week:
             title = f"Welcome to Semester {semester} {week}"
@@ -68,6 +66,8 @@ class Announcer(commands.Cog):
 
         if len(events) > 0:
             desc = "Here are some things happening this week"
+        else:
+            desc = None
 
         emb = discord.Embed(title=title, description=desc, colour=discord.Colour.from_rgb(8, 100, 165))
         for e in events:
