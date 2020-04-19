@@ -9,6 +9,7 @@ from datetime import timedelta
 from utils import deadlines
 from utils import academic_calendar
 
+
 class AnnouncerConfig:
     def __init__(self, cfg):
         try:
@@ -47,6 +48,8 @@ class Announcer(commands.Cog):
 
         d = deadlines.Deadlines(week_start)
         ac = academic_calendar.AcademicCalendar()
+        await d.fetch_data()
+        await ac.fetch_data()
 
         events = d.fetch_deadlines()
 
@@ -55,7 +58,7 @@ class Announcer(commands.Cog):
 
         title = None
         desc = None
-        
+
         if "Study Break" in week:
             title = f"Welcome to Semester {semester} {week}"
         elif "Exams" in week:
@@ -66,8 +69,7 @@ class Announcer(commands.Cog):
         if len(events) > 0:
             desc = "Here are some things happening this week"
 
-        emb = discord.Embed(title=title, description=desc,
-                            colour=discord.Colour.from_rgb(8, 100, 165))
+        emb = discord.Embed(title=title, description=desc, colour=discord.Colour.from_rgb(8, 100, 165))
         for e in events:
             emb.add_field(name=e["title"], value=e["content"])
 

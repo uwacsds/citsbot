@@ -7,5 +7,5 @@ docker-compose up &
 ./venv/bin/watchmedo shell-command \
     --patterns="*.py" \
     --recursive \
-    --command="docker-compose restart -t 0 && docker-compose up" \
+    --command="docker-compose down -t 0 && docker-compose rm && docker-compose up" \
     .
