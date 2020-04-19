@@ -74,6 +74,6 @@ class Announcer(commands.Cog):
         emb.set_image(url="https://i.imgur.com/2cQttpX.png")
         emb.set_footer(text="⚠️ WARNING: Unit deadlines are NOT guaranteed to be listed here")
         for e in events:
-            emb.add_field(name=f":pencil: {e['title']}", value=e["content"], inline=False)
+            emb.add_field(name=f"📝 {e['title']}", value=e["content"], inline=False)
 
         await self.announce_channel.send(embed=emb)
