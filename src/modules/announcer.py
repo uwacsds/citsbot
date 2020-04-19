@@ -44,18 +44,17 @@ class Announcer(commands.Cog):
 
     async def announce_week(self):
         # The announcer runs once every Monday, assume that the current date falls on a Monday
-        now = datetime.now()
-        this_monday = now - timedelta(days=now.weekday())
 
         dlines = Deadlines()
-        accal = AcademicCalendar()
         await dlines.fetch_data()
+
+        accal = AcademicCalendar()
         await accal.fetch_data()
 
+        now = datetime.now()
         events = dlines.get_deadlines_this_week(now)
-
-        semester = accal.get_semester(str(this_monday.date()))
-        week = accal.get_week(str(this_monday.date()))
+        semester = accal.get_semester(now)
+        week = accal.get_week(now)
 
         if "Study Break" in week:
             title = f"Welcome to Semester {semester} {week}"

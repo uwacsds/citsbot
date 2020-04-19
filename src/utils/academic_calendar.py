@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 from dateutil.parser import parse as parse_date
 import aiohttp
 from utils.soup import fetch_soup
+from datetime import timedelta
 
 
 class AcademicCalendar:
@@ -17,52 +18,52 @@ class AcademicCalendar:
         self.cur_sem = None
 
     async def fetch_data(self) -> None:
-        self.soup = await fetch_soup(self.url)
-        self.get_teaching_dates()
+        soup = await fetch_soup(self.url)
+        self.__parse_teaching_dates(soup)
 
-    def get_teaching_dates(self) -> dict:
+    def __parse_teaching_dates(self, soup) -> None:
         """
-        Return a dictionary of undergraduate dates and teaching weeks
+        Parse teaching dates from UWA undergrad dates page
         """
-        table = self.soup.find("table", border=1)
+        week_commencings = []
+        semester_weeks = []
+
+        table = soup.find("table", border=1)
         rows = table.find_all("tr")
-
-        week_commencing = []
-        semester_week = []
-
         for row in rows[1:]:
-            week_commencing.append(row.find_all("td")[1])
-            semester_week.append(row.find_all("td")[2])
+            week_commencings.append(row.find_all("td")[1])
+            semester_weeks.append(row.find_all("td")[2])
 
-        for i, j in zip(week_commencing, semester_week):
+        for wk_comm, sem_wk in zip(week_commencings, semester_weeks):
+            wk_comm = wk_comm.text.strip()
+            sem_wk = sem_wk.text.strip()
             week_semester = {}
-            if "/" in j.text.strip():
-                sem_wk = [s for s in j.text.strip().split() if s.isdigit()]
+            if "/" in sem_wk:
+                sem_wk = [s for s in sem_wk.split() if s.isdigit()]
                 self.cur_sem = sem_wk[0]
                 week_semester["semester"] = self.cur_sem
                 week_semester["week"] = sem_wk[1]
-            elif "Exam" or "Study Break" in j.text.strip():
+            elif "Exam" or "Study Break" in sem_wk:
                 week_semester["semester"] = self.cur_sem
-                week_semester["week"] = j.text.strip()
+                week_semester["week"] = sem_wk
+            self.teaching_dates[parse_date(wk_comm).date().isoformat()] = week_semester
 
-            self.teaching_dates[parse_date(i.text.strip()).date().isoformat()] = week_semester
-
-        return self.teaching_dates
-
-    def get_semester(self, date) -> Tuple[str, int]:
+    def get_semester(self, date) -> str:
         """
-        Return the current semester
+        Get the semester the given date falls into
         """
+        monday = date - timedelta(days=date.weekday())
         try:
-            return self.teaching_dates[date]["semester"]
-        except:
-            return ["error", -1]
+            return self.teaching_dates[str(monday.date())]["semester"]
+        except KeyError:
+            return "UNKNOWN_SEMESTER"
 
-    def get_week(self, date) -> Tuple[str, int]:
+    def get_week(self, date) -> str:
         """
-        Return the current week of the semester
+        Get the semester week that given date falls into
         """
+        monday = date - timedelta(days=date.weekday())
         try:
-            return self.teaching_dates[date]["week"]
-        except:
-            return ["error", -1]
+            return self.teaching_dates[str(monday.date())]["week"]
+        except KeyError:
+            return "UNKNOWN_WEEK"
