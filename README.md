@@ -39,6 +39,8 @@
 2. Make sure you have configured the bot by following the steps in the General Configuration section above
 3. Use `watch.sh` to build and run the bot
 
+**NOTE:** In order to run `watch.sh` you must set up  a Virtual Env
+
 ### Local Development with Virtual Env
 
 1. Install python3.8 and pip for your operating system
