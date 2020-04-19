@@ -45,6 +45,8 @@ class Announcer(commands.Cog):
     async def announce_week(self):
         # The announcer runs once every Monday, assume that the current date falls on a Monday
 
+        print("Fetching announcements for this week")
+
         dlines = Deadlines()
         await dlines.fetch_data()
 
@@ -68,8 +70,13 @@ class Announcer(commands.Cog):
         else:
             desc = None
 
-        emb = discord.Embed(title=title, description=desc, colour=discord.Colour.from_rgb(8, 100, 165))
+        emb = discord.Embed(title=title, description=desc, colour=discord.Colour.blue())
+        emb.set_image(url="https://i.imgur.com/2cQttpX.png")
+        emb.set_footer(
+            text="WARNING: Unit deadlines are NOT guaranteed to be listed here",
+            icon_url="https://i.imgur.com/q7OZqHY.png",
+        )
         for e in events:
-            emb.add_field(name=e["title"], value=e["content"])
+            emb.add_field(name=f":pencil: {e['title']}", value=e["content"], inline=False)
 
         await self.announce_channel.send(embed=emb)
