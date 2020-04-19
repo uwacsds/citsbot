@@ -36,6 +36,7 @@ class Logger(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         self.channel = self.bot.get_channel(self.cfg.log_channel)
+        await self.channel.send("Hello world")
 
     async def handle_command_error(self, ctx, error):
         # prevent commands with their own handlers being handled here
