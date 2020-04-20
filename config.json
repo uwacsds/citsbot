@@ -11,7 +11,7 @@
         },
         "announcer": {
             "channel": 692405232570728489,
-            "crontab": "0 0 * * 1"
+            "crontab": "0 0 * * mon"
         },
         "react_roles": {
             "messages": [

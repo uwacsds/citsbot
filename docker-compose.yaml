@@ -8,4 +8,5 @@ services:
       - PYTHONUNBUFFERED=1
     volumes:
       - ./src:/app/src
+      - ./config.json:/app/config.json
     command: python ./src/main.py

@@ -31,6 +31,7 @@ class Announcer(commands.Cog):
     async def on_ready(self):
         self.announce_channel = self.bot.get_channel(self.cfg.channel)
         self.scheduler = AsyncIOScheduler()
+        print("Announcer set with crontab:", self.cfg.crontab)
         self.scheduler.add_job(self.announce_week, trigger=CronTrigger.from_crontab(self.cfg.crontab))
         self.scheduler.start()
 
@@ -43,8 +44,6 @@ class Announcer(commands.Cog):
         await ctx.channel.send("CD is working!")
 
     async def announce_week(self):
-        # The announcer runs once every Monday, assume that the current date falls on a Monday
-
         print("Fetching announcements for this week")
 
         dlines = Deadlines()
