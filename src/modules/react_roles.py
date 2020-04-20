@@ -48,20 +48,27 @@ class ReactRoles(commands.Cog):
         for cfgmsg in self.cfg.messages:
             await self.setup_msg(cfgmsg)
 
-    async def add_role(self, cfgmsg, emoji, member):
+    async def add_role(self, cfgmsg, emoji, member) -> bool:
         for cfgreact in cfgmsg.reactions:
             if cfgreact.emoji == emoji.name:
                 role = self.bot.get_guild(cfgmsg.guild).get_role(cfgreact.role)
                 await member.add_roles(role)
+                return True
+        return False
+
+    async def remove_react(self, cfgmsg, emoji: discord.PartialEmoji, member: discord.Member):
+        msg = await self.bot.get_channel(cfgmsg.channel).fetch_message(cfgmsg.id)
+        await msg.remove_reaction(emoji, member)
 
     @commands.Cog.listener()
-    async def on_raw_reaction_add(self, payload):
+    async def on_raw_reaction_add(self, payload: discord.RawReactionActionEvent):
         if payload.user_id == self.bot.user.id:
             return
-
         for cfgmsg in self.cfg.messages:
             if cfgmsg.id == payload.message_id:
-                await self.add_role(cfgmsg, payload.emoji, payload.member)
+                role_added = await self.add_role(cfgmsg, payload.emoji, payload.member)
+                if not role_added:  # remove the react if there is no associated role
+                    await self.remove_react(cfgmsg, payload.emoji, payload.member)
 
     async def remove_role(self, cfgmsg, emoji, member):
         for cfgreact in cfgmsg.reactions:

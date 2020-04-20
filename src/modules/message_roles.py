@@ -24,6 +24,8 @@ class MessageRoles(commands.Cog):
 
     @commands.group(name="role")
     async def role(self, ctx):
+        if ctx.channel.id != self.cfg.channel:
+            return
         if ctx.invoked_subcommand is None:
             await ctx.channel.send("Usage: `role <add|remove|clean> <role-list>`")
 
