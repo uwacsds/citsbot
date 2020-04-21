@@ -78,7 +78,7 @@ class Deadlines:
                 if self.__is_due_this_week(date, date + timedelta(days=7), assignment["due_date"]):
                     self.deadlines.append(
                         {"title": unit["title"],
-                            "content": f'{assignment["title"]} due: {assignment["due_date"]}'}
+                            "content": f'{assignment["title"]} due: {assignment["due_date"].strftime("%d-%m-%Y, %I:%M %p")}'}
                     )
 
         return self.deadlines
