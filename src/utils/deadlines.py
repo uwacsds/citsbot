@@ -51,8 +51,9 @@ class Deadlines:
             assessment_rows = []
             for row in rows[1:]:
                 assessment_row = row.find_all("td")
+                # Filter on rows that contain 3 cells. These are the rows that contain the assessment information
                 if(len(assessment_row) == 3):
-                    assessment_rows.append(row.find_all("td"))
+                    assessment_rows.append(assessment_row)
             for rows in assessment_rows:
                 assignment = {}
                 assignment["title"] = rows[1].text[3:].strip()
