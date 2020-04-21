@@ -5,6 +5,7 @@ Utility class for fetching assessment deadlines from cssubmit
 import re
 import requests
 import aiohttp
+
 from dateutil import parser
 from datetime import timedelta
 from datetime import datetime
@@ -31,7 +32,7 @@ class Deadlines:
         unit_links = soup.find_all("td", class_="thing")
         for unit_title, unit_link in zip(unit_titles, unit_links):
             unit = {}
-            unit["title"] = unit_title.text.strip()
+            unit["title"] = unit_title.text[:-3].strip()
             link = unit_link.find("a", href=True)
             if link is not None:
                 unit["link"] = link["href"]
@@ -45,27 +46,26 @@ class Deadlines:
         for unit in self.units:
             soup = await fetch_soup(unit["link"])
             assignments = []
-            assmnt_titles = self.__find_assessment_titles(soup)
-            assmnt_dates = soup.find_all("td", class_="thin", string=re.compile("due"))
-            for asmnt_title, asmnt_date in zip(assmnt_titles, assmnt_dates):
+            table = soup.find("table", class_="thin")
+            rows = table.find_all("tr")
+            assessment_rows = []
+            for row in rows[1:]:
+                assessment_row = row.find_all("td")
+                if(len(assessment_row) == 3):
+                    assessment_rows.append(row.find_all("td"))
+            for rows in assessment_rows:
                 assignment = {}
-                assignment["title"] = asmnt_title
-                assignment["due_date"] = parser.parse(asmnt_date.text[3:].strip())
+                assignment["title"] = rows[1].text[3:].strip()
+                assignment["due_date"] = parser.parse(" ".join([x for x in rows[2].text.strip(
+                ).split() if x not in {'was', 'due', 'at', 'submissions', 'closed'}]))
                 assignments.append(assignment)
             unit["assignments"] = assignments
-
-    def __find_assessment_titles(self, soup):
-        """
-        Generator function to fetch and sanitise assessment titles
-        """
-        for td in soup.find_all("td", class_="thin"):
-            if td.find(text=re.compile("|".join(["%", "test"]))):
-                yield " ".join([text for text in td.stripped_strings])
 
     def __is_due_this_week(self, start, end, due_date) -> bool:
         """
         Check if a given assessment is due this week
         """
+
         return start <= due_date <= end
 
     def get_deadlines_this_week(self, date) -> list:
@@ -76,7 +76,8 @@ class Deadlines:
             for assignment in unit["assignments"]:
                 if self.__is_due_this_week(date, date + timedelta(days=7), assignment["due_date"]):
                     self.deadlines.append(
-                        {"title": unit["title"], "content": f'{assignment["title"]} due: {assignment["due_date"]}'}
+                        {"title": unit["title"],
+                            "content": f'{assignment["title"]} due: {assignment["due_date"]}'}
                     )
 
         return self.deadlines
