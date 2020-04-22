@@ -10,4 +10,4 @@ services:
       - PYTHONUNBUFFERED=1
     volumes:
       - ./src:/app/src
-      - ./config.json:/app/config.json
+      - ./config.dev.json:/app/config.dev.json
