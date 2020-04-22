@@ -25,7 +25,7 @@ class Deadlines:
     async def __fetch_units(self) -> None:
         """
         Fetch unit data from cssubmit
-        Creates a list of units with a link to their assesments page
+        Creates a list of units with a link to their assessments page
         """
         soup = await fetch_soup(self.url)
         unit_titles = soup.find_all("td", class_="thin")[1:]
@@ -40,8 +40,8 @@ class Deadlines:
 
     async def __fetch_assessments(self) -> None:
         """
-        Fetch assesment data for each unit
-        Creates a list of assesments and their due dates for each unit
+        Fetch assessment data for each unit
+        Creates a list of assessments and their due dates for each unit
         """
         for unit in self.units:
             soup = await fetch_soup(unit["link"])
@@ -52,33 +52,45 @@ class Deadlines:
             for row in rows[1:]:
                 assessment_row = row.find_all("td")
                 # Filter on rows that contain 3 cells. These are the rows that contain the assessment information
-                if(len(assessment_row) == 3):
+                if len(assessment_row) == 3:
                     assessment_rows.append(assessment_row)
             for rows in assessment_rows:
                 assignment = {}
                 assignment["title"] = rows[1].text[3:].strip()
-                assignment["due_date"] = parser.parse(" ".join([x for x in rows[2].text.strip(
-                ).split() if x not in {'was', 'due', 'at', 'submissions', 'closed'}]))
+                assignment["due_date"] = parser.parse(
+                    " ".join(
+                        [
+                            x
+                            for x in rows[2].text.strip().split()
+                            if x not in {"was", "due", "at", "submissions", "closed"}
+                        ]
+                    )
+                )
                 assignments.append(assignment)
+            print("Assignments for", unit["title"], assignments)
             unit["assignments"] = assignments
 
     def __is_due_this_week(self, start, end, due_date) -> bool:
         """
         Check if a given assessment is due this week
         """
-
         return start <= due_date <= end
 
     def get_deadlines_this_week(self, date) -> list:
         """
-        Gets the deadlines occuring in the week that date belongs to
+        Gets the deadlines occurring in the week that date belongs to
         """
+        monday = date - timedelta(days=date.weekday())
         for unit in self.units:
             for assignment in unit["assignments"]:
-                if self.__is_due_this_week(date, date + timedelta(days=7), assignment["due_date"]):
+                print("Checking:", unit["title"], "assignment:", assignment["title"])
+                if self.__is_due_this_week(monday, monday + timedelta(days=7), assignment["due_date"]):
+                    print("\tAssignment is in range")
                     self.deadlines.append(
-                        {"title": unit["title"],
-                            "content": f'{assignment["title"]} due: {assignment["due_date"].strftime("%d-%m-%Y, %I:%M %p")}'}
+                        {
+                            "title": unit["title"],
+                            "content": f'{assignment["title"]} due: {assignment["due_date"].strftime("%d-%m-%Y, %I:%M %p")}',
+                        }
                     )
 
         return self.deadlines

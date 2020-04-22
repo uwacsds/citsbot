@@ -46,8 +46,7 @@ class AcademicCalendar:
             elif "Exam" or "Study Break" in sem_wk:
                 week_semester["semester"] = self.cur_sem
                 week_semester["week"] = sem_wk
-            self.teaching_dates[parse_date(
-                wk_comm).date().isoformat()] = week_semester
+            self.teaching_dates[parse_date(wk_comm).date().isoformat()] = week_semester
 
     def get_semester(self, date) -> str:
         """
