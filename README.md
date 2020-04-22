@@ -35,11 +35,9 @@
 
 ### Local Development with Docker (Recommended)
 
-1. Install docker from https://www.docker.com/products/docker-desktop
+1. Install docker and docker-compose from https://www.docker.com/products/docker-desktop
 2. Make sure you have configured the bot by following the steps in the General Configuration section above
-3. Use `watch.sh` to build and run the bot
-
-**NOTE:** In order to run `watch.sh` you must set up  a Virtual Env
+3. Use `docker-compose up` to build and run the bot
 
 ### Local Development with Virtual Env
 
