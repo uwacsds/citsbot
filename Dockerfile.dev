@@ -1,0 +1,17 @@
+FROM python:3.8-slim
+
+ENV TZ=Australia/Perth
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+RUN apt-get update && \
+    apt-get install -y nodejs npm gcc  && \ 
+    npm install -g nodemon
+
+WORKDIR /app
+
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+CMD ["nodemon", "--exec", "python", "./src/main.py"]
