@@ -3,10 +3,10 @@ Utility class for fetching UWA teaching dates
 """
 
 import re
-from typing import Tuple
+import aiohttp
+
 from bs4 import BeautifulSoup
 from dateutil.parser import parse as parse_date
-import aiohttp
 from utils.soup import fetch_soup
 from datetime import timedelta
 
