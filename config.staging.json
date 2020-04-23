@@ -1,129 +1,129 @@
 {
     "prefix": "!",
-    "guild": 586127025228742656,
-    "log_channel": 646748400678862848,
+    "guild": 699316717477822610,
+    "log_channel": 699317865219620957,
     "modules": {
         "cowsay": {
             "line_max_len": 40,
             "cow_art": "\n     \\   ^__^\n      \\  (oo)\\_______\n         (__)\\       )\\/\\\n             ||----w |\n             ||     ||"
         },
         "welcome": {
-            "channel": 690144646344736853
+            "channel": 699317455595634688
         },
         "announcer": {
-            "channel": 690007478364405934,
+            "channel": 699317422544650280,
             "crontab": "0 0 * * mon"
         },
         "react_roles": {
             "messages": [
                 {
-                    "id": 702884623134228601,
-                    "channel": 702884352408682597,
+                    "id": 702927287905026158,
+                    "channel": 699317381687935107,
                     "reactions": [
                         { 
-                            "role": null,
+                            "role": 702928571332558900,
                             "emoji": "🌏"
                         },
                         { 
-                            "role": null,
+                            "role": 702930443892293652,
                             "emoji": "pepoGrad"
                         }
                     ]
                 },
                 {
-                    "id": 702884641731772468,
-                    "channel": 702884352408682597,
+                    "id": 702927289423233094,
+                    "channel": 699317381687935107,
                     "reactions": [
                         { 
-                            "role": null,
+                            "role": 699320651558813776,
                             "emoji": "bluej" 
                         },
                         { 
-                            "role": null,
+                            "role": 699320791681990657,
                             "emoji": "py" 
                         },
                         { 
-                            "role": null,
+                            "role": 699321693276995615,
                             "emoji": "mysql"
                         },
                         { 
-                            "role": null, 
+                            "role": 699320724330119198, 
                             "emoji": "r_" 
                         }
                     ]
                 },
                 {
-                    "id": 702884641731772468,
-                    "channel": 702884352408682597,
+                    "id": 702927291113537686,
+                    "channel": 699317381687935107,
                     "reactions": [
                         { 
-                            "role": null,
+                            "role": 699325749089402880,
                             "emoji": "c_" 
                         },
                         { 
-                            "role": null,
+                            "role": 699325750167470171,
                             "emoji": "tree" 
                         },
                         { 
-                            "role": null,
+                            "role": 699325751274635365,
                             "emoji": "*️⃣"
                         },
                         { 
-                            "role": null,
+                            "role": 699325752436588581,
                             "emoji": "matlab"
                         },
                         { 
-                            "role": null, 
+                            "role": 699325753610993664, 
                             "emoji": "👨‍🔬" 
                         },
                         { 
-                            "role": null, 
+                            "role": 699325754936394222, 
                             "emoji": "📈" 
                         },
                         { 
-                            "role": null, 
+                            "role": 699325755913666644, 
                             "emoji": "📉" 
                         }
                     ]
                 },
                 {
-                    "id": 702884672262111313,
-                    "channel": 702884352408682597,
+                    "id": 702927292518629446,
+                    "channel": 699317381687935107,
                     "reactions": [
                         { 
-                            "role": null,
+                            "role": 699325757440131173,
                             "emoji": "🧠" 
                         },
                         { 
-                            "role": null,
+                            "role": 699325758631313448,
                             "emoji": "📡" 
                         },
                         { 
-                            "role": null,
+                            "role": 699325759751323678,
                             "emoji": "gl"
                         },
                         { 
-                            "role": null, 
+                            "role": 699325760854294628, 
                             "emoji": "🔒" 
                         },
                         { 
-                            "role": null, 
+                            "role": 699325761701675072, 
                             "emoji": "💼" 
                         },
                         { 
-                            "role": null, 
+                            "role": 699325763266150429, 
                             "emoji": "⛏️" 
                         },
                         { 
-                            "role": null, 
+                            "role": 699325764033839265, 
                             "emoji": "🦾" 
                         },
                         { 
-                            "role": null, 
+                            "role": 699325765581275196, 
                             "emoji": "html" 
                         },
                         {
-                            "role": null,
+                            "role": 702930895241347142,
                             "emoji": "arduino"
                         }
                     ]
@@ -131,7 +131,7 @@
             ]
         },
         "message_roles": {
-            "channel": 646748400678862848,
+            "channel": 699317988922490951,
             "roles": {
                 "All": null,
                 "PostGrad": null,
@@ -159,7 +159,6 @@
                 "CITS3403": null,
                 "ENSC3020": null
             }
-                    
         }
     }
 }
