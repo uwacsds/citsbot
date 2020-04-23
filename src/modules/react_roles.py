@@ -8,10 +8,10 @@ class ReactRolesConfig:
         try:
             mod = cfg.modules.react_roles
             self.messages = mod.messages
+            self.guild = cfg.guild
             for msg in self.messages:
                 _ = msg.id
                 _ = msg.channel
-                _ = msg.guild
                 for react in msg.reactions:
                     _ = react.role
                     _ = react.emoji
@@ -51,7 +51,7 @@ class ReactRoles(commands.Cog):
     async def add_role(self, cfgmsg, emoji, member) -> bool:
         for cfgreact in cfgmsg.reactions:
             if cfgreact.emoji == emoji.name:
-                role = self.bot.get_guild(cfgmsg.guild).get_role(cfgreact.role)
+                role = self.bot.get_guild(self.cfg.guild).get_role(cfgreact.role)
                 await member.add_roles(role)
                 return True
         return False
@@ -73,7 +73,7 @@ class ReactRoles(commands.Cog):
     async def remove_role(self, cfgmsg, emoji, member):
         for cfgreact in cfgmsg.reactions:
             if cfgreact.emoji == emoji.name:
-                role = self.bot.get_guild(cfgmsg.guild).get_role(cfgreact.role)
+                role = self.bot.get_guild(self.cfg.guild).get_role(cfgreact.role)
                 await member.remove_roles(role)
 
     @commands.Cog.listener()
@@ -83,5 +83,5 @@ class ReactRoles(commands.Cog):
 
         for cfgmsg in self.cfg.messages:
             if cfgmsg.id == payload.message_id:
-                member = self.bot.get_guild(cfgmsg.guild).get_member(payload.user_id)
+                member = self.bot.get_guild(self.cfg.guild).get_member(payload.user_id)
                 await self.remove_role(cfgmsg, payload.emoji, member)

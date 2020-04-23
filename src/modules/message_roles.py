@@ -7,8 +7,7 @@ class MessageRolesConfig:
     def __init__(self, cfg):
         try:
             mod = cfg.modules.message_roles
-            self.guild = mod.guild
-            self.channel = mod.channel
+            self.guild = cfg.guild
             self.channel = mod.channel
             self.roles = mod.roles._asdict()
         except AttributeError as e:
