@@ -35,13 +35,9 @@ class Announcer(commands.Cog):
         self.scheduler.add_job(self.announce_week, trigger=CronTrigger.from_crontab(self.cfg.crontab))
         self.scheduler.start()
 
-    @commands.command()
-    async def announce_test(self, ctx):
-        await self.announce_week()
-
-    @commands.command()
-    async def deploy_test(self, ctx):
-        await ctx.channel.send("CD is working!")
+    # @commands.command()
+    # async def announce_test(self, ctx):
+    #     await self.announce_week()
 
     async def announce_week(self):
         print("Fetching announcements for this week")
