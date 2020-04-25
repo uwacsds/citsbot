@@ -70,7 +70,9 @@ class Announcer(commands.Cog):
 
         emb = discord.Embed(title=title, description=desc, colour=discord.Colour.blue())
         emb.set_image(url="https://i.imgur.com/2cQttpX.png")
-        emb.set_footer(text="⚠️ WARNING: Unit deadlines are NOT guaranteed to be listed here")
+        emb.set_footer(
+            text="⚠️ This information is provided as a guide only and may be incomplete and/or inaccurate. Please consult official UWA sources. Do not rely solely on this list."
+        )
         for e in events:
             emb.add_field(name=f"📝 {e['title']}", value=e["content"], inline=False)
 
