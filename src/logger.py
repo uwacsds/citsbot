@@ -32,11 +32,14 @@ class Logger(commands.Cog):
         self.bot = bot
         self.cfg = cfg
         self.channel = None
+        self.__initialised = False
 
     @commands.Cog.listener()
     async def on_ready(self):
         self.channel = self.bot.get_channel(self.cfg.log_channel)
-        await self.channel.send("Hello world")
+        if self.__initialised is False:
+            self.__initialised = True
+            await self.channel.send("Hello world")
 
     async def handle_command_error(self, ctx, error):
         # prevent commands with their own handlers being handled here
