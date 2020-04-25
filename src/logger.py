@@ -40,6 +40,8 @@ class Logger(commands.Cog):
         if self.__initialised is False:
             self.__initialised = True
             await self.channel.send("Hello world")
+        
+        print("Connected to the Discord API")
 
     async def handle_command_error(self, ctx, error):
         # prevent commands with their own handlers being handled here
