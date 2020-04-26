@@ -27,13 +27,14 @@ class Announcer(commands.Cog):
         self.logger = logger
         self.cfg = AnnouncerConfig(cfg)
 
-    @commands.Cog.listener()
-    async def on_ready(self):
-        self.announce_channel = self.bot.get_channel(self.cfg.channel)
         self.scheduler = AsyncIOScheduler()
         print("Announcer set with crontab:", self.cfg.crontab)
         self.scheduler.add_job(self.announce_week, trigger=CronTrigger.from_crontab(self.cfg.crontab))
         self.scheduler.start()
+
+    @commands.Cog.listener()
+    async def on_ready(self):
+        self.announce_channel = self.bot.get_channel(self.cfg.channel)
 
     @commands.command()
     async def announce_now(self, ctx):
@@ -70,7 +71,9 @@ class Announcer(commands.Cog):
 
         emb = discord.Embed(title=title, description=desc, colour=discord.Colour.blue())
         emb.set_image(url="https://i.imgur.com/2cQttpX.png")
-        emb.set_footer(text="⚠️ WARNING: Unit deadlines are NOT guaranteed to be listed here")
+        emb.set_footer(
+            text="⚠️ This information is provided as a guide only and may be incomplete and/or inaccurate. Please consult official UWA sources. Do not rely solely on this list."
+        )
         for e in events:
             emb.add_field(name=f"📝 {e['title']}", value=e["content"], inline=False)
 
