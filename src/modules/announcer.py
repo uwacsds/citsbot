@@ -27,13 +27,14 @@ class Announcer(commands.Cog):
         self.logger = logger
         self.cfg = AnnouncerConfig(cfg)
 
-    @commands.Cog.listener()
-    async def on_ready(self):
-        self.announce_channel = self.bot.get_channel(self.cfg.channel)
         self.scheduler = AsyncIOScheduler()
         print("Announcer set with crontab:", self.cfg.crontab)
         self.scheduler.add_job(self.announce_week, trigger=CronTrigger.from_crontab(self.cfg.crontab))
         self.scheduler.start()
+
+    @commands.Cog.listener()
+    async def on_ready(self):
+        self.announce_channel = self.bot.get_channel(self.cfg.channel)
 
     @commands.command()
     async def announce_now(self, ctx):
