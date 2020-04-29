@@ -27,6 +27,14 @@
                         { 
                             "role": 702930443892293652,
                             "emoji": "pepoGrad"
+                        },
+                        { 
+                            "role": 704963932330131510,
+                            "emoji": "github"
+                        },
+                        { 
+                            "role": 704963894585720862,
+                            "emoji": "📝"
                         }
                     ]
                 },
@@ -135,6 +143,8 @@
             "roles": {
                 "All": null,
                 "PostGrad": null,
+                "Dev": null,
+                "Other": null,
 
                 "CITS1001": null,
                 "CITS1401": null,
