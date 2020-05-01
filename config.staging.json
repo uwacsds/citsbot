@@ -2,6 +2,256 @@
     "prefix": "!",
     "guild": 699316717477822610,
     "log_channel": 699317865219620957,
+    "units": {
+        "CITS1001": {
+            "name": "Software Engineering with Java",
+            "role": 699320651558813776,
+            "channels": {
+                "general": 699316865578827828,
+                "resources": 699316898336079922
+            }
+        },
+        "CITS1401": {
+            "name": "Computational Thinking with Python",
+            "role": 699320791681990657,
+            "channels": {
+                "general": 699316942657552454,
+                "resources": 699317008424239134
+            }
+        },
+        "CITS1402": {
+            "name": "Relational Database Management Systems",
+            "role": 699321693276995615,
+            "channels": {
+                "general": 699332482310471710,
+                "resources": 699332503554752692
+            }
+        },
+        "STAT1400": {
+            "name": "Statistics for Science",
+            "role": 699320724330119198,
+            "channels": {
+                "general": 699318139200077864,
+                "resources": 699318154731454484
+            }
+        },
+        "CITS2002": {
+            "name": "Systems Programming",
+            "role": 699325749089402880,
+            "channels": {
+                "general": 699607418065256539,
+                "resources": 699607431524909076
+            }
+        },
+        "CITS2200": {
+            "name": "Data Structures and Algorithms",
+            "role": 699325750167470171,
+            "channels": {
+                "general": 699607446548774984,
+                "resources": 699607460692099122
+            }
+        },
+        "CITS2211": {
+            "name": "Discrete Structures",
+            "role": 699325751274635365,
+            "channels": {
+                "general": 699607478354313216,
+                "resources": 699607490438103091
+            }
+        },
+        "CITS2401": {
+            "name": "Computer Analysis and Visualisation",
+            "role": 699325752436588581,
+            "channels": {
+                "general": 699607508146454528,
+                "resources": 699607523149480007
+            }
+        },
+        "CITS2402": {
+            "name": "Introduction to Data Science",
+            "role": 699325753610993664,
+            "channels": {
+                "general": 699607539108675584,
+                "resources": 699607553566310514
+            }
+        },
+        "STAT2401": {
+            "name": "Analysis of Experiments",
+            "role": 699325754936394222,
+            "channels": {
+                "general": 699607569739808789,
+                "resources": 699607585845674056
+            }
+        },
+        "STAT2402": {
+            "name": "Analysis of Observations",
+            "role": 699325755913666644,
+            "channels": {
+                "general": 699608724335099974,
+                "resources": 699608737996079275
+            }
+        },
+        "CITS3001": {
+            "name": "Algorithms, Agents and Artificial Intelligence",
+            "role": 699325757440131173,
+            "channels": {
+                "general": 699609481532669972,
+                "resources": 699609579893555211
+            }
+        },
+        "CITS3002": {
+            "name": "Computer Networks",
+            "role": 699325758631313448,
+            "channels": {
+                "general": 699609490273599629,
+                "resources": 699609640891056189
+            }
+        },
+        "CITS3003": {
+            "name": "Graphics and Animation",
+            "role": 699325759751323678,
+            "channels": {
+                "general": 699609500424077332,
+                "resources": 699609632003325964
+            }
+        },
+        "CITS3004": {
+            "name": "Cybersecurity",
+            "role": 699325760854294628,
+            "channels": {
+                "general": 699609539007217725,
+                "resources": 699609623614849035
+            }
+        },
+        "CITS3200": {
+            "name": "Professional Computing",
+            "role": 699325761701675072,
+            "channels": {
+                "general": 699609529872023613,
+                "resources": 699609615322578974
+            }
+        },
+        "CITS3401": {
+            "name": "Data Warehousing",
+            "role": 699325763266150429,
+            "channels": {
+                "general": 699609519839379537,
+                "resources": 699609606602621028
+            }
+        },
+        "CITS3402": {
+            "name": "High Performance Computing",
+            "role": 699325764033839265,
+            "channels": {
+                "general": 699609510125502464,
+                "resources": 699609598642094191
+            }
+        },
+        "CITS3403": {
+            "name": "Agile Web Development",
+            "role": 699325765581275196,
+            "channels": {
+                "general": 699609551921479780,
+                "resources": 699609589968011375
+            }
+        },
+        "ENSC3020": {
+            "name": "Digital Embedded Systems",
+            "role": 702930895241347142,
+            "channels": {
+                "general": 702932519313473728,
+                "resources": 702932505182994522
+            }
+        },
+        "CITS4009": {
+            "name": "Computational Data Analysis",
+            "role": 702930443892293652,
+            "channels": {
+                "general": 702932149694627930,
+                "resources": 702932374693871658
+            }
+        },
+        "CITS4401": {
+            "name": "Software Requirements and Design",
+            "role": 702930443892293652,
+            "channels": {
+                "general": 702932248021827706,
+                "resources": 702932364694913115
+            }
+        },
+        "CITS4402": {
+            "name": "Computer Vision",
+            "role": 702930443892293652,
+            "channels": {
+                "general": 702932239918301354,
+                "resources": 702932355110797372
+            }
+        },
+        "CITS4403": {
+            "name": "Computational Modelling",
+            "role": 702930443892293652,
+            "channels": {
+                "general": 702932232121352212,
+                "resources": 702932347812577320
+            }
+        },
+        "CITS4404": {
+            "name": "Artificial Intelligence and Adaptive Systems",
+            "role": 702930443892293652,
+            "channels": {
+                "general": 702932223036358676,
+                "resources": 702932337427742791
+            }
+        },
+        "CITS4419": {
+            "name": "Mobile and Wireless Computing",
+            "role": 702930443892293652,
+            "channels": {
+                "general": 702932214484041818,
+                "resources": 702932328095285298
+            }
+        },
+        "CITS5501": {
+            "name": "Software Testing and Quality Assurance",
+            "role": 702930443892293652,
+            "channels": {
+                "general": 702932205541785931,
+                "resources": 702932319425658950
+            }
+        },
+        "CITS5503": {
+            "name": "Cloud Computing",
+            "role": 702930443892293652,
+            "channels": {
+                "general": 702932195496558614,
+                "resources": 702932311699619840
+            }
+        },
+        "CITS5506": {
+            "name": "The Internet of Things",
+            "role": 702930443892293652,
+            "channels": {
+                "general": 702932185815973948,
+                "resources": 702932302371749928
+            }
+        },
+        "CITS5508": {
+            "name": "Machine Learning",
+            "role": 702930443892293652,
+            "channels": {
+                "general": 702932176043507724,
+                "resources": 702932294456967269
+            }
+        },
+        "OTHER": {
+            "name": "Other Units",
+            "role": 702930443892293652,
+            "channels": {
+                "general": 702932165046042624,
+                "resources": 702932282142621776
+            }
+        }
+    },
     "modules": {
         "cowsay": {
             "line_max_len": 40,
@@ -43,19 +293,19 @@
                     "channel": 699317381687935107,
                     "reactions": [
                         { 
-                            "role": 699320651558813776,
+                            "unit": "CITS1001",
                             "emoji": "bluej" 
                         },
                         { 
-                            "role": 699320791681990657,
+                            "unit": "CITS1401",
                             "emoji": "py" 
                         },
                         { 
-                            "role": 699321693276995615,
+                            "unit": "CITS1402",
                             "emoji": "mysql"
                         },
                         { 
-                            "role": 699320724330119198, 
+                            "unit": "STAT1400", 
                             "emoji": "r_" 
                         }
                     ]
@@ -65,31 +315,31 @@
                     "channel": 699317381687935107,
                     "reactions": [
                         { 
-                            "role": 699325749089402880,
+                            "unit": "CITS2002",
                             "emoji": "c_" 
                         },
                         { 
-                            "role": 699325750167470171,
+                            "unit": "CITS2200",
                             "emoji": "tree" 
                         },
                         { 
-                            "role": 699325751274635365,
+                            "unit": "CITS2211",
                             "emoji": "*️⃣"
                         },
                         { 
-                            "role": 699325752436588581,
+                            "unit": "CITS2401",
                             "emoji": "matlab"
                         },
                         { 
-                            "role": 699325753610993664, 
+                            "unit": "CITS2402", 
                             "emoji": "👨‍🔬" 
                         },
                         { 
-                            "role": 699325754936394222, 
+                            "unit": "STAT2401", 
                             "emoji": "📈" 
                         },
                         { 
-                            "role": 699325755913666644, 
+                            "unit": "STAT2402", 
                             "emoji": "📉" 
                         }
                     ]
@@ -99,39 +349,39 @@
                     "channel": 699317381687935107,
                     "reactions": [
                         { 
-                            "role": 699325757440131173,
+                            "unit": "CITS3001",
                             "emoji": "🧠" 
                         },
                         { 
-                            "role": 699325758631313448,
+                            "unit": "CITS3002",
                             "emoji": "📡" 
                         },
                         { 
-                            "role": 699325759751323678,
+                            "unit": "CITS3003",
                             "emoji": "gl"
                         },
                         { 
-                            "role": 699325760854294628, 
+                            "unit": "CITS3004", 
                             "emoji": "🔒" 
                         },
                         { 
-                            "role": 699325761701675072, 
+                            "unit": "CITS3200", 
                             "emoji": "💼" 
                         },
                         { 
-                            "role": 699325763266150429, 
+                            "unit": "CITS3401", 
                             "emoji": "⛏️" 
                         },
                         { 
-                            "role": 699325764033839265, 
+                            "unit": "CITS3402", 
                             "emoji": "🦾" 
                         },
                         { 
-                            "role": 699325765581275196, 
+                            "unit": "CITS3403", 
                             "emoji": "html" 
                         },
                         {
-                            "role": 702930895241347142,
+                            "unit": "ENSC3020",
                             "emoji": "arduino"
                         }
                     ]
@@ -141,33 +391,33 @@
         "message_roles": {
             "channel": 699317988922490951,
             "roles": {
-                "All": null,
-                "PostGrad": null,
-                "Dev": null,
-                "Other": null,
+                "All": { "role": 702928571332558900 },
+                "PostGrad": { "role": 702930443892293652 },
+                "Dev": { "role": 704963932330131510 },
+                "Other": { "role": 704963894585720862 },
 
-                "CITS1001": null,
-                "CITS1401": null,
-                "CITS1402": null,
-                "STAT1400": null,
+                "CITS1001": { "unit": "CITS1001" },
+                "CITS1401": { "unit": "CITS1401" },
+                "CITS1402": { "unit": "CITS1402" },
+                "STAT1400": { "unit": "STAT1400" },
                 
-                "CITS2002": null,
-                "CITS2200": null,
-                "CITS2211": null,
-                "CITS2401": null,
-                "CITS2402": null,
-                "STAT2401": null,
-                "STAT2402": null,
+                "CITS2002": { "unit": "CITS2002" },
+                "CITS2200": { "unit": "CITS2200" },
+                "CITS2211": { "unit": "CITS2211" },
+                "CITS2401": { "unit": "CITS2401" },
+                "CITS2402": { "unit": "CITS2402" },
+                "STAT2401": { "unit": "STAT2401" },
+                "STAT2402": { "unit": "STAT2402" },
                 
-                "CITS3001": null,
-                "CITS3002": null,
-                "CITS3003": null,
-                "CITS3004": null,
-                "CITS3200": null,
-                "CITS3401": null,
-                "CITS3402": null,
-                "CITS3403": null,
-                "ENSC3020": null
+                "CITS3001": { "unit": "CITS3001" },
+                "CITS3002": { "unit": "CITS3002" },
+                "CITS3003": { "unit": "CITS3003" },
+                "CITS3004": { "unit": "CITS3004" },
+                "CITS3200": { "unit": "CITS3200" },
+                "CITS3401": { "unit": "CITS3401" },
+                "CITS3402": { "unit": "CITS3402" },
+                "CITS3403": { "unit": "CITS3403" },
+                "ENSC3020": { "unit": "ENSC3020" }
             }
         }
     }
