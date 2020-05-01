@@ -21,7 +21,7 @@ def main():
 
     # set up bot and register modules
     print("Registering modules")
-    bot = commands.Bot(command_prefix=cfg.prefix)
+    bot = commands.Bot(command_prefix=cfg["prefix"])
     logger = Logger(bot, cfg)
     bot.add_cog(logger)
     bot.add_cog(modules.cowsay.Cowsay(bot, cfg, logger))

@@ -6,10 +6,10 @@ import discord.utils
 class MessageRolesConfig:
     def __init__(self, cfg):
         try:
-            mod = cfg.modules.message_roles
-            self.guild = cfg.guild
-            self.channel = mod.channel
-            self.roles = mod.roles._asdict()
+            mod = cfg["modules"]["message_roles"]
+            self.guild = cfg["guild"]
+            self.channel = mod["channel"]
+            self.roles = mod["roles"]
         except AttributeError as e:
             self.enabled = False
             print(f"Failed to parse {__name__} config:", e)
