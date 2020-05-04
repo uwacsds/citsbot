@@ -1,7 +1,7 @@
 {
 	"prefix": "!",
-	"guild": 443748913426726932,
-	"log_channel": 443749818158940170,
+	"guild": 585828625752915998,
+	"log_channel": 663249547765743636,
 	"modules": {
 		"cowsay":{
 			"line_max_len": 40,
