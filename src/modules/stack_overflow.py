@@ -19,6 +19,8 @@ class StackOverflow(commands.Cog):
             if end_tag in str:
                 str = str.replace(end_tag,"")
         
+        str = str.replace("<pre><code>","```").replace("</code></pre>","```")
+
         return str
             
     ''' Uses google search API first because Stack Overflow API can only return questions that exactly match the search terms'''
@@ -33,8 +35,18 @@ class StackOverflow(commands.Cog):
             so = stackexchange.Site(stackexchange.StackOverflow)
             question = so.question(id, body=True)
             question_title = "Q: " + question.title
+            answers = question.answers
+            answer_body = ""
+            for answer in answers:
+                if (answer.accepted == True):
+                    answer_body = answer.body
+
+            # no accepted answer, grab highest voted one instead 
+            if (answer_body == ""):
+                question.answers[0].body
+
             question_body = self.removeTags(question.body)
-            answer_body = "Top answer: " + self.removeTags(question.answers[0].body)
+            answer_body = "Top answer: " + self.removeTags(answer_body)
             return question_title, question_body, answer_body, question_url
 
         except NameError:
@@ -55,8 +67,7 @@ class StackOverflow(commands.Cog):
             embedded_msg = embed.Embed(title=content[0], description=content[2], colour=colour.Colour.from_rgb(222,148,10))
             embedded_msg.set_author(name="Stack Overflow")
             embedded_msg.set_footer(text="Read forum: " + content[-1])
+            embedded_msg.set_thumbnail(url="https://jessehouwing.net/content/images/size/w2000/2018/07/stackoverflow-1.png")
 
             await ctx.channel.send(content=None, embed=embedded_msg)
-
-''' issue: incorrect forum from google search API'''
          
