@@ -149,3 +149,5 @@ cython_debug/
 media
 static
 test.py
+.gitignore 
+.vscode

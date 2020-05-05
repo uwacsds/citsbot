@@ -26,10 +26,10 @@ def main():
     bot.add_cog(logger)
     bot.add_cog(modules.cowsay.Cowsay(bot, cfg, logger))
     bot.add_cog(modules.stack_overflow.StackOverflow(bot, cfg, logger))
-    '''bot.add_cog(modules.welcome.Welcome(bot, cfg, logger))
+    bot.add_cog(modules.welcome.Welcome(bot, cfg, logger))
     bot.add_cog(modules.announcer.Announcer(bot, cfg, logger))
     bot.add_cog(modules.react_roles.ReactRoles(bot, cfg, logger))
-    bot.add_cog(modules.message_roles.MessageRoles(bot, cfg, logger))'''
+    bot.add_cog(modules.message_roles.MessageRoles(bot, cfg, logger))
 
     # set up error handlers
     async def on_error(event_method, *args, **kwargs):

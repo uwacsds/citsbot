@@ -7,12 +7,15 @@ from bs4 import BeautifulSoup
 
 ''' ISSUES: 
 1) beautiful soup removes all links (<a href>) in answer_body
-2)  
+2) include question body as well?  
 '''
 class StackOverflow(commands.Cog):
     def __init__(self, bot, cfg, logger):
         self.bot = bot
         self.logger = logger
+        mod = cfg.modules.stack_overflow
+        self.engine_id = mod.googlesearch_engine_id
+        self.key = mod.googlesearch_key
 
     # uses Discord's ```  ``` code block markdown
     def markUp(self, str):
@@ -23,7 +26,7 @@ class StackOverflow(commands.Cog):
         try:
             search_term = '%20'.join(search_term.split(" "))
 
-            r = requests.get("https://www.googleapis.com/customsearch/v1/siterestrict?q=" + search_term + "&cx=010164265242121245845%3Afxovbkirsvh&key=AIzaSyAHcDOWOnhYVldRHkaTorTpCvBaafswU-w")
+            r = requests.get("https://www.googleapis.com/customsearch/v1/siterestrict?q=" + search_term + "&cx=" + self.engine_id + "&key=" + self.key)
             json_content = r.json()
             question_url = json_content["items"][0]['link']
             id = int(question_url.split("/")[4])
