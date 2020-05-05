@@ -3,25 +3,20 @@ import discord.embeds as embed
 import discord.colour as colour
 import requests, stackexchange 
 from logger import ErrorLevel
+from bs4 import BeautifulSoup
 
+''' ISSUES: 
+1) beautiful soup removes all links (<a href>) in answer_body
+2)  
+'''
 class StackOverflow(commands.Cog):
     def __init__(self, bot, cfg, logger):
         self.bot = bot
         self.logger = logger
 
-    def removeTags(self, str):
-        tags = ["p","a"]
-        for tag in tags:
-            start_tag = "<" + tag + ">"
-            if start_tag in str:
-                str = str.replace(start_tag,"")
-            end_tag = "</" + tag + ">"
-            if end_tag in str:
-                str = str.replace(end_tag,"")
-        
-        str = str.replace("<pre><code>","```").replace("</code></pre>","```")
-
-        return str
+    # uses Discord's ```  ``` code block markdown
+    def markUp(self, str):
+        return str.replace("<pre><code>","```").replace("</code></pre>","```")
             
     ''' Uses google search API first because Stack Overflow API can only return questions that exactly match the search terms'''
     def findAnswer(self, search_term):
@@ -35,6 +30,8 @@ class StackOverflow(commands.Cog):
             so = stackexchange.Site(stackexchange.StackOverflow)
             question = so.question(id, body=True)
             question_title = "Q: " + question.title
+            question_body = question.body
+            #question_body = self.markUp(BeautifulSoup(question.body).get_txt())
             answers = question.answers
             answer_body = ""
             for answer in answers:
@@ -43,10 +40,18 @@ class StackOverflow(commands.Cog):
 
             # no accepted answer, grab highest voted one instead 
             if (answer_body == ""):
-                question.answers[0].body
+                answers.sort(key = lambda answer: answer.score, reverse=True)
+                answer_body = answers[0].body
 
-            question_body = self.removeTags(question.body)
-            answer_body = "Top answer: " + self.removeTags(answer_body)
+            answer_body = self.markUp(answer_body)
+            soup = BeautifulSoup(markup=answer_body,features="html.parser")
+            answer_body = soup.get_text()
+            answer_body = "Top answer: " + answer_body 
+            if (len(answer_body) > 2048):
+                answer_body = answer_body[:2045] + "..."
+                # max length is 2048
+
+
             return question_title, question_body, answer_body, question_url
 
         except NameError:
@@ -63,11 +68,10 @@ class StackOverflow(commands.Cog):
         elif (content == -1): 
             await ctx.channel.send("No Stack Overflow forum could be found with those search terms")
         else:
-            # can only send 2000 chars at a time or else HTTP exception raised 
             embedded_msg = embed.Embed(title=content[0], description=content[2], colour=colour.Colour.from_rgb(222,148,10))
             embedded_msg.set_author(name="Stack Overflow")
-            embedded_msg.set_footer(text="Read forum: " + content[-1])
-            embedded_msg.set_thumbnail(url="https://jessehouwing.net/content/images/size/w2000/2018/07/stackoverflow-1.png")
+            embedded_msg.set_footer(text="Read full forum: " + content[-1])
 
             await ctx.channel.send(content=None, embed=embedded_msg)
          
+''' update search engine ID''' 
