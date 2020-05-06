@@ -67,7 +67,9 @@ class MessageRoles(commands.Cog):
         if ctx.channel.id != self.cfg.channel:
             return
         if len(roles) <= 0:
-            return await ctx.channel.send("No roles provided. Use `role clean` to clear your assignable roles.")
+            return await ctx.channel.send(
+                "No roles provided. Use `role clean` to clear your assignable roles."
+            )
 
         roles_objs = []
         for role in roles:

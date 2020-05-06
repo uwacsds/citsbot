@@ -56,7 +56,9 @@ class ReactRoles(commands.Cog):
                 return True
         return False
 
-    async def remove_react(self, cfgmsg, emoji: discord.PartialEmoji, member: discord.Member):
+    async def remove_react(
+        self, cfgmsg, emoji: discord.PartialEmoji, member: discord.Member
+    ):
         msg = await self.bot.get_channel(cfgmsg.channel).fetch_message(cfgmsg.id)
         await msg.remove_reaction(emoji, member)
 
