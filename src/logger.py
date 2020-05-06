@@ -40,7 +40,7 @@ class Logger(commands.Cog):
         if self.__initialised is False:
             self.__initialised = True
             await self.channel.send("Hello world")
-        
+
         print("Connected to the Discord API")
 
     async def handle_command_error(self, ctx, error):
@@ -69,7 +69,9 @@ class Logger(commands.Cog):
         short_msg = truncate(msg)
         now = datetime.now()
         emb = discord.Embed(title=f"{lvl.name}: {title}", colour=error_colour[lvl])
-        emb.add_field(name="Time", value=f"{now.strftime('%Y/%m/%d %H:%M:%S')}", inline=False)
+        emb.add_field(
+            name="Time", value=f"{now.strftime('%Y/%m/%d %H:%M:%S')}", inline=False
+        )
         emb.add_field(name="Message", value=short_msg, inline=False)
         if self.channel:
             await self.channel.send(embed=emb)

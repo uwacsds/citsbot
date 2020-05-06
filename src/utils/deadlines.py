@@ -83,13 +83,16 @@ class Deadlines:
         monday = date - timedelta(days=date.weekday())
         for unit in self.units:
             # Skip over any postgrad units in the range CITS(456+)xxx unless otherwise specified
-            if not include_postgrad and unit["title"][4] in [str(x) for x in range(4, 10)]:
+            if not include_postgrad and unit["title"][4] in [
+                str(x) for x in range(4, 10)
+            ]:
                 print("Ignoring postgrad unit:", unit["title"])
                 continue
             for assignment in unit["assignments"]:
-                print("Checking:", unit["title"],
-                      "assignment:", assignment["title"])
-                if self.__is_due_this_week(monday, monday + timedelta(days=7), assignment["due_date"]):
+                print("Checking:", unit["title"], "assignment:", assignment["title"])
+                if self.__is_due_this_week(
+                    monday, monday + timedelta(days=7), assignment["due_date"]
+                ):
                     print("\tAssignment is in range")
                     self.deadlines.append(
                         {

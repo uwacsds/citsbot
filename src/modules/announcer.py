@@ -29,7 +29,9 @@ class Announcer(commands.Cog):
 
         self.scheduler = AsyncIOScheduler()
         print("Announcer set with crontab:", self.cfg.crontab)
-        self.scheduler.add_job(self.announce_week, trigger=CronTrigger.from_crontab(self.cfg.crontab))
+        self.scheduler.add_job(
+            self.announce_week, trigger=CronTrigger.from_crontab(self.cfg.crontab)
+        )
         self.scheduler.start()
 
     @commands.Cog.listener()
