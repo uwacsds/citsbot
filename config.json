@@ -3,10 +3,6 @@
     "guild": 586127025228742656,
     "log_channel": 646748400678862848,
     "modules": {
-		"stack_overflow":{
-			"googlesearch_engine_id": "010164265242121245845%3Afxovbkirsvh",
-			"googlesearch_key": "AIzaSyAHcDOWOnhYVldRHkaTorTpCvBaafswU-w"
-		},
         "cowsay": {
             "line_max_len": 40,
             "cow_art": "\n     \\   ^__^\n      \\  (oo)\\_______\n         (__)\\       )\\/\\\n             ||----w |\n             ||     ||"
