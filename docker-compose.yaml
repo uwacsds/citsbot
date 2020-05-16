@@ -11,3 +11,6 @@ services:
     volumes:
       - ./src:/app/src
       - ./config.dev.json:/app/config.dev.json
+    ports:
+      - 5678:5678
+    command: nodemon --exec python -m ptvsd --host 0.0.0.0 --port 5678 ./src/main.py

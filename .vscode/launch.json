@@ -5,11 +5,17 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug Bot",
+            "name": "Attach to Bot",
             "type": "python",
-            "request": "launch",
-            "program": "./src/main.py",
-            "console": "integratedTerminal"
+            "request": "attach",
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}/src/",
+                    "remoteRoot": "/app/src/"
+                }
+            ],
+            "port": 5678,
+            "host": "127.0.0.1"
         }
     ]
 }
