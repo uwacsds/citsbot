@@ -13,9 +13,9 @@ from utils.academic_calendar import AcademicCalendar
 class AnnouncerConfig:
     def __init__(self, cfg):
         try:
-            mod = cfg.modules.announcer
-            self.channel = mod.channel
-            self.crontab = mod.crontab
+            mod = cfg["modules"]["announcer"]
+            self.channel = mod["channel"]
+            self.crontab = mod["crontab"]
         except AttributeError as e:
             self.enabled = False
             print(f"Failed to parse {__name__} config:", e)

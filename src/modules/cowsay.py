@@ -6,9 +6,9 @@ from logger import ErrorLevel
 class CowsayConfig:
     def __init__(self, cfg):
         try:
-            mod = cfg.modules.cowsay
-            self.line_max_len = mod.line_max_len
-            self.cow_art = mod.cow_art
+            mod = cfg["modules"]["cowsay"]
+            self.line_max_len = mod["line_max_len"]
+            self.cow_art = mod["cow_art"]
         except AttributeError as e:
             self.enabled = False
             print(f"Failed to parse {__name__} config:", e)

@@ -6,8 +6,8 @@ from datetime import datetime
 class WelcomeConfig:
     def __init__(self, cfg):
         try:
-            mod = cfg.modules.welcome
-            self.channel = mod.channel
+            mod = cfg["modules"]["welcome"]
+            self.channel = mod["channel"]
         except AttributeError as e:
             self.enabled = False
             print(f"Failed to parse {__name__} config:", e)

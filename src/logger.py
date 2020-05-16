@@ -36,7 +36,7 @@ class Logger(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        self.channel = self.bot.get_channel(self.cfg.log_channel)
+        self.channel = self.bot.get_channel(self.cfg["log_channel"])
         if self.__initialised is False:
             self.__initialised = True
             await self.channel.send("Hello world")
