@@ -13,7 +13,9 @@ class ReactRolesMessageReactionConfig:
             unit_id = react_cfg["unit"]
             self.role = units[unit_id]["role"]
         else:
-            raise AttributeError(f"No role ID specified in config file for role with emoji {self.emoji}")
+            raise AttributeError(
+                f"No role ID specified in config file for role with emoji {self.emoji}"
+            )
 
 
 class ReactRolesMessageConfig:
@@ -74,7 +76,9 @@ class ReactRoles(commands.Cog):
                 return True
         return False
 
-    async def remove_react(self, cfg_msg, emoji: discord.PartialEmoji, member: discord.Member):
+    async def remove_react(
+        self, cfg_msg, emoji: discord.PartialEmoji, member: discord.Member
+    ):
         msg = await self.bot.get_channel(cfg_msg.channel).fetch_message(cfg_msg.id)
         await msg.remove_reaction(emoji, member)
 
