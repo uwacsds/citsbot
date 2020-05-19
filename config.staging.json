@@ -258,7 +258,13 @@
             "cow_art": "\n     \\   ^__^\n      \\  (oo)\\_______\n         (__)\\       )\\/\\\n             ||----w |\n             ||     ||"
         },
         "welcome": {
-            "channel": 699317455595634688
+            "channel": 699317455595634688,
+            "new_member_dm": {
+                "delay": 300,
+                "role_threshold": 1,
+                "message": "Hey {name}, welcome to the UWA Computer and Data Science discord server! We noticed that you haven't selected any roles yet. You need to have at least one role to be able to view any channels on the server.\n\nHave a read of the rules in the #overview channel and click the emoji reactions for the unit channels you want to see.\n\nIf you don't know what reactions are, they look like the [👋 1] emoji button below this message. You can click it to react. If you do this to the messages in the server's #overview channel I will grant you a role to view the channels for that unit. https://i.imgur.com/W2CHMEM.gif",
+                "react": "👋"
+            }
         },
         "announcer": {
             "channel": 699317422544650280,
