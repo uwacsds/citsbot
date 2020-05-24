@@ -11,6 +11,7 @@ class WelcomeDmConfig:
         self.role_threshold = int(cfg_dm["role_threshold"])
         self.message = cfg_dm["message"]
         self.react = cfg_dm["react"]
+        self.instant_account_age = int(cfg_dm["instant_account_age"])
 
 
 class WelcomeConfig:
@@ -45,8 +46,11 @@ class Welcome(commands.Cog):
         )
 
     async def start_no_roles_timer(self, member: discord.Member):
-        # give the new member some time to pick roles
-        await asyncio.sleep(self.cfg.dm.delay)
+        account_age = datetime.now() - member.created_at
+        # only delay the message for older accounts
+        if account_age.days > self.cfg.dm.instant_account_age:
+            # give the new member some time to pick roles
+            await asyncio.sleep(self.cfg.dm.delay)
         if len(member.roles) <= self.cfg.dm.role_threshold:
             await self.send_no_roles_dm(member)
 
