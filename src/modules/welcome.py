@@ -39,20 +39,22 @@ class Welcome(commands.Cog):
         msg = await member.send(self.cfg.dm.message.format(name=member.display_name))
         if self.cfg.dm.react != "":
             await msg.add_reaction(self.cfg.dm.react)
-        await self.logger.log(
-            f"Welcome DM Sent to {member.display_name}",
-            f"Sent a direct message to {member.display_name} because they did not have more than {self.cfg.dm.role_threshold} role(s) after {self.cfg.dm.delay} seconds.",
-            lvl=ErrorLevel.INFO,
-        )
 
     async def start_no_roles_timer(self, member: discord.Member):
+        # set a delay for older accounts
+        delay = 0
         account_age = datetime.now() - member.created_at
-        # only delay the message for older accounts
         if account_age.days > self.cfg.dm.instant_account_age:
-            # give the new member some time to pick roles
-            await asyncio.sleep(self.cfg.dm.delay)
+            delay = self.cfg.dm.delay
+        await asyncio.sleep(delay)
+        # only send the message if the user has not picked any roles
         if len(member.roles) <= self.cfg.dm.role_threshold:
             await self.send_no_roles_dm(member)
+            await self.logger.log(
+                f"Welcome DM Sent to {member.display_name}",
+                f"Sent a direct message to {member.display_name} because they did not have more than {self.cfg.dm.role_threshold} role(s) after {delay} second(s).",
+                lvl=ErrorLevel.INFO,
+            )
 
     @commands.Cog.listener()
     async def on_member_join(self, member) -> None:
