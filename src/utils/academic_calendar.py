@@ -37,7 +37,7 @@ class AcademicCalendar:
 
         for wk_comm, sem_wk in zip(week_commencings, semester_weeks):
             wk_comm = wk_comm.text.strip()
-            sem_wk = sem_wk.text.strip().replace('*', '')
+            sem_wk = sem_wk.text.strip().replace("*", "")
             week_semester = {}
             if "/" in sem_wk:
                 sem_wk = [s for s in sem_wk.split() if s.isdigit()]
