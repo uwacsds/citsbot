@@ -59,17 +59,27 @@ class Announcer(commands.Cog):
         semester = accal.get_semester(now)
         week = accal.get_week(now)
 
-        if "Study Break" in week:
-            title = f"Welcome to Semester {semester} {week}"
-        elif "Exams" in week:
-            title = f"Welcome to Semester {semester} {week}"
+        if semester is None:
+            season = accal.get_season(now)
+            title = f"{season} Vacation"
+            weeks_to_next_sem = accal.weeks_to_next_semester(now)
+            if weeks_to_next_sem == 1:
+                weeks_to_next_string = f"{weeks_to_next_sem} week"
+            else:
+                weeks_to_next_string = f"{weeks_to_next_sem} weeks"
+            desc = f"📅 {weeks_to_next_string} left until next semester\n\n📝 Enrolment details: https://www.uwa.edu.au/students/my-course/enrolment"
         else:
-            title = f"Welcome to Week {week} of Semester {semester}"
+            if "Study Break" in week:
+                title = f"Welcome to Semester {semester} {week}"
+            elif "Exams" in week:
+                title = f"Welcome to Semester {semester} {week}"
+            else:
+                title = f"Welcome to Week {week} of Semester {semester}"
 
-        if len(events) > 0:
-            desc = "Here are some things happening this week"
-        else:
-            desc = None
+            if len(events) > 0:
+                desc = "Here are some things happening this week"
+            else:
+                desc = None
 
         emb = discord.Embed(title=title, description=desc, colour=discord.Colour.blue())
         emb.set_image(url="https://i.imgur.com/2cQttpX.png")
