@@ -59,13 +59,15 @@ class Announcer(commands.Cog):
         semester = accal.get_semester(now)
         week = accal.get_week(now)
 
-        # UNKNOWN_SEMESTER functionally refers to any period of time when
-        # the university is not in a teaching period (i.e. Vacation)
-        if semester == "UNKNOWN_SEMESTER":
+        if semester is None:
             season = accal.get_season(now)
             title = f"{season} Vacation"
             weeks_to_next_sem = accal.weeks_to_next_semester(now)
-            desc = f"📅 {weeks_to_next_sem} weeks left until next semester\n\n📝 Enrolment details: https://www.uwa.edu.au/students/my-course/enrolment"
+            if weeks_to_next_sem == 1:
+                weeks_to_next_string = f"{weeks_to_next_sem} week"
+            else:
+                weeks_to_next_string = f"{weeks_to_next_sem} weeks"
+            desc = f"📅 {weeks_to_next_string} left until next semester\n\n📝 Enrolment details: https://www.uwa.edu.au/students/my-course/enrolment"
         else:
             if "Study Break" in week:
                 title = f"Welcome to Semester {semester} {week}"

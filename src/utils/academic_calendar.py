@@ -58,7 +58,7 @@ class AcademicCalendar:
         try:
             return self.teaching_dates[str(monday.date())]["semester"]
         except KeyError:
-            return "UNKNOWN_SEMESTER"
+            return None
 
     def get_week(self, date) -> str:
         """
@@ -95,6 +95,6 @@ class AcademicCalendar:
     def get_season(self, date) -> str:
         """
         Return the current season. Only accounts for the southern hemisphere
-        Used for distinguishing what vacation period UWA is currently in e.g. Winter Vaction
+        Used for distinguishing what vacation period UWA is currently in e.g. Winter Vacation
         """
         return "Winter" if date.month in range(6, 9) else "Summer"
