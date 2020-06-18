@@ -8,7 +8,6 @@ import aiohttp
 from bs4 import BeautifulSoup
 from dateutil.parser import parse as parse_date
 from utils.soup import fetch_soup
-from utils.sanitise import sanitise
 from datetime import timedelta
 
 
