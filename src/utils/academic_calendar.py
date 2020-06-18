@@ -8,6 +8,7 @@ import aiohttp
 from bs4 import BeautifulSoup
 from dateutil.parser import parse as parse_date
 from utils.soup import fetch_soup
+from utils.sanitise import sanitise
 from datetime import timedelta
 
 
@@ -36,8 +37,7 @@ class AcademicCalendar:
 
         for wk_comm, sem_wk in zip(week_commencings, semester_weeks):
             wk_comm = wk_comm.text.strip()
-            sem_wk = sem_wk.text.strip().replace('*', '')
-            print(f"this is the {sem_wk}")
+            sem_wk = sem_wk.text.strip()
             week_semester = {}
             if "/" in sem_wk:
                 sem_wk = [s for s in sem_wk.split() if s.isdigit()]
@@ -57,7 +57,6 @@ class AcademicCalendar:
         Get the semester the given date falls into
         """
         monday = date - timedelta(days=date.weekday())
-        print(self.teaching_dates)
         try:
             return self.teaching_dates[str(monday.date())]["semester"]
         except KeyError:
