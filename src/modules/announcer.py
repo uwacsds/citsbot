@@ -30,8 +30,7 @@ class Announcer(commands.Cog):
         self.scheduler = AsyncIOScheduler()
         print("Announcer set with crontab:", self.cfg.crontab)
         self.scheduler.add_job(
-            self.announce_week, trigger=CronTrigger.from_crontab(
-                self.cfg.crontab)
+            self.announce_week, trigger=CronTrigger.from_crontab(self.cfg.crontab)
         )
         self.scheduler.start()
 
@@ -80,14 +79,12 @@ class Announcer(commands.Cog):
             else:
                 desc = None
 
-        emb = discord.Embed(title=title, description=desc,
-                            colour=discord.Colour.blue())
+        emb = discord.Embed(title=title, description=desc, colour=discord.Colour.blue())
         emb.set_image(url="https://i.imgur.com/2cQttpX.png")
         emb.set_footer(
             text="⚠️ This information is provided as a guide only and may be incomplete and/or inaccurate. Please consult official UWA sources. Do not rely solely on this list."
         )
         for e in events:
-            emb.add_field(name=f"📝 {e['title']}",
-                          value=e["content"], inline=False)
+            emb.add_field(name=f"📝 {e['title']}", value=e["content"], inline=False)
 
         await self.announce_channel.send(embed=emb)
