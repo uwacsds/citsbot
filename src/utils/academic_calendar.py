@@ -37,7 +37,7 @@ class AcademicCalendar:
 
         for wk_comm, sem_wk in zip(week_commencings, semester_weeks):
             wk_comm = wk_comm.text.strip()
-            sem_wk = sem_wk.text.strip()
+            sem_wk = sem_wk.text.strip().replace('*', '')
             week_semester = {}
             if "/" in sem_wk:
                 sem_wk = [s for s in sem_wk.split() if s.isdigit()]
@@ -49,8 +49,7 @@ class AcademicCalendar:
                 week_semester["week"] = sem_wk
             else:
                 self.cur_sem = None
-            self.teaching_dates[parse_date(
-                wk_comm).date().isoformat()] = week_semester
+            self.teaching_dates[parse_date(wk_comm).date().isoformat()] = week_semester
 
     def get_semester(self, date) -> str:
         """
