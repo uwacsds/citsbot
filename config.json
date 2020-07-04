@@ -163,6 +163,14 @@
                 "resources": 646359831980146689
             }
         },
+        "STAT3064": {
+            "name": "Statistical Learning",
+            "role": 728988639069208597,
+            "channels": {
+                "general": 728987649532231761,
+                "resources": 728987677898047569
+            }
+        },
         "CITS4009": {
             "name": "Computational Data Analysis",
             "role": 703255355483881533,
@@ -390,6 +398,10 @@
                         {
                             "unit": "ENSC3020",
                             "emoji": "arduino"
+                        },
+                        {
+                            "unit": "STAT3064",
+                            "emoji": "📊"
                         }
                     ]
                 }
@@ -424,7 +436,8 @@
                 "CITS3401": { "unit": "CITS3401" },
                 "CITS3402": { "unit": "CITS3402" },
                 "CITS3403": { "unit": "CITS3403" },
-                "ENSC3020": { "unit": "ENSC3020" }
+                "ENSC3020": { "unit": "ENSC3020" },
+                "STAT3064": { "unit": "STAT3064" }
             }  
         }
     }
