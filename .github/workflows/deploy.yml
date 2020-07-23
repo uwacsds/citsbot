@@ -18,7 +18,7 @@ jobs:
       uses: tim-ings/docker-build-push@master
       env:
         DOCKER_USERNAME: "uwacsds"
-        DOCKER_NAMESPACE: "citsbot"
+        DOCKER_NAMESPACE: "uwacsds"
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         REGISTRY_URL: "docker.io"
       with:
