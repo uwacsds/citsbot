@@ -1,0 +1,28 @@
+name: Deploy
+
+on: 
+  push:
+      branches:    
+          - master
+
+jobs:
+  build:
+    name: Build and Push to DockerHub
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout git repository
+      uses: actions/checkout@v2
+
+    - name: Build image and push to DockerHub
+      uses: tim-ings/docker-build-push@master
+      env:
+        DOCKER_USERNAME: "uwacsds"
+        DOCKER_NAMESPACE: "citsbot"
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        REGISTRY_URL: "docker.io"
+      with:
+       image_name: "citsbot"
+       image_tag: "latest"
+       docker_dir: "./"
+       docker_target: "prod"
