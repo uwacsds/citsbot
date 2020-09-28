@@ -1,19 +1,19 @@
-FROM python:3.8-slim as base
-ENV TZ=Australia/Perth
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+FROM node:12-alpine as base
 WORKDIR /app
-COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
-COPY . .
-CMD ["python", "./src/main.py"]
-
-FROM base as prod
-CMD ["python", "./src/main.py"]
+COPY package.json yarn.lock ./
+RUN yarn install --pure-lockfile --network-timeout 600000
 
 FROM base as dev
-RUN apt-get update && \
-    apt-get install -y nodejs npm gcc  && \ 
-    npm install -g nodemon
-RUN pip install ptvsd
-RUN pip install --no-cache-dir -r requirements.txt
-CMD ["nodemon", "--exec", "python", "-m", "ptvsd", "--host", "0.0.0.0", "-port", "5678", "./src/main.py"]
+CMD ["yarn", "watch"]
+
+FROM base as builder
+COPY server/jest.config.js /app
+RUN yarn build
+RUN yarn test dist/
+
+FROM node:12-alpine as prod
+WORKDIR /app
+COPY package.json yarn.lock ./
+RUN yarn install --prod
+COPY --from=builder /app/dist/ ./dist/
+CMD ["yarn", "start"]
