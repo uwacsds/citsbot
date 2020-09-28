@@ -26,14 +26,5 @@ export interface BotConfig {
             crontab: string;
         },
         reactRoles: ReactRolesConfig,
-        messageRoles: {
-            channel: string;
-            roles: {
-                [key: string]: {
-                    role?: string;
-                    unit?: string;
-                }
-            }
-        }
     }
 }

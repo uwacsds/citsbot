@@ -394,38 +394,6 @@
                     ]
                 }
             ]
-        },
-        "messageRoles": {
-            "channel": "702939230996922383",
-            "roles": {
-                "All": { "role": "702939230783012868" },
-                "PostGrad": { "role": "702939230783012869" },
-                "Dev": { "role": "705800518517391378" },
-                "Other": { "role": "705732638077616199" },
-
-                "CITS1001": { "unit": "CITS1001" },
-                "CITS1401": { "unit": "CITS1401" },
-                "CITS1402": { "unit": "CITS1402" },
-                "STAT1400": { "unit": "STAT1400" },
-                
-                "CITS2002": { "unit": "CITS2002" },
-                "CITS2200": { "unit": "CITS2200" },
-                "CITS2211": { "unit": "CITS2211" },
-                "CITS2401": { "unit": "CITS2401" },
-                "CITS2402": { "unit": "CITS2402" },
-                "STAT2401": { "unit": "STAT2401" },
-                "STAT2402": { "unit": "STAT2402" },
-                
-                "CITS3001": { "unit": "CITS3001" },
-                "CITS3002": { "unit": "CITS3002" },
-                "CITS3003": { "unit": "CITS3003" },
-                "CITS3004": { "unit": "CITS3004" },
-                "CITS3200": { "unit": "CITS3200" },
-                "CITS3401": { "unit": "CITS3401" },
-                "CITS3402": { "unit": "CITS3402" },
-                "CITS3403": { "unit": "CITS3403" },
-                "ENSC3020": { "unit": "ENSC3020" }
-            }
         }
     }
 }

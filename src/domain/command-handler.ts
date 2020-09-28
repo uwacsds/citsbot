@@ -33,12 +33,10 @@ export const discordCommandHandler = (config: BotConfig): DiscordCommandHandler 
             return welcomer.welcomeUser(user);
         },
         onReactionAdd: (reaction: DiscordReaction, user: DiscordUser) => {
-            console.log('a reaction was added', reaction.emoji.name);
             const roleReacts = reactRolesModule(config.modules.reactRoles, config.units, config.guild);
             return roleReacts.grantRole(user, reaction);
         },
         onReactionRemove: (reaction: DiscordReaction, user: DiscordUser) => {
-            console.log('a reaction was removed', reaction.emoji.name);
             const roleReacts = reactRolesModule(config.modules.reactRoles, config.units, config.guild);
             return roleReacts.revokeRole(user, reaction);
         },
