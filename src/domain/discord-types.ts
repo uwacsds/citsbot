@@ -1,9 +1,9 @@
-import { BotAction } from "./action-types";
+import { BotAction } from './action-types';
 
 export interface DiscordChannel {
     id: string;
     createdAt: Date;
-    type: "text" | "dm" | "voice" | "group" | "category" | "news" | "store" | "unknown";
+    type: 'text' | 'dm' | 'voice' | 'group' | 'category' | 'news' | 'store' | 'unknown';
 }
 
 export interface DiscordUser {

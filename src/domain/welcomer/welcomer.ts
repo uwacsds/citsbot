@@ -1,6 +1,6 @@
-import { BotAction, BotActionType, BotEmbeddedMessageAction } from "../action-types";
-import { DiscordMessage, DiscordUser } from "../discord-types";
-import { ModuleType, WelcomerModule } from "../module-types";
+import { BotAction, BotActionType, BotEmbeddedMessageAction } from '../action-types';
+import { DiscordMessage, DiscordUser } from '../discord-types';
+import { ModuleType, WelcomerModule } from '../module-types';
 
 export interface WelcomerConfig {
     channel: string;
@@ -30,8 +30,8 @@ export const welcomerModule = (config: WelcomerConfig): WelcomerModule => ({
             footer: {
                 text: `Joined • ${new Date().toDateString()}`,
                 iconUrl: user.avatar,
-            }
-        }
+            },
+        },
     }),
     waveAtUser: (message: DiscordMessage): BotAction => ({
         type: BotActionType.AddReaction,

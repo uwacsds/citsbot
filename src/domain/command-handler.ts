@@ -1,8 +1,9 @@
-import { BotAction, BotActionType } from "./action-types";
-import { BotConfig } from "./config";
-import { cowsayModule } from "./cowsay/cowsay";
-import { DiscordCommandHandler, DiscordMessage, DiscordReaction, DiscordUser } from "./discord-types";
-import { welcomerModule } from "./welcomer/welcomer";
+import { BotAction, BotActionType } from './action-types';
+import { BotConfig } from './config';
+import { cowsayModule } from './cowsay/cowsay';
+import { DiscordCommandHandler, DiscordMessage, DiscordReaction, DiscordUser } from './discord-types';
+import { reactRolesModule } from './react-roles/react-roles';
+import { welcomerModule } from './welcomer/welcomer';
 
 
 export const discordCommandHandler = (config: BotConfig): DiscordCommandHandler => {
@@ -33,11 +34,13 @@ export const discordCommandHandler = (config: BotConfig): DiscordCommandHandler 
         },
         onReactionAdd: (reaction: DiscordReaction, user: DiscordUser) => {
             console.log('a reaction was added', reaction.emoji.name);
-            return { type: BotActionType.Nothing };
+            const roleReacts = reactRolesModule(config.modules.reactRoles, config.units, config.guild);
+            return roleReacts.grantRole(user, reaction);
         },
         onReactionRemove: (reaction: DiscordReaction, user: DiscordUser) => {
             console.log('a reaction was removed', reaction.emoji.name);
-            return { type: BotActionType.Nothing };
-        }
+            const roleReacts = reactRolesModule(config.modules.reactRoles, config.units, config.guild);
+            return roleReacts.revokeRole(user, reaction);
+        },
     };
 };

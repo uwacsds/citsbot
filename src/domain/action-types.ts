@@ -1,3 +1,5 @@
+import { DiscordUser } from './discord-types';
+
 export enum BotActionType {
     Nothing = 'Nothing',
     Message = 'Message',
@@ -66,13 +68,15 @@ export interface BotRemoveReactionAction extends BotBaseAction {
 
 export interface BotRoleGrantAction extends BotBaseAction {
     type: BotActionType.RoleGrant,
-    user: string;
+    user: DiscordUser;
+    guild: string;
     role: string;
 }
 
 export interface BotRoleRevokeAction extends BotBaseAction {
     type: BotActionType.RoleRevoke,
-    user: string;
+    user: DiscordUser;
+    guild: string;
     role: string;
 }
 

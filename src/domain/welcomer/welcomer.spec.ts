@@ -1,6 +1,6 @@
-import { BotActionType } from "../action-types";
-import { DiscordMessage, DiscordUser } from "../discord-types";
-import { WelcomerConfig, welcomerModule } from "./welcomer";
+import { BotActionType } from '../action-types';
+import { DiscordMessage, DiscordUser } from '../discord-types';
+import { WelcomerConfig, welcomerModule } from './welcomer';
 
 describe('welcomer module', () => {
     const now = new Date('2020-01-01T00:00Z');
@@ -14,7 +14,7 @@ describe('welcomer module', () => {
             message: '',
             react: 'reactEmoji',
             roleThreshold: 1,
-        }
+        },
     };
     const welcomer = welcomerModule(config);
 
@@ -44,14 +44,14 @@ describe('welcomer module', () => {
                 footer: {
                     text: `Joined • ${now.toDateString()}`,
                     iconUrl: user.avatar,
-                }
+                },
             },
         });
     });
 
     it('should create a wave at event for a message', () => {
         const message: DiscordMessage = {
-            author: null as any,
+            author: null as never,
             channel: {
                 id: config.channel,
                 createdAt: now,

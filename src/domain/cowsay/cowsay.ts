@@ -1,5 +1,4 @@
-import { DiscordMessage } from "../discord-types";
-import { CowsayModule, ModuleType } from "../module-types";
+import { CowsayModule, ModuleType } from '../module-types';
 
 export interface CowsayConfig {
     lineMaxLen: number;
@@ -48,5 +47,5 @@ export const cowsayModule = (config: CowsayConfig): CowsayModule => ({
         bubble.push('  ' + '-'.repeat(borderSize));
 
         return `\`\`\`\n${bubble.join('\n')}${config.cowArt}\n\`\`\``;
-    }
+    },
 });

@@ -1,5 +1,5 @@
-import { BotAction, BotEmbeddedMessageAction } from "./action-types";
-import { DiscordMessage, DiscordUser } from "./discord-types";
+import { BotAction } from './action-types';
+import { DiscordMessage, DiscordReaction, DiscordUser } from './discord-types';
 
 export enum ModuleType {
     Cowsay,
@@ -21,14 +21,14 @@ export interface CowsayModule extends BaseModule {
 
 export interface WelcomerModule extends BaseModule {
     type: ModuleType.Welcomer;
-    welcomeUser: (user: DiscordUser) => BotEmbeddedMessageAction;
+    welcomeUser: (user: DiscordUser) => BotAction;
     waveAtUser: (message: DiscordMessage) => BotAction;
 }
 
 export interface ReactRolesModule extends BaseModule {
     type: ModuleType.ReactRoles;
-    grantRole: () => void;
-    revokeRole: () => void;
+    grantRole: (user: DiscordUser, reaction: DiscordReaction) => BotAction;
+    revokeRole: (user: DiscordUser, reaction: DiscordReaction) => BotAction;
 }
 
 export type BotModule =

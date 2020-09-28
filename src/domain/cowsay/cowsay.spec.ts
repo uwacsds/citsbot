@@ -1,4 +1,4 @@
-import { cowsayModule } from "./cowsay";
+import { cowsayModule } from './cowsay';
 
 describe('cowsay-module', () => {
     const cowsay = cowsayModule({
