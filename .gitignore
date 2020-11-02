@@ -1,4 +1,5 @@
 src_python/
+config.dev.json
 
 # Logs
 logs
