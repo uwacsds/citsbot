@@ -1,3 +1,4 @@
+import { promises as fs } from 'fs';
 import { CowsayConfig } from './cowsay/cowsay';
 import { ReactRolesConfig } from './react-roles/react-roles';
 import { WelcomerConfig } from './welcomer/welcomer';
@@ -28,3 +29,6 @@ export interface BotConfig {
         reactRoles: ReactRolesConfig,
     }
 }
+
+export const loadConfig = async (path: string): Promise<BotConfig> =>
+    JSON.parse(await fs.readFile(path, { encoding: 'utf-8' }));
