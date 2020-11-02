@@ -1,6 +1,6 @@
 type Season = 'Winter' | 'Summer';
 
-export interface AcademicCalendar {
+export interface AcademicCalendarService {
     semester: () => Promise<number>;
     teachingWeek: () => Promise<number>;
     weeksUntilNextSemester: () => Promise<number>;

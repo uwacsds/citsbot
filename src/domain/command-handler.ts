@@ -1,4 +1,4 @@
-import { AcademicCalendar } from '../academic-calendar/types';
+import { AcademicCalendarService } from '../academic-calendar/types';
 import { BotAction, BotActionType } from './action-types';
 import { BotConfig } from './config';
 import { cowsayModule } from './cowsay/cowsay';
@@ -7,7 +7,7 @@ import { reactRolesModule } from './react-roles/react-roles';
 import { welcomerModule } from './welcomer/welcomer';
 
 
-export const discordCommandHandler = (config: BotConfig, calendar: AcademicCalendar): DiscordCommandHandler => {
+export const discordCommandHandler = (config: BotConfig, calendar: AcademicCalendarService): DiscordCommandHandler => {
     const isCommand = (module: { prefix: string }, msg: string) => msg.startsWith(`${config.prefix}${module.prefix}`);
     
     return {
