@@ -1,7 +1,7 @@
 import { Channel, Client, GuildEmoji, Message, MessageEmbed, MessageReaction, PartialUser, ReactionEmoji, TextChannel, User } from 'discord.js';
 import { BotAction, BotActionType, BotAddReactionAction, BotEmbeddedMessageAction, BotMessageAction, BotRoleGrantAction, BotRoleRevokeAction } from '../domain/action-types';
 import { DiscordChannel, DiscordCommandHandler, DiscordEmoji, DiscordMessage, DiscordReaction, DiscordUser } from '../domain/discord-types';
-import { DiscordAPI } from './types';
+import { DiscordAPI, MessageTuple } from './types';
 
 const parseUser = (user: User | PartialUser): DiscordUser => ({
     id: user.id,
@@ -127,22 +127,22 @@ export const discordApi = (
         onReactionAdd,
         onReactionRemove,
     }: DiscordCommandHandler,
-    messagesToCache: [channelId: string, messageId: string][]
+    messagesToCache: MessageTuple[]
 ): DiscordAPI => {
     const client = new Client();
 
-    client.on('message', (msg) => {
-        applyAction(client, onMessage(parseMessage(msg)));
+    client.on('message', async (msg) => {
+        applyAction(client, await onMessage(parseMessage(msg)));
     });
-    client.on('guildMemberAdd', (member) => {
+    client.on('guildMemberAdd', async (member) => {
         if (!member.user) return;
-        applyAction(client, onMemberJoin(parseUser(member.user)));
+        applyAction(client, await onMemberJoin(parseUser(member.user)));
     });
-    client.on('messageReactionAdd', (reaction, user) => {
-        applyAction(client, onReactionAdd(parseReaction(reaction), parseUser(user)));
+    client.on('messageReactionAdd', async (reaction, user) => {
+        applyAction(client, await onReactionAdd(parseReaction(reaction), parseUser(user)));
     });
-    client.on('messageReactionRemove', (reaction, user) => {
-        applyAction(client, onReactionRemove(parseReaction(reaction), parseUser(user)));
+    client.on('messageReactionRemove', async (reaction, user) => {
+        applyAction(client, await onReactionRemove(parseReaction(reaction), parseUser(user)));
     });
 
     return {

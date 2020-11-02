@@ -36,8 +36,8 @@ export interface DiscordReaction {
 }
 
 export interface DiscordCommandHandler {
-    onMessage: (msg: DiscordMessage) => BotAction,
-    onMemberJoin: (user: DiscordUser) => BotAction,
-    onReactionAdd: (reaction: DiscordReaction, user: DiscordUser) => BotAction,
-    onReactionRemove: (reaction: DiscordReaction, user: DiscordUser) => BotAction,
+    onMessage: (msg: DiscordMessage) => Promise<BotAction>,
+    onMemberJoin: (user: DiscordUser) => Promise<BotAction>,
+    onReactionAdd: (reaction: DiscordReaction, user: DiscordUser) => Promise<BotAction>,
+    onReactionRemove: (reaction: DiscordReaction, user: DiscordUser) => Promise<BotAction>,
 }
