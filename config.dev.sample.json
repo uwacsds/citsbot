@@ -1,0 +1,76 @@
+{
+    "prefix": "!",
+    "guild": 702939230783012867,
+    "log_channel": 702939231785320519,
+    "units": {
+        "TEST1001": {
+            "name": "Test Unit 1",
+            "role": 772773357568786452,
+            "channels": {
+                "general": 702939234893299742,
+                "resources": 702939234893299743
+            }
+        },
+        "TEST2002": {
+            "name": "Test Unit 2",
+            "role": 772773360081174558,
+            "channels": {
+                "general": 702939234893299745,
+                "resources": 702939234893299747
+            }
+        }
+    },
+    "modules": {
+        "cowsay": {
+            "line_max_len": 40,
+            "cow_art": "\n     \\   ^__^\n      \\  (oo)\\_______\n         (__)\\       )\\/\\\n             ||----w |\n             ||     ||"
+        },
+        "anime_detector": {
+            "cv_file": "lbpcascade_animeface.xml"
+        },
+        "welcome": {
+            "channel": 702939230996922382,
+            "new_member_dm": {
+                "delay": 300,
+                "role_threshold": 1,
+                "instant_account_age": 7,
+                "message": "Hey {name}, welcome to the UWA Computer and Data Science discord server! We noticed that you haven't selected any roles yet. You need to have at least one role to be able to view any channels on the server.\n\nHave a read of the rules in the #overview channel and click the emoji reactions for the unit channels you want to see.\n\nIf you don't know what reactions are, they look like the [👋 1] emoji button below this message. You can click it to react. If you do this to the messages in the server's #overview channel I will grant you a role to view the channels for that unit. https://i.imgur.com/W2CHMEM.gif",
+                "react": "👋"
+            }
+        },
+        "announcer": {
+            "channel": 702939230996922381,
+            "crontab": "0 0 * * mon"
+        },
+        "react_roles": {
+            "messages": [
+                {
+                    "id": 772772517656002570,
+                    "channel": 702939230996922380,
+                    "reactions": [
+                        {
+                            "role": 705800518517391378,
+                            "emoji": "github"
+                        },
+                        { 
+                            "unit": "CITS1001",
+                            "emoji": "bluej"
+                        },
+                        { 
+                            "unit": "CITS2002",
+                            "emoji": "📝"
+                        }
+                    ]
+                }
+            ]
+        },
+        "message_roles": {
+            "channel": 772773821806936074,
+            "roles": {
+                "dev": { "role": 705800518517391378 },
+                "TEST1001": { "unit": "TEST1001" },
+                "TEST2002": { "unit": "TEST2002" }
+            }  
+        }
+    }
+}
