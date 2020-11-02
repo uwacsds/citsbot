@@ -4,8 +4,7 @@ import { AcademicCalendar } from './types';
 
 const TEACHING_WEEKS_URL = 'https://ipoint.uwa.edu.au/app/answers/detail/a_id/1405/~/2016-dates-and-teaching-weeks';
 
-export const academicCalendar = (now: () => Date = () => new Date()): AcademicCalendar => {
-
+export const academicCalendarService = (now: () => Date = () => new Date()): AcademicCalendar => {
     const fetchTeachingDates = async () => {
         const result = await fetch(TEACHING_WEEKS_URL);
         const html = await result.text();
