@@ -3,17 +3,16 @@ import { UnitsConfig } from '../config';
 import { DiscordUser, DiscordReaction } from '../discord-types';
 import { ModuleType, ReactRolesModule } from '../module-types';
 
-interface ReactRolesConfigMessage {
-    id: string;
-    channel: string;
-    reactions: Array<{
-        role?: string;
-        unit?: string;
-        emoji: string;
-    }>
-}
 export interface ReactRolesConfig {
-    messages: ReactRolesConfigMessage[],
+    messages: Array<{
+        id: string;
+        channel: string;
+        reactions: Array<{
+            role?: string;
+            unit?: string;
+            emoji: string;
+        }>
+    }>,
 }
 
 const getRole = (config: ReactRolesConfig, units: UnitsConfig, reaction: DiscordReaction) => {
