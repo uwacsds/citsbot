@@ -257,6 +257,9 @@
             "line_max_len": 40,
             "cow_art": "\n     \\   ^__^\n      \\  (oo)\\_______\n         (__)\\       )\\/\\\n             ||----w |\n             ||     ||"
         },
+        "anime_detector": {
+            "cv_file": "lbpcascade_animeface.xml"
+        },
         "welcome": {
             "channel": 699317455595634688,
             "new_member_dm": {

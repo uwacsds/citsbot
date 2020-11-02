@@ -64,7 +64,7 @@ class Logger(commands.Cog):
         err = truncate(err, max_msg_len - 30)  # account for ```python markup
         await self.log(err_title, f"```python\n{err}\n```", ErrorLevel.ERROR)
 
-    async def log(self, title, msg, lvl=ErrorLevel.WARN):
+    async def log(self, title, msg, image=None, lvl=ErrorLevel.WARN):
         # send a message to the log channel
         short_msg = truncate(msg)
         now = datetime.now()
@@ -73,6 +73,8 @@ class Logger(commands.Cog):
             name="Time", value=f"{now.strftime('%Y/%m/%d %H:%M:%S')}", inline=False
         )
         emb.add_field(name="Message", value=short_msg, inline=False)
+        if image is not None:
+            emb.set_image(url=image)
         if self.channel:
             await self.channel.send(embed=emb)
         else:

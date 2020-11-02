@@ -11,6 +11,7 @@ import modules.announcer
 import modules.react_roles
 import modules.message_roles
 import modules.stack_overflow
+import modules.anime_detector
 
 
 def main():
@@ -30,6 +31,7 @@ def main():
     bot.add_cog(modules.announcer.Announcer(bot, cfg, logger))
     bot.add_cog(modules.react_roles.ReactRoles(bot, cfg, logger))
     bot.add_cog(modules.message_roles.MessageRoles(bot, cfg, logger))
+    bot.add_cog(modules.anime_detector.AnimeDetector(bot, cfg, logger))
 
     # set up error handlers
     async def on_error(event_method, *args, **kwargs):
