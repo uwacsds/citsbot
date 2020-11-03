@@ -55,7 +55,7 @@ const parseWeekCommencing = (str: string): { date: number, month: string } | nul
     };
 };
 
-export const academicCalendarService = (now: () => Date = () => new Date()): AcademicCalendarService => {
+export const academicCalendarService = (now = () => new Date()): AcademicCalendarService => {
     const fetchTeachingDates = async () => {
         const result = await fetch(TEACHING_WEEKS_URL);
         const html = await result.text();
