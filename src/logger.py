@@ -62,7 +62,7 @@ class Logger(commands.Cog):
         err = traceback.format_exc().strip().split("\n\n")[0]
         err_title = err.split("\n")[-1]
         err = truncate(err, max_msg_len - 30)  # account for ```python markup
-        await self.log(err_title, f"```python\n{err}\n```", ErrorLevel.ERROR)
+        await self.log(err_title, f"```python\n{err}\n```", lvl=ErrorLevel.ERROR)
 
     async def log(self, title, msg, image=None, lvl=ErrorLevel.WARN):
         # send a message to the log channel

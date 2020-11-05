@@ -2,7 +2,8 @@ import os
 import traceback
 import dotenv
 import config
-import discord.ext.commands as commands
+import discord
+from discord.ext import commands
 
 from logger import Logger
 import modules.cowsay
@@ -22,7 +23,9 @@ def main():
 
     # set up bot and register modules
     print("Registering modules")
-    bot = commands.Bot(command_prefix=cfg["prefix"])
+    intents = discord.Intents.default()
+    intents.members = True
+    bot = commands.Bot(command_prefix=cfg["prefix"], intents=intents)
     logger = Logger(bot, cfg)
     bot.add_cog(logger)
     bot.add_cog(modules.cowsay.Cowsay(bot, cfg, logger))
