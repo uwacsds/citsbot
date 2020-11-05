@@ -14,10 +14,11 @@
     2. Click "New Application" and give it a name
     3. Click on "Bot" in the list on the left
     4. Click "Add Bot" and then "Yes, do it!"
-    5. Click on "OAuth2" in the list on the left
-    6. Tick "bot" in scopes
-    7. Tick "Administrator" in bot permissions
-    8. Go to the generated link in scopes to add the bot to your test server
+    5. Turn on the Server Members Intent under Privileged Gateway Intents
+    6. Click on "OAuth2" in the list on the left
+    7. Tick "bot" in scopes
+    8. Tick "Administrator" in bot permissions
+    9. Go to the generated link in scopes to add the bot to your test server
     
 3. Set up environment variables
 
