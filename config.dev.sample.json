@@ -53,11 +53,11 @@
                             "emoji": "github"
                         },
                         { 
-                            "unit": "CITS1001",
+                            "unit": "TEST1001",
                             "emoji": "bluej"
                         },
                         { 
-                            "unit": "CITS2002",
+                            "unit": "TEST2002",
                             "emoji": "📝"
                         }
                     ]
