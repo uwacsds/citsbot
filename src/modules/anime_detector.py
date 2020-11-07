@@ -85,3 +85,4 @@ class AnimeDetector(commands.Cog):
                     lvl=ErrorLevel.INFO,
                 )
                 await message.delete()
+                break
