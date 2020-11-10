@@ -10,11 +10,16 @@ export interface StudyBreakAcademicWeek {
   date: Date;
 }
 
+export interface ExamAcademicWeek {
+  type: 'exam';
+  date: Date;
+}
+
 export interface UnknownAcademicWeek {
   type: 'unknown';
 }
 
-export type AcademicWeek = TeachingAcademicWeek | StudyBreakAcademicWeek | UnknownAcademicWeek;
+export type AcademicWeek = TeachingAcademicWeek | StudyBreakAcademicWeek | ExamAcademicWeek | UnknownAcademicWeek;
 
 export interface AcademicCalendar {
   weeks: Record<string, AcademicWeek>;

@@ -1,5 +1,5 @@
-import { academicCalendarParser } from "./academic-calendar-parser";
-import { AcademicCalendar } from "./types";
+import { academicCalendarParser } from './academic-calendar-parser';
+import { AcademicCalendar } from './types';
 
 describe('academic-calendar-parser', () => {
   const now = new Date('2020-01-01');
@@ -48,6 +48,14 @@ const parsedCalendar: AcademicCalendar = {
       semester: 1,
       date: new Date('2020-03-30T00:00:00.000Z'),
     },
+    ['2020-04-06T00:00:00.000Z']: {
+      date: new Date('2020-04-06T00:00:00.000Z'),
+      type: 'study-break',
+    },
+    ['2020-04-13T00:00:00.000Z']: {
+      date: new Date('2020-04-13T00:00:00.000Z'),
+      type: 'study-break',
+    },
     ['2020-04-20T00:00:00.000Z']: {
       type: 'teaching',
       week: 7,
@@ -83,6 +91,18 @@ const parsedCalendar: AcademicCalendar = {
       week: 12,
       semester: 1,
       date: new Date('2020-05-25T00:00:00.000Z'),
+    },
+    ['2020-06-01T00:00:00.000Z']: {
+      date: new Date('2020-06-01T00:00:00.000Z'),
+      type: 'study-break',
+    },
+    ['2020-06-08T00:00:00.000Z']: {
+      date: new Date('2020-06-08T00:00:00.000Z'),
+      type: 'exam',
+    },
+    ['2020-06-15T00:00:00.000Z']: {
+      date: new Date('2020-06-15T00:00:00.000Z'),
+      type: 'exam',
     },
     ['2020-07-27T00:00:00.000Z']: {
       type: 'teaching',
@@ -138,6 +158,10 @@ const parsedCalendar: AcademicCalendar = {
       semester: 2,
       date: new Date('2020-09-21T00:00:00.000Z'),
     },
+    ['2020-09-28T00:00:00.000Z']: {
+      date: new Date('2020-09-28T00:00:00.000Z'),
+      type: 'study-break',
+    },
     ['2020-10-05T00:00:00.000Z']: {
       type: 'teaching',
       week: 10,
@@ -156,8 +180,20 @@ const parsedCalendar: AcademicCalendar = {
       semester: 2,
       date: new Date('2020-10-19T00:00:00.000Z'),
     },
+    ['2020-10-26T00:00:00.000Z']: {
+      date: new Date('2020-10-26T00:00:00.000Z'),
+      type: 'study-break',
+    },
+    ['2020-11-02T00:00:00.000Z']: {
+      date: new Date('2020-11-02T00:00:00.000Z'),
+      type: 'exam',
+    },
+    ['2020-11-09T00:00:00.000Z']: {
+      date: new Date('2020-11-09T00:00:00.000Z'),
+      type: 'exam',
+    },
   },
-}
+};
 
 const rawHtml = `<!DOCTYPE html>
 <html lang="en-AU">
@@ -1021,4 +1057,4 @@ var _rnq=_rnq||[];_rnq.push({"s":"f37uaHXo","uh":"c43f5169","uc":"ipoint.uwa.edu
 (function(e){var b,d,a=document.createElement("iframe"),c=document.getElementsByTagName("script");a.src="javascript:false";a.title="Action Capture";a.role="presentation";(a.frameElement||a).style.cssText="position:absolute;width:0;height:0;border:0";c=c[c.length-1];c.parentNode.insertBefore(a,c);try{b=a.contentWindow.document}catch(f){d=document.domain,a.src="javascript:var d=document.open();d.domain='"+d+"';void(0);",b=a.contentWindow.document}b.open()._l=function(){for(var a;e.length;)a=this.createElement("script"),
 d&&(this.domain=d),a.src=e.pop(),this.body.appendChild(a)};b.write('<head><title>Action Capture</title></head><body onload="document._l();">');b.close()})(["https://www.rnengage.com/api/e/ca27814/e.js","//www.rnengage.com/api/1/javascript/acs.js"]);
 </script></body>
-</html>`
+</html>`;
