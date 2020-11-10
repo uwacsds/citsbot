@@ -1,5 +1,3 @@
-type Season = 'Winter' | 'Summer';
-
 export interface TeachingAcademicWeek {
   type: 'teaching';
   date: Date;
@@ -18,8 +16,10 @@ export interface UnknownAcademicWeek {
 
 export type AcademicWeek = TeachingAcademicWeek | StudyBreakAcademicWeek | UnknownAcademicWeek;
 
+export interface AcademicCalendar {
+  weeks: Record<string, AcademicWeek>;
+}
+
 export interface AcademicCalendarService {
-  currentWeek: () => Promise<AcademicWeek>;
-  weeksUntilNextSemester: () => Promise<number>;
-  season: () => Promise<Season>;
+  fetchCalendar: () => Promise<AcademicCalendar>;
 }
