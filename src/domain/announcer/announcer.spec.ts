@@ -174,9 +174,9 @@ describe('announcer-module', () => {
         colour: config.colour,
         image: config.image,
         footer: {
-          text: config.disclaimer
+          text: config.disclaimer,
         },
-      }
+      },
     });
   });
 
@@ -191,9 +191,9 @@ describe('announcer-module', () => {
         colour: config.colour,
         image: config.image,
         footer: {
-          text: config.disclaimer
+          text: config.disclaimer,
         },
-      }
+      },
     });
   });
 
@@ -208,9 +208,9 @@ describe('announcer-module', () => {
         colour: config.colour,
         image: config.image,
         footer: {
-          text: config.disclaimer
+          text: config.disclaimer,
         },
-      }
+      },
     });
   });
 
@@ -225,9 +225,9 @@ describe('announcer-module', () => {
         colour: config.colour,
         image: config.image,
         footer: {
-          text: config.disclaimer
+          text: config.disclaimer,
         },
-      }
+      },
     });
   });
 
@@ -239,13 +239,14 @@ describe('announcer-module', () => {
       embed: {
         title: 'Winter Vacation',
         // FIXME: these tests will need to support multiple events like this and the enrolment details link
-        description: '📅 5 weeks left until next semester\n📝 Enrolment details: https://www.uwa.edu.au/students/my-course/enrolment',
+        description:
+          '📅 5 weeks left until next semester\n📝 Enrolment details: https://www.uwa.edu.au/students/my-course/enrolment',
         colour: config.colour,
         image: config.image,
         footer: {
-          text: config.disclaimer
+          text: config.disclaimer,
         },
-      }
+      },
     });
   });
 });
