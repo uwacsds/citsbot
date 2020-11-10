@@ -13,10 +13,10 @@ export interface AnnouncerConfig {
   colour: string;
 }
 
-const currentSemester = (now = () => new Date()) => (now().getUTCMonth() > 6 ? 2 : 1);
+const currentSemester = (date: Date) => (date.getUTCMonth() > 6 ? 2 : 1);
 
-const currentSeason = (now = () => new Date()): Season => {
-  const month = now().getMonth();
+const currentSeason = (date: Date): Season => {
+  const month = date.getUTCMonth() + 1;
   return month >= 6 && month < 9 ? 'Winter' : 'Summer';
 };
 
@@ -41,10 +41,13 @@ export const announcerModule = (config: AnnouncerConfig, calendarService: Academ
         title = `Welcome to Week ${week.week} of Semester ${week.semester}`;
         break;
       case 'study-break':
-        title = `Welcome to Semester ${currentSemester()} Study Break`;
+        title = `Welcome to Semester ${currentSemester(now())} Study Break`;
         break;
       case 'exam':
-        title = `Welcome to Semester ${currentSemester()} Exams`;
+        title = `Welcome to Semester ${currentSemester(now())} Exams`;
+        break;
+      default:
+        title = `${currentSeason(now())} Vacation`;
         break;
     }
     return {
