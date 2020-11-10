@@ -28,7 +28,7 @@
         "animeDetector": {
             "cvFile": "lbpcascade_animeface.xml"
         },
-        "welcome": {
+        "welcomer": {
             "channel": 702939230996922382,
             "newMemberDm": {
                 "delay": 300,
@@ -53,11 +53,11 @@
                             "emoji": "github"
                         },
                         { 
-                            "unit": "CITS1001",
+                            "unit": "TEST1001",
                             "emoji": "bluej"
                         },
                         { 
-                            "unit": "CITS2002",
+                            "unit": "TEST2002",
                             "emoji": "📝"
                         }
                     ]
