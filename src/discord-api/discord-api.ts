@@ -149,7 +149,11 @@ export const discordApi = (
   { onMessage, onMemberJoin, onReactionAdd, onReactionRemove }: DiscordCommandHandler,
   messagesToCache: MessageTuple[]
 ): DiscordAPI => {
-  const client = new Client();
+  const client = new Client({
+    ws: {
+      intents: ['DIRECT_MESSAGES', 'DIRECT_MESSAGE_REACTIONS', 'GUILDS', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS'],
+    }
+  });
 
   client.on('message', async (msg) => {
     applyAction(client, await onMessage(parseMessage(msg)));
@@ -166,9 +170,10 @@ export const discordApi = (
   });
 
   return {
-    start: async () => {
-      await client.login(process.env.DISCORD_TOKEN);
-      // await Promise.all(messagesToCache.map(([channelId, messageId]) => fetchMessage(client, channelId, messageId)));
+    start: async (discordToken: string) => {
+      await client.login(discordToken);
+      await Promise.all(messagesToCache.map(([channelId, messageId]) => fetchMessage(client, channelId, messageId)));
+      console.log('Ready');
     },
     stop: async () => client.destroy(),
   };
