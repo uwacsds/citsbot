@@ -41,6 +41,14 @@ const mockCalendarService = (): AcademicCalendarService => ({
         semester: 1,
         date: new Date('2020-03-30T00:00:00.000Z'),
       },
+      ['2020-04-06T00:00:00.000Z']: {
+        date: new Date('2020-04-06T00:00:00.000Z'),
+        type: 'study-break',
+      },
+      ['2020-04-13T00:00:00.000Z']: {
+        date: new Date('2020-04-13T00:00:00.000Z'),
+        type: 'study-break',
+      },
       ['2020-04-20T00:00:00.000Z']: {
         type: 'teaching',
         week: 7,
@@ -76,6 +84,18 @@ const mockCalendarService = (): AcademicCalendarService => ({
         week: 12,
         semester: 1,
         date: new Date('2020-05-25T00:00:00.000Z'),
+      },
+      ['2020-06-01T00:00:00.000Z']: {
+        date: new Date('2020-06-01T00:00:00.000Z'),
+        type: 'study-break',
+      },
+      ['2020-06-08T00:00:00.000Z']: {
+        date: new Date('2020-06-08T00:00:00.000Z'),
+        type: 'exam',
+      },
+      ['2020-06-15T00:00:00.000Z']: {
+        date: new Date('2020-06-15T00:00:00.000Z'),
+        type: 'exam',
       },
       ['2020-07-27T00:00:00.000Z']: {
         type: 'teaching',
@@ -131,6 +151,10 @@ const mockCalendarService = (): AcademicCalendarService => ({
         semester: 2,
         date: new Date('2020-09-21T00:00:00.000Z'),
       },
+      ['2020-09-28T00:00:00.000Z']: {
+        date: new Date('2020-09-28T00:00:00.000Z'),
+        type: 'study-break',
+      },
       ['2020-10-05T00:00:00.000Z']: {
         type: 'teaching',
         week: 10,
@@ -148,6 +172,18 @@ const mockCalendarService = (): AcademicCalendarService => ({
         week: 12,
         semester: 2,
         date: new Date('2020-10-19T00:00:00.000Z'),
+      },
+      ['2020-10-26T00:00:00.000Z']: {
+        date: new Date('2020-10-26T00:00:00.000Z'),
+        type: 'study-break',
+      },
+      ['2020-11-02T00:00:00.000Z']: {
+        date: new Date('2020-11-02T00:00:00.000Z'),
+        type: 'exam',
+      },
+      ['2020-11-09T00:00:00.000Z']: {
+        date: new Date('2020-11-09T00:00:00.000Z'),
+        type: 'exam',
       },
     },
   }),

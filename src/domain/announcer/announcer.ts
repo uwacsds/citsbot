@@ -43,6 +43,9 @@ export const announcerModule = (config: AnnouncerConfig, calendarService: Academ
       case 'study-break':
         title = `Welcome to Semester ${currentSemester()} Study Break`;
         break;
+      case 'exam':
+        title = `Welcome to Semester ${currentSemester()} Exams`;
+        break;
     }
     return {
       type: BotActionType.EmbeddedMessage,
