@@ -267,7 +267,7 @@ describe('announcer-module', () => {
     });
   });
 
-  it('should announce a summer vacation and describe the number of weeks until the next semester', async () => {
+  it('should announce a winter vacation and describe the number of weeks until the next semester', async () => {
     const message = await announcer.announce(() => new Date('2020-06-22T00:00:00.000Z'));
     expect(message).toEqual({
       type: BotActionType.EmbeddedMessage,
@@ -276,6 +276,25 @@ describe('announcer-module', () => {
         title: 'Winter Vacation',
         description:
           '📅 5 weeks left until next semester\n\n📝 Enrolment details: https://www.uwa.edu.au/students/my-course/enrolment',
+        fields: [],
+        colour: config.colour,
+        image: config.image,
+        footer: {
+          text: config.disclaimer,
+        },
+      },
+    });
+  });
+
+  it('should announce a summer vacation and describe the number of weeks until the next semester', async () => {
+    const message = await announcer.announce(() => new Date('2020-12-24T00:00:00.000Z'));
+    expect(message).toEqual({
+      type: BotActionType.EmbeddedMessage,
+      channelId: config.channel,
+      embed: {
+        title: 'Summer Vacation',
+        description:
+          '📅 9 weeks left until next semester\n\n📝 Enrolment details: https://www.uwa.edu.au/students/my-course/enrolment',
         fields: [],
         colour: config.colour,
         image: config.image,
