@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { academicCalendarParser } from '../academic-calendar/academic-calendar-parser';
 import { academicCalendarService } from '../academic-calendar/academic-calendar-service';
 import { BotActionType } from './action-types';
 import { discordCommandHandler } from './command-handler';
@@ -45,7 +46,7 @@ describe('command-handler', () => {
     tag: 'foo#1234',
     username: 'foo',
   };
-  const calendar = academicCalendarService();
+  const calendar = academicCalendarService(academicCalendarParser());
   const { onMessage, onMemberJoin, onReactionAdd, onReactionRemove } = discordCommandHandler(config, calendar);
 
   it('should do nothing when a non-command message is send', () => {

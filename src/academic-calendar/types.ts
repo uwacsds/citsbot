@@ -20,6 +20,10 @@ export interface AcademicCalendar {
   weeks: Record<string, AcademicWeek>;
 }
 
+export interface AcademicCalendarParser {
+  parseCalendar: (html: string) => AcademicCalendar;
+}
+
 export interface AcademicCalendarService {
   fetchCalendar: () => Promise<AcademicCalendar>;
 }
