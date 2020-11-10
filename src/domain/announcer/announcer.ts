@@ -1,5 +1,10 @@
 import { scheduleJob } from 'node-schedule';
-import { AcademicCalendar, AcademicCalendarService, AcademicWeek } from '../../academic-calendar/types';
+import {
+  AcademicCalendar,
+  AcademicCalendarService,
+  AcademicWeek,
+  TeachingAcademicWeek,
+} from '../../academic-calendar/types';
 import { BotActionType, BotEmbeddedMessageAction } from '../action-types';
 import { AnnouncerModule, ModuleType } from '../module-types';
 
@@ -29,40 +34,66 @@ const lastMonday = (date: Date) => {
 const getWeek = (calendar: AcademicCalendar, date: Date): AcademicWeek =>
   calendar.weeks[lastMonday(date).toJSON()] ?? { type: 'unknown' };
 
+const weeksBetween = (start: Date, end: Date): number => {
+  const diff = (end.getTime() - start.getTime()) / 1000;
+  return Math.abs(Math.round(diff / (60 * 60 * 24 * 7)));
+};
+
+const weeksUntilNextSemester = (calendar: AcademicCalendar, now: Date): number => {
+  const sem1Week1 = Object.values(calendar.weeks).find(
+    (week) => week.type === 'teaching' && week.semester === 1 && week.week === 1
+  ) as TeachingAcademicWeek;
+  const sem2Week1 = Object.values(calendar.weeks).find(
+    (week) => week.type === 'teaching' && week.semester === 2 && week.week === 1
+  ) as TeachingAcademicWeek;
+  if (sem1Week1?.type !== 'teaching') throw Error('Academic calendar missing first week of semester 1');
+  if (sem2Week1?.type !== 'teaching') throw Error('Academic calendar missing first week of semester 2');
+  if (now < sem1Week1.date) return weeksBetween(now, sem1Week1.date);
+  if (now < sem2Week1.date) return weeksBetween(now, sem2Week1.date);
+  const yearStart = new Date(`${now.getUTCFullYear()}-01-01Z00:00+00:00`);
+  const yearEnd = new Date(`${now.getUTCFullYear()}-12-31Z00:00+00:00`);
+  return weeksBetween(now, yearEnd) + weeksBetween(yearStart, sem1Week1.date);
+};
+
 export const announcerModule = (config: AnnouncerConfig, calendarService: AcademicCalendarService): AnnouncerModule => {
+  const buildEmbed = (title: string, description?: string, events: string[] = []): BotEmbeddedMessageAction => ({
+    type: BotActionType.EmbeddedMessage,
+    channelId: config.channel,
+    embed: {
+      title,
+      description,
+      fields: events.map((event) => ({ value: event, name: '' })),
+      colour: config.colour,
+      image: config.image,
+      footer: {
+        text: config.disclaimer,
+      },
+    },
+  });
+
   const announce = async (now = () => new Date()): Promise<BotEmbeddedMessageAction> => {
     const calendar = await calendarService.fetchCalendar();
     const week = getWeek(calendar, now());
-
-    let title = 'UNKNOWN_TITLE';
-    let description = '';
     switch (week.type) {
-      case 'teaching':
-        title = `Welcome to Week ${week.week} of Semester ${week.semester}`;
-        break;
+      case 'teaching': {
+        const title = `Welcome to Week ${week.week} of Semester ${week.semester}`;
+        const events: string[] = [];
+        const description = events.length > 0 ? 'Here are some things happening this week' : undefined;
+        return buildEmbed(title, description, events);
+      }
       case 'study-break':
-        title = `Welcome to Semester ${currentSemester(now())} Study Break`;
-        break;
+        return buildEmbed(`Welcome to Semester ${currentSemester(now())} Study Break`);
       case 'exam':
-        title = `Welcome to Semester ${currentSemester(now())} Exams`;
-        break;
-      default:
-        title = `${currentSeason(now())} Vacation`;
-        break;
+        return buildEmbed(`Welcome to Semester ${currentSemester(now())} Exams`);
+      default: {
+        const title = `${currentSeason(now())} Vacation`;
+        const description = [
+          `📅 ${weeksUntilNextSemester(calendar, now())} weeks left until next semester`,
+          '📝 Enrolment details: https://www.uwa.edu.au/students/my-course/enrolment',
+        ].join('\n\n');
+        return buildEmbed(title, description);
+      }
     }
-    return {
-      type: BotActionType.EmbeddedMessage,
-      channelId: config.channel,
-      embed: {
-        title,
-        description,
-        colour: config.colour,
-        image: config.image,
-        footer: {
-          text: config.disclaimer,
-        },
-      },
-    };
   };
 
   return {

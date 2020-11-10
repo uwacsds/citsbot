@@ -206,7 +206,7 @@ describe('announcer-module', () => {
       channelId: config.channel,
       embed: {
         title: 'Welcome to Week 2 of Semester 1',
-        description: '',
+        fields: [],
         colour: config.colour,
         image: config.image,
         footer: {
@@ -223,7 +223,7 @@ describe('announcer-module', () => {
       channelId: config.channel,
       embed: {
         title: 'Welcome to Week 2 of Semester 1',
-        description: '',
+        fields: [],
         colour: config.colour,
         image: config.image,
         footer: {
@@ -240,7 +240,7 @@ describe('announcer-module', () => {
       channelId: config.channel,
       embed: {
         title: 'Welcome to Semester 2 Study Break',
-        description: '',
+        fields: [],
         colour: config.colour,
         image: config.image,
         footer: {
@@ -257,7 +257,7 @@ describe('announcer-module', () => {
       channelId: config.channel,
       embed: {
         title: 'Welcome to Semester 2 Exams',
-        description: '',
+        fields: [],
         colour: config.colour,
         image: config.image,
         footer: {
@@ -274,9 +274,9 @@ describe('announcer-module', () => {
       channelId: config.channel,
       embed: {
         title: 'Winter Vacation',
-        // FIXME: these tests will need to support multiple events like this and the enrolment details link
         description:
-          '📅 5 weeks left until next semester\n📝 Enrolment details: https://www.uwa.edu.au/students/my-course/enrolment',
+          '📅 5 weeks left until next semester\n\n📝 Enrolment details: https://www.uwa.edu.au/students/my-course/enrolment',
+        fields: [],
         colour: config.colour,
         image: config.image,
         footer: {
