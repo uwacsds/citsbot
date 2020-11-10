@@ -1,6 +1,6 @@
 import * as cheerio from 'cheerio';
 import fetch from 'node-fetch';
-import { AcademicCalendarService } from './types';
+import { AcademicCalendarService, AcademicWeek } from './types';
 
 const TEACHING_WEEKS_URL = 'https://ipoint.uwa.edu.au/app/answers/detail/a_id/1405/~/2016-dates-and-teaching-weeks';
 
@@ -13,20 +13,6 @@ interface TeachingSemesterWeek {
   semester: number;
   week: number;
 }
-
-interface TeachingAcademicWeek {
-  type: 'teaching';
-  date: Date;
-  semester: number;
-  week: number;
-}
-
-interface StudyBreakAcademicWeek {
-  type: 'study-break';
-  date: Date;
-}
-
-type AcademicWeek = TeachingAcademicWeek | StudyBreakAcademicWeek;
 
 interface AcademicCalendar {
   weeks: Record<string, AcademicWeek>;
@@ -101,16 +87,37 @@ export const academicCalendarService = (now = () => new Date()): AcademicCalenda
     return month >= 6 && month < 9 ? 'Winter' : 'Summer';
   };
 
-  const semester = async () => {
+  const lastMonday = (date = now) => {
+    let monday = date();
+    monday.setUTCDate(monday.getUTCDate() - monday.getUTCDay() + 1);
+    return monday;
+  }
+
+  const getWeek = (calendar: AcademicCalendar, date: Date): AcademicWeek => calendar.weeks[lastMonday(() => date).toJSON()] ?? { type: 'unknown' };
+
+  const currentWeek = async () => {
     const calendar = await fetchTeachingDates();
-    console.log(calendar);
-    return 1;
+    return getWeek(calendar, now());
+  };
+
+  const weeksUntilNextSemester = async () => {
+    const calendar = await fetchTeachingDates();
+    let count = 0;
+    let date = now();
+    let currentYear = date.getUTCFullYear();
+    while (getWeek(calendar, date) === { type: 'unknown' }) {
+      count++;
+      date.setDate(date.getDate() + 7);
+      if (date.getUTCFullYear() > currentYear) {
+        date.setUTCFullYear(currentYear); // wrap around to the start of the current year to support counting over the christmas break
+      }
+    }
+    return count;
   };
 
   return {
     season,
-    semester,
-    teachingWeek: async () => 0,
-    weeksUntilNextSemester: async () => 0,
+    currentWeek,
+    weeksUntilNextSemester,
   };
 };
