@@ -49,18 +49,18 @@ describe('command-handler', () => {
   const calendar = academicCalendarService(academicCalendarParser());
   const { onMessage, onMemberJoin, onReactionAdd, onReactionRemove } = discordCommandHandler(config, calendar);
 
-  it('should do nothing when a non-command message is send', () => {
-    const res = onMessage({ content: 'hello world', channel: { id: 'ch1' } } as any);
+  it('should do nothing when a non-command message is send', async () => {
+    const res = await onMessage({ content: 'hello world', channel: { id: 'ch1' } } as any);
     expect(res).toMatchObject({ type: BotActionType.Nothing });
   });
 
-  it('should run a cowsay command', () => {
-    const res = onMessage({ content: '!cowsay moo', channel: { id: 'ch1' } } as any);
+  it('should run a cowsay command', async () => {
+    const res = await onMessage({ content: '!cowsay moo', channel: { id: 'ch1' } } as any);
     expect(res).toMatchObject({ type: BotActionType.Message, channelId: 'ch1' });
   });
 
-  it('should react to a welcome message', () => {
-    const res = onMessage({
+  it('should react to a welcome message', async () => {
+    const res = await onMessage({
       content: 'welcome foo!',
       channel: { id: config.modules.welcomer.channel },
       id: 'msg1',
@@ -73,13 +73,13 @@ describe('command-handler', () => {
     });
   });
 
-  it('should send a welcome message when a member joins', () => {
-    const res = onMemberJoin(user);
+  it('should send a welcome message when a member joins', async () => {
+    const res = await onMemberJoin(user);
     expect(res).toMatchObject({ type: BotActionType.EmbeddedMessage, channelId: config.modules.welcomer.channel });
   });
 
-  it('should grant a role when a user reacts', () => {
-    const res = onReactionAdd(
+  it('should grant a role when a user reacts', async () => {
+    const res = await onReactionAdd(
       {
         count: 1,
         emoji: { name: 'emoji1' },
@@ -97,8 +97,8 @@ describe('command-handler', () => {
     expect(res).toMatchObject({ type: BotActionType.RoleGrant, guild: 'guild_1', user, role: 'role1' });
   });
 
-  it('should revoke a role when a user reacts', () => {
-    const res = onReactionRemove(
+  it('should revoke a role when a user reacts', async () => {
+    const res = await onReactionRemove(
       {
         count: 1,
         emoji: { name: 'emoji1' },
