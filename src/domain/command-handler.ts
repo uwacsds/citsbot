@@ -14,10 +14,12 @@ export const discordCommandHandler = (config: BotConfig, calendar: AcademicCalen
   const emitter = new EventEmitter();
 
   const announcer = announcerModule(config.modules.announcer, calendar);
-  announcer.registerWeeklyAnnouncement(action => emitter.emit('action', action));
+  announcer.registerWeeklyAnnouncement((action) => emitter.emit('action', action));
 
   return {
-    registerEventListener: (listener) => { emitter.on('action', listener) },
+    registerEventListener: (listener) => {
+      emitter.on('action', listener);
+    },
     onMessage: async (message: DiscordMessage): Promise<BotAction> => {
       const cowsay = cowsayModule(config.modules.cowsay);
       if (isCommand(cowsay, message.content)) {

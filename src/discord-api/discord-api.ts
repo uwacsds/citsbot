@@ -151,11 +151,18 @@ export const discordApi = (
 ): DiscordAPI => {
   const client = new Client({
     ws: {
-      intents: ['DIRECT_MESSAGES', 'DIRECT_MESSAGE_REACTIONS', 'GUILDS', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS'],
-    }
+      intents: [
+        'DIRECT_MESSAGES',
+        'DIRECT_MESSAGE_REACTIONS',
+        'GUILDS',
+        'GUILD_MEMBERS',
+        'GUILD_MESSAGES',
+        'GUILD_MESSAGE_REACTIONS',
+      ],
+    },
   });
 
-  registerEventListener(action => applyAction(client, action));
+  registerEventListener((action) => applyAction(client, action));
 
   client.on('message', async (msg) => {
     applyAction(client, await onMessage(parseMessage(msg)));

@@ -13,7 +13,7 @@ export interface AnnouncerConfig {
   colour: string;
 }
 
-const currentSemester = (now = () => new Date()) => now().getUTCMonth() > 6 ? 2 : 1;
+const currentSemester = (now = () => new Date()) => (now().getUTCMonth() > 6 ? 2 : 1);
 
 const currentSeason = (now = () => new Date()): Season => {
   const month = now().getMonth();
@@ -24,9 +24,10 @@ const lastMonday = (date: Date) => {
   let monday = new Date(date);
   monday.setUTCDate(monday.getUTCDate() - monday.getUTCDay() + 1);
   return monday;
-}
+};
 
-const getWeek = (calendar: AcademicCalendar, now = () => new Date()): AcademicWeek => calendar.weeks[lastMonday(now()).toJSON()] ?? { type: 'unknown' };
+const getWeek = (calendar: AcademicCalendar, now = () => new Date()): AcademicWeek =>
+  calendar.weeks[lastMonday(now()).toJSON()] ?? { type: 'unknown' };
 
 export const announcerModule = (config: AnnouncerConfig, calendarService: AcademicCalendarService): AnnouncerModule => {
   const makeAnnouncement = async (): Promise<BotEmbeddedMessageAction> => {
@@ -42,7 +43,6 @@ export const announcerModule = (config: AnnouncerConfig, calendarService: Academ
       case 'study-break':
         title = `Welcome to Semester ${currentSemester()} Study Break`;
         break;
-      case 'unknown': break;
     }
     return {
       type: BotActionType.EmbeddedMessage,
@@ -54,10 +54,10 @@ export const announcerModule = (config: AnnouncerConfig, calendarService: Academ
         image: config.image,
         footer: {
           text: config.disclaimer,
-        }
-      }
-    }
-  }
+        },
+      },
+    };
+  };
 
   return {
     type: ModuleType.Announcer,
@@ -65,7 +65,7 @@ export const announcerModule = (config: AnnouncerConfig, calendarService: Academ
     registerWeeklyAnnouncement: (listener) => {
       scheduleJob('announcer', config.crontab, async () => {
         listener(await makeAnnouncement());
-      })
+      });
     },
   };
 };

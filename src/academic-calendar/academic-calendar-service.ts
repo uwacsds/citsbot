@@ -28,7 +28,7 @@ export const academicCalendarService = (now = () => new Date()): AcademicCalenda
       week: Number(result.groups.week),
     };
   };
-  
+
   const parseWeekCommencing = (str: string): { date: number; month: string } | null => {
     const result = /^Monday\s*(?<date>\d+)\s*(?<month>.+)$/.exec(str.trim());
     if (result === null || result.groups === undefined) return null;
