@@ -1,6 +1,5 @@
 import * as cheerio from 'cheerio';
 import fetch from 'node-fetch';
-import { type } from 'os';
 import { AcademicCalendarService } from './types';
 
 const TEACHING_WEEKS_URL = 'https://ipoint.uwa.edu.au/app/answers/detail/a_id/1405/~/2016-dates-and-teaching-weeks';
