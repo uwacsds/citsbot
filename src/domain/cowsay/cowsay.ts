@@ -1,51 +1,51 @@
 import { CowsayModule, ModuleType } from '../module-types';
 
 export interface CowsayConfig {
-    lineMaxLen: number;
-    cowArt: string;
+  lineMaxLen: number;
+  cowArt: string;
 }
 
 const wrapText = (text: string, maxLineLen: number) => {
-    const words = text.split(' ').reverse();
-    const completeLines = [];
-    let currentLine = '';
-    while (words.length > 0) {
-        const nextWord = words.pop();
-        if (`${currentLine} ${nextWord}`.length > maxLineLen) {
-            completeLines.push(currentLine.trim());
-            currentLine = '';
-        }
-        currentLine = `${currentLine} ${nextWord}`;
+  const words = text.split(' ').reverse();
+  const completeLines = [];
+  let currentLine = '';
+  while (words.length > 0) {
+    const nextWord = words.pop();
+    if (`${currentLine} ${nextWord}`.length > maxLineLen) {
+      completeLines.push(currentLine.trim());
+      currentLine = '';
     }
-    completeLines.push(currentLine.trim());
-    return completeLines;
+    currentLine = `${currentLine} ${nextWord}`;
+  }
+  completeLines.push(currentLine.trim());
+  return completeLines;
 };
 
 const getBorder = (lineCount: number, lineNumber: number) => {
-    if (lineCount < 2) return ['<', '>'];
-    if (lineNumber == 0) return ['/', '\\'];
-    if (lineNumber == lineCount - 1) return ['\\', '/'];
-    return ['|', '|'];
+  if (lineCount < 2) return ['<', '>'];
+  if (lineNumber == 0) return ['/', '\\'];
+  if (lineNumber == lineCount - 1) return ['\\', '/'];
+  return ['|', '|'];
 };
 
 export const cowsayModule = (config: CowsayConfig): CowsayModule => ({
-    type: ModuleType.Cowsay,
-    prefix: 'cowsay',
-    say: (message: string): string => {
-        const lines = wrapText(message, config.lineMaxLen);
-        let maxLineLen = -1;
-        lines.forEach((line) => {
-            if (line.length > maxLineLen) maxLineLen = line.length;
-        });
-        const borderSize = lines.length > 1 ? maxLineLen : lines[0].length;
+  type: ModuleType.Cowsay,
+  prefix: 'cowsay',
+  say: (message: string): string => {
+    const lines = wrapText(message, config.lineMaxLen);
+    let maxLineLen = -1;
+    lines.forEach((line) => {
+      if (line.length > maxLineLen) maxLineLen = line.length;
+    });
+    const borderSize = lines.length > 1 ? maxLineLen : lines[0].length;
 
-        const bubble = ['  ' + '_'.repeat(borderSize)];
-        lines.forEach((line, idx) => {
-            const [borderLeft, borderRight] = getBorder(lines.length, idx);
-            bubble.push(`${borderLeft} ${line.padEnd(borderSize)} ${borderRight}`);
-        });
-        bubble.push('  ' + '-'.repeat(borderSize));
+    const bubble = ['  ' + '_'.repeat(borderSize)];
+    lines.forEach((line, idx) => {
+      const [borderLeft, borderRight] = getBorder(lines.length, idx);
+      bubble.push(`${borderLeft} ${line.padEnd(borderSize)} ${borderRight}`);
+    });
+    bubble.push('  ' + '-'.repeat(borderSize));
 
-        return `\`\`\`\n${bubble.join('\n')}${config.cowArt}\n\`\`\``;
-    },
+    return `\`\`\`\n${bubble.join('\n')}${config.cowArt}\n\`\`\``;
+  },
 });
