@@ -33,7 +33,7 @@ export interface ReactRolesModule extends BaseModule {
 
 export interface AnnouncerModule extends BaseModule {
   type: ModuleType.Announcer;
-  makeAnnouncement: () => Promise<BotEmbeddedMessageAction>;
+  announce: (now: () => Date) => Promise<BotEmbeddedMessageAction>;
   registerWeeklyAnnouncement: (listener: (message: BotAction) => void) => void;
 }
 

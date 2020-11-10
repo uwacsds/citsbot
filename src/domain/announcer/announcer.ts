@@ -26,13 +26,13 @@ const lastMonday = (date: Date) => {
   return monday;
 };
 
-const getWeek = (calendar: AcademicCalendar, now = () => new Date()): AcademicWeek =>
-  calendar.weeks[lastMonday(now()).toJSON()] ?? { type: 'unknown' };
+const getWeek = (calendar: AcademicCalendar, date: Date): AcademicWeek =>
+  calendar.weeks[lastMonday(date).toJSON()] ?? { type: 'unknown' };
 
 export const announcerModule = (config: AnnouncerConfig, calendarService: AcademicCalendarService): AnnouncerModule => {
-  const makeAnnouncement = async (): Promise<BotEmbeddedMessageAction> => {
+  const announce = async (now = () => new Date()): Promise<BotEmbeddedMessageAction> => {
     const calendar = await calendarService.fetchCalendar();
-    const week = getWeek(calendar);
+    const week = getWeek(calendar, now());
 
     let title = 'UNKNOWN_TITLE';
     let description = '';
@@ -61,10 +61,10 @@ export const announcerModule = (config: AnnouncerConfig, calendarService: Academ
 
   return {
     type: ModuleType.Announcer,
-    makeAnnouncement,
+    announce,
     registerWeeklyAnnouncement: (listener) => {
       scheduleJob('announcer', config.crontab, async () => {
-        listener(await makeAnnouncement());
+        listener(await announce());
       });
     },
   };

@@ -15,7 +15,7 @@ describe('command-handler', () => {
       unit1: { channels: { general: '', resources: '' }, name: 'unit_1', role: 'role_unit1' },
     },
     modules: {
-      announcer: { channel: 'ch_announcer', crontab: '* * * * * *' },
+      announcer: { channel: 'ch_announcer', crontab: '* * * * * *', colour: 'red', image: 'banner.png', disclaimer: 'test disclaimer' },
       cowsay: { cowArt: 'art', lineMaxLen: 40 },
       welcomer: {
         channel: 'ch_welcome',
