@@ -1,22 +1,22 @@
 {
     "prefix": "!",
-    "guild": 702939230783012867,
-    "logChannel": 702939231785320519,
+    "guild": "702939230783012867",
+    "logChannel": "702939231785320519",
     "units": {
         "TEST1001": {
             "name": "Test Unit 1",
-            "role": 772773357568786452,
+            "role": "772773357568786452",
             "channels": {
-                "general": 702939234893299742,
-                "resources": 702939234893299743
+                "general": "702939234893299742",
+                "resources": "702939234893299743"
             }
         },
         "TEST2002": {
             "name": "Test Unit 2",
-            "role": 772773360081174558,
+            "role": "772773360081174558",
             "channels": {
-                "general": 702939234893299745,
-                "resources": 702939234893299747
+                "general": "702939234893299745",
+                "resources": "702939234893299747"
             }
         }
     },
@@ -29,7 +29,7 @@
             "cvFile": "lbpcascade_animeface.xml"
         },
         "welcomer": {
-            "channel": 702939230996922382,
+            "channel": "702939230996922382",
             "newMemberDm": {
                 "delay": 300,
                 "roleThreshold": 1,
@@ -39,17 +39,17 @@
             }
         },
         "announcer": {
-            "channel": 702939230996922381,
+            "channel": "702939230996922381",
             "crontab": "0 0 * * mon"
         },
         "reactRoles": {
             "messages": [
                 {
-                    "id": 772772517656002570,
-                    "channel": 702939230996922380,
+                    "id": "772772517656002570",
+                    "channel": "702939230996922380",
                     "reactions": [
                         {
-                            "role": 705800518517391378,
+                            "role": "705800518517391378",
                             "emoji": "github"
                         },
                         { 
@@ -63,14 +63,6 @@
                     ]
                 }
             ]
-        },
-        "messageRoles": {
-            "channel": 772773821806936074,
-            "roles": {
-                "dev": { "role": 705800518517391378 },
-                "TEST1001": { "unit": "TEST1001" },
-                "TEST2002": { "unit": "TEST2002" }
-            }  
         }
     }
 }
