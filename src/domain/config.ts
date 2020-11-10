@@ -1,4 +1,5 @@
 import { promises as fs } from 'fs';
+import { AnnouncerConfig } from './announcer/announcer';
 import { CowsayConfig } from './cowsay/cowsay';
 import { ReactRolesConfig } from './react-roles/react-roles';
 import { WelcomerConfig } from './welcomer/welcomer';
@@ -22,10 +23,7 @@ export interface BotConfig {
   modules: {
     cowsay: CowsayConfig;
     welcomer: WelcomerConfig;
-    announcer: {
-      channel: string;
-      crontab: string;
-    };
+    announcer: AnnouncerConfig;
     reactRoles: ReactRolesConfig;
   };
 }

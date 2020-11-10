@@ -31,4 +31,9 @@ export interface ReactRolesModule extends BaseModule {
   revokeRole: (user: DiscordUser, reaction: DiscordReaction) => BotAction;
 }
 
-export type BotModule = CowsayModule | WelcomerModule | ReactRolesModule;
+export interface AnnouncerModule extends BaseModule {
+  type: ModuleType.Announcer;
+  registerWeeklyAnnouncement: (listener: (message: BotAction) => void) => void;
+}
+
+export type BotModule = CowsayModule | WelcomerModule | ReactRolesModule | AnnouncerModule;

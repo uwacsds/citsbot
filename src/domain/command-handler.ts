@@ -1,5 +1,7 @@
+import { EventEmitter } from 'events';
 import { AcademicCalendarService } from '../academic-calendar/types';
 import { BotAction, BotActionType } from './action-types';
+import { announcerModule } from './announcer/announcer';
 import { BotConfig } from './config';
 import { cowsayModule } from './cowsay/cowsay';
 import { DiscordCommandHandler, DiscordMessage, DiscordReaction, DiscordUser } from './discord-types';
@@ -9,7 +11,13 @@ import { welcomerModule } from './welcomer/welcomer';
 export const discordCommandHandler = (config: BotConfig, calendar: AcademicCalendarService): DiscordCommandHandler => {
   const isCommand = (module: { prefix: string }, msg: string) => msg.startsWith(`${config.prefix}${module.prefix}`);
 
+  const emitter = new EventEmitter();
+
+  const announcer = announcerModule(config.modules.announcer);
+  announcer.registerWeeklyAnnouncement(action => emitter.emit('action', action));
+
   return {
+    registerEventListener: (listener) => { emitter.on('action', listener) },
     onMessage: async (message: DiscordMessage): Promise<BotAction> => {
       const cowsay = cowsayModule(config.modules.cowsay);
       if (isCommand(cowsay, message.content)) {
@@ -27,7 +35,7 @@ export const discordCommandHandler = (config: BotConfig, calendar: AcademicCalen
       }
 
       if (message.content.startsWith('!test')) {
-        await calendar.semester();
+        await calendar.currentWeek();
       }
 
       return { type: BotActionType.Nothing };

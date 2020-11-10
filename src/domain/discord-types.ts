@@ -1,4 +1,5 @@
-import { BotAction } from './action-types';
+import { EventEmitter } from 'events';
+import { BotAction, BotMessageAction } from './action-types';
 
 export interface DiscordChannel {
   id: string;
@@ -36,6 +37,7 @@ export interface DiscordReaction {
 }
 
 export interface DiscordCommandHandler {
+  registerEventListener: (listener: (action: BotAction) => void) => void;
   onMessage: (msg: DiscordMessage) => Promise<BotAction>;
   onMemberJoin: (user: DiscordUser) => Promise<BotAction>;
   onReactionAdd: (reaction: DiscordReaction, user: DiscordUser) => Promise<BotAction>;

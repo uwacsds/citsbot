@@ -146,7 +146,7 @@ const applyAction = (client: Client, action: BotAction) => {
 };
 
 export const discordApi = (
-  { onMessage, onMemberJoin, onReactionAdd, onReactionRemove }: DiscordCommandHandler,
+  { registerEventListener, onMessage, onMemberJoin, onReactionAdd, onReactionRemove }: DiscordCommandHandler,
   messagesToCache: MessageTuple[]
 ): DiscordAPI => {
   const client = new Client({
@@ -154,6 +154,8 @@ export const discordApi = (
       intents: ['DIRECT_MESSAGES', 'DIRECT_MESSAGE_REACTIONS', 'GUILDS', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS'],
     }
   });
+
+  registerEventListener(action => applyAction(client, action));
 
   client.on('message', async (msg) => {
     applyAction(client, await onMessage(parseMessage(msg)));
