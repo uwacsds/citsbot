@@ -277,7 +277,10 @@
         },
         "announcer": {
             "channel": "690007478364405934",
-            "crontab": "0 0 * * mon"
+            "crontab": "0 0 * * mon",
+            "disclaimer": "⚠️ This information is provided as a guide only and may be incomplete and/or inaccurate. Please consult official UWA sources. Do not rely solely on this list.",
+            "image": "https://i.imgur.com/2cQttpX.png",
+            "colour": "#2598d9"
         },
         "reactRoles": {
             "messages": [

@@ -13,7 +13,7 @@ export const discordCommandHandler = (config: BotConfig, calendar: AcademicCalen
 
   const emitter = new EventEmitter();
 
-  const announcer = announcerModule(config.modules.announcer);
+  const announcer = announcerModule(config.modules.announcer, calendar);
   announcer.registerWeeklyAnnouncement(action => emitter.emit('action', action));
 
   return {
@@ -32,10 +32,6 @@ export const discordCommandHandler = (config: BotConfig, calendar: AcademicCalen
       const welcomer = welcomerModule(config.modules.welcomer);
       if (message.channel.id === config.modules.welcomer.channel) {
         return welcomer.waveAtUser(message);
-      }
-
-      if (message.content.startsWith('!test')) {
-        await calendar.currentWeek();
       }
 
       return { type: BotActionType.Nothing };

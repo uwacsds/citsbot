@@ -1,4 +1,4 @@
-import { BotAction } from './action-types';
+import { BotAction, BotEmbeddedMessageAction } from './action-types';
 import { DiscordMessage, DiscordReaction, DiscordUser } from './discord-types';
 
 export enum ModuleType {
@@ -33,6 +33,7 @@ export interface ReactRolesModule extends BaseModule {
 
 export interface AnnouncerModule extends BaseModule {
   type: ModuleType.Announcer;
+  makeAnnouncement: () => Promise<BotEmbeddedMessageAction>;
   registerWeeklyAnnouncement: (listener: (message: BotAction) => void) => void;
 }
 
