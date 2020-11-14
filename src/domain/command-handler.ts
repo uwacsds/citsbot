@@ -36,11 +36,6 @@ export const discordCommandHandler = (config: BotConfig, calendar: AcademicCalen
         return welcomer.waveAtUser(message);
       }
 
-      if (message.content.startsWith('!test')) {
-        console.log('test running:');
-        return announcer.announce(() => new Date(message.content.slice('!test'.length)));
-      }
-
       return { type: BotActionType.Nothing };
     },
     onMemberJoin: async (user: DiscordUser) => {
