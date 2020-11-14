@@ -1,5 +1,5 @@
 import * as cheerio from 'cheerio';
-import { AcademicCalendar, AcademicCalendarParser } from './types';
+import { AcademicWeeksParser, AcademicWeek } from './types';
 
 interface ExamSemesterWeek {
   type: 'exam';
@@ -15,7 +15,7 @@ interface TeachingSemesterWeek {
   week: number;
 }
 
-export const academicCalendarParser = (now = () => new Date()): AcademicCalendarParser => {
+export const academicWeeksParser = (now = () => new Date()): AcademicWeeksParser => {
   const parseExamWeek = (str: string): ExamSemesterWeek | null => {
     const result = /^exams?\*?$/i.exec(str.trim());
     if (result === null) return null;
@@ -28,7 +28,7 @@ export const academicCalendarParser = (now = () => new Date()): AcademicCalendar
   };
 
   const parseSemesterWeek = (str: string): TeachingSemesterWeek | null => {
-    const result = /^Sem\s*(?<semester>\d+)\s*\/\s*Wk\s*(?<week>\d+)$|^Study\s*Break$/.exec(str.trim());
+    const result = /^Sem\s*(?<semester>\d+)\s*\/\s*Wk\s*(?<week>\d+)$/.exec(str.trim());
     if (result === null || result.groups == null) return null;
     return {
       type: 'teaching',
@@ -47,7 +47,7 @@ export const academicCalendarParser = (now = () => new Date()): AcademicCalendar
   };
 
   return {
-    parseCalendar: (html: string) => {
+    parseWeeks: (html: string) => {
       const $ = cheerio.load(html);
       const cells = $('table[border=1] td font')
         .toArray()
@@ -55,7 +55,7 @@ export const academicCalendarParser = (now = () => new Date()): AcademicCalendar
           if (cell.firstChild?.firstChild?.data) return cell.firstChild.firstChild.data.trim();
           return cell.firstChild.data?.trim();
         });
-      const calendar: AcademicCalendar = { weeks: {} };
+      const weeks: Record<string, AcademicWeek> = {};
       let lastDate = -1;
       let lastMonth = '';
       for (const cell of cells) {
@@ -68,34 +68,37 @@ export const academicCalendarParser = (now = () => new Date()): AcademicCalendar
           continue;
         }
 
-        const semesterWeek = parseExamWeek(cell) ?? parseStudyBreakWeek(cell) ?? parseSemesterWeek(cell);
+        const semesterWeek = parseSemesterWeek(cell) ?? parseExamWeek(cell) ?? parseStudyBreakWeek(cell);
         if (!semesterWeek) continue;
 
         const date = new Date(`${now().getFullYear()}-${lastMonth}-${lastDate}Z00:00+00:00`);
         switch (semesterWeek.type) {
           case 'teaching':
-            calendar.weeks[date.toJSON()] = {
+            weeks[date.toJSON()] = {
               type: 'teaching',
+              deadlines: [],
               week: semesterWeek.week,
               semester: semesterWeek.semester,
               date,
             };
             break;
           case 'study-break':
-            calendar.weeks[date.toJSON()] = {
+            weeks[date.toJSON()] = {
               type: 'study-break',
+              deadlines: [],
               date,
             };
             break;
           case 'exam':
-            calendar.weeks[date.toJSON()] = {
+            weeks[date.toJSON()] = {
               type: 'exam',
+              deadlines: [],
               date,
             };
             break;
         }
       }
-      return calendar;
+      return weeks;
     },
   };
 };

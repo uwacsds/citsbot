@@ -1,12 +1,42 @@
 import fetch from 'node-fetch';
-import { AcademicCalendarParser, AcademicCalendarService } from './types';
+import { AcademicWeeksParser, AcademicCalendarService, AcademicDeadlinesParser, AcademicWeek, AcademicCalendar, Deadline } from './types';
 
 const TEACHING_WEEKS_URL = 'https://ipoint.uwa.edu.au/app/answers/detail/a_id/1405/~/2016-dates-and-teaching-weeks';
+const CS_MARKS_URL = 'https://secure.csse.uwa.edu.au/run/cssubmit';
 
-export const academicCalendarService = (parser: AcademicCalendarParser): AcademicCalendarService => ({
+const zip = <T1, T2>(arr1: T1[], arr2: T2[]): [T1, T2][] => arr1.map((_, idx) => [arr1[idx], arr2[idx]]);
+
+const previousMonday = (_date: Date): Date => { 
+  const date = new Date(_date);
+  date.setUTCDate(date.getUTCDate() - date.getUTCDay() + 1);
+  return date;
+}
+
+export const academicCalendarService = (weeksParser: AcademicWeeksParser, deadlinesParser: AcademicDeadlinesParser): AcademicCalendarService => ({
   fetchCalendar: async () => {
-    const result = await fetch(TEACHING_WEEKS_URL);
-    const html = await result.text();
-    return parser.parseCalendar(html);
+    const fetchWeeks = async () => {
+      const weeksResult = await fetch(TEACHING_WEEKS_URL);
+      const weeksHtml = await weeksResult.text();
+      return weeksParser.parseWeeks(weeksHtml);
+    }
+
+    const fetchDeadlines = async () => {
+      const unitsPageResult = await fetch(CS_MARKS_URL);
+      const unitsPageHtml = await unitsPageResult.text();
+      const unitLinks = deadlinesParser.parseUnitLinks(unitsPageHtml);
+      const unitCodes = unitLinks.map(({ code }) => code);
+
+      const deadlineResults = await Promise.all(unitLinks.map(({ link }) => fetch(link)));
+      const deadlineHtml = await Promise.all(deadlineResults.map(result => result.text()));
+      return zip(unitCodes, deadlineHtml).reduce<Deadline[]>((deadlines, [code, html]) => [...deadlines, ...deadlinesParser.parseUnitDeadlines(code, html)], []);
+    }
+    
+    const weeks = await fetchWeeks();
+    const deadlines = await fetchDeadlines();
+    
+    const calendar: AcademicCalendar = { weeks }
+    deadlines.forEach(deadline => calendar.weeks[previousMonday(deadline.date).toJSON()].deadlines.push(deadline));
+
+    return calendar;
   },
 });
