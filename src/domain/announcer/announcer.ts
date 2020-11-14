@@ -32,7 +32,7 @@ const lastMonday = (date: Date) => {
 };
 
 const getWeek = (calendar: AcademicCalendar, date: Date): AcademicWeek =>
-  calendar.weeks[lastMonday(date).toJSON()] ?? { type: 'unknown' };
+  calendar.weeks[lastMonday(date).toJSON()] ?? { type: 'unknown', deadlines: [] };
 
 const weeksBetween = (start: Date, end: Date): number => {
   const diff = (end.getTime() - start.getTime()) / 1000;
@@ -56,13 +56,13 @@ const weeksUntilNextSemester = (calendar: AcademicCalendar, now: Date): number =
 };
 
 export const announcerModule = (config: AnnouncerConfig, calendarService: AcademicCalendarService): AnnouncerModule => {
-  const buildEmbed = (title: string, description?: string, events: string[] = []): BotEmbeddedMessageAction => ({
+  const buildEmbed = (title: string, description?: string, events: { name: string, value: string, inline?: boolean }[] = []): BotEmbeddedMessageAction => ({
     type: BotActionType.EmbeddedMessage,
     channelId: config.channel,
     embed: {
       title,
       description,
-      fields: events.map((event) => ({ value: event, name: '' })),
+      fields: events,
       colour: config.colour,
       image: config.image,
       footer: {
@@ -77,7 +77,9 @@ export const announcerModule = (config: AnnouncerConfig, calendarService: Academ
     switch (week.type) {
       case 'teaching': {
         const title = `Welcome to Week ${week.week} of Semester ${week.semester}`;
-        const events: string[] = [];
+        const events = week.deadlines
+          .filter(deadline => Number(deadline.unit.slice(4)) < 4000) // filter post grad units
+          .map(({ unit, title, date }) => ({ name: `📝 ${unit}`, value: `${title}, ${date.toLocaleString('en-AU', { timeZone: 'Australia/Perth' })}` }));
         const description = events.length > 0 ? 'Here are some things happening this week' : undefined;
         return buildEmbed(title, description, events);
       }

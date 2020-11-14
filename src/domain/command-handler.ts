@@ -1,6 +1,4 @@
 import { EventEmitter } from 'events';
-import { academicWeeksParser } from '../academic-calendar/weeks-parser';
-import { academicCalendarService } from '../academic-calendar/academic-calendar-service';
 import { AcademicCalendarService } from '../academic-calendar/types';
 import { BotAction, BotActionType } from './action-types';
 import { announcerModule } from './announcer/announcer';
@@ -36,11 +34,6 @@ export const discordCommandHandler = (config: BotConfig, calendar: AcademicCalen
       const welcomer = welcomerModule(config.modules.welcomer);
       if (message.channel.id === config.modules.welcomer.channel) {
         return welcomer.waveAtUser(message);
-      }
-
-      const announcer = announcerModule(config.modules.announcer, academicCalendarService(academicWeeksParser()));
-      if (message.content.startsWith('!test')) {
-        return announcer.announce(() => new Date());
       }
 
       return { type: BotActionType.Nothing };

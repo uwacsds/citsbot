@@ -9,6 +9,10 @@ const zip = <T1, T2>(arr1: T1[], arr2: T2[]): [T1, T2][] => arr1.map((_, idx) =>
 const previousMonday = (_date: Date): Date => { 
   const date = new Date(_date);
   date.setUTCDate(date.getUTCDate() - date.getUTCDay() + 1);
+  date.setUTCHours(0);
+  date.setUTCMinutes(0);
+  date.setUTCSeconds(0);
+  date.setUTCMilliseconds(0);
   return date;
 }
 
