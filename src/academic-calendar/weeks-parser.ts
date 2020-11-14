@@ -1,5 +1,6 @@
 import * as cheerio from 'cheerio';
 import { AcademicWeeksParser, AcademicWeek } from './types';
+import { getWeekIndex } from './week';
 
 interface ExamSemesterWeek {
   type: 'exam';
@@ -49,8 +50,7 @@ export const academicWeeksParser = (now = () => new Date()): AcademicWeeksParser
   return {
     parseWeeks: (html: string) => {
       const $ = cheerio.load(html);
-      const cells = $('table[border=1] td font')
-        .toArray()
+      const cells = $('table[border=1] td font').toArray()
         .map((cell) => {
           if (cell.firstChild?.firstChild?.data) return cell.firstChild.firstChild.data.trim();
           return cell.firstChild.data?.trim();
@@ -74,7 +74,7 @@ export const academicWeeksParser = (now = () => new Date()): AcademicWeeksParser
         const date = new Date(`${now().getFullYear()}-${lastMonth}-${lastDate}Z00:00+00:00`);
         switch (semesterWeek.type) {
           case 'teaching':
-            weeks[date.toJSON()] = {
+            weeks[getWeekIndex(date)] = {
               type: 'teaching',
               deadlines: [],
               week: semesterWeek.week,
@@ -83,14 +83,14 @@ export const academicWeeksParser = (now = () => new Date()): AcademicWeeksParser
             };
             break;
           case 'study-break':
-            weeks[date.toJSON()] = {
+            weeks[getWeekIndex(date)] = {
               type: 'study-break',
               deadlines: [],
               date,
             };
             break;
           case 'exam':
-            weeks[date.toJSON()] = {
+            weeks[getWeekIndex(date)] = {
               type: 'exam',
               deadlines: [],
               date,

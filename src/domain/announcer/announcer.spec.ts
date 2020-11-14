@@ -5,185 +5,53 @@ import { AnnouncerConfig, announcerModule } from './announcer';
 const mockCalendarService = (): AcademicCalendarService => ({
   fetchCalendar: async () => ({
     weeks: {
-      ['2020-02-24T00:00:00.000Z']: {
+      ['2020-02-24']: {
         type: 'teaching',
         week: 1,
         semester: 1,
         date: new Date('2020-02-24T00:00:00.000Z'),
+        deadlines: [],
       },
-      ['2020-03-02T00:00:00.000Z']: {
+      ['2020-03-02']: {
         type: 'teaching',
         week: 2,
         semester: 1,
         date: new Date('2020-03-02T00:00:00.000Z'),
+        deadlines: [{ unit: 'TEST1001', title: 'Test 1', date: new Date('2020-03-03T23:59:00.000+08:00') }],
       },
-      ['2020-03-09T00:00:00.000Z']: {
-        type: 'teaching',
-        week: 3,
-        semester: 1,
+      ['2020-03-09']: {
+        type: 'study-break',
         date: new Date('2020-03-09T00:00:00.000Z'),
+        deadlines: [],
       },
-      ['2020-03-16T00:00:00.000Z']: {
-        type: 'teaching',
-        week: 4,
-        semester: 1,
-        date: new Date('2020-03-16T00:00:00.000Z'),
-      },
-      ['2020-03-23T00:00:00.000Z']: {
-        type: 'teaching',
-        week: 5,
-        semester: 1,
-        date: new Date('2020-03-23T00:00:00.000Z'),
-      },
-      ['2020-03-30T00:00:00.000Z']: {
-        type: 'teaching',
-        week: 6,
-        semester: 1,
-        date: new Date('2020-03-30T00:00:00.000Z'),
-      },
-      ['2020-04-06T00:00:00.000Z']: {
-        date: new Date('2020-04-06T00:00:00.000Z'),
-        type: 'study-break',
-      },
-      ['2020-04-13T00:00:00.000Z']: {
-        date: new Date('2020-04-13T00:00:00.000Z'),
-        type: 'study-break',
-      },
-      ['2020-04-20T00:00:00.000Z']: {
-        type: 'teaching',
-        week: 7,
-        semester: 1,
-        date: new Date('2020-04-20T00:00:00.000Z'),
-      },
-      ['2020-04-27T00:00:00.000Z']: {
-        type: 'teaching',
-        week: 8,
-        semester: 1,
-        date: new Date('2020-04-27T00:00:00.000Z'),
-      },
-      ['2020-05-04T00:00:00.000Z']: {
-        type: 'teaching',
-        week: 9,
-        semester: 1,
-        date: new Date('2020-05-04T00:00:00.000Z'),
-      },
-      ['2020-05-11T00:00:00.000Z']: {
-        type: 'teaching',
-        week: 10,
-        semester: 1,
-        date: new Date('2020-05-11T00:00:00.000Z'),
-      },
-      ['2020-05-18T00:00:00.000Z']: {
-        type: 'teaching',
-        week: 11,
-        semester: 1,
-        date: new Date('2020-05-18T00:00:00.000Z'),
-      },
-      ['2020-05-25T00:00:00.000Z']: {
-        type: 'teaching',
-        week: 12,
-        semester: 1,
-        date: new Date('2020-05-25T00:00:00.000Z'),
-      },
-      ['2020-06-01T00:00:00.000Z']: {
-        date: new Date('2020-06-01T00:00:00.000Z'),
-        type: 'study-break',
-      },
-      ['2020-06-08T00:00:00.000Z']: {
-        date: new Date('2020-06-08T00:00:00.000Z'),
+      ['2020-03-16']: {
         type: 'exam',
+        date: new Date('2020-03-16T00:00:00..000Z'),
+        deadlines: [],
       },
-      ['2020-06-15T00:00:00.000Z']: {
-        date: new Date('2020-06-15T00:00:00.000Z'),
-        type: 'exam',
-      },
-      ['2020-07-27T00:00:00.000Z']: {
+      ['2020-07-27']: {
         type: 'teaching',
         week: 1,
         semester: 2,
         date: new Date('2020-07-27T00:00:00.000Z'),
+        deadlines: [],
       },
-      ['2020-08-03T00:00:00.000Z']: {
+      ['2020-08-03']: {
         type: 'teaching',
+        date: new Date('2020-08-03T00:00:00.000Z'),
         week: 2,
         semester: 2,
-        date: new Date('2020-08-03T00:00:00.000Z'),
+        deadlines: [{ unit: 'TEST2002', title: 'Test 2', date: new Date('2020-08-05T12:54:00.000+08:00') }],
       },
-      ['2020-08-10T00:00:00.000Z']: {
-        type: 'teaching',
-        week: 3,
-        semester: 2,
+      ['2020-08-10']: {
+        type: 'study-break',
         date: new Date('2020-08-10T00:00:00.000Z'),
+        deadlines: [],
       },
-      ['2020-08-17T00:00:00.000Z']: {
-        type: 'teaching',
-        week: 4,
-        semester: 2,
+      ['2020-08-17']: {
+        type: 'exam',
         date: new Date('2020-08-17T00:00:00.000Z'),
-      },
-      ['2020-08-24T00:00:00.000Z']: {
-        type: 'teaching',
-        week: 5,
-        semester: 2,
-        date: new Date('2020-08-24T00:00:00.000Z'),
-      },
-      ['2020-08-31T00:00:00.000Z']: {
-        type: 'teaching',
-        week: 6,
-        semester: 2,
-        date: new Date('2020-08-31T00:00:00.000Z'),
-      },
-      ['2020-09-07T00:00:00.000Z']: {
-        type: 'teaching',
-        week: 7,
-        semester: 2,
-        date: new Date('2020-09-07T00:00:00.000Z'),
-      },
-      ['2020-09-14T00:00:00.000Z']: {
-        type: 'teaching',
-        week: 8,
-        semester: 2,
-        date: new Date('2020-09-14T00:00:00.000Z'),
-      },
-      ['2020-09-21T00:00:00.000Z']: {
-        type: 'teaching',
-        week: 9,
-        semester: 2,
-        date: new Date('2020-09-21T00:00:00.000Z'),
-      },
-      ['2020-09-28T00:00:00.000Z']: {
-        date: new Date('2020-09-28T00:00:00.000Z'),
-        type: 'study-break',
-      },
-      ['2020-10-05T00:00:00.000Z']: {
-        type: 'teaching',
-        week: 10,
-        semester: 2,
-        date: new Date('2020-10-05T00:00:00.000Z'),
-      },
-      ['2020-10-12T00:00:00.000Z']: {
-        type: 'teaching',
-        week: 11,
-        semester: 2,
-        date: new Date('2020-10-12T00:00:00.000Z'),
-      },
-      ['2020-10-19T00:00:00.000Z']: {
-        type: 'teaching',
-        week: 12,
-        semester: 2,
-        date: new Date('2020-10-19T00:00:00.000Z'),
-      },
-      ['2020-10-26T00:00:00.000Z']: {
-        date: new Date('2020-10-26T00:00:00.000Z'),
-        type: 'study-break',
-      },
-      ['2020-11-02T00:00:00.000Z']: {
-        date: new Date('2020-11-02T00:00:00.000Z'),
-        type: 'exam',
-      },
-      ['2020-11-09T00:00:00.000Z']: {
-        date: new Date('2020-11-09T00:00:00.000Z'),
-        type: 'exam',
+        deadlines: [],
       },
     },
   }),
@@ -200,12 +68,12 @@ describe('announcer-module', () => {
   const announcer = announcerModule(config, mockCalendarService());
 
   it('should announce a standard teaching week with no deadlines', async () => {
-    const message = await announcer.announce(() => new Date('2020-03-02T00:00:00.000Z'));
+    const message = await announcer.announce(() => new Date('2020-02-24T00:00:00.000Z'));
     expect(message).toEqual({
       type: BotActionType.EmbeddedMessage,
       channelId: config.channel,
       embed: {
-        title: 'Welcome to Week 2 of Semester 1',
+        title: 'Welcome to Week 1 of Semester 1',
         fields: [],
         colour: config.colour,
         image: config.image,
@@ -217,12 +85,12 @@ describe('announcer-module', () => {
   });
 
   it('should announce the correct week when given a date that is not exactly monday', async () => {
-    const message = await announcer.announce(() => new Date('2020-03-06T00:00:00.000Z'));
+    const message = await announcer.announce(() => new Date('2020-02-28T13:46:12.881Z'));
     expect(message).toEqual({
       type: BotActionType.EmbeddedMessage,
       channelId: config.channel,
       embed: {
-        title: 'Welcome to Week 2 of Semester 1',
+        title: 'Welcome to Week 1 of Semester 1',
         fields: [],
         colour: config.colour,
         image: config.image,
@@ -233,8 +101,25 @@ describe('announcer-module', () => {
     });
   });
 
-  it('should announce a study break', async () => {
-    const message = await announcer.announce(() => new Date('2020-10-27T00:00:00.000Z'));
+  it('should announce a semester 1 study break', async () => {
+    const message = await announcer.announce(() => new Date('2020-03-09T00:00:00.000Z'));
+    expect(message).toEqual({
+      type: BotActionType.EmbeddedMessage,
+      channelId: config.channel,
+      embed: {
+        title: 'Welcome to Semester 1 Study Break',
+        fields: [],
+        colour: config.colour,
+        image: config.image,
+        footer: {
+          text: config.disclaimer,
+        },
+      },
+    });
+  });
+
+  it('should announce a semester 2 study break', async () => {
+    const message = await announcer.announce(() => new Date('2020-08-10T00:00:00.000Z'));
     expect(message).toEqual({
       type: BotActionType.EmbeddedMessage,
       channelId: config.channel,
@@ -250,8 +135,25 @@ describe('announcer-module', () => {
     });
   });
 
-  it('should announce an exam week', async () => {
-    const message = await announcer.announce(() => new Date('2020-11-11T00:00:00.000Z'));
+  it('should announce a semester 1 exam week', async () => {
+    const message = await announcer.announce(() => new Date('2020-03-16T00:00:00.000Z'));
+    expect(message).toEqual({
+      type: BotActionType.EmbeddedMessage,
+      channelId: config.channel,
+      embed: {
+        title: 'Welcome to Semester 1 Exams',
+        fields: [],
+        colour: config.colour,
+        image: config.image,
+        footer: {
+          text: config.disclaimer,
+        },
+      },
+    });
+  });
+
+  it('should announce a semester 2 exam week', async () => {
+    const message = await announcer.announce(() => new Date('2020-08-17T00:00:00.000Z'));
     expect(message).toEqual({
       type: BotActionType.EmbeddedMessage,
       channelId: config.channel,

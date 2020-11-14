@@ -5,6 +5,7 @@ import {
   AcademicWeek,
   TeachingAcademicWeek,
 } from '../../academic-calendar/types';
+import { getWeekIndex } from '../../academic-calendar/week';
 import { BotActionType, BotEmbeddedMessageAction } from '../action-types';
 import { AnnouncerModule, ModuleType } from '../module-types';
 
@@ -25,14 +26,8 @@ const currentSeason = (date: Date): Season => {
   return month >= 6 && month < 9 ? 'Winter' : 'Summer';
 };
 
-const lastMonday = (date: Date) => {
-  let monday = new Date(date);
-  monday.setUTCDate(monday.getUTCDate() - monday.getUTCDay() + 1);
-  return monday;
-};
-
 const getWeek = (calendar: AcademicCalendar, date: Date): AcademicWeek =>
-  calendar.weeks[lastMonday(date).toJSON()] ?? { type: 'unknown', deadlines: [] };
+  calendar.weeks[getWeekIndex(date)] ?? { type: 'unknown', deadlines: [] };
 
 const weeksBetween = (start: Date, end: Date): number => {
   const diff = (end.getTime() - start.getTime()) / 1000;
@@ -77,9 +72,7 @@ export const announcerModule = (config: AnnouncerConfig, calendarService: Academ
     switch (week.type) {
       case 'teaching': {
         const title = `Welcome to Week ${week.week} of Semester ${week.semester}`;
-        const events = week.deadlines
-          .filter(deadline => Number(deadline.unit.slice(4)) < 4000) // filter post grad units
-          .map(({ unit, title, date }) => ({ name: `📝 ${unit}`, value: `${title}, ${date.toLocaleString('en-AU', { timeZone: 'Australia/Perth' })}` }));
+        const events = week.deadlines.map(({ unit, title, date }) => ({ name: `📝 ${unit}`, value: `${title}, ${date.toLocaleString('en-AU', { timeZone: 'Australia/Perth' })}` }));
         const description = events.length > 0 ? 'Here are some things happening this week' : undefined;
         return buildEmbed(title, description, events);
       }
