@@ -6,6 +6,7 @@ import {
   TeachingAcademicWeek,
 } from '../../academic-calendar/types';
 import { getWeekIndex } from '../../academic-calendar/week';
+import { LoggingService } from '../../utils/logging';
 import { BotActionType, BotEmbeddedMessageAction } from '../action-types';
 import { AnnouncerModule, ModuleType } from '../module-types';
 
@@ -50,7 +51,7 @@ const weeksUntilNextSemester = (calendar: AcademicCalendar, now: Date): number =
   return weeksBetween(now, yearEnd) + weeksBetween(yearStart, sem1Week1.date);
 };
 
-export const announcerModule = (config: AnnouncerConfig, calendarService: AcademicCalendarService): AnnouncerModule => {
+export const announcerModule = (config: AnnouncerConfig, { log }: LoggingService, calendarService: AcademicCalendarService): AnnouncerModule => {
   const buildEmbed = (title: string, description?: string, events: { name: string, value: string, inline?: boolean }[] = []): BotEmbeddedMessageAction => ({
     type: BotActionType.EmbeddedMessage,
     channelId: config.channel,
@@ -74,11 +75,14 @@ export const announcerModule = (config: AnnouncerConfig, calendarService: Academ
         const title = `Welcome to Week ${week.week} of Semester ${week.semester}`;
         const events = week.deadlines.map(({ unit, title, date }) => ({ name: `📝 ${unit}`, value: `${title}, ${date.toLocaleString('en-AU', { timeZone: 'Australia/Perth' })}` }));
         const description = events.length > 0 ? 'Here are some things happening this week' : undefined;
+        log('info', 'Announcing teaching week', { title: 'Announcer', data: { week } });
         return buildEmbed(title, description, events);
       }
       case 'study-break':
+        log('info', 'Announcing study break week', { title: 'Announcer', data: { week } });
         return buildEmbed(`Welcome to Semester ${currentSemester(now())} Study Break`);
       case 'exam':
+        log('info', 'Announcing exam week', { title: 'Announcer', data: { week } });
         return buildEmbed(`Welcome to Semester ${currentSemester(now())} Exams`);
       default: {
         const title = `${currentSeason(now())} Vacation`;
@@ -86,6 +90,7 @@ export const announcerModule = (config: AnnouncerConfig, calendarService: Academ
           `📅 ${weeksUntilNextSemester(calendar, now())} weeks left until next semester`,
           '📝 Enrolment details: https://www.uwa.edu.au/students/my-course/enrolment',
         ].join('\n\n');
+        log('info', 'Announcing vacation week', { title: 'Announcer', data: { week } });
         return buildEmbed(title, description);
       }
     }
