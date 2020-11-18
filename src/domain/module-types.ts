@@ -1,4 +1,4 @@
-import { BotAction, BotEmbeddedMessageAction } from './action-types';
+import { BotAction, BotEmbeddedMessageAction, BotMessageAction } from './action-types';
 import { DiscordMessage, DiscordReaction, DiscordUser } from './discord-types';
 
 export enum ModuleType {
@@ -16,7 +16,7 @@ export interface BaseModule {
 export interface CowsayModule extends BaseModule {
   type: ModuleType.Cowsay;
   prefix: 'cowsay';
-  say: (message: string) => string;
+  say: (message: DiscordMessage) => BotMessageAction;
 }
 
 export interface WelcomerModule extends BaseModule {

@@ -15,8 +15,8 @@ export const discordCommandHandler = (config: BotConfig, logger: LoggingService,
   const cowsay = cowsayModule(config.modules.cowsay, logger);
   const roleReacts = reactRolesModule(config.modules.reactRoles, logger, config.units, config.guild);
  
-  const isCommand = (module: { prefix: string }, msg: string) => msg.startsWith(`${config.prefix}${module.prefix}`);
   const emitter = new EventEmitter();
+  const isCommand = (module: { prefix: string }, msg: string) => msg.startsWith(`${config.prefix}${module.prefix}`);
   announcer.registerWeeklyAnnouncement((action) => emitter.emit('action', action));
 
   return {
@@ -25,17 +25,8 @@ export const discordCommandHandler = (config: BotConfig, logger: LoggingService,
     onReactionAdd: async (reaction: DiscordReaction, user: DiscordUser) => roleReacts.grantRole(user, reaction),
     onReactionRemove: async (reaction: DiscordReaction, user: DiscordUser) => roleReacts.revokeRole(user, reaction),
     onMessage: async (message: DiscordMessage): Promise<BotAction> => {
-      if (isCommand(cowsay, message.content)) {
-        const resp = cowsay.say(message.content);
-        return {
-          type: BotActionType.Message,
-          channelId: message.channel.id,
-          messageContent: resp,
-        };
-      }
-
+      if (isCommand(cowsay, message.content)) return cowsay.say(message);
       if (message.channel.id === config.modules.welcomer.channel) return welcomer.waveAtUser(message);
-
       return { type: BotActionType.Nothing };
     },
   };

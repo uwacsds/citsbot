@@ -100,3 +100,8 @@ export const discordChannelLogger = (channelId: string): LoggingService => {
     }
   }
 };
+
+export const mockLogger = (): LoggingService => ({
+  log: () => null,
+  initialise: () => null,
+});

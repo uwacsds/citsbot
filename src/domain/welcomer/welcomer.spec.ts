@@ -1,3 +1,4 @@
+import { mockLogger } from '../../utils/logging';
 import { BotActionType } from '../action-types';
 import { DiscordMessage, DiscordUser } from '../discord-types';
 import { WelcomerConfig, welcomerModule } from './welcomer';
@@ -16,7 +17,7 @@ describe('welcomer module', () => {
       roleThreshold: 1,
     },
   };
-  const welcomer = welcomerModule(config);
+  const welcomer = welcomerModule(config, mockLogger());
 
   it('should create an embedded message action to welcome the user', () => {
     const user: DiscordUser = {

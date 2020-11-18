@@ -1,3 +1,4 @@
+import { mockLogger } from '../../utils/logging';
 import { BotActionType } from '../action-types';
 import { UnitsConfig } from '../config';
 import { DiscordUser } from '../discord-types';
@@ -46,7 +47,7 @@ describe('react-roles module', () => {
       role: 'unit1Role',
     },
   };
-  const reactRoles = reactRolesModule(config, units, 'guild1');
+  const reactRoles = reactRolesModule(config, mockLogger(), units, 'guild1');
   const user: DiscordUser = {
     avatar: 'https://avatar.png',
     bot: false,

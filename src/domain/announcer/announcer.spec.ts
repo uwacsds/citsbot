@@ -1,4 +1,5 @@
 import { AcademicCalendarService } from '../../academic-calendar/types';
+import { mockLogger } from '../../utils/logging';
 import { BotActionType, BotEmbeddedMessageAction } from '../action-types';
 import { AnnouncerConfig, announcerModule } from './announcer';
 
@@ -65,7 +66,7 @@ describe('announcer-module', () => {
     disclaimer: 'test disclaimer',
     image: 'banner.png',
   };
-  const announcer = announcerModule(config, mockCalendarService());
+  const announcer = announcerModule(config, mockLogger(), mockCalendarService());
 
   it('should announce a standard teaching week with no deadlines', async () => {
     const message = await announcer.announce(() => new Date('2020-02-24T00:00:00.000Z'));

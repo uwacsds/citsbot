@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { academicWeeksParser } from '../academic-calendar/weeks-parser';
 import { academicCalendarService } from '../academic-calendar/academic-calendar-service';
 import { BotActionType } from './action-types';
@@ -6,6 +5,7 @@ import { discordCommandHandler } from './command-handler';
 import { BotConfig } from './config';
 import { DiscordUser } from './discord-types';
 import { academicDeadlinesParser } from '../academic-calendar/deadlines-parser';
+import { mockLogger } from '../utils/logging';
 
 describe('command-handler', () => {
   const now = new Date('2020-01-01T00:00Z');
@@ -47,8 +47,8 @@ describe('command-handler', () => {
     tag: 'foo#1234',
     username: 'foo',
   };
-  const calendar = academicCalendarService(academicWeeksParser(), academicDeadlinesParser());
-  const { onMessage, onMemberJoin, onReactionAdd, onReactionRemove } = discordCommandHandler(config, calendar);
+  const calendar = academicCalendarService(mockLogger(), academicWeeksParser(), academicDeadlinesParser());
+  const { onMessage, onMemberJoin, onReactionAdd, onReactionRemove } = discordCommandHandler(config, mockLogger(), calendar);
 
   it('should do nothing when a non-command message is send', async () => {
     const res = await onMessage({ content: 'hello world', channel: { id: 'ch1' } } as any);
