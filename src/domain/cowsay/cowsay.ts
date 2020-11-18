@@ -1,3 +1,4 @@
+import { LoggingService } from '../../utils/logging';
 import { CowsayModule, ModuleType } from '../module-types';
 
 export interface CowsayConfig {
@@ -28,7 +29,7 @@ const getBorder = (lineCount: number, lineNumber: number) => {
   return ['|', '|'];
 };
 
-export const cowsayModule = (config: CowsayConfig): CowsayModule => ({
+export const cowsayModule = (config: CowsayConfig, { log }: LoggingService): CowsayModule => ({
   type: ModuleType.Cowsay,
   prefix: 'cowsay',
   say: (message: string): string => {
@@ -47,6 +48,7 @@ export const cowsayModule = (config: CowsayConfig): CowsayModule => ({
     });
     bubble.push('  ' + '-'.repeat(borderSize));
 
+    log('info', 'Formatted cowsay', { title: 'Cowsay', data: { message } });
     return `\`\`\`\n${bubble.join('\n')}${config.cowArt}\n\`\`\``;
   },
 });
