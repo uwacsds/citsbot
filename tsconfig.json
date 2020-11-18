@@ -1,25 +1,25 @@
 {
-    "compilerOptions": {
-        "module": "commonjs",
-        "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true,
-        "target": "ESNext",
-        "noImplicitAny": true,
-        "moduleResolution": "node",
-        "sourceMap": true,
-        "baseUrl": ".",
-        "strict": true,
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "resolveJsonModule": true,
-        "paths": {
-            "*": [
-                "node_modules/*",
-                "src/types/*",
-            ]
-        },
+  "compilerOptions": {
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ESNext",
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "baseUrl": ".",
+    "strict": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "paths": {
+      "*": [
+        "node_modules/*",
+        "src/types/*",
+      ]
     },
-    "include": [
-        "src/**/*.ts",
-    ]
+  },
+  "include": [
+    "src/**/*.ts",
+  ]
 }
