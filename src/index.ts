@@ -20,8 +20,8 @@ const getMessagesToCache = (config: BotConfig): MessageTuple[] => [
 
 const start = async () => {
   const config = await loadConfig(env.CONFIG);
-  const calendar = academicCalendarService(academicWeeksParser(), academicDeadlinesParser());
   const logger = discordChannelLogger(config.logChannel);
+  const calendar = academicCalendarService(logger, academicWeeksParser(), academicDeadlinesParser());
   const commandHandler = discordCommandHandler(config, logger, calendar);
   const discord = discordApi(logger, commandHandler, getMessagesToCache(config));
   logger.initialise(discord);

@@ -23,7 +23,7 @@ interface LogMessageContext {
 }
 
 export interface LoggingService {
-  log: (level: LogLevel, message: string, context: LogMessageContext) => void;
+  log: (level: LogLevel, message: string, context?: LogMessageContext) => void;
   initialise: (discord: DiscordAPI) => void;
 }
 
@@ -80,6 +80,7 @@ export const discordChannelLogger = (channelId: string): LoggingService => {
   let logger: winston.Logger; 
 
   process.on('uncaughtExceptionMonitor', (err: Error, origin: string) => {
+    if (!logger) console.error('CRASHED BEFORE LOG INITIALISE:', err);
     logger.log('emerg', 'Uncaught Exception', { title: 'Uncaught Exception', data: { err, origin } });
   });
 
@@ -93,7 +94,7 @@ export const discordChannelLogger = (channelId: string): LoggingService => {
         defaultMeta: { service: 'user-service' },
         transports: [
           new winston.transports.Console(),
-          new DiscordLogTransport(api, channelId, { level: 'notice' }),
+          new DiscordLogTransport(api, channelId),
         ],
       });
     }
