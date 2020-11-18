@@ -1,25 +1,21 @@
 {
+  "extends": "@tsconfig/node12/tsconfig.json",
   "compilerOptions": {
-    "module": "commonjs",
-    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "target": "ESNext",
     "noImplicitAny": true,
     "moduleResolution": "node",
     "sourceMap": true,
     "baseUrl": ".",
-    "strict": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "resolveJsonModule": true,
     "paths": {
       "*": [
-        "node_modules/*",
-        "src/types/*",
+        "node_modules/*"
       ]
     },
   },
   "include": [
-    "src/**/*.ts",
+    "src/**/*.ts"
   ]
 }
