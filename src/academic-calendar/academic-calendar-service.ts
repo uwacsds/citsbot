@@ -1,4 +1,5 @@
 import fetch from 'node-fetch';
+import { LoggingService } from '../utils/logging';
 import { AcademicWeeksParser, AcademicCalendarService, AcademicDeadlinesParser, AcademicWeek, AcademicCalendar, Deadline } from './types';
 import { getWeekIndex } from './week';
 
@@ -7,7 +8,7 @@ const CS_MARKS_URL = 'https://secure.csse.uwa.edu.au/run/cssubmit';
 
 const zip = <T1, T2>(arr1: T1[], arr2: T2[]): [T1, T2][] => arr1.map((_, idx) => [arr1[idx], arr2[idx]]);
 
-export const academicCalendarService = (weeksParser: AcademicWeeksParser, deadlinesParser: AcademicDeadlinesParser, filterPostgrad = true): AcademicCalendarService => ({
+export const academicCalendarService = ({ log }: LoggingService, weeksParser: AcademicWeeksParser, deadlinesParser: AcademicDeadlinesParser, filterPostgrad = true): AcademicCalendarService => ({
   fetchCalendar: async () => {
     const fetchWeeks = async () => {
       const weeksResult = await fetch(TEACHING_WEEKS_URL);
@@ -32,6 +33,7 @@ export const academicCalendarService = (weeksParser: AcademicWeeksParser, deadli
     const calendar: AcademicCalendar = { weeks }
     deadlines.forEach(deadline => calendar.weeks[getWeekIndex(deadline.date)].deadlines.push(deadline));
 
+    log('info', 'Fetched and parsed an academic calendar', { title: 'Academic Calendar Service', data: { calendar } });
     return calendar;
   },
 });
