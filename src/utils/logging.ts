@@ -94,7 +94,7 @@ export const discordChannelLogger = (channelId: string): LoggingService => {
         defaultMeta: { service: 'user-service' },
         transports: [
           new winston.transports.Console(),
-          new DiscordLogTransport(api, channelId),
+          new DiscordLogTransport(api, channelId, { level: 'notice' }),
         ],
       });
     }
