@@ -7,7 +7,7 @@ FROM base as dev
 CMD ["yarn", "watch"]
 
 FROM base as builder
-COPY server/jest.config.js /app
+COPY jest.config.js /app
 RUN yarn build
 RUN yarn test dist/
 
