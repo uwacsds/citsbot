@@ -37,7 +37,7 @@ export const welcomerModule = (config: WelcomerConfig, { log }: LoggingService):
           iconUrl: user.avatar,
         },
       },
-    }
+    };
   },
   waveAtUser: (message: DiscordMessage): BotAction => {
     log('info', 'Waving at welcome message', { title: 'Welcomer', data: { message } });
@@ -46,6 +46,6 @@ export const welcomerModule = (config: WelcomerConfig, { log }: LoggingService):
       channelId: message.channel.id,
       messageId: message.id,
       emoji: config.newMemberDm.react,
-    }
-},
+    };
+  },
 });

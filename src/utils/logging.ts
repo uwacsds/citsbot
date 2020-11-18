@@ -1,20 +1,20 @@
 import * as winston from 'winston';
 import Transport = require('winston-transport');
-import { DiscordAPI } from "../discord-api/types";
-import { BotActionType, BotEmbeddedMessageAction } from "../domain/action-types";
+import { DiscordAPI } from '../discord-api/types';
+import { BotActionType, BotEmbeddedMessageAction } from '../domain/action-types';
 
 type LogLevel = 'emerg' | 'alert' | 'crit' | 'error' | 'warning' | 'notice' | 'info' | 'debug';
 
 const logLevels: Record<LogLevel, number> = {
-  emerg: 0, 
-  alert: 1, 
-  crit: 2, 
-  error: 3, 
-  warning: 4, 
-  notice: 5, 
-  info: 6, 
-  debug: 7
-}
+  emerg: 0,
+  alert: 1,
+  crit: 2,
+  error: 3,
+  warning: 4,
+  notice: 5,
+  info: 6,
+  debug: 7,
+};
 
 interface LogMessageContext {
   title?: string;
@@ -29,17 +29,26 @@ export interface LoggingService {
 
 const getColour = (level: LogLevel) => {
   switch (level) {
-    case 'emerg': return '#ff0000';
-    case 'alert': return '#ff0000';
-    case 'crit': return '#ff0000';
-    case 'error': return '#f04747';
-    case 'warning': return '#fff200';
-    case 'notice': return '#96f6ff';
-    case 'info': return '#96f6ff';
-    case 'debug': return '#e305c5';
-    default: return '#96f6ff';
+    case 'emerg':
+      return '#ff0000';
+    case 'alert':
+      return '#ff0000';
+    case 'crit':
+      return '#ff0000';
+    case 'error':
+      return '#f04747';
+    case 'warning':
+      return '#fff200';
+    case 'notice':
+      return '#96f6ff';
+    case 'info':
+      return '#96f6ff';
+    case 'debug':
+      return '#e305c5';
+    default:
+      return '#96f6ff';
   }
-}
+};
 
 class DiscordLogTransport extends Transport {
   constructor(private discord: DiscordAPI, private channelId: string, opts?: Transport.TransportStreamOptions) {
@@ -54,7 +63,7 @@ class DiscordLogTransport extends Transport {
     const formatContextData = (context?: LogMessageContext) => {
       const str = JSON.stringify(context?.data) ?? '';
       return `\`\`\`json\n${str.slice(0, 1000).replace(/`/g, '\\`')}'\`\`\``;
-    }
+    };
 
     const action: BotEmbeddedMessageAction = {
       type: BotActionType.EmbeddedMessage,
@@ -71,13 +80,13 @@ class DiscordLogTransport extends Transport {
       },
     };
     await this.discord.applyAction(action);
- 
+
     next();
   }
-};
+}
 
 export const discordChannelLogger = (channelId: string): LoggingService => {
-  let logger: winston.Logger; 
+  let logger: winston.Logger;
 
   process.on('uncaughtExceptionMonitor', (err: Error, origin: string) => {
     if (!logger) console.error('CRASHED BEFORE LOG INITIALISE:', err);
@@ -92,13 +101,10 @@ export const discordChannelLogger = (channelId: string): LoggingService => {
         levels: logLevels,
         format: winston.format.json(),
         defaultMeta: { service: 'user-service' },
-        transports: [
-          new winston.transports.Console(),
-          new DiscordLogTransport(api, channelId, { level: 'notice' }),
-        ],
+        transports: [new winston.transports.Console(), new DiscordLogTransport(api, channelId, { level: 'notice' })],
       });
-    }
-  }
+    },
+  };
 };
 
 export const mockLogger = (): LoggingService => ({

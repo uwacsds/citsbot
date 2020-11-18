@@ -50,7 +50,8 @@ export const academicWeeksParser = (now = () => new Date()): AcademicWeeksParser
   return {
     parseWeeks: (html: string) => {
       const $ = cheerio.load(html);
-      const cells = $('table[border=1] td font').toArray()
+      const cells = $('table[border=1] td font')
+        .toArray()
         .map((cell) => {
           if (cell.firstChild?.firstChild?.data) return cell.firstChild.firstChild.data.trim();
           return cell.firstChild.data?.trim();

@@ -36,7 +36,7 @@ export interface AcademicCalendar {
 }
 
 export interface AcademicDeadlinesParser {
-  parseUnitLinks: (html: string) => Array<{ code: string, link: string }>;
+  parseUnitLinks: (html: string) => Array<{ code: string; link: string }>;
   parseUnitDeadlines: (unitCode: string, html: string) => Deadline[];
 }
 

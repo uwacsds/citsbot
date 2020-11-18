@@ -1,5 +1,5 @@
-import { academicDeadlinesParser } from "./deadlines-parser";
-import { Deadline } from "./types";
+import { academicDeadlinesParser } from './deadlines-parser';
+import { Deadline } from './types';
 
 describe('deadlines-parser', () => {
   const now = new Date('2020-01-01');
@@ -46,13 +46,37 @@ describe('deadlines-parser', () => {
       { unit: 'CITS1001', date: new Date('2020-11-13T17:00:00.000+08:00'), title: 'Project 2, contributing 25%' },
     ]);
     expect(parser.parseUnitDeadlines('CITS3200', rawCITS3200DeadlinesHtml)).toEqual([
-      { unit: 'CITS3200', date: new Date('2020-08-19T23:59:00.000+08:00'), title: 'Sprint 1 team deliverables, contributing 5%' },
-      { unit: 'CITS3200', date: new Date('2020-08-21T23:59:00.000+08:00'), title: 'Sprint 1 Personal Reflection, contributing 5%' },
+      {
+        unit: 'CITS3200',
+        date: new Date('2020-08-19T23:59:00.000+08:00'),
+        title: 'Sprint 1 team deliverables, contributing 5%',
+      },
+      {
+        unit: 'CITS3200',
+        date: new Date('2020-08-21T23:59:00.000+08:00'),
+        title: 'Sprint 1 Personal Reflection, contributing 5%',
+      },
       { unit: 'CITS3200', date: new Date('2020-09-11T23:59:00.000+08:00'), title: 'PDP' },
-      { unit: 'CITS3200', date: new Date('2020-09-16T23:59:00.000+08:00'), title: 'Sprint 2 team deliverables, contributing 10%' },
-      { unit: 'CITS3200', date: new Date('2020-09-18T23:59:00.000+08:00'), title: 'Sprint 2 Personal Reflection, contributing 5%' },
-      { unit: 'CITS3200', date: new Date('2020-10-21T23:59:00.000+08:00'), title: 'Sprint 3 team deliverables, contributing 15%' },
-      { unit: 'CITS3200', date: new Date('2020-10-23T23:59:00.000+08:00'), title: 'Sprint 3 Personal Reflection, contributing 5%' },
+      {
+        unit: 'CITS3200',
+        date: new Date('2020-09-16T23:59:00.000+08:00'),
+        title: 'Sprint 2 team deliverables, contributing 10%',
+      },
+      {
+        unit: 'CITS3200',
+        date: new Date('2020-09-18T23:59:00.000+08:00'),
+        title: 'Sprint 2 Personal Reflection, contributing 5%',
+      },
+      {
+        unit: 'CITS3200',
+        date: new Date('2020-10-21T23:59:00.000+08:00'),
+        title: 'Sprint 3 team deliverables, contributing 15%',
+      },
+      {
+        unit: 'CITS3200',
+        date: new Date('2020-10-23T23:59:00.000+08:00'),
+        title: 'Sprint 3 Personal Reflection, contributing 5%',
+      },
     ]);
   });
 });
@@ -551,7 +575,7 @@ Tuesdays and Thursdays, between 1pm and 5pm.
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
 </html>
-`
+`;
 
 const rawCITS1001DeadlinesHtml = `
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"

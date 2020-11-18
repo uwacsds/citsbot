@@ -1,4 +1,4 @@
-import { BotAction } from "../domain/action-types";
+import { BotAction } from '../domain/action-types';
 
 export type MessageTuple = [channelId: string, messageId: string];
 

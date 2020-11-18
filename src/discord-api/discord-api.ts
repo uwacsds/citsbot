@@ -168,23 +168,26 @@ export const discordApi = (
 
   client.on('message', async (msg) => {
     const action = await onMessage(parseMessage(msg));
-    if (action.type !== BotActionType.Nothing) log('info', 'Applying Action', { title: 'OnMessage', data: action })
+    if (action.type !== BotActionType.Nothing) log('info', 'Applying Action', { title: 'OnMessage', data: action });
     await applyAction(client, action);
   });
   client.on('guildMemberAdd', async (member) => {
     if (!member.user) return;
-    const action = await onMemberJoin(parseUser(member.user))
-    if (action.type !== BotActionType.Nothing) log('info', 'Applying Action', { title: 'OnGuildMemberAdd', data: action })
+    const action = await onMemberJoin(parseUser(member.user));
+    if (action.type !== BotActionType.Nothing)
+      log('info', 'Applying Action', { title: 'OnGuildMemberAdd', data: action });
     await applyAction(client, action);
   });
   client.on('messageReactionAdd', async (reaction, user) => {
     const action = await onReactionAdd(parseReaction(reaction), parseUser(user));
-    if (action.type !== BotActionType.Nothing) log('info', 'Applying Action', { title: 'OnMessageReactionAdd', data: action })
+    if (action.type !== BotActionType.Nothing)
+      log('info', 'Applying Action', { title: 'OnMessageReactionAdd', data: action });
     await applyAction(client, action);
   });
   client.on('messageReactionRemove', async (reaction, user) => {
     const action = await onReactionRemove(parseReaction(reaction), parseUser(user));
-    if (action.type !== BotActionType.Nothing) log('info', 'Applying Action', { title: 'OnMessageReactionRemove', data: action })
+    if (action.type !== BotActionType.Nothing)
+      log('info', 'Applying Action', { title: 'OnMessageReactionRemove', data: action });
     await applyAction(client, action);
   });
 

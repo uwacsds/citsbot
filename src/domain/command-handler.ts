@@ -9,12 +9,16 @@ import { DiscordCommandHandler, DiscordMessage, DiscordReaction, DiscordUser } f
 import { reactRolesModule } from './react-roles/react-roles';
 import { welcomerModule } from './welcomer/welcomer';
 
-export const discordCommandHandler = (config: BotConfig, logger: LoggingService, calendar: AcademicCalendarService): DiscordCommandHandler => {
+export const discordCommandHandler = (
+  config: BotConfig,
+  logger: LoggingService,
+  calendar: AcademicCalendarService
+): DiscordCommandHandler => {
   const announcer = announcerModule(config.modules.announcer, logger, calendar);
   const welcomer = welcomerModule(config.modules.welcomer, logger);
   const cowsay = cowsayModule(config.modules.cowsay, logger);
   const roleReacts = reactRolesModule(config.modules.reactRoles, logger, config.units, config.guild);
- 
+
   const emitter = new EventEmitter();
   const isCommand = (module: { prefix: string }, msg: string) => msg.startsWith(`${config.prefix}${module.prefix}`);
   announcer.registerWeeklyAnnouncement((action) => emitter.emit('action', action));

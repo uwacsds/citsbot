@@ -48,7 +48,11 @@ describe('command-handler', () => {
     username: 'foo',
   };
   const calendar = academicCalendarService(mockLogger(), academicWeeksParser(), academicDeadlinesParser());
-  const { onMessage, onMemberJoin, onReactionAdd, onReactionRemove } = discordCommandHandler(config, mockLogger(), calendar);
+  const { onMessage, onMemberJoin, onReactionAdd, onReactionRemove } = discordCommandHandler(
+    config,
+    mockLogger(),
+    calendar
+  );
 
   it('should do nothing when a non-command message is send', async () => {
     const res = await onMessage({ content: 'hello world', channel: { id: 'ch1' } } as any);

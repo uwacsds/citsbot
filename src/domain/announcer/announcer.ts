@@ -51,8 +51,16 @@ const weeksUntilNextSemester = (calendar: AcademicCalendar, now: Date): number =
   return weeksBetween(now, yearEnd) + weeksBetween(yearStart, sem1Week1.date);
 };
 
-export const announcerModule = (config: AnnouncerConfig, { log }: LoggingService, calendarService: AcademicCalendarService): AnnouncerModule => {
-  const buildEmbed = (title: string, description?: string, events: { name: string, value: string, inline?: boolean }[] = []): BotEmbeddedMessageAction => ({
+export const announcerModule = (
+  config: AnnouncerConfig,
+  { log }: LoggingService,
+  calendarService: AcademicCalendarService
+): AnnouncerModule => {
+  const buildEmbed = (
+    title: string,
+    description?: string,
+    events: { name: string; value: string; inline?: boolean }[] = []
+  ): BotEmbeddedMessageAction => ({
     type: BotActionType.EmbeddedMessage,
     channelId: config.channel,
     embed: {
@@ -73,7 +81,10 @@ export const announcerModule = (config: AnnouncerConfig, { log }: LoggingService
     switch (week.type) {
       case 'teaching': {
         const title = `Welcome to Week ${week.week} of Semester ${week.semester}`;
-        const events = week.deadlines.map(({ unit, title, date }) => ({ name: `📝 ${unit}`, value: `${title}, ${date.toLocaleString('en-AU', { timeZone: 'Australia/Perth' })}` }));
+        const events = week.deadlines.map(({ unit, title, date }) => ({
+          name: `📝 ${unit}`,
+          value: `${title}, ${date.toLocaleString('en-AU', { timeZone: 'Australia/Perth' })}`,
+        }));
         const description = events.length > 0 ? 'Here are some things happening this week' : undefined;
         log('info', 'Announcing teaching week', { title: 'Announcer', data: { week } });
         return buildEmbed(title, description, events);
