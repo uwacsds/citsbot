@@ -1,3 +1,4 @@
+import { LoggingService } from '../../utils/logging';
 import { BotActionType } from '../action-types';
 import { UnitsConfig } from '../config';
 import { DiscordUser, DiscordReaction } from '../discord-types';
@@ -30,11 +31,12 @@ const getRole = (config: ReactRolesConfig, units: UnitsConfig, reaction: Discord
   return unit.role;
 };
 
-export const reactRolesModule = (config: ReactRolesConfig, units: UnitsConfig, guild: string): ReactRolesModule => ({
+export const reactRolesModule = (config: ReactRolesConfig, { log }: LoggingService, units: UnitsConfig, guild: string): ReactRolesModule => ({
   type: ModuleType.ReactRoles,
   grantRole: (user: DiscordUser, reaction: DiscordReaction) => {
     const role = getRole(config, units, reaction);
     if (!role) return { type: BotActionType.Nothing };
+    log('info', 'Granting role', { title: 'React Roles', data: { role, emoji: reaction.emoji, user } });
     return {
       type: BotActionType.RoleGrant,
       guild,
@@ -45,6 +47,7 @@ export const reactRolesModule = (config: ReactRolesConfig, units: UnitsConfig, g
   revokeRole: (user: DiscordUser, reaction: DiscordReaction) => {
     const role = getRole(config, units, reaction);
     if (!role) return { type: BotActionType.Nothing };
+    log('info', 'Revoking role', { title: 'React Roles', data: { role, emoji: reaction.emoji, user } });
     return {
       type: BotActionType.RoleRevoke,
       guild,
