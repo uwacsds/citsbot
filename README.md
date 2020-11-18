@@ -2,7 +2,7 @@
 
 ## Local Development
 
-### General Configuration
+### Set up a Discord server and Bot for testing
 
 1. Create a server for testing
 
@@ -19,8 +19,10 @@
     7. Tick "bot" in scopes
     8. Tick "Administrator" in bot permissions
     9. Go to the generated link in scopes to add the bot to your test server
-    
-3. Set up environment variables
+
+### Configure the bot
+
+1. Set up environment variables
 
     1. Create a new file called `.env` in the root of this repo (next to config.json)
     2. Populate your `.env` file with values from your bot application. You can find your values for `DISCORD_ID` and `DISCORD_SECRET` under General Information and `DISCORD_TOKEN` under Bot. **Do not share these values with anyone.**
@@ -31,16 +33,20 @@
         DISCORD_TOKEN=____YOUR_BOT_TOKEN_HERE____
         ```
 
-4. Configure the bot
+2. Set up config file
 
-    1. Make a copy of `config.json` called `config.dev.json`. The `config.json` file provided contains IDs for channels, servers, and roles. You will need to change these values in your `config.dev.json` to ones from your test server.
+    1. Make a copy of `config.dev.sample.json` called `config.dev.json`. The `config.json` files contain IDs for channels, servers, and roles for their respective servers. You will need to change the sample values in your `config.dev.json` to ones from your test server.
     2. To get IDs go to your discord settings and enable developer mode. The toggle can be found at the bottom of the "Appearance" section under Advanced.
-    3. You can now right click on channels, users, roles, etc. to copy their ID which you can put in your `config.json` file
+    3. You can now right click on channels, users, roles, etc. to copy their ID which you can put in your `config.dev.json` file
 
 
-### Local Development
+### Set up local environment
 
-1. Run `python -m venv venv && python -m pip install -r requirements.txt` to install dependencies for your IDE
+1. Run `yarn` to install dependencies for your IDE
 2. Install docker and docker-compose from https://www.docker.com/products/docker-desktop
-3. Make sure you have configured the bot by following the steps in the General Configuration section above
+3. Make sure you have set up a server, bot account, and config by following the steps in the sections above
 4. Use `docker-compose up` to build and run the bot
+
+### Run tests
+
+1. Run `yarn test`
