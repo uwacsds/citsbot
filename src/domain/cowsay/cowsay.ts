@@ -32,7 +32,8 @@ export const cowsayModule = (config: CowsayConfig): CowsayModule => ({
   type: ModuleType.Cowsay,
   prefix: 'cowsay',
   say: (message: string): string => {
-    const lines = wrapText(message, config.lineMaxLen);
+    const sanitizedMessage = message.replace(/`/g, '\'');
+    const lines = wrapText(sanitizedMessage, config.lineMaxLen);
     let maxLineLen = -1;
     lines.forEach((line) => {
       if (line.length > maxLineLen) maxLineLen = line.length;
