@@ -1,5 +1,6 @@
 import { EventEmitter } from 'events';
 import { AcademicCalendarService } from '../academic-calendar/types';
+import { LoggingService } from '../utils/logging';
 import { BotAction, BotActionType } from './action-types';
 import { announcerModule } from './announcer/announcer';
 import { BotConfig } from './config';
@@ -8,7 +9,7 @@ import { DiscordCommandHandler, DiscordMessage, DiscordReaction, DiscordUser } f
 import { reactRolesModule } from './react-roles/react-roles';
 import { welcomerModule } from './welcomer/welcomer';
 
-export const discordCommandHandler = (config: BotConfig, calendar: AcademicCalendarService): DiscordCommandHandler => {
+export const discordCommandHandler = (config: BotConfig, logger: LoggingService, calendar: AcademicCalendarService): DiscordCommandHandler => {
   const isCommand = (module: { prefix: string }, msg: string) => msg.startsWith(`${config.prefix}${module.prefix}`);
 
   const emitter = new EventEmitter();

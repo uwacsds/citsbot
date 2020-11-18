@@ -27,6 +27,7 @@ import {
   DiscordReaction,
   DiscordUser,
 } from '../domain/discord-types';
+import { LoggingService } from '../utils/logging';
 import { DiscordAPI, MessageTuple } from './types';
 
 const parseUser = (user: User | PartialUser): DiscordUser => ({
@@ -146,6 +147,7 @@ const applyAction = (client: Client, action: BotAction) => {
 };
 
 export const discordApi = (
+  { log }: LoggingService,
   { registerEventListener, onMessage, onMemberJoin, onReactionAdd, onReactionRemove }: DiscordCommandHandler,
   messagesToCache: MessageTuple[]
 ): DiscordAPI => {
@@ -165,20 +167,29 @@ export const discordApi = (
   registerEventListener((action) => applyAction(client, action));
 
   client.on('message', async (msg) => {
-    applyAction(client, await onMessage(parseMessage(msg)));
+    const action = await onMessage(parseMessage(msg));
+    if (action.type !== BotActionType.Nothing) log('info', 'Applying Action', { title: 'OnMessage', data: action })
+    await applyAction(client, action);
   });
   client.on('guildMemberAdd', async (member) => {
     if (!member.user) return;
-    applyAction(client, await onMemberJoin(parseUser(member.user)));
+    const action = await onMemberJoin(parseUser(member.user))
+    if (action.type !== BotActionType.Nothing) log('info', 'Applying Action', { title: 'OnGuildMemberAdd', data: action })
+    await applyAction(client, action);
   });
   client.on('messageReactionAdd', async (reaction, user) => {
-    applyAction(client, await onReactionAdd(parseReaction(reaction), parseUser(user)));
+    const action = await onReactionAdd(parseReaction(reaction), parseUser(user));
+    if (action.type !== BotActionType.Nothing) log('info', 'Applying Action', { title: 'OnMessageReactionAdd', data: action })
+    await applyAction(client, action);
   });
   client.on('messageReactionRemove', async (reaction, user) => {
-    applyAction(client, await onReactionRemove(parseReaction(reaction), parseUser(user)));
+    const action = await onReactionRemove(parseReaction(reaction), parseUser(user));
+    if (action.type !== BotActionType.Nothing) log('info', 'Applying Action', { title: 'OnMessageReactionRemove', data: action })
+    await applyAction(client, action);
   });
 
   return {
+    applyAction: async (action) => applyAction(client, action),
     start: async (discordToken: string) => {
       await client.login(discordToken);
       await Promise.all(messagesToCache.map(([channelId, messageId]) => fetchMessage(client, channelId, messageId)));

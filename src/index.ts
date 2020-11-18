@@ -5,6 +5,7 @@ import { MessageTuple } from './discord-api/types';
 import { academicCalendarService } from './academic-calendar/academic-calendar-service';
 import { academicWeeksParser } from './academic-calendar/weeks-parser';
 import { academicDeadlinesParser } from './academic-calendar/deadlines-parser';
+import { discordChannelLogger } from './utils/logging';
 
 const env = {
   CONFIG: process.env.CONFIG as string,
@@ -20,9 +21,11 @@ const getMessagesToCache = (config: BotConfig): MessageTuple[] => [
 const start = async () => {
   const config = await loadConfig(env.CONFIG);
   const calendar = academicCalendarService(academicWeeksParser(), academicDeadlinesParser());
-  const commandHandler = discordCommandHandler(config, calendar);
-  const { start } = discordApi(commandHandler, getMessagesToCache(config));
-  await start(env.DISCORD_TOKEN);
+  const logger = discordChannelLogger(config.logChannel);
+  const commandHandler = discordCommandHandler(config, logger, calendar);
+  const discord = discordApi(logger, commandHandler, getMessagesToCache(config));
+  logger.initialise(discord);
+  await discord.start(env.DISCORD_TOKEN);
 };
 
 start();
