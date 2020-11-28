@@ -17,6 +17,14 @@ export interface DiscordUser {
   discriminator: string | null;
 }
 
+export interface DiscordMessageAttachment {
+  id: string;
+  url: string;
+  width: number | null;
+  height: number | null;
+  size: number;
+}
+
 export interface DiscordMessage {
   id: string;
   author: DiscordUser;
@@ -24,6 +32,7 @@ export interface DiscordMessage {
   content: string;
   createdAt: Date;
   deletable: boolean;
+  attachments: DiscordMessageAttachment[];
 }
 
 export interface DiscordEmoji {

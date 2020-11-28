@@ -3,6 +3,7 @@ import {
   Client,
   GuildEmoji,
   Message,
+  MessageAttachment,
   MessageEmbed,
   MessageReaction,
   PartialUser,
@@ -25,45 +26,55 @@ import {
   DiscordCommandHandler,
   DiscordEmoji,
   DiscordMessage,
+  DiscordMessageAttachment,
   DiscordReaction,
   DiscordUser,
 } from '../domain/discord-types';
 import { LoggingService } from '../utils/logging';
 import { DiscordAPI, MessageTuple } from './types';
 
-const parseUser = (user: User | PartialUser): DiscordUser => ({
-  id: user.id,
-  avatar: user.displayAvatarURL(),
-  bot: user.bot,
-  createdAt: user.createdAt,
-  discriminator: user.discriminator,
-  username: user.username,
-  tag: user.tag,
+const parseUser = ({ id, displayAvatarURL, bot, createdAt, discriminator, username, tag }: User | PartialUser): DiscordUser => ({
+  id,
+  avatar: displayAvatarURL(),
+  bot,
+  createdAt,
+  discriminator,
+  username,
+  tag,
 });
 
-const parseChannel = (channel: Channel): DiscordChannel => ({
-  createdAt: channel.createdAt,
-  id: channel.id,
-  type: channel.type,
+const parseChannel = ({ createdAt, id, type }: Channel): DiscordChannel => ({
+  createdAt,
+  id,
+  type,
 });
 
-const parseMessage = (msg: Message): DiscordMessage => ({
-  author: parseUser(msg.author),
-  channel: parseChannel(msg.channel),
-  content: msg.content,
-  createdAt: msg.createdAt,
-  deletable: msg.deletable,
-  id: msg.id,
+const parseAttachment = ({ id, url, width, height, size }: MessageAttachment): DiscordMessageAttachment => ({
+  id,
+  url,
+  width,
+  height,
+  size,
 });
 
-const parseEmoji = (emoji: GuildEmoji | ReactionEmoji): DiscordEmoji => ({
-  name: emoji.name,
+const parseMessage = ({ author, channel, content, createdAt, deletable, id, attachments }: Message): DiscordMessage => ({
+  author: parseUser(author),
+  channel: parseChannel(channel),
+  content,
+  createdAt,
+  deletable,
+  id,
+  attachments: attachments.map(parseAttachment),
 });
 
-const parseReaction = (reaction: MessageReaction): DiscordReaction => ({
-  count: reaction.count || 0,
-  message: parseMessage(reaction.message),
-  emoji: parseEmoji(reaction.emoji),
+const parseEmoji = ({ name }: GuildEmoji | ReactionEmoji): DiscordEmoji => ({
+  name,
+});
+
+const parseReaction = ({ count, message, emoji}: MessageReaction): DiscordReaction => ({
+  count: count ?? 0,
+  message: parseMessage(message),
+  emoji: parseEmoji(emoji),
 });
 
 const fetchChannel = async (client: Client, id: string): Promise<Channel | null> => client.channels.fetch(id);
