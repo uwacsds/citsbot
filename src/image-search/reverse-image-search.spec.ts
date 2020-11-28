@@ -12,8 +12,11 @@ describe('reverse-image-search', () => {
     nock('https://www.google.com')
       .get(`/search?tbs=sbi:${imageId}`)
       .reply(200, 'word1 another word asdasdword hello word');
-    
+
     const { countWords } = reverseImageSearchService(mockLogger());
-    await expect(countWords('https://some.image.png', ['word', 'hello'])).resolves.toEqual([['word', 4], ['hello', 1]]);
+    await expect(countWords('https://some.image.png', ['word', 'hello'])).resolves.toEqual([
+      ['word', 4],
+      ['hello', 1],
+    ]);
   });
 });

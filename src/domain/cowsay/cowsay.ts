@@ -56,7 +56,12 @@ export const cowsayModule = (config: BotConfig, { log }: LoggingService): Cowsay
     type: ModuleType.Cowsay,
     onMessage: async (message) => {
       const prefix = `${config.prefix}cowsay `;
-      if (message.content.startsWith(prefix)) return { type: BotActionType.Message, channelId: message.channel.id, messageContent: formatMessage(message.content.slice(prefix.length)) };
+      if (message.content.startsWith(prefix))
+        return {
+          type: BotActionType.Message,
+          channelId: message.channel.id,
+          messageContent: formatMessage(message.content.slice(prefix.length)),
+        };
       return { type: BotActionType.Nothing };
     },
   };

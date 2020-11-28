@@ -13,42 +13,88 @@ describe('react-roles module', () => {
       { id: 'msg3', channel: 'channel1', reactions: [{ unit: 'unit1', emoji: 'emoji3' }] },
     ],
   };
-  const units: UnitsConfig = { unit1: { channels: { general: '', resources: '' }, name: 'unitOne', role: 'unit1Role' } };
+  const units: UnitsConfig = {
+    unit1: { channels: { general: '', resources: '' }, name: 'unitOne', role: 'unit1Role' },
+  };
   const reactRoles = reactRolesModule(config, mockLogger(), units, 'guild1');
-  const user: DiscordUser = { avatar: 'https://avatar.png', bot: false, createdAt: now, discriminator: '1234', id: 'user1', tag: 'userA#1234', username: 'userA' };
+  const user: DiscordUser = {
+    avatar: 'https://avatar.png',
+    bot: false,
+    createdAt: now,
+    discriminator: '1234',
+    id: 'user1',
+    tag: 'userA#1234',
+    username: 'userA',
+  };
 
   it('should grant a role when given a valid configRole based react', async () => {
-    const reaction = { emoji: { name: 'emoji1' }, message: { id: 'msg1', channel: { id: 'channel1' } } } as DiscordReaction;
-    await expect(reactRoles.onReactionAdd(reaction, user)).resolves.toEqual({ type: BotActionType.RoleGrant, user, role: 'role1', guild: 'guild1' });
+    const reaction = {
+      emoji: { name: 'emoji1' },
+      message: { id: 'msg1', channel: { id: 'channel1' } },
+    } as DiscordReaction;
+    await expect(reactRoles.onReactionAdd(reaction, user)).resolves.toEqual({
+      type: BotActionType.RoleGrant,
+      user,
+      role: 'role1',
+      guild: 'guild1',
+    });
   });
 
   it('should grant a role when given a valid unitConfig based react', async () => {
-    const reaction = { emoji: { name: 'emoji3' }, message: { id: 'msg3', channel: { id: 'channel1' } } } as DiscordReaction;
-    await expect(reactRoles.onReactionAdd(reaction, user)).resolves.toEqual({ type: BotActionType.RoleGrant, user, role: 'unit1Role', guild: 'guild1' });
+    const reaction = {
+      emoji: { name: 'emoji3' },
+      message: { id: 'msg3', channel: { id: 'channel1' } },
+    } as DiscordReaction;
+    await expect(reactRoles.onReactionAdd(reaction, user)).resolves.toEqual({
+      type: BotActionType.RoleGrant,
+      user,
+      role: 'unit1Role',
+      guild: 'guild1',
+    });
   });
 
   it('should return nothing action when unable to find a role due to invalid emoji', async () => {
-    const reaction = { emoji: { name: 'emojiBad' }, message: { channel: { id: 'channel1' }, id: 'msg3' } } as DiscordReaction;
+    const reaction = {
+      emoji: { name: 'emojiBad' },
+      message: { channel: { id: 'channel1' }, id: 'msg3' },
+    } as DiscordReaction;
     await expect(reactRoles.onReactionAdd(reaction, user)).resolves.toEqual({ type: BotActionType.Nothing });
   });
 
   it('should return nothing action when unable to find a role due to invalid channel', async () => {
-    const reaction = { emoji: { name: 'emoji1' }, message: { channel: { id: 'channelBad' }, id: 'msg3' } } as DiscordReaction;
+    const reaction = {
+      emoji: { name: 'emoji1' },
+      message: { channel: { id: 'channelBad' }, id: 'msg3' },
+    } as DiscordReaction;
     await expect(reactRoles.onReactionAdd(reaction, user)).resolves.toEqual({ type: BotActionType.Nothing });
   });
 
   it('should return nothing action when unable to find a role due to invalid message', async () => {
-    const reaction = { emoji: { name: 'emoji1' }, message: { channel: { id: 'channel3' }, id: 'msgBad' } } as DiscordReaction;
+    const reaction = {
+      emoji: { name: 'emoji1' },
+      message: { channel: { id: 'channel3' }, id: 'msgBad' },
+    } as DiscordReaction;
     await expect(reactRoles.onReactionAdd(reaction, user)).resolves.toEqual({ type: BotActionType.Nothing });
   });
 
   it('should revoke a role if the react is valid', async () => {
-    const reaction = { emoji: { name: 'emoji3' }, message: { channel: { id: 'channel1' }, id: 'msg3' } } as DiscordReaction;
-    await expect(reactRoles.onReactionRemove(reaction, user)).resolves.toEqual({ type: BotActionType.RoleRevoke, user, role: 'unit1Role', guild: 'guild1' });
+    const reaction = {
+      emoji: { name: 'emoji3' },
+      message: { channel: { id: 'channel1' }, id: 'msg3' },
+    } as DiscordReaction;
+    await expect(reactRoles.onReactionRemove(reaction, user)).resolves.toEqual({
+      type: BotActionType.RoleRevoke,
+      user,
+      role: 'unit1Role',
+      guild: 'guild1',
+    });
   });
 
   it('should fail to revoke a role that does not exist', async () => {
-    const reaction = { emoji: { name: 'emoji1' }, message: { channel: { id: 'channel3' }, id: 'msgBad' } } as DiscordReaction;
+    const reaction = {
+      emoji: { name: 'emoji1' },
+      message: { channel: { id: 'channel3' }, id: 'msgBad' },
+    } as DiscordReaction;
     await expect(reactRoles.onReactionRemove(reaction, user)).resolves.toEqual({ type: BotActionType.Nothing });
   });
 });
