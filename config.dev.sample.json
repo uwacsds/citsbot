@@ -25,9 +25,6 @@
       "lineMaxLen": 40,
       "cowArt": "\n     \\   ^__^\n      \\  (oo)\\_______\n         (__)\\       )\\/\\\n             ||----w |\n             ||     ||"
     },
-    "animeDetector": {
-      "cvFile": "lbpcascade_animeface.xml"
-    },
     "welcomer": {
       "channel": "702939230996922382",
       "newMemberDm": {
@@ -66,6 +63,10 @@
           ]
         }
       ]
+    },
+    "animeDetector": {
+      "keywords": ["anime", "manga"],
+      "keywordCountThreshold": 5
     }
   }
 }

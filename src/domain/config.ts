@@ -1,4 +1,5 @@
 import { promises as fs } from 'fs';
+import { AnimeDetectorConfig } from './anime-detector/anime-detector';
 import { AnnouncerConfig } from './announcer/announcer';
 import { CowsayConfig } from './cowsay/cowsay';
 import { ReactRolesConfig } from './react-roles/react-roles';
@@ -25,6 +26,7 @@ export interface BotConfig {
     welcomer: WelcomerConfig;
     announcer: AnnouncerConfig;
     reactRoles: ReactRolesConfig;
+    animeDetector: AnimeDetectorConfig;
   };
 }
 

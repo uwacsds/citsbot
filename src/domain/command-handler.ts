@@ -21,7 +21,7 @@ export const discordCommandHandler = (
   const welcomer = welcomerModule(config.modules.welcomer, logger);
   const cowsay = cowsayModule(config, logger);
   const roleReacts = reactRolesModule(config.modules.reactRoles, logger, config.units, config.guild);
-  const animeDetector = animeDetectorModule(logger);
+  const animeDetector = animeDetectorModule(config.modules.animeDetector, logger);
 
   const emitter = new EventEmitter();
   announcer.registerWeeklyAnnouncement((action) => emitter.emit('action', action));

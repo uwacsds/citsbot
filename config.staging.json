@@ -397,6 +397,10 @@
           ]
         }
       ]
+    },
+    "animeDetector": {
+      "keywords": ["anime", "manga"],
+      "keywordCountThreshold": 5
     }
   }
 }
