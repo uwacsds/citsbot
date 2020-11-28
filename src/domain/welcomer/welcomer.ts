@@ -16,7 +16,7 @@ export interface WelcomerConfig {
 
 export const welcomerModule = (config: WelcomerConfig, { log }: LoggingService): WelcomerModule => ({
   type: ModuleType.Welcomer,
-  welcomeUser: (user: DiscordUser): BotEmbeddedMessageAction => {
+  onMemberJoin: async (user: DiscordUser) => {
     log('info', 'Sending a welcome message', { title: 'Welcomer', image: user.avatar, data: { user } });
     return {
       type: BotActionType.EmbeddedMessage,
@@ -26,20 +26,13 @@ export const welcomerModule = (config: WelcomerConfig, { log }: LoggingService):
         description: `Hey, ${user.username}`,
         colour: '#0864a5',
         thumbnail: user.avatar,
-        fields: [
-          {
-            name: 'Hot tip',
-            value: 'Check out the rules at #overview',
-          },
-        ],
-        footer: {
-          text: `Joined • ${new Date().toDateString()}`,
-          iconUrl: user.avatar,
-        },
+        fields: [{ name: 'Hot tip', value: 'Check out the rules at #overview' }],
+        footer: { iconUrl: user.avatar, text: `Joined • ${new Date().toDateString()}` },
       },
     };
   },
-  waveAtUser: (message: DiscordMessage): BotAction => {
+  onMessage: async (message: DiscordMessage) => {
+    if (message.channel.id !== config.channel) return { type: BotActionType.Nothing };
     log('info', 'Waving at welcome message', { title: 'Welcomer', data: { message } });
     return {
       type: BotActionType.AddReaction,

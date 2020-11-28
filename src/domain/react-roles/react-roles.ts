@@ -21,9 +21,7 @@ const getRole = (config: ReactRolesConfig, units: UnitsConfig, reaction: Discord
   if (!msg) return null;
 
   const roleConfig = msg.reactions.find((r) => r.emoji === reaction.emoji.name);
-  if (roleConfig?.role) {
-    return roleConfig.role;
-  }
+  if (roleConfig?.role) return roleConfig.role;
 
   const unitConfig = Object.entries(units).find(([code, _]) => code === roleConfig?.unit);
   if (!unitConfig) return null;
@@ -38,26 +36,16 @@ export const reactRolesModule = (
   guild: string
 ): ReactRolesModule => ({
   type: ModuleType.ReactRoles,
-  grantRole: (user: DiscordUser, reaction: DiscordReaction) => {
+  onReactionAdd: async (reaction: DiscordReaction, user: DiscordUser) => {
     const role = getRole(config, units, reaction);
     if (!role) return { type: BotActionType.Nothing };
     log('info', 'Granting role', { title: 'React Roles', data: { role, emoji: reaction.emoji, user } });
-    return {
-      type: BotActionType.RoleGrant,
-      guild,
-      user: user,
-      role,
-    };
+    return { type: BotActionType.RoleGrant, guild, user, role };
   },
-  revokeRole: (user: DiscordUser, reaction: DiscordReaction) => {
+  onReactionRemove: async (reaction: DiscordReaction, user: DiscordUser) => {
     const role = getRole(config, units, reaction);
     if (!role) return { type: BotActionType.Nothing };
     log('info', 'Revoking role', { title: 'React Roles', data: { role, emoji: reaction.emoji, user } });
-    return {
-      type: BotActionType.RoleRevoke,
-      guild,
-      user: user,
-      role,
-    };
+    return { type: BotActionType.RoleRevoke, guild, user, role };
   },
 });

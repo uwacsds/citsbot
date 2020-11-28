@@ -1,5 +1,6 @@
 import { LoggingService } from '../../utils/logging';
 import { BotActionType } from '../action-types';
+import { BotConfig } from '../config';
 import { CowsayModule, ModuleType } from '../module-types';
 
 export interface CowsayConfig {
@@ -30,10 +31,10 @@ const getBorder = (lineCount: number, lineNumber: number) => {
   return ['|', '|'];
 };
 
-export const cowsayModule = (config: CowsayConfig, { log }: LoggingService): CowsayModule => {
+export const cowsayModule = (config: BotConfig, { log }: LoggingService): CowsayModule => {
   const formatMessage = (message: string): string => {
     const sanitizedMessage = message.replace(/`/g, "'");
-    const lines = wrapText(sanitizedMessage, config.lineMaxLen);
+    const lines = wrapText(sanitizedMessage, config.modules.cowsay.lineMaxLen);
     let maxLineLen = -1;
     lines.forEach((line) => {
       if (line.length > maxLineLen) maxLineLen = line.length;
@@ -48,16 +49,15 @@ export const cowsayModule = (config: CowsayConfig, { log }: LoggingService): Cow
     bubble.push('  ' + '-'.repeat(borderSize));
 
     log('info', 'Formatted cowsay', { title: 'Cowsay', data: { message } });
-    return `\`\`\`\n${bubble.join('\n')}${config.cowArt}\n\`\`\``;
+    return `\`\`\`\n${bubble.join('\n')}${config.modules.cowsay.cowArt}\n\`\`\``;
   };
 
   return {
     type: ModuleType.Cowsay,
-    prefix: 'cowsay',
-    say: (message) => ({
-      channelId: message.channel.id,
-      type: BotActionType.Message,
-      messageContent: formatMessage(message.content),
-    }),
+    onMessage: async (message) => {
+      const prefix = `${config.prefix}cowsay `;
+      if (message.content.startsWith(prefix)) return { type: BotActionType.Message, channelId: message.channel.id, messageContent: formatMessage(message.content.slice(prefix.length)) };
+      return { type: BotActionType.Nothing };
+    },
   };
 };
