@@ -3,6 +3,7 @@ import { DiscordUser } from './discord-types';
 export enum BotActionType {
   Nothing = 'Nothing',
   Message = 'Message',
+  RemoveMessage = 'RemoveMessage',
   EmbeddedMessage = 'EmbeddedMessage',
   RoleGrant = 'RoleGrant',
   RoleRevoke = 'RoleRevoke',
@@ -78,6 +79,12 @@ export interface BotRoleRevokeAction extends BotBaseAction {
   user: DiscordUser;
   guild: string;
   role: string;
+}
+
+export interface BotRemoveMessageAction extends BotBaseAction {
+  type: BotActionType.Message;
+  channelId: string;
+  messageId: string;
 }
 
 export type BotAction =
