@@ -32,6 +32,7 @@
     "eslint": "^7.9.0",
     "eslint-plugin-prettier": "^3.1.4",
     "jest": "^26.4.2",
+    "nock": "^13.0.5",
     "prettier": "^2.1.2",
     "prettier-eslint": "^11.0.0",
     "prettier-eslint-cli": "^5.0.0",
