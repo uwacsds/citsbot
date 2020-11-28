@@ -14,29 +14,29 @@ export interface AnimeDetectorConfig {
 
 const parsePlainImageUrls = (message: string): string[] =>
   Array.from(message.matchAll(patternAnyImageUrl)).map((match) => match[0]);
-const parseImgurUrls = (message: string): string[] =>
-  Array.from(message.matchAll(patternImgurId))
-    .map((match) => match.groups?.id)
-    .map((id) => `https://i.imgur.com/${id}.png`); // we can use any file extension
-const parseImageUrls = (message: string): string[] =>
-  Array.from(new Set([...parsePlainImageUrls(message), ...parseImgurUrls(message)]));
+
+const parseImgurUrls = (message: string): string[] => Array.from(message.matchAll(patternImgurId))
+  .map((match) => match.groups?.id)
+  .map((id) => `https://i.imgur.com/${id}.png`); // we can use any file extension
+
+const parseContentUrls = (message: string): string[] => [...parsePlainImageUrls(message), ...parseImgurUrls(message)];
+
 const parseAttachmentUrls = (attachments: DiscordMessageAttachment[]): string[] =>
   attachments.filter(({ width }) => width !== null).map(({ url }) => url);
 
 export const animeDetectorModule = (config: AnimeDetectorConfig, logger: LoggingService): AnimeDetectorModule => {
   const { countWords } = reverseImageSearchService(logger);
-  const isAnime = async (url: string): Promise<boolean> => {
-    const counts = await countWords(url, config.keywords);
-    const totalCount = counts.reduce((total, [_, count]) => total + count, 0);
-    return totalCount > config.keywordCountThreshold;
-  };
   return {
     type: ModuleType.AnimeDetector,
     onMessage: async (message: DiscordMessage): Promise<BotAction> => {
-      const urls = [...parseAttachmentUrls(message.attachments), ...parseImageUrls(message.content)];
+      const urls = new Set([...parseAttachmentUrls(message.attachments), ...parseContentUrls(message.content)]);
       for (const url of urls) {
-        if (isAnime(url))
+        const counts = await countWords(url, config.keywords);
+        const totalCount = counts.reduce((total, [_, count]) => total + count, 0);
+        if (totalCount > config.keywordCountThreshold) {
+          logger.log('notice', 'Message removed', { title: 'Anime Purged', image: url, data: { user: message.author.tag, keywords: counts } });
           return { type: BotActionType.RemoveMessage, channelId: message.channel.id, messageId: message.id };
+        }
       }
       return { type: BotActionType.Nothing };
     },
