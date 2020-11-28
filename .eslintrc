@@ -1,28 +1,28 @@
 {
-    "root": true,
-    "env": {
-        "node": true,
-        "jest": true
-    },
-    "parser": "@typescript-eslint/parser",
-    "plugins": [
-        "@typescript-eslint"
-    ],
-    "extends": [
-        "eslint:recommended",
-        "plugin:@typescript-eslint/eslint-recommended",
-        "plugin:@typescript-eslint/recommended",
-        "prettier"
-    ],
-    "rules": {
-        "semi": "error",
-        "arrow-parens": "error",
-        "comma-dangle": ["warn", "always-multiline"],
-        "no-unused-vars": "warn",
-        "@typescript-eslint/no-unused-vars": ["warn", { "varsIgnorePattern": "^_", "args": "none" }],
-        "quotes": ["error", "single"],
-        "indent": ["warn", 2],
-        "object-curly-spacing": ["warn", "always"],
-        "no-console": ["off"]
-    }
+  "root": true,
+  "env": {
+    "node": true,
+    "jest": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "rules": {
+    "semi": "error",
+    "arrow-parens": "error",
+    "comma-dangle": ["warn", "always-multiline"],
+    "no-unused-vars": "warn",
+    "@typescript-eslint/no-unused-vars": ["warn", { "varsIgnorePattern": "^_", "args": "none" }],
+    "quotes": ["error", "single"],
+    "indent": ["warn", 2],
+    "object-curly-spacing": ["warn", "always"],
+    "no-console": ["off"]
+  }
 }
