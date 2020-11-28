@@ -16,7 +16,9 @@ export const reverseImageSearchService = ({ log }: LoggingService) => ({
     });
     const result = await fetch(formatSearchUrl(imageUrl), { headers: { 'User-Agent': USER_AGENT } });
     const html = await result.text();
-    const counts = words.map((word) => [word, html.match(new RegExp(word, 'g'))?.length ?? 0]);
+
+    const countOccurrences = (word: string): number => html.match(new RegExp(word, 'g'))?.length ?? 0;
+    const counts = words.map((word): [string, number] => [word, countOccurrences(word)]);
 
     log('info', 'Finished reverse image keyword search', { title: 'Reverse Image Search Service', data: { counts } });
     return counts;
