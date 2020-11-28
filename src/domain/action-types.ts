@@ -82,7 +82,7 @@ export interface BotRoleRevokeAction extends BotBaseAction {
 }
 
 export interface BotRemoveMessageAction extends BotBaseAction {
-  type: BotActionType.Message;
+  type: BotActionType.RemoveMessage;
   channelId: string;
   messageId: string;
 }
@@ -94,4 +94,5 @@ export type BotAction =
   | BotRoleRevokeAction
   | BotEmbeddedMessageAction
   | BotAddReactionAction
-  | BotRemoveReactionAction;
+  | BotRemoveReactionAction
+  | BotRemoveMessageAction;

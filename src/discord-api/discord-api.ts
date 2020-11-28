@@ -16,6 +16,7 @@ import {
   BotAddReactionAction,
   BotEmbeddedMessageAction,
   BotMessageAction,
+  BotRemoveMessageAction,
   BotRoleGrantAction,
   BotRoleRevokeAction,
 } from '../domain/action-types';
@@ -131,6 +132,11 @@ const applyRoleRevoke = async (client: Client, action: BotRoleRevokeAction) => {
   await member.roles.remove(action.role);
 };
 
+const applyRemoveMessage = async (client: Client, { messageId, channelId }: BotRemoveMessageAction) => {
+  const channel = await fetchTextChannel(client, channelId);
+  await channel?.messages.delete(messageId);
+};
+
 const applyAction = (client: Client, action: BotAction) => {
   switch (action.type) {
     case BotActionType.Message:
@@ -143,6 +149,8 @@ const applyAction = (client: Client, action: BotAction) => {
       return applyRoleGrant(client, action);
     case BotActionType.RoleRevoke:
       return applyRoleRevoke(client, action);
+    case BotActionType.RemoveMessage:
+      return applyRemoveMessage(client, action);
   }
 };
 
