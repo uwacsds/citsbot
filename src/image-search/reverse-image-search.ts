@@ -1,11 +1,15 @@
 import fetch from 'node-fetch';
 import { LoggingService } from '../utils/logging';
-import { ReverseImageSearchService } from './types';
 
 const SEARCH_URL = 'https://images.google.com/searchbyimage?image_url=';
 const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36';
 
 const formatSearchUrl = (imageUrl: string): string => `${SEARCH_URL}${encodeURI(imageUrl)}`;
+
+interface ReverseImageSearchService {
+  reverseSearch: (imageUrl: string) => Promise<string>;
+  countKeywordOccurrences: (resultsPageHtml: string, keywords: string[]) => Map<string, number>;
+}
 
 export const reverseImageSearchService = ({ log }: LoggingService): ReverseImageSearchService => ({
   reverseSearch: async (imageUrl: string): Promise<string> => {
