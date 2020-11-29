@@ -354,6 +354,10 @@
               "unit": "CITS1001",
               "emoji": "bluej" 
             },
+            {
+              "unit": "CITS1003",
+              "emoji": "🔒"
+            },
             { 
               "unit": "CITS1401",
               "emoji": "py" 
@@ -375,6 +379,10 @@
             { 
               "unit": "CITS2002",
               "emoji": "c_" 
+            },
+            { 
+              "unit": "CITS2003",
+              "emoji": "🛠️" 
             },
             { 
               "unit": "CITS2200",
@@ -423,6 +431,14 @@
               "emoji": "🔒" 
             },
             { 
+              "unit": "CITS3006", 
+              "emoji": "🔍" 
+            },
+            { 
+              "unit": "CITS3007", 
+              "emoji": "🔐" 
+            },
+            { 
               "unit": "CITS3200", 
               "emoji": "💼" 
             },
@@ -445,6 +461,10 @@
             {
               "unit": "STAT3064",
               "emoji": "📊"
+            },
+            {
+              "unit": "STAT3401",
+              "emoji": "📈"
             }
           ]
         }
