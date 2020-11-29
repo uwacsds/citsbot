@@ -45,16 +45,7 @@ export const announcerModule = (config: AnnouncerConfig, { log }: LoggingService
   const buildEmbed = (title: string, description?: string, events: { name: string; value: string; inline?: boolean }[] = []): BotEmbeddedMessageAction => ({
     type: BotActionType.EmbeddedMessage,
     channelId: config.channel,
-    embed: {
-      title,
-      description,
-      fields: events,
-      colour: config.colour,
-      image: config.image,
-      footer: {
-        text: config.disclaimer,
-      },
-    },
+    embed: { title, description, fields: events, colour: config.colour, image: config.image, footer: { text: config.disclaimer } },
   });
 
   const announce = async (now = () => new Date()): Promise<BotEmbeddedMessageAction> => {
