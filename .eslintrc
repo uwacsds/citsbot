@@ -16,11 +16,11 @@
   ],
   "rules": {
     "semi": "error",
-    "arrow-parens": "error",
+    "arrow-parens": "off",
     "comma-dangle": ["warn", "always-multiline"],
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": ["warn", { "varsIgnorePattern": "^_", "args": "none" }],
-    "quotes": ["error", "single"],
+    "quotes": ["error", "single", { "avoidEscape": true }],
     "indent": ["warn", 2, { "SwitchCase": 1 }],
     "object-curly-spacing": ["warn", "always"],
     "no-console": ["off"]

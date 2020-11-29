@@ -16,7 +16,7 @@ describe('anime-detector-service', () => {
 
   const config: AnimeDetectorConfig = { keywordCountThreshold: 5, keywords: ['anime', 'manga'] };
   const detectAnime = animeDetectorService(config, mockLogger());
-  
+
   it('given image that is anime > when detect anime > should return true verdict and word counts', async () => {
     await expect(detectAnime('anime.png')).resolves.toEqual([true, new Map().set('anime', 4).set('manga', 2)]);
   });

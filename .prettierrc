@@ -1,5 +1,6 @@
 {
   "tabWidth": 2,
   "singleQuote": true,
-  "printWidth": 190
+  "printWidth": 200,
+  "arrowParens": "avoid"
 }

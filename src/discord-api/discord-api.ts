@@ -1,14 +1,5 @@
 import { Channel, Client, GuildEmoji, Message, MessageAttachment, MessageEmbed, MessageReaction, PartialUser, ReactionEmoji, TextChannel, User } from 'discord.js';
-import {
-  BotAction,
-  BotActionType,
-  BotAddReactionAction,
-  BotEmbeddedMessageAction,
-  BotMessageAction,
-  BotRemoveMessageAction,
-  BotRoleGrantAction,
-  BotRoleRevokeAction,
-} from '../domain/action-types';
+import { BotAction, BotActionType, BotAddReactionAction, BotEmbeddedMessageAction, BotMessageAction, BotRemoveMessageAction, BotRoleGrantAction, BotRoleRevokeAction } from '../domain/action-types';
 import { DiscordChannel, DiscordCommandHandler, DiscordEmoji, DiscordMessage, DiscordMessageAttachment, DiscordReaction, DiscordUser } from '../domain/discord-types';
 import { LoggingService } from '../utils/logging';
 import { DiscordAPI, MessageTuple } from './types';
@@ -154,18 +145,18 @@ export const discordApi = (
     },
   });
 
-  registerEventListener((action) => applyAction(client, action));
+  registerEventListener(action => applyAction(client, action));
 
   const filterNothingActions = (actions: BotAction[]) => actions.filter(({ type }) => type !== BotActionType.Nothing);
 
-  client.on('message', async (message) => {
+  client.on('message', async message => {
     const actions = await Promise.all(onMessage(parseMessage(message)));
     for (const action of filterNothingActions(actions)) {
       log('info', 'Applying Action', { title: 'OnMessage', data: action });
       await applyAction(client, action);
     }
   });
-  client.on('guildMemberAdd', async (member) => {
+  client.on('guildMemberAdd', async member => {
     if (!member.user) return;
     const actions = await Promise.all(onMemberJoin(parseUser(member.user)));
     for (const action of filterNothingActions(actions)) {
@@ -189,7 +180,7 @@ export const discordApi = (
   });
 
   return {
-    applyAction: async (action) => applyAction(client, action),
+    applyAction: async action => applyAction(client, action),
     start: async (discordToken: string) => {
       await client.login(discordToken);
       await Promise.all(messagesToCache.map(([channelId, messageId]) => fetchMessage(client, channelId, messageId)));

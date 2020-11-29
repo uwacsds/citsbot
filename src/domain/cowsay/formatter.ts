@@ -24,10 +24,10 @@ const getBorder = (lineCount: number, lineNumber: number) => {
 };
 
 export const cowsayFormatter = (config: CowsayConfig) => (message: string): string => {
-  const sanitizedMessage = message.replace(/`/g, '\'');
+  const sanitizedMessage = message.replace(/`/g, "'");
   const lines = wrapText(sanitizedMessage, config.lineMaxLen);
   let maxLineLen = -1;
-  lines.forEach((line) => {
+  lines.forEach(line => {
     if (line.length > maxLineLen) maxLineLen = line.length;
   });
   const borderSize = lines.length > 1 ? maxLineLen : lines[0].length;

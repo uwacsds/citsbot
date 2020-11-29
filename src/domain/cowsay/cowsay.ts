@@ -11,7 +11,7 @@ export interface CowsayConfig {
 
 export const cowsayModule = (config: BotConfig, { log }: LoggingService): CowsayModule => ({
   type: ModuleType.Cowsay,
-  onMessage: async (message) => {
+  onMessage: async message => {
     const formatMessage = cowsayFormatter(config.modules.cowsay);
 
     const prefix = `${config.prefix}cowsay `;

@@ -35,12 +35,12 @@ export const academicDeadlinesParser = (): AcademicDeadlinesParser => ({
     const $ = cheerio.load(html);
     const unitCodes = $('td.thin')
       .toArray()
-      .map((element) => element.firstChild.data)
+      .map(element => element.firstChild.data)
       .filter((code): code is string => code !== undefined && code !== '\n\n')
-      .map((code) => code.slice(0, code.length - 3));
+      .map(code => code.slice(0, code.length - 3));
     const unitLinks = $('td.thing > a')
       .toArray()
-      .map((element) => element.attribs.href);
+      .map(element => element.attribs.href);
     return zip(unitCodes, unitLinks).map(([code, link]) => ({ code, link }));
   },
   parseUnitDeadlines: (unitCode: string, html: string) => {

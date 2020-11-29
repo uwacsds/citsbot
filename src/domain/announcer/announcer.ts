@@ -30,8 +30,8 @@ const weeksBetween = (start: Date, end: Date): number => {
 };
 
 const weeksUntilNextSemester = (calendar: AcademicCalendar, now: Date): number => {
-  const sem1Week1 = Object.values(calendar.weeks).find((week) => week.type === 'teaching' && week.semester === 1 && week.week === 1) as TeachingAcademicWeek;
-  const sem2Week1 = Object.values(calendar.weeks).find((week) => week.type === 'teaching' && week.semester === 2 && week.week === 1) as TeachingAcademicWeek;
+  const sem1Week1 = Object.values(calendar.weeks).find(week => week.type === 'teaching' && week.semester === 1 && week.week === 1) as TeachingAcademicWeek;
+  const sem2Week1 = Object.values(calendar.weeks).find(week => week.type === 'teaching' && week.semester === 2 && week.week === 1) as TeachingAcademicWeek;
   if (sem1Week1?.type !== 'teaching') throw Error('Academic calendar missing first week of semester 1');
   if (sem2Week1?.type !== 'teaching') throw Error('Academic calendar missing first week of semester 2');
   if (now < sem1Week1.date) return weeksBetween(now, sem1Week1.date);
@@ -70,10 +70,7 @@ export const announcerModule = (config: AnnouncerConfig, { log }: LoggingService
         return buildEmbed(`Welcome to Semester ${currentSemester(now())} Exams`);
       default: {
         const title = `${currentSeason(now())} Vacation`;
-        const description = [
-          `📅 ${weeksUntilNextSemester(calendar, now())} weeks left until next semester`,
-          '📝 Enrolment details: https://www.uwa.edu.au/students/my-course/enrolment',
-        ].join('\n\n');
+        const description = [`📅 ${weeksUntilNextSemester(calendar, now())} weeks left until next semester`, '📝 Enrolment details: https://www.uwa.edu.au/students/my-course/enrolment'].join('\n\n');
         log('info', 'Announcing vacation week', { title: 'Announcer', data: { week } });
         return buildEmbed(title, description);
       }
@@ -83,7 +80,7 @@ export const announcerModule = (config: AnnouncerConfig, { log }: LoggingService
   return {
     type: ModuleType.Announcer,
     announce,
-    registerWeeklyAnnouncement: (listener) => {
+    registerWeeklyAnnouncement: listener => {
       scheduleJob('announcer', config.crontab, async () => {
         listener(await announce());
       });

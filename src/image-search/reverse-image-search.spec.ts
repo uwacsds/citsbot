@@ -4,7 +4,7 @@ import { reverseImageSearchService } from './reverse-image-search';
 
 describe('reverse-image-search', () => {
   const { reverseSearch, countKeywordOccurrences } = reverseImageSearchService(mockLogger());
-  
+
   it('should return the results page for the reverse image search', async () => {
     const imageUrl = 'https://some.image.png';
     const imageId = 'image-id';

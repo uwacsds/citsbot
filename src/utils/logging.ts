@@ -19,6 +19,7 @@ const logLevels: Record<LogLevel, number> = {
 interface LogMessageContext {
   title?: string;
   image?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data?: { [key: string]: any };
 }
 

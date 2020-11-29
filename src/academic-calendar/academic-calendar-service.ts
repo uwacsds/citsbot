@@ -8,12 +8,7 @@ const CS_MARKS_URL = 'https://secure.csse.uwa.edu.au/run/cssubmit';
 
 const zip = <T1, T2>(arr1: T1[], arr2: T2[]): [T1, T2][] => arr1.map((_, idx) => [arr1[idx], arr2[idx]]);
 
-export const academicCalendarService = (
-  { log }: LoggingService,
-  weeksParser: AcademicWeeksParser,
-  deadlinesParser: AcademicDeadlinesParser,
-  filterPostgrad = true
-): AcademicCalendarService => ({
+export const academicCalendarService = ({ log }: LoggingService, weeksParser: AcademicWeeksParser, deadlinesParser: AcademicDeadlinesParser, filterPostgrad = true): AcademicCalendarService => ({
   fetchCalendar: async () => {
     const fetchWeeks = async () => {
       const weeksResult = await fetch(TEACHING_WEEKS_URL);
@@ -28,7 +23,7 @@ export const academicCalendarService = (
       const unitCodes = unitLinks.map(({ code }) => code);
 
       const deadlineResults = await Promise.all(unitLinks.map(({ link }) => fetch(link)));
-      const deadlineHtml = await Promise.all(deadlineResults.map((result) => result.text()));
+      const deadlineHtml = await Promise.all(deadlineResults.map(result => result.text()));
       return zip(unitCodes, deadlineHtml).reduce<Deadline[]>((deadlines, [code, html]) => [...deadlines, ...deadlinesParser.parseUnitDeadlines(code, html)], []);
     };
 
@@ -36,7 +31,7 @@ export const academicCalendarService = (
     const deadlines = await fetchDeadlines();
 
     const calendar: AcademicCalendar = { weeks };
-    deadlines.forEach((deadline) => calendar.weeks[getWeekIndex(deadline.date)].deadlines.push(deadline));
+    deadlines.forEach(deadline => calendar.weeks[getWeekIndex(deadline.date)].deadlines.push(deadline));
 
     log('info', 'Fetched and parsed an academic calendar', { title: 'Academic Calendar Service', data: { calendar } });
     return calendar;

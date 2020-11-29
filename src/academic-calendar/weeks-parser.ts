@@ -52,7 +52,7 @@ export const academicWeeksParser = (now = () => new Date()): AcademicWeeksParser
       const $ = cheerio.load(html);
       const cells = $('table[border=1] td font')
         .toArray()
-        .map((cell) => {
+        .map(cell => {
           if (cell.firstChild?.firstChild?.data) return cell.firstChild.firstChild.data.trim();
           return cell.firstChild.data?.trim();
         });

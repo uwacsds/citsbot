@@ -47,9 +47,7 @@ describe('command-handler', () => {
 
   it('should react to a welcome message', async () => {
     const actions = await Promise.all(onMessage({ ...message, content: 'welcome foo!', channel: { ...message.channel, id: config.modules.welcomer.channel } }));
-    expect(filterNoActions(actions)).toEqual([
-      { type: BotActionType.AddReaction, messageId: 'msg1', channelId: config.modules.welcomer.channel, emoji: config.modules.welcomer.newMemberDm.react },
-    ]);
+    expect(filterNoActions(actions)).toEqual([{ type: BotActionType.AddReaction, messageId: 'msg1', channelId: config.modules.welcomer.channel, emoji: config.modules.welcomer.newMemberDm.react }]);
   });
 
   it('should send a welcome message when a member joins', async () => {

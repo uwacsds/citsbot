@@ -17,10 +17,10 @@ export interface ReactRolesConfig {
 }
 
 const getRole = (config: ReactRolesConfig, units: UnitsConfig, reaction: DiscordReaction) => {
-  const msg = config.messages.find((msg) => msg.id === reaction.message.id);
+  const msg = config.messages.find(msg => msg.id === reaction.message.id);
   if (!msg) return null;
 
-  const roleConfig = msg.reactions.find((r) => r.emoji === reaction.emoji.name);
+  const roleConfig = msg.reactions.find(r => r.emoji === reaction.emoji.name);
   if (roleConfig?.role) return roleConfig.role;
 
   const unitConfig = Object.entries(units).find(([code, _]) => code === roleConfig?.unit);
