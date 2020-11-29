@@ -2,8 +2,7 @@ import { academicDeadlinesParser } from './deadlines-parser';
 import { TEST_HTML_CSMARKS_CITS1001, TEST_HTML_CSMARKS_CITS3200, TEST_HTML_CSMARKS } from './test-data';
 
 describe('deadlines-parser', () => {
-  const now = new Date('2020-01-01');
-  const parser = academicDeadlinesParser(() => now);
+  const parser = academicDeadlinesParser();
 
   it('should parse unit links from cssubmit main page', () => {
     expect(parser.parseUnitLinks(TEST_HTML_CSMARKS)).toEqual([
