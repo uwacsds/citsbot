@@ -18,7 +18,7 @@
     "semi": "error",
     "arrow-parens": "error",
     "comma-dangle": ["warn", "always-multiline"],
-    "no-unused-vars": "warn",
+    "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": ["warn", { "varsIgnorePattern": "^_", "args": "none" }],
     "quotes": ["error", "single"],
     "indent": ["warn", 2, { "SwitchCase": 1 }],
