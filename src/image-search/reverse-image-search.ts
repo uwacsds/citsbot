@@ -16,7 +16,7 @@ export const reverseImageSearchService = ({ log }: LoggingService): ReverseImage
   countKeywordOccurrences: (text: string, keywords: string[]): Map<string, number> => {
     const countOccurrences = (word: string): number => text.match(new RegExp(word, 'g'))?.length ?? 0;
     const counts = keywords.reduce((counts, word) => counts.set(word, countOccurrences(word)), new Map<string, number>());
-    log('info', 'Found Keywords', { title: 'Reverse Image Search Service', data: { counts } });
+    log('info', 'Found Keywords', { title: 'Reverse Image Search Service', data: { counts: Object.fromEntries(counts) } });
     return counts;
   },
 });
