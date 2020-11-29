@@ -24,7 +24,7 @@ const getBorder = (lineCount: number, lineNumber: number) => {
 };
 
 export const cowsayFormatter = (config: CowsayConfig) => (message: string): string => {
-  const sanitizedMessage = message.replace(/`/g, "'");
+  const sanitizedMessage = message.replace(/`/g, '\'');
   const lines = wrapText(sanitizedMessage, config.lineMaxLen);
   let maxLineLen = -1;
   lines.forEach((line) => {

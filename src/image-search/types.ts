@@ -1,3 +1,4 @@
 export interface ReverseImageSearchService {
-  countKeywords: (imageUrl: string, words: string[]) => Promise<[word: string, count: number][]>;
+  reverseSearch: (imageUrl: string) => Promise<string>;
+  countKeywordOccurrences: (resultsPageHtml: string, keywords: string[]) => Map<string, number>;
 }

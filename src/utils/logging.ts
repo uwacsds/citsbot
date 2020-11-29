@@ -50,21 +50,22 @@ const getColour = (level: LogLevel) => {
   }
 };
 
+interface LogInfo {
+  level: LogLevel;
+  message: string;
+  context: LogMessageContext;
+}
+
 class DiscordLogTransport extends Transport {
   constructor(private discord: DiscordAPI, private channelId: string, opts?: Transport.TransportStreamOptions) {
     super(opts);
   }
 
-  async log(info: any, next: () => void) {
-    const level = info.level as LogLevel;
-    const message = info.message as string;
-    const context = info.context as LogMessageContext | undefined;
-
+  async log({ level, message, context }: LogInfo, next: () => void) {
     const formatContextData = (context?: LogMessageContext) => {
       const str = JSON.stringify(context?.data) ?? '';
       return `\`\`\`json\n${str.slice(0, 1000).replace(/`/g, '\\`')}'\`\`\``;
     };
-
     const action: BotEmbeddedMessageAction = {
       type: BotActionType.EmbeddedMessage,
       channelId: this.channelId,
@@ -80,7 +81,6 @@ class DiscordLogTransport extends Transport {
       },
     };
     await this.discord.applyAction(action);
-
     next();
   }
 }

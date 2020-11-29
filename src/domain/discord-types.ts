@@ -1,5 +1,4 @@
-import { EventEmitter } from 'events';
-import { BotAction, BotMessageAction } from './action-types';
+import { BotAction } from './action-types';
 
 export interface DiscordChannel {
   id: string;

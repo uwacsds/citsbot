@@ -1,7 +1,7 @@
 import { EventEmitter } from 'events';
 import { AcademicCalendarService } from '../academic-calendar/types';
 import { LoggingService } from '../utils/logging';
-import { BotAction, BotActionType, BotNothingAction } from './action-types';
+import { BotActionType, BotNothingAction } from './action-types';
 import { animeDetectorModule } from './anime-detector/anime-detector';
 import { announcerModule } from './announcer/announcer';
 import { BotConfig } from './config';

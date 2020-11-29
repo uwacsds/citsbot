@@ -1,4 +1,4 @@
-import { BotAction, BotEmbeddedMessageAction, BotMessageAction } from './action-types';
+import { BotAction, BotEmbeddedMessageAction } from './action-types';
 import { DiscordMessage, DiscordReaction, DiscordUser } from './discord-types';
 
 export enum ModuleType {

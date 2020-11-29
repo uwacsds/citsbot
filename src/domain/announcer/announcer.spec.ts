@@ -1,6 +1,6 @@
 import { AcademicCalendarService } from '../../academic-calendar/types';
 import { mockLogger } from '../../utils/logging';
-import { BotActionType, BotEmbeddedMessageAction } from '../action-types';
+import { BotActionType } from '../action-types';
 import { AnnouncerConfig, announcerModule } from './announcer';
 
 const mockCalendarService = (): AcademicCalendarService => ({
