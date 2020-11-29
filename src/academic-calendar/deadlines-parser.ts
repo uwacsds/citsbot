@@ -8,7 +8,6 @@ const parseDate = (str: string): Date | null => {
   if (!result || !result.groups) return null;
   const { hours12, mins, meridiem, date, month, year } = result.groups;
   const hours24 = meridiem === 'pm' ? Number(hours12) + 12 : Number(hours12);
-  const x = `${year} ${month} ${date} ${hours24}:${mins}`;
   return new Date(`${year}-${month}-${date} ${hours24}:${mins}+08:00`);
 };
 

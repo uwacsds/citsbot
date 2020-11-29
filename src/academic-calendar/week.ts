@@ -4,9 +4,9 @@ const previousMonday = (_date: Date): Date => {
   return date;
 };
 
-const padZeros = (value: Number) => value.toString().padStart(2, '0');
+const padZeros = (value: number) => value.toString().padStart(2, '0');
 
-export const getWeekIndex = (date: Date) => {
+export const getWeekIndex = (date: Date): string => {
   const monday = previousMonday(date);
   return `${monday.getUTCFullYear()}-${padZeros(monday.getUTCMonth() + 1)}-${padZeros(monday.getUTCDate())}`;
 };
