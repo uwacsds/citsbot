@@ -11,6 +11,14 @@
         "resources": "586603478529605642"
       }
     },
+    "CITS1003": {
+      "name": "Introduction to Cybersecurity",
+      "role": "782578454809935893",
+      "channels": {
+        "general": "782579436980535306",
+        "resources": "782579508963704832"
+      }
+    },
     "CITS1401": {
       "name": "Computational Thinking with Python",
       "role": "692565410037628999",
@@ -41,6 +49,14 @@
       "channels": {
         "general": "586599746446032929",
         "resources": "586599770710343692"
+      }
+    },
+    "CITS2003": {
+      "name": "Open Source Tools and Scripting",
+      "role": "782578531523362836",
+      "channels": {
+        "general": "782579723016208404",
+        "resources": "782579758621523968"
       }
     },
     "CITS2200": {
@@ -123,6 +139,22 @@
         "resources": "586600945979490304"
       }
     },
+    "CITS3006": {
+      "name": "Penetration Testing",
+      "role": "782578792853667880",
+      "channels": {
+        "general": "782579970765094943",
+        "resources": "782580174625439744"
+      }
+    },
+    "CITS3007": {
+      "name": "Secure Coding",
+      "role": "782578894082801685",
+      "channels": {
+        "general": "782580098376269854",
+        "resources": "782580143049801749"
+      }
+    },
     "CITS3200": {
       "name": "Professional Computing",
       "role": "703255373003358219",
@@ -169,6 +201,14 @@
       "channels": {
         "general": "728987649532231761",
         "resources": "728987677898047569"
+      }
+    },
+    "STAT3401": {
+      "name": "Advanced Data Analysis",
+      "role": "782579029688451073",
+      "channels": {
+        "general": "782581376871825409",
+        "resources": "782581411026173952"
       }
     },
     "CITS4009": {
