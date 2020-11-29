@@ -30,5 +30,4 @@ export interface BotConfig {
   };
 }
 
-export const loadConfig = async (path: string): Promise<BotConfig> =>
-  JSON.parse(await fs.readFile(path, { encoding: 'utf-8' }));
+export const loadConfig = async (path: string): Promise<BotConfig> => JSON.parse(await fs.readFile(path, { encoding: 'utf-8' }));

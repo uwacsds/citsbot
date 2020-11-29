@@ -4,9 +4,7 @@ import { AcademicDeadlinesParser, Deadline } from './types';
 const zip = <T1, T2>(arr1: T1[], arr2: T2[]): [T1, T2][] => arr1.map((_, idx) => [arr1[idx], arr2[idx]]);
 
 const parseDate = (str: string): Date | null => {
-  const result = /(?<hours12>\d\d?):(?<mins>\d\d)(?<meridiem>am|pm) (?<day>[^ ]+) (?<date>\d\d?)(st|nd|rd|th) (?<month>[^ ,]+), (?<year>\d{4})/i.exec(
-    str
-  );
+  const result = /(?<hours12>\d\d?):(?<mins>\d\d)(?<meridiem>am|pm) (?<day>[^ ]+) (?<date>\d\d?)(st|nd|rd|th) (?<month>[^ ,]+), (?<year>\d{4})/i.exec(str);
   if (!result || !result.groups) return null;
   const { hours12, mins, meridiem, date, month, year } = result.groups;
   const hours24 = meridiem === 'pm' ? Number(hours12) + 12 : Number(hours12);
@@ -32,14 +30,14 @@ const parseDeadlineRow = (unit: string) => (row: cheerio.Element): Deadline | nu
   };
 };
 
-export const academicDeadlinesParser = (now = () => new Date()): AcademicDeadlinesParser => ({
+export const academicDeadlinesParser = (): AcademicDeadlinesParser => ({
   parseUnitLinks: (html: string) => {
     const $ = cheerio.load(html);
     const unitCodes = $('td.thin')
       .toArray()
       .map((element) => element.firstChild.data)
-      .filter((code) => code !== undefined && code !== '\n\n')
-      .map((code) => code?.slice(0, code.length - 3)!);
+      .filter((code): code is string => code !== undefined && code !== '\n\n')
+      .map((code) => code.slice(0, code.length - 3));
     const unitLinks = $('td.thing > a')
       .toArray()
       .map((element) => element.attribs.href);

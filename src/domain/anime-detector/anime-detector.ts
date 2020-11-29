@@ -12,8 +12,7 @@ export interface AnimeDetectorConfig {
   keywordCountThreshold: number;
 }
 
-const parsePlainImageUrls = (message: string): string[] =>
-  Array.from(message.matchAll(patternAnyImageUrl)).map((match) => match[0]);
+const parsePlainImageUrls = (message: string): string[] => Array.from(message.matchAll(patternAnyImageUrl)).map((match) => match[0]);
 
 const parseImgurUrls = (message: string): string[] =>
   Array.from(message.matchAll(patternImgurId))
@@ -22,8 +21,7 @@ const parseImgurUrls = (message: string): string[] =>
 
 const parseContentUrls = (message: string): string[] => [...parsePlainImageUrls(message), ...parseImgurUrls(message)];
 
-const parseAttachmentUrls = (attachments: DiscordMessageAttachment[]): string[] =>
-  attachments.filter(({ width }) => width !== null).map(({ url }) => url);
+const parseAttachmentUrls = (attachments: DiscordMessageAttachment[]): string[] => attachments.filter(({ width }) => width !== null).map(({ url }) => url);
 
 export const animeDetectorModule = (config: AnimeDetectorConfig, logger: LoggingService): AnimeDetectorModule => {
   const { countWords } = reverseImageSearchService(logger);

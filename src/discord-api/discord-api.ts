@@ -1,16 +1,4 @@
-import {
-  Channel,
-  Client,
-  GuildEmoji,
-  Message,
-  MessageAttachment,
-  MessageEmbed,
-  MessageReaction,
-  PartialUser,
-  ReactionEmoji,
-  TextChannel,
-  User,
-} from 'discord.js';
+import { Channel, Client, GuildEmoji, Message, MessageAttachment, MessageEmbed, MessageReaction, PartialUser, ReactionEmoji, TextChannel, User } from 'discord.js';
 import {
   BotAction,
   BotActionType,
@@ -21,15 +9,7 @@ import {
   BotRoleGrantAction,
   BotRoleRevokeAction,
 } from '../domain/action-types';
-import {
-  DiscordChannel,
-  DiscordCommandHandler,
-  DiscordEmoji,
-  DiscordMessage,
-  DiscordMessageAttachment,
-  DiscordReaction,
-  DiscordUser,
-} from '../domain/discord-types';
+import { DiscordChannel, DiscordCommandHandler, DiscordEmoji, DiscordMessage, DiscordMessageAttachment, DiscordReaction, DiscordUser } from '../domain/discord-types';
 import { LoggingService } from '../utils/logging';
 import { DiscordAPI, MessageTuple } from './types';
 
@@ -170,14 +150,7 @@ export const discordApi = (
 ): DiscordAPI => {
   const client = new Client({
     ws: {
-      intents: [
-        'DIRECT_MESSAGES',
-        'DIRECT_MESSAGE_REACTIONS',
-        'GUILDS',
-        'GUILD_MEMBERS',
-        'GUILD_MESSAGES',
-        'GUILD_MESSAGE_REACTIONS',
-      ],
+      intents: ['DIRECT_MESSAGES', 'DIRECT_MESSAGE_REACTIONS', 'GUILDS', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS'],
     },
   });
 

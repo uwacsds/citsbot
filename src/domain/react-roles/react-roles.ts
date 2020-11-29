@@ -29,12 +29,7 @@ const getRole = (config: ReactRolesConfig, units: UnitsConfig, reaction: Discord
   return unit.role;
 };
 
-export const reactRolesModule = (
-  config: ReactRolesConfig,
-  { log }: LoggingService,
-  units: UnitsConfig,
-  guild: string
-): ReactRolesModule => ({
+export const reactRolesModule = (config: ReactRolesConfig, { log }: LoggingService, units: UnitsConfig, guild: string): ReactRolesModule => ({
   type: ModuleType.ReactRoles,
   onReactionAdd: async (reaction: DiscordReaction, user: DiscordUser) => {
     const role = getRole(config, units, reaction);

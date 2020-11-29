@@ -14,9 +14,7 @@ const env = {
   DISCORD_TOKEN: process.env.DISCORD_TOKEN as string,
 };
 
-const getMessagesToCache = (config: BotConfig): MessageTuple[] => [
-  ...config.modules.reactRoles.messages.map((msg): MessageTuple => [msg.channel, msg.id]),
-];
+const getMessagesToCache = (config: BotConfig): MessageTuple[] => [...config.modules.reactRoles.messages.map((msg): MessageTuple => [msg.channel, msg.id])];
 
 const start = async () => {
   const config = await loadConfig(env.CONFIG);

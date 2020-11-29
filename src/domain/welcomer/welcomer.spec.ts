@@ -11,18 +11,11 @@ describe('welcomer module', () => {
     channel: 'channelId',
     newMemberDm: { delay: 1, instantAccountAge: 1, message: '', react: 'reactEmoji', roleThreshold: 1 },
   };
+
   const welcomer = welcomerModule(config, mockLogger());
 
   it('should create an embedded message action to welcome the user', async () => {
-    const user: DiscordUser = {
-      avatar: 'https://avatar.png',
-      bot: false,
-      createdAt: now,
-      discriminator: '1234',
-      id: 'id1',
-      tag: 'testUser#1234',
-      username: 'testUser',
-    };
+    const user: DiscordUser = { avatar: 'https://avatar.png', bot: false, createdAt: now, discriminator: '1234', id: 'id1', tag: 'testUser#1234', username: 'testUser' };
     await expect(welcomer.onMemberJoin(user)).resolves.toEqual({
       type: BotActionType.EmbeddedMessage,
       channelId: config.channel,
@@ -45,6 +38,7 @@ describe('welcomer module', () => {
       createdAt: now,
       deletable: true,
       id: 'msg1',
+      attachments: [],
     };
     await expect(welcomer.onMessage(message)).resolves.toEqual({
       type: BotActionType.AddReaction,

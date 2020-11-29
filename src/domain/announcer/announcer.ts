@@ -1,10 +1,5 @@
 import { scheduleJob } from 'node-schedule';
-import {
-  AcademicCalendar,
-  AcademicCalendarService,
-  AcademicWeek,
-  TeachingAcademicWeek,
-} from '../../academic-calendar/types';
+import { AcademicCalendar, AcademicCalendarService, AcademicWeek, TeachingAcademicWeek } from '../../academic-calendar/types';
 import { getWeekIndex } from '../../academic-calendar/week';
 import { LoggingService } from '../../utils/logging';
 import { BotActionType, BotEmbeddedMessageAction } from '../action-types';
@@ -27,8 +22,7 @@ const currentSeason = (date: Date): Season => {
   return month >= 6 && month < 9 ? 'Winter' : 'Summer';
 };
 
-const getWeek = (calendar: AcademicCalendar, date: Date): AcademicWeek =>
-  calendar.weeks[getWeekIndex(date)] ?? { type: 'unknown', deadlines: [] };
+const getWeek = (calendar: AcademicCalendar, date: Date): AcademicWeek => calendar.weeks[getWeekIndex(date)] ?? { type: 'unknown', deadlines: [] };
 
 const weeksBetween = (start: Date, end: Date): number => {
   const diff = (end.getTime() - start.getTime()) / 1000;
@@ -36,12 +30,8 @@ const weeksBetween = (start: Date, end: Date): number => {
 };
 
 const weeksUntilNextSemester = (calendar: AcademicCalendar, now: Date): number => {
-  const sem1Week1 = Object.values(calendar.weeks).find(
-    (week) => week.type === 'teaching' && week.semester === 1 && week.week === 1
-  ) as TeachingAcademicWeek;
-  const sem2Week1 = Object.values(calendar.weeks).find(
-    (week) => week.type === 'teaching' && week.semester === 2 && week.week === 1
-  ) as TeachingAcademicWeek;
+  const sem1Week1 = Object.values(calendar.weeks).find((week) => week.type === 'teaching' && week.semester === 1 && week.week === 1) as TeachingAcademicWeek;
+  const sem2Week1 = Object.values(calendar.weeks).find((week) => week.type === 'teaching' && week.semester === 2 && week.week === 1) as TeachingAcademicWeek;
   if (sem1Week1?.type !== 'teaching') throw Error('Academic calendar missing first week of semester 1');
   if (sem2Week1?.type !== 'teaching') throw Error('Academic calendar missing first week of semester 2');
   if (now < sem1Week1.date) return weeksBetween(now, sem1Week1.date);
@@ -51,16 +41,8 @@ const weeksUntilNextSemester = (calendar: AcademicCalendar, now: Date): number =
   return weeksBetween(now, yearEnd) + weeksBetween(yearStart, sem1Week1.date);
 };
 
-export const announcerModule = (
-  config: AnnouncerConfig,
-  { log }: LoggingService,
-  calendarService: AcademicCalendarService
-): AnnouncerModule => {
-  const buildEmbed = (
-    title: string,
-    description?: string,
-    events: { name: string; value: string; inline?: boolean }[] = []
-  ): BotEmbeddedMessageAction => ({
+export const announcerModule = (config: AnnouncerConfig, { log }: LoggingService, calendarService: AcademicCalendarService): AnnouncerModule => {
+  const buildEmbed = (title: string, description?: string, events: { name: string; value: string; inline?: boolean }[] = []): BotEmbeddedMessageAction => ({
     type: BotActionType.EmbeddedMessage,
     channelId: config.channel,
     embed: {

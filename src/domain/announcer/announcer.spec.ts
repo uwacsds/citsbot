@@ -177,8 +177,7 @@ describe('announcer-module', () => {
       channelId: config.channel,
       embed: {
         title: 'Winter Vacation',
-        description:
-          '📅 5 weeks left until next semester\n\n📝 Enrolment details: https://www.uwa.edu.au/students/my-course/enrolment',
+        description: '📅 5 weeks left until next semester\n\n📝 Enrolment details: https://www.uwa.edu.au/students/my-course/enrolment',
         fields: [],
         colour: config.colour,
         image: config.image,
@@ -196,8 +195,7 @@ describe('announcer-module', () => {
       channelId: config.channel,
       embed: {
         title: 'Summer Vacation',
-        description:
-          '📅 9 weeks left until next semester\n\n📝 Enrolment details: https://www.uwa.edu.au/students/my-course/enrolment',
+        description: '📅 9 weeks left until next semester\n\n📝 Enrolment details: https://www.uwa.edu.au/students/my-course/enrolment',
         fields: [],
         colour: config.colour,
         image: config.image,

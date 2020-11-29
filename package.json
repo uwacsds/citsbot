@@ -9,7 +9,8 @@
   "scripts": {
     "watch": "ts-node-dev --unhandled-rejections=strict ./src/index.ts",
     "build": "tsc --outDir ./dist/",
-    "test": "yarn jest"
+    "test": "yarn jest",
+    "lint": "yarn prettier \"src/**/*.ts\" -w"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
@@ -30,6 +31,7 @@
     "@typescript-eslint/eslint-plugin": "^4.2.0",
     "@typescript-eslint/parser": "^4.2.0",
     "eslint": "^7.9.0",
+    "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-prettier": "^3.1.4",
     "jest": "^26.4.2",
     "nock": "^13.0.5",
