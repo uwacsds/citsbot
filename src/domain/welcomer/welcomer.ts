@@ -1,5 +1,5 @@
 import { LoggingService } from '../../utils/logging';
-import { BotAction, BotActionType, BotEmbeddedMessageAction } from '../action-types';
+import { BotActionType } from '../action-types';
 import { DiscordMessage, DiscordUser } from '../discord-types';
 import { ModuleType, WelcomerModule } from '../module-types';
 
