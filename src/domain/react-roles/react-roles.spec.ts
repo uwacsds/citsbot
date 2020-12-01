@@ -1,7 +1,7 @@
+import { DiscordUser, DiscordReaction } from '../../discord-service/types';
 import { mockLogger } from '../../utils/logging';
 import { BotActionType } from '../action-types';
 import { UnitsConfig } from '../config';
-import { DiscordReaction, DiscordUser } from '../discord-types';
 import { ReactRolesConfig, reactRolesModule } from './react-roles';
 
 describe('react-roles module', () => {
@@ -16,7 +16,7 @@ describe('react-roles module', () => {
   const units: UnitsConfig = {
     unit1: { channels: { general: '', resources: '' }, name: 'unitOne', role: 'unit1Role' },
   };
-  const reactRoles = reactRolesModule(config, mockLogger(), units, 'guild1');
+  const reactRoles = reactRolesModule(config, mockLogger(), units);
   const user: DiscordUser = {
     avatar: 'https://avatar.png',
     bot: false,
@@ -36,7 +36,6 @@ describe('react-roles module', () => {
       type: BotActionType.RoleGrant,
       user,
       role: 'role1',
-      guild: 'guild1',
     }]);
   });
 
@@ -49,7 +48,6 @@ describe('react-roles module', () => {
       type: BotActionType.RoleGrant,
       user,
       role: 'unit1Role',
-      guild: 'guild1',
     }]);
   });
 
@@ -86,7 +84,6 @@ describe('react-roles module', () => {
       type: BotActionType.RoleRevoke,
       user,
       role: 'unit1Role',
-      guild: 'guild1',
     }]);
   });
 

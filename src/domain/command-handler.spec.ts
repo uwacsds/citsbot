@@ -3,9 +3,9 @@ import { academicCalendarService } from '../academic-calendar/academic-calendar-
 import { BotActionType } from './action-types';
 import { discordCommandHandler } from './command-handler';
 import { BotConfig } from './config';
-import { DiscordMessage, DiscordUser } from './discord-types';
 import { academicDeadlinesParser } from '../academic-calendar/deadlines-parser';
 import { mockLogger } from '../utils/logging';
+import { DiscordUser, DiscordMessage } from '../discord-service/types';
 
 describe('command-handler', () => {
   const now = new Date('2020-01-01T00:00Z');
@@ -18,7 +18,7 @@ describe('command-handler', () => {
       animeDetector: { keywordCountThreshold: 5, keywords: ['anime', 'manga'] },
       announcer: { channel: 'ch_announcer', crontab: '* * * * * *', colour: 'red', image: 'banner.png', disclaimer: 'test disclaimer' },
       cowsay: { cowArt: 'art', lineMaxLen: 40 },
-      welcomer: { channel: 'ch_welcome', newMemberDm: { delay: 10, instantAccountAge: 10, message: 'msg', react: 'emoji', roleThreshold: 1 } },
+      welcomer: { channel: 'ch_welcome', newMemberDm: { delay: 10, instantAccountAge: 10, message: 'msg', roleThreshold: 1 } },
       reactRoles: {
         messages: [
           { id: 'msg1', channel: 'channel1', reactions: [{ role: 'role1', emoji: 'emoji1' }] },
@@ -46,21 +46,24 @@ describe('command-handler', () => {
 
   it('should react to a welcome message', async () => {
     const actions = await Promise.all(onMessage({ ...message, content: 'welcome foo!', channel: { ...message.channel, id: config.modules.welcomer.channel } }));
-    expect(actions.flat()).toEqual([{ type: BotActionType.AddReaction, messageId: 'msg1', channelId: config.modules.welcomer.channel, emoji: config.modules.welcomer.newMemberDm.react }]);
+    expect(actions.flat()).toEqual([{ type: BotActionType.AddReaction, messageId: 'msg1', channelId: config.modules.welcomer.channel, emoji: '👋' }]);
   });
 
   it('should send a welcome message when a member joins', async () => {
     const actions = await Promise.all(onMemberJoin(user));
-    expect(actions.flat()).toMatchObject([{ type: BotActionType.EmbeddedMessage, channelId: config.modules.welcomer.channel }]);
+    expect(actions.flat()).toMatchObject([
+      { type: BotActionType.EmbeddedMessage, channelId: config.modules.welcomer.channel },
+      { type: BotActionType.DirectMessage, userId: user.id },
+    ]);
   });
 
   it('should grant a role when a user reacts', async () => {
     const actions = await Promise.all(onReactionAdd({ count: 1, emoji: { name: 'emoji1' }, message }, user));
-    expect(actions.flat()).toMatchObject([{ type: BotActionType.RoleGrant, guild: 'guild_1', user, role: 'role1' }]);
+    expect(actions.flat()).toMatchObject([{ type: BotActionType.RoleGrant, user, role: 'role1' }]);
   });
 
   it('should revoke a role when a user reacts', async () => {
     const actions = await Promise.all(onReactionRemove({ count: 1, emoji: { name: 'emoji1' }, message }, user));
-    expect(actions.flat()).toMatchObject([{ type: BotActionType.RoleRevoke, guild: 'guild_1', user, role: 'role1' }]);
+    expect(actions.flat()).toMatchObject([{ type: BotActionType.RoleRevoke, user, role: 'role1' }]);
   });
 });

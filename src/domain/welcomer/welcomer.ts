@@ -1,6 +1,7 @@
+import { DiscordUser, DiscordMessage } from '../../discord-service/types';
+import { daysBetween } from '../../utils/date';
 import { LoggingService } from '../../utils/logging';
 import { BotActionType } from '../action-types';
-import { DiscordMessage, DiscordUser } from '../discord-types';
 import { ModuleType, WelcomerModule } from '../module-types';
 
 export interface WelcomerConfig {
@@ -10,20 +11,10 @@ export interface WelcomerConfig {
     roleThreshold: number;
     instantAccountAge: number;
     message: string;
-    react: string;
   };
 }
 
-/*
-Welcome DM architecture:
-Return array of actions
-Actions can now have delays and conditions
-Once an actions delay has elapsed its condition function is checked and it may be applied
-The condition function is given a discord client object?
-Maybe a list of preset tests instead of the raw object?
-*/
-
-export const welcomerModule = (config: WelcomerConfig, { log }: LoggingService): WelcomerModule => ({
+export const welcomerModule = (config: WelcomerConfig, { log }: LoggingService, now = () => new Date()): WelcomerModule => ({
   type: ModuleType.Welcomer,
   onMemberJoin: async (user: DiscordUser) => {
     log('info', 'Sending a welcome message', { title: 'Welcomer', image: user.avatar, data: { user } });
@@ -42,9 +33,13 @@ export const welcomerModule = (config: WelcomerConfig, { log }: LoggingService):
       },
       {
         type: BotActionType.DirectMessage,
-        guildId: '',
-        userId: '',
-        messageContent: '',
+        userId: user.id,
+        messageContent: config.newMemberDm.message,
+        delay: daysBetween(user.createdAt, now()) < config.newMemberDm.instantAccountAge ? 0 : config.newMemberDm.delay,
+        condition: async ({ fetchMember }) => {
+          const member = await fetchMember(user.id);
+          return member.roles.cache.size < config.newMemberDm.roleThreshold;
+        },
       },
     ];
   },
@@ -55,7 +50,7 @@ export const welcomerModule = (config: WelcomerConfig, { log }: LoggingService):
       type: BotActionType.AddReaction,
       channelId: message.channel.id,
       messageId: message.id,
-      emoji: config.newMemberDm.react,
+      emoji: '👋',
     }];
   },
 });

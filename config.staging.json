@@ -260,11 +260,10 @@
     "welcome": {
       "channel": "699317455595634688",
       "newMemberDm": {
-        "delay": 300,
+        "delay": 10000,
         "roleThreshold": 1,
         "instantAccountAge": 7,
-        "message": "Hey {name}, welcome to the UWA Computer and Data Science discord server! We noticed that you haven't selected any roles yet. You need to have at least one role to be able to view any channels on the server.\n\nHave a read of the rules in the #overview channel and click the emoji reactions for the unit channels you want to see.\n\nIf you don't know what reactions are, they look like the [👋 1] emoji button below this message. You can click it to react. If you do this to the messages in the server's #overview channel I will grant you a role to view the channels for that unit. https://i.imgur.com/W2CHMEM.gif",
-        "react": "👋"
+        "message": "Hey {name}, welcome to the UWA Computer and Data Science discord server! I noticed that you haven't selected any roles yet. To gain access to unit channels you need to react to the messages in #overview.\n\nHave a read of the rules and click the emoji reactions for the unit channels you want to see. https://i.imgur.com/W2CHMEM.gif"
       }
     },
     "announcer": {

@@ -1,6 +1,6 @@
+import { DiscordUser, DiscordMessage } from '../../discord-service/types';
 import { mockLogger } from '../../utils/logging';
 import { BotActionType } from '../action-types';
-import { DiscordMessage, DiscordUser } from '../discord-types';
 import { WelcomerConfig, welcomerModule } from './welcomer';
 
 describe('welcomer module', () => {
@@ -9,14 +9,20 @@ describe('welcomer module', () => {
 
   const config: WelcomerConfig = {
     channel: 'channelId',
-    newMemberDm: { delay: 1, instantAccountAge: 1, message: '', react: 'reactEmoji', roleThreshold: 1 },
+    newMemberDm: { delay: 3000, instantAccountAge: 7, message: 'hello world', roleThreshold: 1 },
   };
 
-  const welcomer = welcomerModule(config, mockLogger());
+  const welcomer = welcomerModule(config, mockLogger(), () => now);
 
-  it('should create an embedded message action to welcome the user', async () => {
-    const user: DiscordUser = { avatar: 'https://avatar.png', bot: false, createdAt: now, discriminator: '1234', id: 'id1', tag: 'testUser#1234', username: 'testUser' };
-    await expect(welcomer.onMemberJoin(user)).resolves.toEqual([{
+  it('given an old user > should create an embedded message action to welcome the user and a delayed direct message action', async () => {
+    const previousYear = new Date(now);
+    previousYear.setUTCFullYear(now.getUTCFullYear() - 1);
+
+    const user: DiscordUser = { avatar: 'https://avatar.png', bot: false, createdAt: previousYear, discriminator: '1234', id: 'id1', tag: 'testUser#1234', username: 'testUser' };
+    
+    const actions = await welcomer.onMemberJoin(user);
+    expect(actions).toHaveLength(2);
+    expect(actions[0]).toEqual({
       type: BotActionType.EmbeddedMessage,
       channelId: config.channel,
       embed: {
@@ -27,7 +33,24 @@ describe('welcomer module', () => {
         fields: [{ name: 'Hot tip', value: 'Check out the rules at #overview' }],
         footer: { text: `Joined • ${now.toDateString()}`, iconUrl: user.avatar },
       },
-    }]);
+    });
+    expect(actions[1]).toMatchObject({
+      type: BotActionType.DirectMessage,
+      userId: user.id,
+      messageContent: config.newMemberDm.message.replace('{name}', user.username ?? ''),
+      delay: config.newMemberDm.delay,
+    });
+  });
+
+  it('given a new user > should create an instant direct message action', async () => {
+    const user: DiscordUser = { avatar: 'https://avatar.png', bot: false, createdAt: now, discriminator: '1234', id: 'id1', tag: 'testUser#1234', username: 'testUser' };
+    const actions = await welcomer.onMemberJoin(user);
+    expect(actions).toHaveLength(2);
+    expect(actions[1]).toMatchObject({
+      type: BotActionType.DirectMessage,
+      userId: user.id,
+      delay: 0,
+    });
   });
 
   it('should create a wave at event for a message', async () => {
@@ -44,7 +67,7 @@ describe('welcomer module', () => {
       type: BotActionType.AddReaction,
       channelId: message.channel.id,
       messageId: message.id,
-      emoji: config.newMemberDm.react,
+      emoji: '👋',
     }]);
   });
 });

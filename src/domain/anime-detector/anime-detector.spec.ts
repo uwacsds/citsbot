@@ -1,7 +1,7 @@
 import nock from 'nock';
+import { DiscordUser, DiscordMessageAttachment, DiscordMessage } from '../../discord-service/types';
 import { mockLogger } from '../../utils/logging';
 import { BotActionType } from '../action-types';
-import { DiscordMessage, DiscordMessageAttachment, DiscordUser } from '../discord-types';
 import { AnimeDetectorConfig, animeDetectorModule } from './anime-detector';
 
 describe('anime-detector-module', () => {

@@ -1,5 +1,5 @@
 import { BotAction, BotEmbeddedMessageAction } from './action-types';
-import { DiscordMessage, DiscordReaction, DiscordUser } from './discord-types';
+import { DiscordMessage, DiscordReaction, DiscordUser } from '../discord-service/types';
 
 export enum ModuleType {
   Cowsay,

@@ -1,7 +1,7 @@
+import { DiscordReaction, DiscordUser } from '../../discord-service/types';
 import { LoggingService } from '../../utils/logging';
 import { BotActionType } from '../action-types';
 import { UnitsConfig } from '../config';
-import { DiscordUser, DiscordReaction } from '../discord-types';
 import { ModuleType, ReactRolesModule } from '../module-types';
 
 export interface ReactRolesConfig {
@@ -29,18 +29,18 @@ const getRole = (config: ReactRolesConfig, units: UnitsConfig, reaction: Discord
   return unit.role;
 };
 
-export const reactRolesModule = (config: ReactRolesConfig, { log }: LoggingService, units: UnitsConfig, guild: string): ReactRolesModule => ({
+export const reactRolesModule = (config: ReactRolesConfig, { log }: LoggingService, units: UnitsConfig): ReactRolesModule => ({
   type: ModuleType.ReactRoles,
   onReactionAdd: async (reaction: DiscordReaction, user: DiscordUser) => {
     const role = getRole(config, units, reaction);
     if (!role) return [];
     log('info', 'Granting role', { title: 'React Roles', data: { role, emoji: reaction.emoji, user } });
-    return [{ type: BotActionType.RoleGrant, guild, user, role }];
+    return [{ type: BotActionType.RoleGrant, user, role }];
   },
   onReactionRemove: async (reaction: DiscordReaction, user: DiscordUser) => {
     const role = getRole(config, units, reaction);
     if (!role) return [];
     log('info', 'Revoking role', { title: 'React Roles', data: { role, emoji: reaction.emoji, user } });
-    return [{ type: BotActionType.RoleRevoke, guild, user, role }];
+    return [{ type: BotActionType.RoleRevoke, user, role }];
   },
 });

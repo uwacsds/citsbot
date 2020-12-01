@@ -1,6 +1,6 @@
+import { DiscordMessage, DiscordMessageAttachment } from '../../discord-service/types';
 import { LoggingService } from '../../utils/logging';
 import { BotActionType } from '../action-types';
-import { DiscordMessage, DiscordMessageAttachment } from '../discord-types';
 import { AnimeDetectorModule, ModuleType } from '../module-types';
 import { animeDetectorService } from './service';
 

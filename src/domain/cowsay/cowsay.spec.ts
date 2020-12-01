@@ -1,7 +1,7 @@
+import { DiscordMessage } from '../../discord-service/types';
 import { mockLogger } from '../../utils/logging';
 import { BotActionType } from '../action-types';
 import { BotConfig } from '../config';
-import { DiscordMessage } from '../discord-types';
 import { cowsayModule } from './cowsay';
 
 describe('cowsay-module', () => {
@@ -37,7 +37,7 @@ describe('cowsay-module', () => {
 
   it('should format a short one line message', async () => {
     const actions = await cowsay.onMessage({ ...message, content: '!cowsay moo' });
-    expect(actions.length).toBe(1);
+    expect(actions).toHaveLength(1);
     expect(actions[0]).toMatchObject({
       channelId: message.channel.id,
       type: BotActionType.Message,
