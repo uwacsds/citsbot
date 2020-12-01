@@ -82,7 +82,7 @@ export const announcerModule = (config: AnnouncerConfig, { log }: LoggingService
     announce,
     registerWeeklyAnnouncement: listener => {
       scheduleJob('announcer', config.crontab, async () => {
-        listener(await announce());
+        listener([await announce()]);
       });
     },
   };

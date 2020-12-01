@@ -32,12 +32,12 @@ describe('react-roles module', () => {
       emoji: { name: 'emoji1' },
       message: { id: 'msg1', channel: { id: 'channel1' } },
     } as DiscordReaction;
-    await expect(reactRoles.onReactionAdd(reaction, user)).resolves.toEqual({
+    await expect(reactRoles.onReactionAdd(reaction, user)).resolves.toEqual([{
       type: BotActionType.RoleGrant,
       user,
       role: 'role1',
       guild: 'guild1',
-    });
+    }]);
   });
 
   it('should grant a role when given a valid unitConfig based react', async () => {
@@ -45,12 +45,12 @@ describe('react-roles module', () => {
       emoji: { name: 'emoji3' },
       message: { id: 'msg3', channel: { id: 'channel1' } },
     } as DiscordReaction;
-    await expect(reactRoles.onReactionAdd(reaction, user)).resolves.toEqual({
+    await expect(reactRoles.onReactionAdd(reaction, user)).resolves.toEqual([{
       type: BotActionType.RoleGrant,
       user,
       role: 'unit1Role',
       guild: 'guild1',
-    });
+    }]);
   });
 
   it('should return nothing action when unable to find a role due to invalid emoji', async () => {
@@ -58,7 +58,7 @@ describe('react-roles module', () => {
       emoji: { name: 'emojiBad' },
       message: { channel: { id: 'channel1' }, id: 'msg3' },
     } as DiscordReaction;
-    await expect(reactRoles.onReactionAdd(reaction, user)).resolves.toEqual({ type: BotActionType.Nothing });
+    await expect(reactRoles.onReactionAdd(reaction, user)).resolves.toEqual([]);
   });
 
   it('should return nothing action when unable to find a role due to invalid channel', async () => {
@@ -66,7 +66,7 @@ describe('react-roles module', () => {
       emoji: { name: 'emoji1' },
       message: { channel: { id: 'channelBad' }, id: 'msg3' },
     } as DiscordReaction;
-    await expect(reactRoles.onReactionAdd(reaction, user)).resolves.toEqual({ type: BotActionType.Nothing });
+    await expect(reactRoles.onReactionAdd(reaction, user)).resolves.toEqual([]);
   });
 
   it('should return nothing action when unable to find a role due to invalid message', async () => {
@@ -74,7 +74,7 @@ describe('react-roles module', () => {
       emoji: { name: 'emoji1' },
       message: { channel: { id: 'channel3' }, id: 'msgBad' },
     } as DiscordReaction;
-    await expect(reactRoles.onReactionAdd(reaction, user)).resolves.toEqual({ type: BotActionType.Nothing });
+    await expect(reactRoles.onReactionAdd(reaction, user)).resolves.toEqual([]);
   });
 
   it('should revoke a role if the react is valid', async () => {
@@ -82,12 +82,12 @@ describe('react-roles module', () => {
       emoji: { name: 'emoji3' },
       message: { channel: { id: 'channel1' }, id: 'msg3' },
     } as DiscordReaction;
-    await expect(reactRoles.onReactionRemove(reaction, user)).resolves.toEqual({
+    await expect(reactRoles.onReactionRemove(reaction, user)).resolves.toEqual([{
       type: BotActionType.RoleRevoke,
       user,
       role: 'unit1Role',
       guild: 'guild1',
-    });
+    }]);
   });
 
   it('should fail to revoke a role that does not exist', async () => {
@@ -95,6 +95,6 @@ describe('react-roles module', () => {
       emoji: { name: 'emoji1' },
       message: { channel: { id: 'channel3' }, id: 'msgBad' },
     } as DiscordReaction;
-    await expect(reactRoles.onReactionRemove(reaction, user)).resolves.toEqual({ type: BotActionType.Nothing });
+    await expect(reactRoles.onReactionRemove(reaction, user)).resolves.toEqual([]);
   });
 });

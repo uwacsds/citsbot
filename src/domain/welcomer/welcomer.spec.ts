@@ -16,7 +16,7 @@ describe('welcomer module', () => {
 
   it('should create an embedded message action to welcome the user', async () => {
     const user: DiscordUser = { avatar: 'https://avatar.png', bot: false, createdAt: now, discriminator: '1234', id: 'id1', tag: 'testUser#1234', username: 'testUser' };
-    await expect(welcomer.onMemberJoin(user)).resolves.toEqual({
+    await expect(welcomer.onMemberJoin(user)).resolves.toEqual([{
       type: BotActionType.EmbeddedMessage,
       channelId: config.channel,
       embed: {
@@ -27,7 +27,7 @@ describe('welcomer module', () => {
         fields: [{ name: 'Hot tip', value: 'Check out the rules at #overview' }],
         footer: { text: `Joined • ${now.toDateString()}`, iconUrl: user.avatar },
       },
-    });
+    }]);
   });
 
   it('should create a wave at event for a message', async () => {
@@ -40,11 +40,11 @@ describe('welcomer module', () => {
       id: 'msg1',
       attachments: [],
     };
-    await expect(welcomer.onMessage(message)).resolves.toEqual({
+    await expect(welcomer.onMessage(message)).resolves.toEqual([{
       type: BotActionType.AddReaction,
       channelId: message.channel.id,
       messageId: message.id,
       emoji: config.newMemberDm.react,
-    });
+    }]);
   });
 });

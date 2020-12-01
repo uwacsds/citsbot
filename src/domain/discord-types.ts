@@ -46,8 +46,8 @@ export interface DiscordReaction {
 
 export interface DiscordCommandHandler {
   registerEventListener: (listener: (action: BotAction) => void) => void;
-  onMessage: (message: DiscordMessage) => Promise<BotAction>[];
-  onMemberJoin: (user: DiscordUser) => Promise<BotAction>[];
-  onReactionAdd: (reaction: DiscordReaction, user: DiscordUser) => Promise<BotAction>[];
-  onReactionRemove: (reaction: DiscordReaction, user: DiscordUser) => Promise<BotAction>[];
+  onMessage: (message: DiscordMessage) => Promise<BotAction[]>[];
+  onMemberJoin: (user: DiscordUser) => Promise<BotAction[]>[];
+  onReactionAdd: (reaction: DiscordReaction, user: DiscordUser) => Promise<BotAction[]>[];
+  onReactionRemove: (reaction: DiscordReaction, user: DiscordUser) => Promise<BotAction[]>[];
 }

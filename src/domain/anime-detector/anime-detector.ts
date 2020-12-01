@@ -23,15 +23,15 @@ const parseImgurUrls = (message: string): string[] =>
 
 export const animeDetectorModule = (config: AnimeDetectorConfig, logger: LoggingService): AnimeDetectorModule => ({
   type: ModuleType.AnimeDetector,
-  onMessage: async (message: DiscordMessage): Promise<BotAction> => {
+  onMessage: async (message: DiscordMessage) => {
     const detectAnime = animeDetectorService(config, logger);
     for (const url of parseAllUrls(message)) {
       const [verdict, counts] = await detectAnime(url);
       if (verdict) {
         logger.log('notice', 'Message removed', { title: 'Anime Purged', image: url, data: { user: message.author.tag, keywords: Object.fromEntries(counts) } });
-        return { type: BotActionType.RemoveMessage, channelId: message.channel.id, messageId: message.id };
+        return [{ type: BotActionType.RemoveMessage, channelId: message.channel.id, messageId: message.id }];
       }
     }
-    return { type: BotActionType.Nothing };
+    return [];
   },
 });

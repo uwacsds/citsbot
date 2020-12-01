@@ -36,27 +36,23 @@ describe('cowsay-module', () => {
   };
 
   it('should format a short one line message', async () => {
-    await expect(cowsay.onMessage({ ...message, content: '!cowsay moo' })).resolves.toMatchObject({
+    const actions = await cowsay.onMessage({ ...message, content: '!cowsay moo' });
+    expect(actions.length).toBe(1);
+    expect(actions[0]).toMatchObject({
       channelId: message.channel.id,
       type: BotActionType.Message,
     });
   });
 
   it('should not do anything on a standard message with no prefix', async () => {
-    await expect(cowsay.onMessage({ ...message, content: 'hello world' })).resolves.toEqual({
-      type: BotActionType.Nothing,
-    });
+    await expect(cowsay.onMessage({ ...message, content: 'hello world' })).resolves.toEqual([]);
   });
 
   it('should not do anything with a different prefix', async () => {
-    await expect(cowsay.onMessage({ ...message, content: '!announce now' })).resolves.toEqual({
-      type: BotActionType.Nothing,
-    });
+    await expect(cowsay.onMessage({ ...message, content: '!announce now' })).resolves.toEqual([]);
   });
 
   it('should not do anything when no space after prefix', async () => {
-    await expect(cowsay.onMessage({ ...message, content: '!cowsayno baa' })).resolves.toEqual({
-      type: BotActionType.Nothing,
-    });
+    await expect(cowsay.onMessage({ ...message, content: '!cowsayno baa' })).resolves.toEqual([]);
   });
 });

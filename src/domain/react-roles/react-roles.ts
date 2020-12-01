@@ -33,14 +33,14 @@ export const reactRolesModule = (config: ReactRolesConfig, { log }: LoggingServi
   type: ModuleType.ReactRoles,
   onReactionAdd: async (reaction: DiscordReaction, user: DiscordUser) => {
     const role = getRole(config, units, reaction);
-    if (!role) return { type: BotActionType.Nothing };
+    if (!role) return [];
     log('info', 'Granting role', { title: 'React Roles', data: { role, emoji: reaction.emoji, user } });
-    return { type: BotActionType.RoleGrant, guild, user, role };
+    return [{ type: BotActionType.RoleGrant, guild, user, role }];
   },
   onReactionRemove: async (reaction: DiscordReaction, user: DiscordUser) => {
     const role = getRole(config, units, reaction);
-    if (!role) return { type: BotActionType.Nothing };
+    if (!role) return [];
     log('info', 'Revoking role', { title: 'React Roles', data: { role, emoji: reaction.emoji, user } });
-    return { type: BotActionType.RoleRevoke, guild, user, role };
+    return [{ type: BotActionType.RoleRevoke, guild, user, role }];
   },
 });

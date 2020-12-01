@@ -16,10 +16,6 @@ interface BotBaseAction {
   delay?: number;
 }
 
-export interface BotNothingAction extends BotBaseAction {
-  type: BotActionType.Nothing;
-}
-
 export interface BotMessageAction extends BotBaseAction {
   type: BotActionType.Message;
   channelId: string;
@@ -88,7 +84,6 @@ export interface BotRemoveMessageAction extends BotBaseAction {
 }
 
 export type BotAction =
-  | BotNothingAction
   | BotMessageAction
   | BotRoleGrantAction
   | BotRoleRevokeAction

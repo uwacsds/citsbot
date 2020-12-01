@@ -33,35 +33,34 @@ describe('command-handler', () => {
 
   const calendar = academicCalendarService(mockLogger(), academicWeeksParser(), academicDeadlinesParser());
   const { onMessage, onMemberJoin, onReactionAdd, onReactionRemove } = discordCommandHandler(config, mockLogger(), calendar);
-  const filterNoActions = (actions: BotAction[]) => actions.filter(({ type }) => type !== BotActionType.Nothing);
 
   it('should do nothing when a non-command message is send', async () => {
     const actions = await Promise.all(onMessage({ ...message, content: 'hello world' }));
-    expect(filterNoActions(actions)).toEqual([]);
+    expect(actions.flat()).toEqual([]);
   });
 
   it('should run a cowsay command', async () => {
     const actions = await Promise.all(onMessage({ ...message, content: '!cowsay moo' }));
-    expect(filterNoActions(actions)).toMatchObject([{ type: BotActionType.Message, channelId: message.channel.id }]);
+    expect(actions.flat()).toMatchObject([{ type: BotActionType.Message, channelId: message.channel.id }]);
   });
 
   it('should react to a welcome message', async () => {
     const actions = await Promise.all(onMessage({ ...message, content: 'welcome foo!', channel: { ...message.channel, id: config.modules.welcomer.channel } }));
-    expect(filterNoActions(actions)).toEqual([{ type: BotActionType.AddReaction, messageId: 'msg1', channelId: config.modules.welcomer.channel, emoji: config.modules.welcomer.newMemberDm.react }]);
+    expect(actions.flat()).toEqual([{ type: BotActionType.AddReaction, messageId: 'msg1', channelId: config.modules.welcomer.channel, emoji: config.modules.welcomer.newMemberDm.react }]);
   });
 
   it('should send a welcome message when a member joins', async () => {
     const actions = await Promise.all(onMemberJoin(user));
-    expect(filterNoActions(actions)).toMatchObject([{ type: BotActionType.EmbeddedMessage, channelId: config.modules.welcomer.channel }]);
+    expect(actions.flat()).toMatchObject([{ type: BotActionType.EmbeddedMessage, channelId: config.modules.welcomer.channel }]);
   });
 
   it('should grant a role when a user reacts', async () => {
     const actions = await Promise.all(onReactionAdd({ count: 1, emoji: { name: 'emoji1' }, message }, user));
-    expect(filterNoActions(actions)).toMatchObject([{ type: BotActionType.RoleGrant, guild: 'guild_1', user, role: 'role1' }]);
+    expect(actions.flat()).toMatchObject([{ type: BotActionType.RoleGrant, guild: 'guild_1', user, role: 'role1' }]);
   });
 
   it('should revoke a role when a user reacts', async () => {
     const actions = await Promise.all(onReactionRemove({ count: 1, emoji: { name: 'emoji1' }, message }, user));
-    expect(filterNoActions(actions)).toMatchObject([{ type: BotActionType.RoleRevoke, guild: 'guild_1', user, role: 'role1' }]);
+    expect(actions.flat()).toMatchObject([{ type: BotActionType.RoleRevoke, guild: 'guild_1', user, role: 'role1' }]);
   });
 });

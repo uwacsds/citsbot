@@ -43,40 +43,39 @@ describe('anime-detector-module', () => {
   const ATTACHMENT: DiscordMessageAttachment = { id: 'att1', width: 1, height: 1, size: 8, url: '' };
   const MESSAGE: DiscordMessage = { id: 'msg1', content: '', author: USER, attachments: [], channel: { id: 'ch1', type: 'text', createdAt: now }, deletable: false, createdAt: now };
   const ACTION_REMOVE = { type: BotActionType.RemoveMessage, channelId: MESSAGE.channel.id, messageId: MESSAGE.id };
-  const ACTION_NOTHING = { type: BotActionType.Nothing };
 
   const config: AnimeDetectorConfig = { keywordCountThreshold: 1, keywords: ['anime'] };
   const { onMessage } = animeDetectorModule(config, mockLogger());
 
   it('given message with no attachments and no image links > on message > should do nothing', async () => {
-    await expect(onMessage(MESSAGE)).resolves.toEqual(ACTION_NOTHING);
+    await expect(onMessage(MESSAGE)).resolves.toEqual([]);
   });
 
   it('given imgur links in message content > on message > should come to correct verdicts', async () => {
-    await expect(onMessage({ ...MESSAGE, content: 'https://imgur.com/anime' })).resolves.toEqual(ACTION_REMOVE);
-    await expect(onMessage({ ...MESSAGE, content: 'https://i.imgur.com/anime.png' })).resolves.toEqual(ACTION_REMOVE);
-    await expect(onMessage({ ...MESSAGE, content: 'https://imgur.com/notAnime' })).resolves.toEqual(ACTION_NOTHING);
-    await expect(onMessage({ ...MESSAGE, content: 'https://i.imgur.com/notAnime.png' })).resolves.toEqual(ACTION_NOTHING);
+    await expect(onMessage({ ...MESSAGE, content: 'https://imgur.com/anime' })).resolves.toEqual([ACTION_REMOVE]);
+    await expect(onMessage({ ...MESSAGE, content: 'https://i.imgur.com/anime.png' })).resolves.toEqual([ACTION_REMOVE]);
+    await expect(onMessage({ ...MESSAGE, content: 'https://imgur.com/notAnime' })).resolves.toEqual([]);
+    await expect(onMessage({ ...MESSAGE, content: 'https://i.imgur.com/notAnime.png' })).resolves.toEqual([]);
   });
 
   it('given standard links with various extensions in message content > on message > should come to correct verdicts', async () => {
-    await expect(onMessage({ ...MESSAGE, content: 'https://example.com/anime.jpg' })).resolves.toEqual(ACTION_REMOVE);
-    await expect(onMessage({ ...MESSAGE, content: 'https://example.com/anime.jpeg' })).resolves.toEqual(ACTION_REMOVE);
-    await expect(onMessage({ ...MESSAGE, content: 'https://example.com/anime.tif' })).resolves.toEqual(ACTION_REMOVE);
-    await expect(onMessage({ ...MESSAGE, content: 'https://example.com/anime.bmp' })).resolves.toEqual(ACTION_REMOVE);
-    await expect(onMessage({ ...MESSAGE, content: 'https://example.com/anime.gif' })).resolves.toEqual(ACTION_REMOVE);
-    await expect(onMessage({ ...MESSAGE, content: 'https://example.com/anime.webp' })).resolves.toEqual(ACTION_REMOVE);
+    await expect(onMessage({ ...MESSAGE, content: 'https://example.com/anime.jpg' })).resolves.toEqual([ACTION_REMOVE]);
+    await expect(onMessage({ ...MESSAGE, content: 'https://example.com/anime.jpeg' })).resolves.toEqual([ACTION_REMOVE]);
+    await expect(onMessage({ ...MESSAGE, content: 'https://example.com/anime.tif' })).resolves.toEqual([ACTION_REMOVE]);
+    await expect(onMessage({ ...MESSAGE, content: 'https://example.com/anime.bmp' })).resolves.toEqual([ACTION_REMOVE]);
+    await expect(onMessage({ ...MESSAGE, content: 'https://example.com/anime.gif' })).resolves.toEqual([ACTION_REMOVE]);
+    await expect(onMessage({ ...MESSAGE, content: 'https://example.com/anime.webp' })).resolves.toEqual([ACTION_REMOVE]);
 
-    await expect(onMessage({ ...MESSAGE, content: 'https://example.com/notAnime.jpg' })).resolves.toEqual(ACTION_NOTHING);
-    await expect(onMessage({ ...MESSAGE, content: 'https://example.com/notAnime.jpeg' })).resolves.toEqual(ACTION_NOTHING);
-    await expect(onMessage({ ...MESSAGE, content: 'https://example.com/notAnime.tif' })).resolves.toEqual(ACTION_NOTHING);
-    await expect(onMessage({ ...MESSAGE, content: 'https://example.com/notAnime.bmp' })).resolves.toEqual(ACTION_NOTHING);
-    await expect(onMessage({ ...MESSAGE, content: 'https://example.com/notAnime.gif' })).resolves.toEqual(ACTION_NOTHING);
-    await expect(onMessage({ ...MESSAGE, content: 'https://example.com/notAnime.webp' })).resolves.toEqual(ACTION_NOTHING);
+    await expect(onMessage({ ...MESSAGE, content: 'https://example.com/notAnime.jpg' })).resolves.toEqual([]);
+    await expect(onMessage({ ...MESSAGE, content: 'https://example.com/notAnime.jpeg' })).resolves.toEqual([]);
+    await expect(onMessage({ ...MESSAGE, content: 'https://example.com/notAnime.tif' })).resolves.toEqual([]);
+    await expect(onMessage({ ...MESSAGE, content: 'https://example.com/notAnime.bmp' })).resolves.toEqual([]);
+    await expect(onMessage({ ...MESSAGE, content: 'https://example.com/notAnime.gif' })).resolves.toEqual([]);
+    await expect(onMessage({ ...MESSAGE, content: 'https://example.com/notAnime.webp' })).resolves.toEqual([]);
   });
 
   it('given images attached > on message > should come to correct verdict', async () => {
-    await expect(onMessage({ ...MESSAGE, attachments: [{ ...ATTACHMENT, url: 'https://cdn.discordapp.com/attachments/123/456/anime.png' }] })).resolves.toEqual(ACTION_REMOVE);
-    await expect(onMessage({ ...MESSAGE, attachments: [{ ...ATTACHMENT, url: 'https://cdn.discordapp.com/attachments/123/456/notAnime.png' }] })).resolves.toEqual(ACTION_NOTHING);
+    await expect(onMessage({ ...MESSAGE, attachments: [{ ...ATTACHMENT, url: 'https://cdn.discordapp.com/attachments/123/456/anime.png' }] })).resolves.toEqual([ACTION_REMOVE]);
+    await expect(onMessage({ ...MESSAGE, attachments: [{ ...ATTACHMENT, url: 'https://cdn.discordapp.com/attachments/123/456/notAnime.png' }] })).resolves.toEqual([]);
   });
 });

@@ -147,11 +147,9 @@ export const discordApi = (
 
   registerEventListener(action => applyAction(client, action));
 
-  const filterNothingActions = (actions: BotAction[]) => actions.filter(({ type }) => type !== BotActionType.Nothing);
-
   client.on('message', async message => {
     const actions = await Promise.all(onMessage(parseMessage(message)));
-    for (const action of filterNothingActions(actions)) {
+    for (const action of actions.flat()) {
       log('info', 'Applying Action', { title: 'OnMessage', data: action });
       await applyAction(client, action);
     }
@@ -159,21 +157,21 @@ export const discordApi = (
   client.on('guildMemberAdd', async member => {
     if (!member.user) return;
     const actions = await Promise.all(onMemberJoin(parseUser(member.user)));
-    for (const action of filterNothingActions(actions)) {
+    for (const action of actions.flat()) {
       log('info', 'Applying Action', { title: 'OnGuildMemberAdd', data: action });
       await applyAction(client, action);
     }
   });
   client.on('messageReactionAdd', async (reaction, user) => {
     const actions = await Promise.all(onReactionAdd(parseReaction(reaction), parseUser(user)));
-    for (const action of filterNothingActions(actions)) {
+    for (const action of actions.flat()) {
       log('info', 'Applying Action', { title: 'OnMessageReactionAdd', data: action });
       await applyAction(client, action);
     }
   });
   client.on('messageReactionRemove', async (reaction, user) => {
     const actions = await Promise.all(onReactionRemove(parseReaction(reaction), parseUser(user)));
-    for (const action of filterNothingActions(actions)) {
+    for (const action of actions.flat()) {
       log('info', 'Applying Action', { title: 'OnMessageReactionRemove', data: action });
       await applyAction(client, action);
     }
