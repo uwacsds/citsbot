@@ -1,7 +1,7 @@
+import { DiscordAPI } from '../discord-service/types';
 import { DiscordUser } from './discord-types';
 
 export enum BotActionType {
-  Nothing = 'Nothing',
   Message = 'Message',
   RemoveMessage = 'RemoveMessage',
   EmbeddedMessage = 'EmbeddedMessage',
@@ -9,11 +9,13 @@ export enum BotActionType {
   RoleRevoke = 'RoleRevoke',
   AddReaction = 'AddReaction',
   RemoveReaction = 'RemoveReaction',
+  DirectMessage = 'DirectMessage',
 }
 
 interface BotBaseAction {
   type: BotActionType;
   delay?: number;
+  condition?: (api: DiscordAPI) => boolean;
 }
 
 export interface BotMessageAction extends BotBaseAction {
@@ -83,6 +85,13 @@ export interface BotRemoveMessageAction extends BotBaseAction {
   messageId: string;
 }
 
+export interface BotDirectMessageAction extends BotBaseAction {
+  type: BotActionType.DirectMessage;
+  guildId: string;
+  userId: string;
+  messageContent: string;
+}
+
 export type BotAction =
   | BotMessageAction
   | BotRoleGrantAction
@@ -90,4 +99,5 @@ export type BotAction =
   | BotEmbeddedMessageAction
   | BotAddReactionAction
   | BotRemoveReactionAction
-  | BotRemoveMessageAction;
+  | BotRemoveMessageAction
+  | BotDirectMessageAction;

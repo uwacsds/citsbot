@@ -1,5 +1,5 @@
 import { LoggingService } from '../../utils/logging';
-import { BotAction, BotActionType } from '../action-types';
+import { BotActionType } from '../action-types';
 import { DiscordMessage, DiscordMessageAttachment } from '../discord-types';
 import { AnimeDetectorModule, ModuleType } from '../module-types';
 import { animeDetectorService } from './service';
@@ -28,7 +28,7 @@ export const animeDetectorModule = (config: AnimeDetectorConfig, logger: Logging
     for (const url of parseAllUrls(message)) {
       const [verdict, counts] = await detectAnime(url);
       if (verdict) {
-        logger.log('notice', 'Message removed', { title: 'Anime Purged', image: url, data: { user: message.author.tag, keywords: Object.fromEntries(counts) } });
+        logger.log('notice', 'Message removed', { title: 'Anime Purged', image: url, data: { user: message.author.tag, keywords: Object.fromEntries(counts), url } });
         return [{ type: BotActionType.RemoveMessage, channelId: message.channel.id, messageId: message.id }];
       }
     }

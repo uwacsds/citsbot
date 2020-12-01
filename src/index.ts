@@ -1,7 +1,7 @@
 import { discordCommandHandler } from './domain/command-handler';
-import { discordApi } from './discord-api/discord-api';
+import { discordBot } from './discord-service/discord-bot';
 import { BotConfig, loadConfig } from './domain/config';
-import { MessageTuple } from './discord-api/types';
+import { MessageTuple } from './discord-service/types';
 import { academicCalendarService } from './academic-calendar/academic-calendar-service';
 import { academicWeeksParser } from './academic-calendar/weeks-parser';
 import { academicDeadlinesParser } from './academic-calendar/deadlines-parser';
@@ -21,9 +21,9 @@ const start = async () => {
   const logger = discordChannelLogger(config.logChannel);
   const calendar = academicCalendarService(logger, academicWeeksParser(), academicDeadlinesParser());
   const commandHandler = discordCommandHandler(config, logger, calendar);
-  const discord = discordApi(logger, commandHandler, getMessagesToCache(config));
-  logger.initialise(discord);
-  await discord.start(env.DISCORD_TOKEN);
+  const bot = discordBot(logger, commandHandler, getMessagesToCache(config), config.guild);
+  logger.initialise(bot);
+  await bot.start(env.DISCORD_TOKEN);
 };
 
 start();

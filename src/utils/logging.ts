@@ -1,6 +1,6 @@
 import * as winston from 'winston';
 import Transport = require('winston-transport');
-import { DiscordAPI } from '../discord-api/types';
+import { DiscordBot } from '../discord-service/types';
 import { BotActionType, BotEmbeddedMessageAction } from '../domain/action-types';
 
 type LogLevel = 'emerg' | 'alert' | 'crit' | 'error' | 'warning' | 'notice' | 'info' | 'debug';
@@ -25,7 +25,7 @@ interface LogMessageContext {
 
 export interface LoggingService {
   log: (level: LogLevel, message: string, context?: LogMessageContext) => void;
-  initialise: (discord: DiscordAPI) => void;
+  initialise: (bot: DiscordBot) => void;
 }
 
 const getColour = (level: LogLevel) => {
@@ -58,14 +58,14 @@ interface LogInfo {
 }
 
 class DiscordLogTransport extends Transport {
-  constructor(private discord: DiscordAPI, private channelId: string, opts?: Transport.TransportStreamOptions) {
+  constructor(private bot: DiscordBot, private channelId: string, opts?: Transport.TransportStreamOptions) {
     super(opts);
   }
 
   async log({ level, message, context }: LogInfo, next: () => void) {
     const formatContextData = (context?: LogMessageContext) => {
       const str = JSON.stringify(context?.data) ?? '';
-      return `\`\`\`json\n${str.slice(0, 1000).replace(/`/g, '\\`')}'\`\`\``;
+      return `\`\`\`json\n${str.slice(0, 1000).replace(/`/g, '\\`')}\`\`\``;
     };
     const action: BotEmbeddedMessageAction = {
       type: BotActionType.EmbeddedMessage,
@@ -81,7 +81,7 @@ class DiscordLogTransport extends Transport {
         ],
       },
     };
-    await this.discord.applyAction(action);
+    await this.bot.applyAction(action);
     next();
   }
 }
@@ -96,13 +96,13 @@ export const discordChannelLogger = (channelId: string): LoggingService => {
 
   return {
     log: (level, message, context = {}) => logger.log(level, message, { context }),
-    initialise: (api: DiscordAPI) => {
+    initialise: (bot: DiscordBot) => {
       logger = winston.createLogger({
         level: 'info',
         levels: logLevels,
         format: winston.format.json(),
         defaultMeta: { service: 'user-service' },
-        transports: [new winston.transports.Console(), new DiscordLogTransport(api, channelId, { level: 'notice' })],
+        transports: [new winston.transports.Console(), new DiscordLogTransport(bot, channelId, { level: 'notice' })],
       });
     },
   };

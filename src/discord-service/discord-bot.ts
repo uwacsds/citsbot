@@ -1,8 +1,10 @@
-import { Channel, Client, GuildEmoji, Message, MessageAttachment, MessageEmbed, MessageReaction, PartialUser, ReactionEmoji, TextChannel, User } from 'discord.js';
-import { BotAction, BotActionType, BotAddReactionAction, BotEmbeddedMessageAction, BotMessageAction, BotRemoveMessageAction, BotRoleGrantAction, BotRoleRevokeAction } from '../domain/action-types';
+import { Channel, Client, GuildEmoji, Message, MessageAttachment, MessageEmbed, MessageReaction, PartialUser, ReactionEmoji, User } from 'discord.js';
+import { config } from 'process';
+import { BotAction, BotActionType, BotAddReactionAction, BotDirectMessageAction, BotEmbeddedMessageAction, BotMessageAction, BotRemoveMessageAction, BotRoleGrantAction, BotRoleRevokeAction } from '../domain/action-types';
 import { DiscordChannel, DiscordCommandHandler, DiscordEmoji, DiscordMessage, DiscordMessageAttachment, DiscordReaction, DiscordUser } from '../domain/discord-types';
 import { LoggingService } from '../utils/logging';
-import { DiscordAPI, MessageTuple } from './types';
+import { discordApi } from './discord-api';
+import { DiscordBot, DiscordAPI, MessageTuple } from './types';
 
 const parseUser = (user: User | PartialUser): DiscordUser => ({
   id: user.id,
@@ -46,34 +48,14 @@ const parseReaction = (reaction: MessageReaction): DiscordReaction => ({
   emoji: parseEmoji(reaction.emoji),
 });
 
-const fetchChannel = async (client: Client, id: string): Promise<Channel | null> => client.channels.fetch(id);
-
-const fetchTextChannel = async (client: Client, id: string): Promise<TextChannel | null> => {
-  const channel = await fetchChannel(client, id);
-  if (channel?.type !== 'text') return null;
-  return channel as TextChannel;
-};
-
-const fetchMessage = async (client: Client, channelId: string, messageId: string): Promise<Message | null> => {
-  const channel = await fetchTextChannel(client, channelId);
-  const message = await channel?.messages.fetch(messageId);
-  if (!message) return null;
-  return message;
-};
-
-const fetchMember = async (client: Client, guildId: string, userId: string) => {
-  const guild = await client.guilds.fetch(guildId);
-  return guild.members.fetch(userId);
-};
-
-const applyMessage = async (client: Client, action: BotMessageAction) => {
-  const channel = await fetchTextChannel(client, action.channelId);
+const applyMessage = async ({ fetchTextChannel }: DiscordAPI, { channelId, messageContent }: BotMessageAction) => {
+  const channel = await fetchTextChannel(channelId);
   if (!channel) return;
-  await channel.send(action.messageContent);
+  await channel.send(messageContent);
 };
 
-const applyEmbeddedMessage = async (client: Client, action: BotEmbeddedMessageAction) => {
-  const channel = await fetchTextChannel(client, action.channelId);
+const applyEmbeddedMessage = async ({ fetchTextChannel }: DiscordAPI, action: BotEmbeddedMessageAction) => {
+  const channel = await fetchTextChannel(action.channelId);
   if (!channel) return;
 
   const embed = new MessageEmbed();
@@ -97,61 +79,77 @@ const applyEmbeddedMessage = async (client: Client, action: BotEmbeddedMessageAc
   await channel.send(embed);
 };
 
-const applyAddReaction = async (client: Client, action: BotAddReactionAction) => {
-  const message = await fetchMessage(client, action.channelId, action.messageId);
+const applyAddReaction = async ({ fetchMessage }: DiscordAPI, action: BotAddReactionAction) => {
+  const message = await fetchMessage(action.channelId, action.messageId);
   await message?.react(action.emoji);
 };
 
-const applyRoleGrant = async (client: Client, action: BotRoleGrantAction) => {
-  const member = await fetchMember(client, action.guild, action.user.id);
+const applyRoleGrant = async ({ fetchMember }: DiscordAPI, action: BotRoleGrantAction) => {
+  const member = await fetchMember(action.guild, action.user.id);
   await member.roles.add(action.role);
 };
 
-const applyRoleRevoke = async (client: Client, action: BotRoleRevokeAction) => {
-  const member = await fetchMember(client, action.guild, action.user.id);
+const applyRoleRevoke = async ({ fetchMember }: DiscordAPI, action: BotRoleRevokeAction) => {
+  const member = await fetchMember(action.guild, action.user.id);
   await member.roles.remove(action.role);
 };
 
-const applyRemoveMessage = async (client: Client, { messageId, channelId }: BotRemoveMessageAction) => {
-  const channel = await fetchTextChannel(client, channelId);
+const applyRemoveMessage = async ({ fetchTextChannel }: DiscordAPI, { messageId, channelId }: BotRemoveMessageAction) => {
+  const channel = await fetchTextChannel(channelId);
   await channel?.messages.delete(messageId);
 };
 
-const applyAction = (client: Client, action: BotAction) => {
-  switch (action.type) {
-    case BotActionType.Message:
-      return applyMessage(client, action);
-    case BotActionType.EmbeddedMessage:
-      return applyEmbeddedMessage(client, action);
-    case BotActionType.AddReaction:
-      return applyAddReaction(client, action);
-    case BotActionType.RoleGrant:
-      return applyRoleGrant(client, action);
-    case BotActionType.RoleRevoke:
-      return applyRoleRevoke(client, action);
-    case BotActionType.RemoveMessage:
-      return applyRemoveMessage(client, action);
-  }
+const applyDirectMessage = async ({ fetchMember }: DiscordAPI, { guildId, userId, messageContent }: BotDirectMessageAction) => {
+  const member = await fetchMember(guildId, userId);
+  if (!member) return;
+  await member.send(messageContent);
 };
 
-export const discordApi = (
+const applyAction = (fetchApi: DiscordAPI, action: BotAction) => {
+  const delay = action.delay ?? 0;
+  const condition = action.condition ?? (() => true);
+
+  setTimeout(() => {
+    if (!condition(fetchApi)) return;
+    switch (action.type) {
+      case BotActionType.Message:
+        return applyMessage(fetchApi, action);
+      case BotActionType.EmbeddedMessage:
+        return applyEmbeddedMessage(fetchApi, action);
+      case BotActionType.AddReaction:
+        return applyAddReaction(fetchApi, action);
+      case BotActionType.RoleGrant:
+        return applyRoleGrant(fetchApi, action);
+      case BotActionType.RoleRevoke:
+        return applyRoleRevoke(fetchApi, action);
+      case BotActionType.RemoveMessage:
+        return applyRemoveMessage(fetchApi, action);
+      case BotActionType.DirectMessage:
+        return applyAction;
+    }
+  }, delay);
+};
+
+export const discordBot = (
   { log }: LoggingService,
   { registerEventListener, onMessage, onMemberJoin, onReactionAdd, onReactionRemove }: DiscordCommandHandler,
-  messagesToCache: MessageTuple[]
-): DiscordAPI => {
+  messagesToCache: MessageTuple[],
+  guildId: string,
+): DiscordBot => {
   const client = new Client({
     ws: {
       intents: ['DIRECT_MESSAGES', 'DIRECT_MESSAGE_REACTIONS', 'GUILDS', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS'],
     },
   });
+  const fetchApi = discordApi(client, guildId);
 
-  registerEventListener(action => applyAction(client, action));
+  registerEventListener(action => applyAction(fetchApi, action));
 
   client.on('message', async message => {
     const actions = await Promise.all(onMessage(parseMessage(message)));
     for (const action of actions.flat()) {
       log('info', 'Applying Action', { title: 'OnMessage', data: action });
-      await applyAction(client, action);
+      await applyAction(fetchApi, action);
     }
   });
   client.on('guildMemberAdd', async member => {
@@ -159,29 +157,29 @@ export const discordApi = (
     const actions = await Promise.all(onMemberJoin(parseUser(member.user)));
     for (const action of actions.flat()) {
       log('info', 'Applying Action', { title: 'OnGuildMemberAdd', data: action });
-      await applyAction(client, action);
+      await applyAction(fetchApi, action);
     }
   });
   client.on('messageReactionAdd', async (reaction, user) => {
     const actions = await Promise.all(onReactionAdd(parseReaction(reaction), parseUser(user)));
     for (const action of actions.flat()) {
       log('info', 'Applying Action', { title: 'OnMessageReactionAdd', data: action });
-      await applyAction(client, action);
+      await applyAction(fetchApi, action);
     }
   });
   client.on('messageReactionRemove', async (reaction, user) => {
     const actions = await Promise.all(onReactionRemove(parseReaction(reaction), parseUser(user)));
     for (const action of actions.flat()) {
       log('info', 'Applying Action', { title: 'OnMessageReactionRemove', data: action });
-      await applyAction(client, action);
+      await applyAction(fetchApi, action);
     }
   });
 
   return {
-    applyAction: async action => applyAction(client, action),
+    applyAction: async action => applyAction(fetchApi, action),
     start: async (discordToken: string) => {
       await client.login(discordToken);
-      await Promise.all(messagesToCache.map(([channelId, messageId]) => fetchMessage(client, channelId, messageId)));
+      await Promise.all(messagesToCache.map(([channelId, messageId]) => fetchApi.fetchMessage(channelId, messageId)));
       console.log('Ready');
     },
     stop: async () => client.destroy(),

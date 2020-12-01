@@ -1,6 +1,6 @@
 import { academicWeeksParser } from '../academic-calendar/weeks-parser';
 import { academicCalendarService } from '../academic-calendar/academic-calendar-service';
-import { BotAction, BotActionType } from './action-types';
+import { BotActionType } from './action-types';
 import { discordCommandHandler } from './command-handler';
 import { BotConfig } from './config';
 import { DiscordMessage, DiscordUser } from './discord-types';
