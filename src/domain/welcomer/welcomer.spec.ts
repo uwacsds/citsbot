@@ -9,7 +9,7 @@ describe('welcomer module', () => {
 
   const config: WelcomerConfig = {
     channel: 'channelId',
-    newMemberDm: { delay: 3000, instantAccountAge: 7, message: 'hello world', roleThreshold: 1 },
+    newMemberDm: { delay: 3000, instantAccountAge: 7, message: 'hello {name}', roleThreshold: 1 },
   };
 
   const welcomer = welcomerModule(config, mockLogger(), () => now);

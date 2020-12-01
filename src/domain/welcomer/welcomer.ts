@@ -34,7 +34,7 @@ export const welcomerModule = (config: WelcomerConfig, { log }: LoggingService, 
       {
         type: BotActionType.DirectMessage,
         userId: user.id,
-        messageContent: config.newMemberDm.message,
+        messageContent: config.newMemberDm.message.replace('{name}', user.username ?? ''),
         delay: daysBetween(user.createdAt, now()) < config.newMemberDm.instantAccountAge ? 0 : config.newMemberDm.delay,
         condition: async ({ fetchMember }) => {
           const member = await fetchMember(user.id);
