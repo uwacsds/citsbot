@@ -7,7 +7,7 @@
   "license": "GPL2",
   "private": true,
   "scripts": {
-    "watch": "ts-node-dev --unhandled-rejections=strict ./src/index.ts",
+    "watch": "ts-node-dev --unhandled-rejections=strict ./src/start.ts",
     "build": "tsc --outDir ./dist/",
     "test": "yarn jest",
     "lint": "yarn prettier \"src/**/*.ts\" -w"
