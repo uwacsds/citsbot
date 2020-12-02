@@ -46,11 +46,13 @@ export const welcomerModule = (config: WelcomerConfig, { log }: LoggingService, 
   onMessage: async (message: DiscordMessage) => {
     if (message.channel.id !== config.channel) return [];
     log('info', 'Waving at welcome message', { title: 'Welcomer', data: { message } });
-    return [{
-      type: BotActionType.AddReaction,
-      channelId: message.channel.id,
-      messageId: message.id,
-      emoji: '👋',
-    }];
+    return [
+      {
+        type: BotActionType.AddReaction,
+        channelId: message.channel.id,
+        messageId: message.id,
+        emoji: '👋',
+      },
+    ];
   },
 });

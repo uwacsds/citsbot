@@ -19,7 +19,7 @@ describe('welcomer module', () => {
     previousYear.setUTCFullYear(now.getUTCFullYear() - 1);
 
     const user: DiscordUser = { avatar: 'https://avatar.png', bot: false, createdAt: previousYear, discriminator: '1234', id: 'id1', tag: 'testUser#1234', username: 'testUser' };
-    
+
     const actions = await welcomer.onMemberJoin(user);
     expect(actions).toHaveLength(2);
     expect(actions[0]).toEqual({
@@ -63,11 +63,13 @@ describe('welcomer module', () => {
       id: 'msg1',
       attachments: [],
     };
-    await expect(welcomer.onMessage(message)).resolves.toEqual([{
-      type: BotActionType.AddReaction,
-      channelId: message.channel.id,
-      messageId: message.id,
-      emoji: '👋',
-    }]);
+    await expect(welcomer.onMessage(message)).resolves.toEqual([
+      {
+        type: BotActionType.AddReaction,
+        channelId: message.channel.id,
+        messageId: message.id,
+        emoji: '👋',
+      },
+    ]);
   });
 });

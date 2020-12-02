@@ -1,5 +1,15 @@
 import { Channel, Client, GuildEmoji, Message, MessageAttachment, MessageEmbed, MessageReaction, PartialUser, ReactionEmoji, User } from 'discord.js';
-import { BotAction, BotActionType, BotAddReactionAction, BotDirectMessageAction, BotEmbeddedMessageAction, BotMessageAction, BotRemoveMessageAction, BotRoleGrantAction, BotRoleRevokeAction } from '../domain/action-types';
+import {
+  BotAction,
+  BotActionType,
+  BotAddReactionAction,
+  BotDirectMessageAction,
+  BotEmbeddedMessageAction,
+  BotMessageAction,
+  BotRemoveMessageAction,
+  BotRoleGrantAction,
+  BotRoleRevokeAction,
+} from '../domain/action-types';
 import { DiscordCommandHandler } from '../domain/command-handler';
 import { LoggingService } from '../utils/logging';
 import { discordApi } from './discord-api';
@@ -133,7 +143,7 @@ export const discordBot = (
   { log }: LoggingService,
   { registerEventListener, onMessage, onMemberJoin, onReactionAdd, onReactionRemove }: DiscordCommandHandler,
   messagesToCache: MessageTuple[],
-  guildId: string,
+  guildId: string
 ): DiscordBot => {
   const client = new Client({
     ws: {
