@@ -8,6 +8,8 @@ import { mockLogger } from '../utils/logging';
 import { DiscordUser, DiscordMessage } from '../discord-service/types';
 
 describe('command-handler', () => {
+  jest.useFakeTimers();
+
   const now = new Date('2020-01-01T00:00Z');
   const config: BotConfig = {
     guild: 'guild_1',
