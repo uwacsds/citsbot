@@ -1,5 +1,7 @@
 image: ghcr.io/uwacsds/citsbot
 
+environment: staging
+
 secrets:
   - name: citsbot.config
     ref: staging/projects/citsbot

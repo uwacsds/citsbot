@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: citsbot
+  name: "{{ $.Chart.Name }}-{{ .Values.environment }}"
 spec:
   strategy:
     type: Recreate

@@ -1,5 +1,7 @@
 image: ghcr.io/uwacsds/citsbot
 
+environment: prod
+
 secrets:
   - name: citsbot.config
     ref: prod/projects/citsbot
