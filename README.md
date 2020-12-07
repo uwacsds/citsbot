@@ -24,14 +24,7 @@
 
 1. Set up environment variables
 
-    1. Create a new file called `.env` in the root of this repo (next to config.json)
-    2. Populate your `.env` file with values from your bot application. You can find your values for `DISCORD_ID` and `DISCORD_SECRET` under General Information and `DISCORD_TOKEN` under Bot. **Do not share these values with anyone.**
-        ```bash
-        CONFIG=config.dev.json
-        DISCORD_ID=____YOUR_CLIENT_ID_HERE____
-        DISCORD_SECRET=____YOUR_CLIENT_SECRET_HERE____
-        DISCORD_TOKEN=____YOUR_BOT_TOKEN_HERE____
-        ```
+    1. Run `./create-env.sh config.dev.json <you-discord-bot-token-here>` to create a `.env` file for local development. You can find your discord bot token under the Bot section of the discord developer portal. **Do not share this value with anyone.**
 
 2. Set up config file
 

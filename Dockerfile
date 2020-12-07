@@ -18,5 +18,4 @@ WORKDIR /app
 COPY package.json yarn.lock ./
 RUN yarn install --pure-lockfile --network-timeout 600000 --prod
 COPY --from=builder /app/dist/ ./dist/
-COPY ./config.json /app/config.json
 CMD ["node", "/app/dist/start.js"]
