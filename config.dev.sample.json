@@ -51,11 +51,11 @@
               "role": "705800518517391378",
               "emoji": "github"
             },
-            { 
+            {
               "unit": "TEST1001",
               "emoji": "bluej"
             },
-            { 
+            {
               "unit": "TEST2002",
               "emoji": "📝"
             }
@@ -64,7 +64,10 @@
       ]
     },
     "animeDetector": {
-      "keywords": ["anime", "manga"],
+      "keywords": [
+        "anime",
+        "manga"
+      ],
       "keywordCountThreshold": 5
     }
   }

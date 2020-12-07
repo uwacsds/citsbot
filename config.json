@@ -305,7 +305,7 @@
       "lineMaxLen": 40,
       "cowArt": "\n     \\   ^__^\n      \\  (oo)\\_______\n         (__)\\       )\\/\\\n             ||----w |\n             ||     ||"
     },
-    "welcome": {
+    "welcomer": {
       "channel": "690144646344736853",
       "newMemberDm": {
         "delay": 300000,
@@ -327,19 +327,19 @@
           "id": "702884623134228601",
           "channel": "702884352408682597",
           "reactions": [
-            { 
+            {
               "role": "703255353940377701",
               "emoji": "🌏"
             },
-            { 
+            {
               "role": "703255355483881533",
               "emoji": "pepoGrad"
             },
-            { 
+            {
               "role": "703854903952539688",
               "emoji": "github"
             },
-            { 
+            {
               "unit": "OTHER",
               "emoji": "📝"
             }
@@ -349,25 +349,25 @@
           "id": "702884633041174870",
           "channel": "702884352408682597",
           "reactions": [
-            { 
+            {
               "unit": "CITS1001",
-              "emoji": "bluej" 
+              "emoji": "bluej"
             },
             {
               "unit": "CITS1003",
               "emoji": "🔒"
             },
-            { 
+            {
               "unit": "CITS1401",
-              "emoji": "py" 
+              "emoji": "py"
             },
-            { 
+            {
               "unit": "CITS1402",
               "emoji": "mysql"
             },
-            { 
-              "unit": "STAT1400", 
-              "emoji": "r_" 
+            {
+              "unit": "STAT1400",
+              "emoji": "r_"
             }
           ]
         },
@@ -375,37 +375,37 @@
           "id": "702884641731772468",
           "channel": "702884352408682597",
           "reactions": [
-            { 
+            {
               "unit": "CITS2002",
-              "emoji": "c_" 
+              "emoji": "c_"
             },
-            { 
+            {
               "unit": "CITS2003",
-              "emoji": "🛠️" 
+              "emoji": "🛠️"
             },
-            { 
+            {
               "unit": "CITS2200",
-              "emoji": "tree" 
+              "emoji": "tree"
             },
-            { 
+            {
               "unit": "CITS2211",
               "emoji": "*️⃣"
             },
-            { 
+            {
               "unit": "CITS2401",
               "emoji": "matlab"
             },
-            { 
-              "unit": "CITS2402", 
-              "emoji": "👨‍🔬" 
+            {
+              "unit": "CITS2402",
+              "emoji": "👨‍🔬"
             },
-            { 
-              "unit": "STAT2401", 
-              "emoji": "📈" 
+            {
+              "unit": "STAT2401",
+              "emoji": "📈"
             },
-            { 
-              "unit": "STAT2402", 
-              "emoji": "📉" 
+            {
+              "unit": "STAT2402",
+              "emoji": "📉"
             }
           ]
         },
@@ -413,45 +413,45 @@
           "id": "702884672262111313",
           "channel": "702884352408682597",
           "reactions": [
-            { 
+            {
               "unit": "CITS3001",
-              "emoji": "🧠" 
+              "emoji": "🧠"
             },
-            { 
+            {
               "unit": "CITS3002",
-              "emoji": "📡" 
+              "emoji": "📡"
             },
-            { 
+            {
               "unit": "CITS3003",
               "emoji": "gl"
             },
-            { 
-              "unit": "CITS3004", 
-              "emoji": "🔒" 
+            {
+              "unit": "CITS3004",
+              "emoji": "🔒"
             },
-            { 
-              "unit": "CITS3006", 
-              "emoji": "🔍" 
+            {
+              "unit": "CITS3006",
+              "emoji": "🔍"
             },
-            { 
-              "unit": "CITS3007", 
-              "emoji": "🔐" 
+            {
+              "unit": "CITS3007",
+              "emoji": "🔐"
             },
-            { 
-              "unit": "CITS3200", 
-              "emoji": "💼" 
+            {
+              "unit": "CITS3200",
+              "emoji": "💼"
             },
-            { 
-              "unit": "CITS3401", 
-              "emoji": "⛏️" 
+            {
+              "unit": "CITS3401",
+              "emoji": "⛏️"
             },
-            { 
-              "unit": "CITS3402", 
-              "emoji": "🦾" 
+            {
+              "unit": "CITS3402",
+              "emoji": "🦾"
             },
-            { 
-              "unit": "CITS3403", 
-              "emoji": "html" 
+            {
+              "unit": "CITS3403",
+              "emoji": "html"
             },
             {
               "unit": "ENSC3020",
@@ -470,7 +470,10 @@
       ]
     },
     "animeDetector": {
-      "keywords": ["anime", "manga"],
+      "keywords": [
+        "anime",
+        "manga"
+      ],
       "keywordCountThreshold": 5
     }
   }

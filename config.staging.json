@@ -257,7 +257,7 @@
       "lineMaxLen": 40,
       "cowArt": "\n     \\   ^__^\n      \\  (oo)\\_______\n         (__)\\       )\\/\\\n             ||----w |\n             ||     ||"
     },
-    "welcome": {
+    "welcomer": {
       "channel": "699317455595634688",
       "newMemberDm": {
         "delay": 10000,
@@ -279,19 +279,19 @@
           "id": "702927287905026158",
           "channel": "699317381687935107",
           "reactions": [
-            { 
+            {
               "role": "702928571332558900",
               "emoji": "🌏"
             },
-            { 
+            {
               "role": "702930443892293652",
               "emoji": "pepoGrad"
             },
-            { 
+            {
               "role": "704963932330131510",
               "emoji": "github"
             },
-            { 
+            {
               "role": "704963894585720862",
               "emoji": "📝"
             }
@@ -301,21 +301,21 @@
           "id": "702927289423233094",
           "channel": "699317381687935107",
           "reactions": [
-            { 
+            {
               "unit": "CITS1001",
-              "emoji": "bluej" 
+              "emoji": "bluej"
             },
-            { 
+            {
               "unit": "CITS1401",
-              "emoji": "py" 
+              "emoji": "py"
             },
-            { 
+            {
               "unit": "CITS1402",
               "emoji": "mysql"
             },
-            { 
-              "unit": "STAT1400", 
-              "emoji": "r_" 
+            {
+              "unit": "STAT1400",
+              "emoji": "r_"
             }
           ]
         },
@@ -323,33 +323,33 @@
           "id": "702927291113537686",
           "channel": "699317381687935107",
           "reactions": [
-            { 
+            {
               "unit": "CITS2002",
-              "emoji": "c_" 
+              "emoji": "c_"
             },
-            { 
+            {
               "unit": "CITS2200",
-              "emoji": "tree" 
+              "emoji": "tree"
             },
-            { 
+            {
               "unit": "CITS2211",
               "emoji": "*️⃣"
             },
-            { 
+            {
               "unit": "CITS2401",
               "emoji": "matlab"
             },
-            { 
-              "unit": "CITS2402", 
-              "emoji": "👨‍🔬" 
+            {
+              "unit": "CITS2402",
+              "emoji": "👨‍🔬"
             },
-            { 
-              "unit": "STAT2401", 
-              "emoji": "📈" 
+            {
+              "unit": "STAT2401",
+              "emoji": "📈"
             },
-            { 
-              "unit": "STAT2402", 
-              "emoji": "📉" 
+            {
+              "unit": "STAT2402",
+              "emoji": "📉"
             }
           ]
         },
@@ -359,35 +359,35 @@
           "reactions": [
             {
               "unit": "CITS3001",
-              "emoji": "🧠" 
+              "emoji": "🧠"
             },
-            { 
+            {
               "unit": "CITS3002",
-              "emoji": "📡" 
+              "emoji": "📡"
             },
-            { 
+            {
               "unit": "CITS3003",
               "emoji": "gl"
             },
-            { 
-              "unit": "CITS3004", 
-              "emoji": "🔒" 
+            {
+              "unit": "CITS3004",
+              "emoji": "🔒"
             },
-            { 
-              "unit": "CITS3200", 
-              "emoji": "💼" 
+            {
+              "unit": "CITS3200",
+              "emoji": "💼"
             },
-            { 
-              "unit": "CITS3401", 
-              "emoji": "⛏️" 
+            {
+              "unit": "CITS3401",
+              "emoji": "⛏️"
             },
-            { 
-              "unit": "CITS3402", 
-              "emoji": "🦾" 
+            {
+              "unit": "CITS3402",
+              "emoji": "🦾"
             },
-            { 
-              "unit": "CITS3403", 
-              "emoji": "html" 
+            {
+              "unit": "CITS3403",
+              "emoji": "html"
             },
             {
               "unit": "ENSC3020",
@@ -398,7 +398,10 @@
       ]
     },
     "animeDetector": {
-      "keywords": ["anime", "manga"],
+      "keywords": [
+        "anime",
+        "manga"
+      ],
       "keywordCountThreshold": 5
     }
   }
