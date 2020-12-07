@@ -3,7 +3,7 @@ image: ghcr.io/uwacsds/citsbot
 environment: staging
 
 secrets:
-  - name: citsbot.config
+  - name: citsbot.config.staging
     ref: staging/projects/citsbot
     properties:
       - name: token

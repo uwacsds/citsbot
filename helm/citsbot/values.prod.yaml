@@ -3,7 +3,7 @@ image: ghcr.io/uwacsds/citsbot
 environment: prod
 
 secrets:
-  - name: citsbot.config
+  - name: citsbot.config.prod
     ref: prod/projects/citsbot
     properties:
       - name: token
