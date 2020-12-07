@@ -251,6 +251,14 @@
         "resources": "682802748227452971"
       }
     },
+    "CITS4407": {
+      "name": "Open Source Tools and Scripting",
+      "role": "703255355483881533",
+      "channels": {
+        "general": "720114555560263700",
+        "resources": "720114608232464435"
+      }
+    },
     "CITS4419": {
       "name": "Mobile and Wireless Computing",
       "role": "703255355483881533",
