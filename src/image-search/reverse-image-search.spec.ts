@@ -2,7 +2,7 @@ import nock from 'nock';
 import { mockLogger } from '../utils/logging';
 import { reverseImageSearchService } from './reverse-image-search';
 
-describe.skip('reverse-image-search', () => {
+describe('reverse-image-search', () => {
   const { reverseSearch, countKeywordOccurrences } = reverseImageSearchService(mockLogger());
 
   it('should return the results page for the reverse image search', async () => {

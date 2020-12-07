@@ -3,7 +3,7 @@ import { mockLogger } from '../../utils/logging';
 import { AnimeDetectorConfig } from './anime-detector';
 import { animeDetectorService } from './service';
 
-describe.skip('anime-detector-service', () => {
+describe('anime-detector-service', () => {
   const createNocks = (imageUrl: string, resultsPage: string) => {
     nock('https://images.google.com')
       .get(`/searchbyimage?image_url=${imageUrl}`)

@@ -4,7 +4,7 @@ import { mockLogger } from '../../utils/logging';
 import { BotActionType } from '../action-types';
 import { AnimeDetectorConfig, animeDetectorModule } from './anime-detector';
 
-describe.skip('anime-detector-module', () => {
+describe('anime-detector-module', () => {
   const now = new Date('2020-01-01');
 
   const createNocks = (imageUrl: string, resultsPage: string) => {
