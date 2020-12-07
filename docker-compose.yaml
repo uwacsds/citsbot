@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   citsbot:
@@ -6,9 +6,7 @@ services:
       context: ./
       dockerfile: Dockerfile
       target: dev
-    env_file: .env
-    environment:
-      - PYTHONUNBUFFERED=1
+    env_file: .env.generated
     volumes:
       - ./src:/app/src
       - ./config.dev.json:/app/config.json

@@ -1,9 +1,0 @@
-#!/bin/bash
-
-CONFIG_FILE_PATH=$1
-DISCORD_TOKEN=$2
-
-CONFIG=$(jq -c . < $CONFIG_FILE_PATH)
-
-echo "DISCORD_TOKEN=$DISCORD_TOKEN" > .env
-echo "CONFIG='$CONFIG'" >> .env
