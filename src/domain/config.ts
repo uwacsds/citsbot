@@ -29,5 +29,3 @@ export interface BotConfig {
     animeDetector: AnimeDetectorConfig;
   };
 }
-
-export const loadConfig = async (path: string): Promise<BotConfig> => JSON.parse(await fs.readFile(path, { encoding: 'utf-8' }));

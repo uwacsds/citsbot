@@ -21,6 +21,11 @@ spec:
             - name: DISCORD_TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: citsbotToken
+                  name: citsbot.config
                   key: token
+            - name: CONFIG
+              valueFrom:
+                secretKeyRef:
+                  name: citsbot.config
+                  key: config
       terminationGracePeriodSeconds: 5
