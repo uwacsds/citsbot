@@ -9,8 +9,6 @@ import { discordChannelLogger } from './utils/logging';
 
 const env = {
   CONFIG: process.env.CONFIG as string,
-  DISCORD_ID: process.env.DISCORD_ID as string,
-  DISCORD_SECRET: process.env.DISCORD_SECRET as string,
   DISCORD_TOKEN: process.env.DISCORD_TOKEN as string,
 };
 

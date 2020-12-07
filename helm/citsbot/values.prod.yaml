@@ -1,0 +1,6 @@
+image: ghcr.io/uwacsds/citsbot
+
+secrets:
+  - name: citsbotToken
+    ref: prod/projects/citsbot
+    property: token

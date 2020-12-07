@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: citsbot
+spec:
+  strategy:
+    type: Recreate
+  replicas: 1
+  selector:
+    matchLabels:
+      app: citsbot
+  template:
+    metadata:
+      labels:
+        app: citsbot
+    spec:
+      containers:
+        - name: citsbot
+          image: "{{ $.Values.image }}:{{ $.Chart.Version }}"
+          env:
+            - name: DISCORD_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: citsbotToken
+                  key: token
+      terminationGracePeriodSeconds: 5
