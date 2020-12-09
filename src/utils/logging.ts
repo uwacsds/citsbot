@@ -65,6 +65,7 @@ class DiscordLogTransport extends Transport {
   async log({ level, message, context }: LogInfo, next: () => void) {
     const formatContextData = (context?: LogMessageContext) => {
       const str = JSON.stringify(context?.data) ?? '';
+      if (str === '') return null;
       return `\`\`\`json\n${str.slice(0, 1000).replace(/`/g, '\\`')}\`\`\``;
     };
     const action: BotEmbeddedMessageAction = {
@@ -77,10 +78,11 @@ class DiscordLogTransport extends Transport {
         fields: [
           { name: 'Time', value: new Date().toJSON() },
           { name: 'Message', value: message },
-          { name: 'Context', value: formatContextData(context) },
         ],
       },
     };
+    const contextField = formatContextData(context);
+    if (contextField) action.embed.fields?.push({ name: 'Context', value: contextField });
     await this.bot.applyAction(action);
     next();
   }
