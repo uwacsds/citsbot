@@ -34,7 +34,13 @@ describe('command-handler', () => {
   const message: DiscordMessage = { id: 'msg1', createdAt: now, deletable: true, content: '', attachments: [], author: user, channel: { id: 'channel1', type: 'text', createdAt: now } };
 
   const calendar = academicCalendarService(mockLogger(), academicWeeksParser(), academicDeadlinesParser());
-  const { onMessage, onMemberJoin, onReactionAdd, onReactionRemove } = discordCommandHandler(config, mockLogger(), calendar);
+  const { onBotStart, onMessage, onMemberJoin, onReactionAdd, onReactionRemove } = discordCommandHandler(config, mockLogger(), calendar);
+
+  it('should return some cache and react actions on bot start', async () => {
+    const actions = await Promise.all(onBotStart());
+    expect(actions.flat()).toContainEqual({ type: BotActionType.CacheMessage, channelId: 'channel1', messageId: 'msg3' });
+    expect(actions.flat()).toContainEqual({ type: BotActionType.AddReaction, channelId: 'channel2', messageId: 'msg2', emoji: 'emoji2' });
+  });
 
   it('should do nothing when a non-command message is send', async () => {
     const actions = await Promise.all(onMessage({ ...message, content: 'hello world' }));
