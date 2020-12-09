@@ -3,6 +3,7 @@ import {
   BotAction,
   BotActionType,
   BotAddReactionAction,
+  BotCacheMessageAction,
   BotDirectMessageAction,
   BotEmbeddedMessageAction,
   BotMessageAction,
@@ -13,7 +14,7 @@ import {
 import { DiscordCommandHandler } from '../domain/command-handler';
 import { LoggingService } from '../utils/logging';
 import { discordApi } from './discord-api';
-import { DiscordBot, DiscordAPI, MessageTuple, DiscordChannel, DiscordEmoji, DiscordMessage, DiscordMessageAttachment, DiscordReaction, DiscordUser } from './types';
+import { DiscordBot, DiscordAPI, DiscordChannel, DiscordEmoji, DiscordMessage, DiscordMessageAttachment, DiscordReaction, DiscordUser } from './types';
 
 const parseUser = (user: User | PartialUser): DiscordUser => ({
   id: user.id,
@@ -116,6 +117,8 @@ const applyDirectMessage = async ({ fetchMember }: DiscordAPI, { userId, message
   await member.send(messageContent);
 };
 
+const applyCacheMessage = async ({ fetchMessage }: DiscordAPI, { messageId, channelId }: BotCacheMessageAction) => fetchMessage(channelId, messageId);
+
 const applyAction = (fetchApi: DiscordAPI, action: BotAction) => {
   const delay = action.delay ?? 0;
   const condition = action.condition ?? (() => true);
@@ -137,6 +140,8 @@ const applyAction = (fetchApi: DiscordAPI, action: BotAction) => {
         return applyRemoveMessage(fetchApi, action);
       case BotActionType.DirectMessage:
         return applyDirectMessage(fetchApi, action);
+      case BotActionType.CacheMessage:
+        return applyCacheMessage(fetchApi, action);
     }
   }, delay);
 };
@@ -144,7 +149,6 @@ const applyAction = (fetchApi: DiscordAPI, action: BotAction) => {
 export const discordBot = (
   { log }: LoggingService,
   { registerEventListener, onBotStart, onMessage, onMemberJoin, onReactionAdd, onReactionRemove }: DiscordCommandHandler,
-  messagesToCache: MessageTuple[],
   guildId: string
 ): DiscordBot => {
   const client = new Client({
@@ -200,8 +204,6 @@ export const discordBot = (
     applyAction: async action => applyAction(fetchApi, action),
     start: async (discordToken: string) => {
       await client.login(discordToken);
-      await Promise.all(messagesToCache.map(([channelId, messageId]) => fetchApi.fetchMessage(channelId, messageId)));
-      console.log('Ready');
     },
     stop: async () => client.destroy(),
   };

@@ -9,6 +9,7 @@ export enum BotActionType {
   AddReaction = 'AddReaction',
   RemoveReaction = 'RemoveReaction',
   DirectMessage = 'DirectMessage',
+  CacheMessage = 'CacheMessage',
 }
 
 interface BotBaseAction {
@@ -88,6 +89,12 @@ export interface BotDirectMessageAction extends BotBaseAction {
   messageContent: string;
 }
 
+export interface BotCacheMessageAction extends BotBaseAction {
+  type: BotActionType.CacheMessage;
+  channelId: string;
+  messageId: string;
+}
+
 export type BotAction =
   | BotMessageAction
   | BotRoleGrantAction
@@ -96,4 +103,5 @@ export type BotAction =
   | BotAddReactionAction
   | BotRemoveReactionAction
   | BotRemoveMessageAction
-  | BotDirectMessageAction;
+  | BotDirectMessageAction
+  | BotCacheMessageAction;
