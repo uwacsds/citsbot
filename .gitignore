@@ -1,5 +1,4 @@
-src_python/
-config.dev.json
+config.local.json
 .env*
 
 # Logs

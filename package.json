@@ -4,7 +4,7 @@
   "main": "index.ts",
   "repository": "git@github.com:uwacsds/CITSBot.git",
   "author": "Tim Ings <tim@tim-ings.com>",
-  "license": "GPL2",
+  "license": "GPL3",
   "private": true,
   "scripts": {
     "watch": "ts-node-dev --unhandled-rejections=strict ./src/start.ts",

@@ -24,24 +24,34 @@
 
 1. Set up config file
 
-    1. Make a copy of `config.dev.sample.json` called `config.dev.json`. The `config.json` files contain IDs for channels, servers, and roles for their respective servers. You will need to change the sample values in your `config.dev.json` to ones from your test server.
+    1. Make a copy of `config.local.sample.json` called `config.local.json`. The `config.json` files contain IDs for channels, servers, and roles for their respective servers. You will need to change the sample values in your `config.local.json` to ones from your test server.
     2. To get IDs go to your discord settings and enable developer mode. The toggle can be found at the bottom of the "Appearance" section under Advanced.
-    3. You can now right click on channels, users, roles, etc. to copy their ID which you can put in your `config.dev.json` file
-    4. Run this command to add add your config file to 
+    3. You can now right click on channels, users, roles, etc. to copy their ID which you can put in your `config.local.json` file
 
 2. Set up environment variables
 
     1. Create a new file called `.env` in the root directory (next to package.json)
     2. Add the following to it `DISCORD_TOKEN=<your-discord-bot-token-here>` where `<your-discord-bot-token-here>` is your discord bot token that you can find under the Bot section of the discord developer portal. **Do not share this value with anyone.**
-    3. Run `./generate-env.sh config.dev.json` to generate an environment file that will contain both your token and the specified bot config. **You will need to run this script every time you make changes to your bot config.**
 
-### Set up local environment
+### Set up Docker and Kubernetes
 
 1. Run `yarn` to install dependencies for your IDE
 2. Install docker and docker-compose from https://www.docker.com/products/docker-desktop
-3. Make sure you have set up a server, bot account, and config by following the steps in the sections above
-4. Use `docker-compose up` to build and run the bot
+3. Enable Kubernetes in the Docker Desktop preferences
 
-### Run tests
+### Running tests
 
 1. Run `yarn test`
+
+### Building, Running, and Stopping the Bot
+
+1. Make sure you have set up a server, bot account, and config by following the steps in the sections above
+2. Use the provided scripts to manage the bot. **Due to the nature of Kubernetes, the bot will continue running unless you explicitly shut it down with the provided stop script.** 
+
+Script | Description
+--- | ---
+`./local-reset.sh` | Can be used at any time to bring up a fresh instance of the bot with your latest changes. This is the primary script you would use during development
+`./local-build.sh` | Builds the bot using docker
+`./local-start.sh` | Installs the bot's helm chart
+`./local-stop.sh` | Uninstalls the bot's helm chart
+`./local-tail.sh` | Tails the bot's pod's logs
