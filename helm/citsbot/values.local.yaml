@@ -1,0 +1,7 @@
+image: citsbot
+
+environment: local
+
+localSecrets:
+  token: placeholder
+  config: placeholder

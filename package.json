@@ -1,5 +1,5 @@
 {
-  "name": "CITSBot",
+  "name": "citsbot",
   "version": "1.0.0",
   "main": "index.ts",
   "repository": "git@github.com:uwacsds/CITSBot.git",
