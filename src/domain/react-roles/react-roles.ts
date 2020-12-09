@@ -1,7 +1,7 @@
 import { DiscordReaction, DiscordUser } from '../../discord-service/types';
 import { LoggingService } from '../../utils/logging';
 import { BotActionType } from '../action-types';
-import { UnitsConfig } from '../config';
+import { UnitConfig } from '../config';
 import { ModuleType, ReactRolesModule } from '../module-types';
 
 export interface ReactRolesConfig {
@@ -16,7 +16,7 @@ export interface ReactRolesConfig {
   }>;
 }
 
-const getRole = (config: ReactRolesConfig, units: UnitsConfig, reaction: DiscordReaction) => {
+const getRole = (config: ReactRolesConfig, units: Record<string, UnitConfig>, reaction: DiscordReaction) => {
   const msg = config.messages.find(msg => msg.id === reaction.message.id);
   if (!msg) return null;
 
@@ -29,7 +29,7 @@ const getRole = (config: ReactRolesConfig, units: UnitsConfig, reaction: Discord
   return unit.role;
 };
 
-export const reactRolesModule = (config: ReactRolesConfig, { log }: LoggingService, units: UnitsConfig): ReactRolesModule => ({
+export const reactRolesModule = (config: ReactRolesConfig, { log }: LoggingService, units: Record<string, UnitConfig>): ReactRolesModule => ({
   type: ModuleType.ReactRoles,
   onReactionAdd: async (reaction: DiscordReaction, user: DiscordUser) => {
     const role = getRole(config, units, reaction);

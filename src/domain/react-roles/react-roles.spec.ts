@@ -1,7 +1,7 @@
 import { DiscordUser, DiscordReaction } from '../../discord-service/types';
 import { mockLogger } from '../../utils/logging';
 import { BotActionType } from '../action-types';
-import { UnitsConfig } from '../config';
+import { UnitConfig } from '../config';
 import { ReactRolesConfig, reactRolesModule } from './react-roles';
 
 describe('react-roles module', () => {
@@ -13,7 +13,7 @@ describe('react-roles module', () => {
       { id: 'msg3', channel: 'channel1', reactions: [{ unit: 'unit1', emoji: 'emoji3' }] },
     ],
   };
-  const units: UnitsConfig = {
+  const units: Record<string, UnitConfig> = {
     unit1: { channels: { general: '', resources: '' }, name: 'unitOne', role: 'unit1Role' },
   };
   const reactRoles = reactRolesModule(config, mockLogger(), units);

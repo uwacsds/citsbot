@@ -1,6 +1,6 @@
 import { discordCommandHandler } from './domain/command-handler';
 import { discordBot } from './discord-service/discord-bot';
-import { BotConfig } from './domain/config';
+import { BotConfig, validateConfig } from './domain/config';
 import { MessageTuple } from './discord-service/types';
 import { academicCalendarService } from './academic-calendar/academic-calendar-service';
 import { academicWeeksParser } from './academic-calendar/weeks-parser';
@@ -8,7 +8,7 @@ import { academicDeadlinesParser } from './academic-calendar/deadlines-parser';
 import { discordChannelLogger } from './utils/logging';
 
 const env = {
-  CONFIG: JSON.parse(process.env.CONFIG ?? '{}') as BotConfig,
+  CONFIG: validateConfig(JSON.parse(process.env.CONFIG ?? '{}')),
   DISCORD_TOKEN: process.env.DISCORD_TOKEN as string,
 };
 
