@@ -21,6 +21,7 @@ const start = async () => {
   const bot = discordBot(logger, commandHandler, getMessagesToCache(env.CONFIG), env.CONFIG.guild);
   logger.initialise(bot);
   await bot.start(env.DISCORD_TOKEN);
+  logger.log('notice', 'Bot has started', { title: 'Hello, World' });
 };
 
 start();

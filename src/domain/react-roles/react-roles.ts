@@ -1,6 +1,6 @@
 import { DiscordReaction, DiscordUser } from '../../discord-service/types';
 import { LoggingService } from '../../utils/logging';
-import { BotActionType } from '../action-types';
+import { BotActionType, BotAddReactionAction } from '../action-types';
 import { UnitConfig } from '../config';
 import { ModuleType, ReactRolesModule } from '../module-types';
 
@@ -31,7 +31,15 @@ const getRole = (config: ReactRolesConfig, units: Record<string, UnitConfig>, re
 
 export const reactRolesModule = (config: ReactRolesConfig, { log }: LoggingService, units: Record<string, UnitConfig>): ReactRolesModule => ({
   type: ModuleType.ReactRoles,
+  onBotStart: async () => {
+    const actions = config.messages.flatMap(({ reactions, channel, id }) =>
+      reactions.map(({ emoji }): BotAddReactionAction => ({ type: BotActionType.AddReaction, channelId: channel, messageId: id, emoji }))
+    );
+    log('info', 'Initialising React Roles', { title: 'React Roles' });
+    return actions;
+  },
   onReactionAdd: async (reaction: DiscordReaction, user: DiscordUser) => {
+    if (user.bot) return [];
     const role = getRole(config, units, reaction);
     if (!role) return [];
     log('info', 'Granting role', { title: 'React Roles', data: { role, emoji: reaction.emoji, user } });

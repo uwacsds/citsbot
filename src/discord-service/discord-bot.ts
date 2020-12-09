@@ -90,7 +90,9 @@ const applyEmbeddedMessage = async ({ fetchTextChannel }: DiscordAPI, action: Bo
 
 const applyAddReaction = async ({ fetchMessage }: DiscordAPI, action: BotAddReactionAction) => {
   const message = await fetchMessage(action.channelId, action.messageId);
-  await message?.react(action.emoji);
+  const guildEmoji = message?.guild?.emojis.cache.find(emoji => emoji.name === action.emoji);
+  if (guildEmoji) await message?.react(guildEmoji);
+  else await message?.react(action.emoji);
 };
 
 const applyRoleGrant = async ({ fetchMember }: DiscordAPI, action: BotRoleGrantAction) => {
@@ -141,7 +143,7 @@ const applyAction = (fetchApi: DiscordAPI, action: BotAction) => {
 
 export const discordBot = (
   { log }: LoggingService,
-  { registerEventListener, onMessage, onMemberJoin, onReactionAdd, onReactionRemove }: DiscordCommandHandler,
+  { registerEventListener, onBotStart, onMessage, onMemberJoin, onReactionAdd, onReactionRemove }: DiscordCommandHandler,
   messagesToCache: MessageTuple[],
   guildId: string
 ): DiscordBot => {
@@ -154,6 +156,13 @@ export const discordBot = (
 
   registerEventListener(action => applyAction(fetchApi, action));
 
+  client.on('ready', async () => {
+    const actions = await Promise.all(onBotStart());
+    for (const action of actions.flat()) {
+      log('info', 'Applying Action', { title: 'OnReady', data: action });
+      await applyAction(fetchApi, action);
+    }
+  });
   client.on('message', async message => {
     if (message.guild?.id !== guildId) return;
     const actions = await Promise.all(onMessage(parseMessage(message)));
