@@ -1,7 +1,6 @@
 import { discordCommandHandler } from './domain/command-handler';
 import { discordBot } from './discord-service/discord-bot';
-import { BotConfig, validateConfig } from './domain/config';
-import { MessageTuple } from './discord-service/types';
+import { validateConfig } from './domain/config';
 import { academicCalendarService } from './academic-calendar/academic-calendar-service';
 import { academicWeeksParser } from './academic-calendar/weeks-parser';
 import { academicDeadlinesParser } from './academic-calendar/deadlines-parser';
@@ -12,15 +11,14 @@ const env = {
   DISCORD_TOKEN: process.env.DISCORD_TOKEN as string,
 };
 
-const getMessagesToCache = (config: BotConfig): MessageTuple[] => [...config.modules.reactRoles.messages.map((msg): MessageTuple => [msg.channel, msg.id])];
-
 const start = async () => {
   const logger = discordChannelLogger(env.CONFIG.logChannel);
   const calendar = academicCalendarService(logger, academicWeeksParser(), academicDeadlinesParser());
   const commandHandler = discordCommandHandler(env.CONFIG, logger, calendar);
-  const bot = discordBot(logger, commandHandler, getMessagesToCache(env.CONFIG), env.CONFIG.guild);
+  const bot = discordBot(logger, commandHandler, env.CONFIG.guild);
   logger.initialise(bot);
   await bot.start(env.DISCORD_TOKEN);
+  logger.log('notice', 'Bot has started', { title: 'Hello, World' });
 };
 
 start();

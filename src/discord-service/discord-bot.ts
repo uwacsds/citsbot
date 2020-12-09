@@ -3,6 +3,7 @@ import {
   BotAction,
   BotActionType,
   BotAddReactionAction,
+  BotCacheMessageAction,
   BotDirectMessageAction,
   BotEmbeddedMessageAction,
   BotMessageAction,
@@ -13,7 +14,7 @@ import {
 import { DiscordCommandHandler } from '../domain/command-handler';
 import { LoggingService } from '../utils/logging';
 import { discordApi } from './discord-api';
-import { DiscordBot, DiscordAPI, MessageTuple, DiscordChannel, DiscordEmoji, DiscordMessage, DiscordMessageAttachment, DiscordReaction, DiscordUser } from './types';
+import { DiscordBot, DiscordAPI, DiscordChannel, DiscordEmoji, DiscordMessage, DiscordMessageAttachment, DiscordReaction, DiscordUser } from './types';
 
 const parseUser = (user: User | PartialUser): DiscordUser => ({
   id: user.id,
@@ -90,7 +91,9 @@ const applyEmbeddedMessage = async ({ fetchTextChannel }: DiscordAPI, action: Bo
 
 const applyAddReaction = async ({ fetchMessage }: DiscordAPI, action: BotAddReactionAction) => {
   const message = await fetchMessage(action.channelId, action.messageId);
-  await message?.react(action.emoji);
+  const guildEmoji = message?.guild?.emojis.cache.find(emoji => emoji.name === action.emoji);
+  if (guildEmoji) await message?.react(guildEmoji);
+  else await message?.react(action.emoji);
 };
 
 const applyRoleGrant = async ({ fetchMember }: DiscordAPI, action: BotRoleGrantAction) => {
@@ -114,6 +117,8 @@ const applyDirectMessage = async ({ fetchMember }: DiscordAPI, { userId, message
   await member.send(messageContent);
 };
 
+const applyCacheMessage = async ({ fetchMessage }: DiscordAPI, { messageId, channelId }: BotCacheMessageAction) => fetchMessage(channelId, messageId);
+
 const applyAction = (fetchApi: DiscordAPI, action: BotAction) => {
   const delay = action.delay ?? 0;
   const condition = action.condition ?? (() => true);
@@ -135,14 +140,15 @@ const applyAction = (fetchApi: DiscordAPI, action: BotAction) => {
         return applyRemoveMessage(fetchApi, action);
       case BotActionType.DirectMessage:
         return applyDirectMessage(fetchApi, action);
+      case BotActionType.CacheMessage:
+        return applyCacheMessage(fetchApi, action);
     }
   }, delay);
 };
 
 export const discordBot = (
   { log }: LoggingService,
-  { registerEventListener, onMessage, onMemberJoin, onReactionAdd, onReactionRemove }: DiscordCommandHandler,
-  messagesToCache: MessageTuple[],
+  { registerEventListener, onBotStart, onMessage, onMemberJoin, onReactionAdd, onReactionRemove }: DiscordCommandHandler,
   guildId: string
 ): DiscordBot => {
   const client = new Client({
@@ -154,6 +160,13 @@ export const discordBot = (
 
   registerEventListener(action => applyAction(fetchApi, action));
 
+  client.on('ready', async () => {
+    const actions = await Promise.all(onBotStart());
+    for (const action of actions.flat()) {
+      log('info', 'Applying Action', { title: 'OnReady', data: action });
+      await applyAction(fetchApi, action);
+    }
+  });
   client.on('message', async message => {
     if (message.guild?.id !== guildId) return;
     const actions = await Promise.all(onMessage(parseMessage(message)));
@@ -191,8 +204,6 @@ export const discordBot = (
     applyAction: async action => applyAction(fetchApi, action),
     start: async (discordToken: string) => {
       await client.login(discordToken);
-      await Promise.all(messagesToCache.map(([channelId, messageId]) => fetchApi.fetchMessage(channelId, messageId)));
-      console.log('Ready');
     },
     stop: async () => client.destroy(),
   };

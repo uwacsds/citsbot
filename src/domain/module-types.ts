@@ -12,6 +12,7 @@ export enum ModuleType {
 
 export interface BaseModule {
   type: ModuleType;
+  onBotStart?: () => Promise<BotAction[]>;
   onMemberJoin?: (user: DiscordUser) => Promise<BotAction[]>;
   onReactionAdd?: (reaction: DiscordReaction, user: DiscordUser) => Promise<BotAction[]>;
   onReactionRemove?: (reaction: DiscordReaction, user: DiscordUser) => Promise<BotAction[]>;
@@ -31,6 +32,7 @@ export interface WelcomerModule extends BaseModule {
 
 export interface ReactRolesModule extends BaseModule {
   type: ModuleType.ReactRoles;
+  onBotStart: () => Promise<BotAction[]>;
   onReactionAdd: (reaction: DiscordReaction, user: DiscordUser) => Promise<BotAction[]>;
   onReactionRemove: (reaction: DiscordReaction, user: DiscordUser) => Promise<BotAction[]>;
 }
