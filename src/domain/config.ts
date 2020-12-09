@@ -10,7 +10,7 @@ export interface UnitConfig {
   channels: {
     general: string;
     resources: string;
-  }
+  };
 }
 
 export interface BotConfig {
@@ -29,11 +29,11 @@ export interface BotConfig {
 
 const fieldValidator = (prefix: string) => (parent: any, field: string, expectedType: 'array' | 'bigint' | 'boolean' | 'number' | 'object' | 'string') => {
   if (expectedType === 'array') {
-    if (parent[field].push === undefined) throw Error(`${prefix}: Expected '${field}' to have type '${expectedType}', got '${typeof (parent[field])}'`);
+    if (parent[field].push === undefined) throw Error(`${prefix}: Expected '${field}' to have type '${expectedType}', got '${typeof parent[field]}'`);
   } else {
-    if (typeof (parent[field]) !== expectedType) throw Error(`${prefix}: Expected '${field}' to have type '${expectedType}', got '${typeof (parent[field])}'`);
+    if (typeof parent[field] !== expectedType) throw Error(`${prefix}: Expected '${field}' to have type '${expectedType}', got '${typeof parent[field]}'`);
   }
-}
+};
 
 export const validateConfig = (rawConfig: any): BotConfig => {
   const config = rawConfig as BotConfig;
@@ -125,8 +125,8 @@ const validateAnimeDetectorConfig = (rawConfig: any) => {
   validate(rawConfig, 'keywordCountThreshold', 'number');
   validate(rawConfig, 'keywords', 'array');
   rawConfig.keywords.forEach((keyword: any, idx: number) => {
-    if (typeof (keyword) !== 'string') {
+    if (typeof keyword !== 'string') {
       throw Error(`Config Validation: modules.animeDetector.keywords[${idx}]: Expected to have type string`);
     }
-  })
+  });
 };
