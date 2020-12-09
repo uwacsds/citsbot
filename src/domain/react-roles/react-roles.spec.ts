@@ -9,7 +9,7 @@ describe('react-roles module', () => {
   const config: ReactRolesConfig = {
     messages: [
       { id: 'msg1', channel: 'channel1', reactions: [{ role: 'role1', emoji: 'emoji1' }] },
-      { id: 'msg2', channel: 'channel2', reactions: [{ role: 'role2', emoji: 'emoji2' }] },
+      { id: 'msg2', channel: 'channel2', reactions: [{ role: 'role2', emoji: 'emoji2' }, { role: 'role3', emoji: 'emoji3' }] },
       { id: 'msg3', channel: 'channel1', reactions: [{ unit: 'unit1', emoji: 'emoji3' }] },
     ],
   };
@@ -26,6 +26,18 @@ describe('react-roles module', () => {
     tag: 'userA#1234',
     username: 'userA',
   };
+
+  it('should cache and react to all messages in the config', async () => {
+    await expect(reactRoles.onBotStart()).resolves.toEqual([
+      { type: BotActionType.CacheMessage, channelId: 'channel1', messageId: 'msg1' },
+      { type: BotActionType.CacheMessage, channelId: 'channel2', messageId: 'msg2' },
+      { type: BotActionType.CacheMessage, channelId: 'channel1', messageId: 'msg3' },
+      { type: BotActionType.AddReaction, channelId: 'channel1', messageId: 'msg1', emoji: 'emoji1' },
+      { type: BotActionType.AddReaction, channelId: 'channel2', messageId: 'msg2', emoji: 'emoji2' },
+      { type: BotActionType.AddReaction, channelId: 'channel2', messageId: 'msg2', emoji: 'emoji3' },
+      { type: BotActionType.AddReaction, channelId: 'channel1', messageId: 'msg3', emoji: 'emoji3' },
+    ]);
+  });
 
   it('should grant a role when given a valid configRole based react', async () => {
     const reaction = {
