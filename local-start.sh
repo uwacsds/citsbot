@@ -1,6 +1,6 @@
 #!/bin/bash
 
-kubectl config use-context docker-desktop
+sh ./local-set-context.sh
 
 . .env
 if [ -z "$DISCORD_TOKEN" ]; then

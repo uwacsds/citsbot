@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sh ./local-set-context.sh
+
 function is_pod_running() {
   POD_NAME=$(kubectl get pods -n citsbot -o jsonpath="{.items[0].metadata.name}")
   kubectl logs -n citsbot $POD_NAME >/dev/null 2>&1
