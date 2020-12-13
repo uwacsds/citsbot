@@ -1,4 +1,4 @@
-import { DiscordReaction, DiscordUser } from '../../discord-service/types';
+import { DiscordMessage, DiscordReaction, DiscordUser } from '../../discord-service/types';
 import { LoggingService } from '../../utils/logging';
 import { BotActionType, BotAddReactionAction, BotCacheMessageAction } from '../action-types';
 import { UnitConfig } from '../config';
@@ -16,8 +16,10 @@ export interface ReactRolesConfig {
   }>;
 }
 
+const getMessage = (config: ReactRolesConfig, message: DiscordMessage) => config.messages.find(({ id, channel }) => id === message.id && channel === message.channel.id);
+
 const getRole = (config: ReactRolesConfig, units: Record<string, UnitConfig>, reaction: DiscordReaction) => {
-  const msg = config.messages.find(msg => msg.id === reaction.message.id);
+  const msg = getMessage(config, reaction.message);
   if (!msg) return null;
 
   const roleConfig = msg.reactions.find(r => r.emoji === reaction.emoji.name);
@@ -28,6 +30,8 @@ const getRole = (config: ReactRolesConfig, units: Record<string, UnitConfig>, re
   const [_, unit] = unitConfig;
   return unit.role;
 };
+
+const isMessageTracked = (config: ReactRolesConfig, message: DiscordMessage) => getMessage(config, message) !== undefined;
 
 export const reactRolesModule = (config: ReactRolesConfig, { log }: LoggingService, units: Record<string, UnitConfig>): ReactRolesModule => ({
   type: ModuleType.ReactRoles,
@@ -41,12 +45,16 @@ export const reactRolesModule = (config: ReactRolesConfig, { log }: LoggingServi
   },
   onReactionAdd: async (reaction: DiscordReaction, user: DiscordUser) => {
     if (user.bot) return [];
+    if (!isMessageTracked(config, reaction.message)) return [];
+
     const role = getRole(config, units, reaction);
-    if (!role) return [];
+    if (!role) return [{ type: BotActionType.RemoveReaction, channelId: reaction.message.channel.id, messageId: reaction.message.id, reactionId: reaction.emoji.id ?? reaction.emoji.name }];
+
     log('info', 'Granting role', { title: 'React Roles', data: { role, emoji: reaction.emoji, user } });
     return [{ type: BotActionType.RoleGrant, user, role }];
   },
   onReactionRemove: async (reaction: DiscordReaction, user: DiscordUser) => {
+    if (user.bot) return [];
     const role = getRole(config, units, reaction);
     if (!role) return [];
     log('info', 'Revoking role', { title: 'React Roles', data: { role, emoji: reaction.emoji, user } });
