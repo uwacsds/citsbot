@@ -61,8 +61,9 @@ export interface BotAddReactionAction extends BotBaseAction {
 
 export interface BotRemoveReactionAction extends BotBaseAction {
   type: BotActionType.RemoveReaction;
+  channelId: string;
   messageId: string;
-  emoji: string;
+  reactionId: string;
 }
 
 export interface BotRoleGrantAction extends BotBaseAction {
