@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -z "$KUBE_CONTEXT" ]; then
+if [ -z "$LOCAL_KUBE_CONTEXT" ]; then
   LOCAL_KUBE_CONTEXT='docker-desktop'
 fi
 
