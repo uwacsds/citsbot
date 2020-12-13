@@ -8,6 +8,7 @@ import {
   BotEmbeddedMessageAction,
   BotMessageAction,
   BotRemoveMessageAction,
+  BotRemoveReactionAction,
   BotRoleGrantAction,
   BotRoleRevokeAction,
 } from '../domain/action-types';
@@ -50,7 +51,7 @@ const parseMessage = (message: Message): DiscordMessage => ({
   attachments: message.attachments.map(parseAttachment),
 });
 
-const parseEmoji = (emoji: GuildEmoji | ReactionEmoji): DiscordEmoji => ({ name: emoji.name });
+const parseEmoji = ({ id, name }: GuildEmoji | ReactionEmoji): DiscordEmoji => ({ id: id ?? name, name });
 
 const parseReaction = (reaction: MessageReaction): DiscordReaction => ({
   count: reaction.count ?? 0,
@@ -96,6 +97,11 @@ const applyAddReaction = async ({ fetchMessage }: DiscordAPI, action: BotAddReac
   else await message?.react(action.emoji);
 };
 
+const applyRemoveReaction = async ({ fetchMessage }: DiscordAPI, action: BotRemoveReactionAction) => {
+  const message = await fetchMessage(action.channelId, action.messageId);
+  await message?.reactions.cache.get(action.reactionId)?.remove();
+};
+
 const applyRoleGrant = async ({ fetchMember }: DiscordAPI, action: BotRoleGrantAction) => {
   const member = await fetchMember(action.user.id);
   await member.roles.add(action.role);
@@ -132,6 +138,8 @@ const applyAction = (fetchApi: DiscordAPI, action: BotAction) => {
         return applyEmbeddedMessage(fetchApi, action);
       case BotActionType.AddReaction:
         return applyAddReaction(fetchApi, action);
+      case BotActionType.RemoveReaction:
+        return applyRemoveReaction(fetchApi, action);
       case BotActionType.RoleGrant:
         return applyRoleGrant(fetchApi, action);
       case BotActionType.RoleRevoke:

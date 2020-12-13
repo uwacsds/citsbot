@@ -66,12 +66,12 @@ describe('command-handler', () => {
   });
 
   it('should grant a role when a user reacts', async () => {
-    const actions = await Promise.all(onReactionAdd({ count: 1, emoji: { name: 'emoji1' }, message }, user));
+    const actions = await Promise.all(onReactionAdd({ count: 1, emoji: { id: 'react123', name: 'emoji1' }, message }, user));
     expect(actions.flat()).toMatchObject([{ type: BotActionType.RoleGrant, user, role: 'role1' }]);
   });
 
   it('should revoke a role when a user reacts', async () => {
-    const actions = await Promise.all(onReactionRemove({ count: 1, emoji: { name: 'emoji1' }, message }, user));
+    const actions = await Promise.all(onReactionRemove({ count: 1, emoji: { id: 'react123', name: 'emoji1' }, message }, user));
     expect(actions.flat()).toMatchObject([{ type: BotActionType.RoleRevoke, user, role: 'role1' }]);
   });
 });

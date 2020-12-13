@@ -9,7 +9,14 @@ describe('react-roles module', () => {
   const config: ReactRolesConfig = {
     messages: [
       { id: 'msg1', channel: 'channel1', reactions: [{ role: 'role1', emoji: 'emoji1' }] },
-      { id: 'msg2', channel: 'channel2', reactions: [{ role: 'role2', emoji: 'emoji2' }, { role: 'role3', emoji: 'emoji3' }] },
+      {
+        id: 'msg2',
+        channel: 'channel2',
+        reactions: [
+          { role: 'role2', emoji: 'emoji2' },
+          { role: 'role3', emoji: 'emoji3' },
+        ],
+      },
       { id: 'msg3', channel: 'channel1', reactions: [{ unit: 'unit1', emoji: 'emoji3' }] },
     ],
   };
@@ -67,15 +74,7 @@ describe('react-roles module', () => {
     ]);
   });
 
-  it('should return nothing action when unable to find a role due to invalid emoji', async () => {
-    const reaction = {
-      emoji: { name: 'emojiBad' },
-      message: { channel: { id: 'channel1' }, id: 'msg3' },
-    } as DiscordReaction;
-    await expect(reactRoles.onReactionAdd(reaction, user)).resolves.toEqual([]);
-  });
-
-  it('should return nothing action when unable to find a role due to invalid channel', async () => {
+  it('should return no actions when unable to find a role due to invalid channel', async () => {
     const reaction = {
       emoji: { name: 'emoji1' },
       message: { channel: { id: 'channelBad' }, id: 'msg3' },
@@ -83,7 +82,7 @@ describe('react-roles module', () => {
     await expect(reactRoles.onReactionAdd(reaction, user)).resolves.toEqual([]);
   });
 
-  it('should return nothing action when unable to find a role due to invalid message', async () => {
+  it('should return no actions when unable to find a role due to invalid message', async () => {
     const reaction = {
       emoji: { name: 'emoji1' },
       message: { channel: { id: 'channel3' }, id: 'msgBad' },
@@ -111,5 +110,13 @@ describe('react-roles module', () => {
       message: { channel: { id: 'channel3' }, id: 'msgBad' },
     } as DiscordReaction;
     await expect(reactRoles.onReactionRemove(reaction, user)).resolves.toEqual([]);
+  });
+
+  it('should remove unknown reactions with IDs from tracked messages', async () => {
+    const reaction = {
+      emoji: { id: 'react123', name: 'badEmoji' },
+      message: { channel: { id: 'channel2' }, id: 'msg2' },
+    } as DiscordReaction;
+    await expect(reactRoles.onReactionAdd(reaction, user)).resolves.toEqual([{ type: BotActionType.RemoveReaction, channelId: 'channel2', messageId: 'msg2', reactionId: 'react123' }]);
   });
 });
