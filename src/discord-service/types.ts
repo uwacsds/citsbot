@@ -49,7 +49,7 @@ export interface DiscordMessage {
 }
 
 export interface DiscordEmoji {
-  id: string | null;
+  id: string;
   name: string;
 }
 

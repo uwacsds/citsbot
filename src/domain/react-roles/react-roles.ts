@@ -48,7 +48,7 @@ export const reactRolesModule = (config: ReactRolesConfig, { log }: LoggingServi
     if (!isMessageTracked(config, reaction.message)) return [];
 
     const role = getRole(config, units, reaction);
-    if (!role) return [{ type: BotActionType.RemoveReaction, channelId: reaction.message.channel.id, messageId: reaction.message.id, reactionId: reaction.emoji.id ?? reaction.emoji.name }];
+    if (!role) return [{ type: BotActionType.RemoveReaction, channelId: reaction.message.channel.id, messageId: reaction.message.id, reactionId: reaction.emoji.id }];
 
     log('info', 'Granting role', { title: 'React Roles', data: { role, emoji: reaction.emoji, user } });
     return [{ type: BotActionType.RoleGrant, user, role }];

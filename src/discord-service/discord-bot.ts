@@ -51,7 +51,7 @@ const parseMessage = (message: Message): DiscordMessage => ({
   attachments: message.attachments.map(parseAttachment),
 });
 
-const parseEmoji = ({ id, name }: GuildEmoji | ReactionEmoji): DiscordEmoji => ({ id, name });
+const parseEmoji = ({ id, name }: GuildEmoji | ReactionEmoji): DiscordEmoji => ({ id: id ?? name, name });
 
 const parseReaction = (reaction: MessageReaction): DiscordReaction => ({
   count: reaction.count ?? 0,

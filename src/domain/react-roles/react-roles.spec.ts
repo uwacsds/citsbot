@@ -119,12 +119,4 @@ describe('react-roles module', () => {
     } as DiscordReaction;
     await expect(reactRoles.onReactionAdd(reaction, user)).resolves.toEqual([{ type: BotActionType.RemoveReaction, channelId: 'channel2', messageId: 'msg2', reactionId: 'react123' }]);
   });
-
-  it('should remove unknown reactions without IDs from tracked messages', async () => {
-    const reaction = {
-      emoji: { id: null, name: 'badEmoji' },
-      message: { channel: { id: 'channel2' }, id: 'msg2' },
-    } as DiscordReaction;
-    await expect(reactRoles.onReactionAdd(reaction, user)).resolves.toEqual([{ type: BotActionType.RemoveReaction, channelId: 'channel2', messageId: 'msg2', reactionId: 'badEmoji' }]);
-  });
 });
