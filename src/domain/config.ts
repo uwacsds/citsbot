@@ -28,8 +28,10 @@ export interface BotConfig {
 }
 
 const fieldValidator = (prefix: string) => (parent: any, field: string, expectedType: 'array' | 'bigint' | 'boolean' | 'number' | 'object' | 'string') => {
-  if ((expectedType === 'array' && !Array.isArray(parent[field])) || (typeof parent[field] !== expectedType)) {
-    throw Error(`${prefix}: Expected '${field}' to have type '${expectedType}', got '${typeof parent[field]}'`);
+  if (expectedType === 'array') {
+    if (!Array.isArray(parent[field])) throw Error(`${prefix}: Expected '${field}' to have type '${expectedType}', got '${typeof parent[field]}'`);
+  } else {
+    if (typeof parent[field] !== expectedType) throw Error(`${prefix}: Expected '${field}' to have type '${expectedType}', got '${typeof parent[field]}'`);
   }
 };
 
