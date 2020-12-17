@@ -1,4 +1,4 @@
-import { Counter, Summary, Histogram, Gauge } from 'prom-client';
+import { Counter } from 'prom-client';
 
 const newUserCount = new Counter({
   name: 'citsbot_welcomer_new_users',

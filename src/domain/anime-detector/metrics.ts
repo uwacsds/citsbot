@@ -1,4 +1,4 @@
-import { Counter, Summary, Histogram, Gauge } from 'prom-client';
+import { Counter } from 'prom-client';
 
 const imageScanCount = new Counter({
   name: 'citsbot_anime_detector_images_scanned',

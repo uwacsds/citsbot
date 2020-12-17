@@ -13,7 +13,7 @@ import {
   BotRoleRevokeAction,
 } from '../domain/action-types';
 import { DiscordCommandHandler } from '../domain/command-handler';
-import { DiscordEmitter } from '../metrics/discord';
+import { discordEmitter, DiscordEmitter } from './metrics';
 import { LoggingService } from '../utils/logging';
 import { discordApi } from './discord-api';
 import { DiscordBot, DiscordAPI, DiscordChannel, DiscordEmoji, DiscordMessage, DiscordMessageAttachment, DiscordReaction, DiscordUser } from './types';
@@ -157,11 +157,11 @@ const applyAction = (emit: DiscordEmitter, fetchApi: DiscordAPI, action: BotActi
 };
 
 export const discordBot = (
-  emit: DiscordEmitter,
   { log }: LoggingService,
   { registerEventListener, onBotStart, onMessage, onMemberJoin, onReactionAdd, onReactionRemove }: DiscordCommandHandler,
   guildId: string
 ): DiscordBot => {
+  const emit = discordEmitter();
   const client = new Client({
     ws: {
       intents: ['DIRECT_MESSAGES', 'DIRECT_MESSAGE_REACTIONS', 'GUILDS', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS'],
@@ -170,6 +170,13 @@ export const discordBot = (
   const fetchApi = discordApi(client, guildId);
 
   registerEventListener(action => applyAction(emit, fetchApi, action));
+
+  clientEvents.forEach(event => client.addListener(event, () => emit.event(event)));
+  client.setInterval(() => {
+    const guild = client.guilds.cache.get(guildId);
+    if (!guild) return;
+    emit.memberCount(guild.name, guild.memberCount);
+  }, 900_000); // 15mins
 
   client.on('ready', async () => {
     const actions = await Promise.all(onBotStart());
@@ -222,3 +229,55 @@ export const discordBot = (
     stop: async () => client.destroy(),
   };
 };
+
+const clientEvents = [
+  'channelCreate',
+  'channelDelete',
+  'channelPinsUpdate',
+  'channelUpdate',
+  'debug',
+  'emojiCreate',
+  'emojiDelete',
+  'emojiUpdate',
+  'error',
+  'guildBanAdd',
+  'guildBanRemove',
+  'guildCreate',
+  'guildDelete',
+  'guildIntegrationsUpdate',
+  'guildMemberAdd',
+  'guildMemberAvailable',
+  'guildMemberRemove',
+  'guildMembersChunk',
+  'guildMemberSpeaking',
+  'guildMemberUpdate',
+  'guildUnavailable',
+  'guildUpdate',
+  'invalidated',
+  'inviteCreate',
+  'inviteDelete',
+  'message',
+  'messageDelete',
+  'messageDeleteBulk',
+  'messageReactionAdd',
+  'messageReactionRemove',
+  'messageReactionRemoveAll',
+  'messageReactionRemoveEmoji',
+  'messageUpdate',
+  'presenceUpdate',
+  'rateLimit',
+  'ready',
+  'roleCreate',
+  'roleDelete',
+  'roleUpdate',
+  'shardDisconnect',
+  'shardError',
+  'shardReady',
+  'shardReconnecting',
+  'shardResume',
+  'typingStart',
+  'userUpdate',
+  'voiceStateUpdate',
+  'warn',
+  'webhookUpdate',
+]

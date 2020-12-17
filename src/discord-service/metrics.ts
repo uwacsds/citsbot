@@ -1,4 +1,16 @@
-import { Counter, Summary, Histogram, Gauge } from 'prom-client';
+import { Counter, Gauge } from 'prom-client';
+
+const memberGauge = new Gauge({
+  name: 'discord_guild_member_gauge',
+  help: 'number of users in a guild',
+  labelNames: ['guild'],
+});
+
+const clientEventCount = new Counter({
+  name: 'discord_client_event_counter',
+  help: 'count of discordjs client events',
+  labelNames: ['eventType'],
+});
 
 const messageCount = new Counter({
   name: 'discord_message_counter',
@@ -13,11 +25,15 @@ const actionsCount = new Counter({
 });
 
 export interface DiscordEmitter {
+  memberCount: (guild: string, count: number) => void;
+  event: (eventType: string) => void;
   message: (channelId: string, channelName: string, userTag: string) => void;
   action: (actionType: string) => void;
 }
 
 export const discordEmitter = (): DiscordEmitter => ({
+  memberCount: (guild, count) => memberGauge.labels(guild).set(count),
+  event: (eventType) => clientEventCount.labels(eventType).inc(),
   message: (channelId, channelName, userTag) => messageCount.labels(channelId, channelName, userTag).inc(),
   action: actionType => actionsCount.labels(actionType).inc(),
 });
