@@ -1,7 +1,7 @@
 import { DiscordUser, DiscordMessage } from '../../discord-service/types';
 import { mockLogger } from '../../utils/logging';
 import { BotActionType } from '../action-types';
-import { WelcomerConfig, welcomerModule } from './welcomer';
+import { WelcomerConfig, welcomerModule } from './module';
 
 describe('welcomer module', () => {
   const now = new Date('2020-01-01T00:00Z');

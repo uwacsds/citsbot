@@ -1,6 +1,6 @@
 import nock from 'nock';
 import { mockLogger } from '../../utils/logging';
-import { AnimeDetectorConfig } from './anime-detector';
+import { AnimeDetectorConfig } from './module';
 import { animeDetectorService } from './service';
 
 describe('anime-detector-service', () => {

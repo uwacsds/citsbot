@@ -2,7 +2,7 @@ import { DiscordUser, DiscordReaction } from '../../discord-service/types';
 import { mockLogger } from '../../utils/logging';
 import { BotActionType } from '../action-types';
 import { UnitConfig } from '../config';
-import { ReactRolesConfig, reactRolesModule } from './react-roles';
+import { ReactRolesConfig, reactRolesModule } from './module';
 
 describe('react-roles module', () => {
   const now = new Date('2020-01-01T00:00Z');

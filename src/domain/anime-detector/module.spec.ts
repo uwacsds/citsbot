@@ -2,7 +2,7 @@ import nock from 'nock';
 import { DiscordUser, DiscordMessageAttachment, DiscordMessage } from '../../discord-service/types';
 import { mockLogger } from '../../utils/logging';
 import { BotActionType } from '../action-types';
-import { AnimeDetectorConfig, animeDetectorModule } from './anime-detector';
+import { AnimeDetectorConfig, animeDetectorModule } from './module';
 
 describe('anime-detector-module', () => {
   const now = new Date('2020-01-01');

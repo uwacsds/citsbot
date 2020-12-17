@@ -1,8 +1,8 @@
-import { AnimeDetectorConfig } from './anime-detector/anime-detector';
-import { AnnouncerConfig } from './announcer/announcer';
-import { CowsayConfig } from './cowsay/cowsay';
-import { ReactRolesConfig } from './react-roles/react-roles';
-import { WelcomerConfig } from './welcomer/welcomer';
+import { AnimeDetectorConfig } from './anime-detector/module';
+import { AnnouncerConfig } from './announcer/module';
+import { CowsayConfig } from './cowsay/module';
+import { ReactRolesConfig } from './react-roles/module';
+import { WelcomerConfig } from './welcomer/module';
 
 export interface UnitConfig {
   name: string;

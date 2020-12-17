@@ -1,6 +1,6 @@
-import { academicWeeksParser } from './weeks-parser';
-import { AcademicWeek } from './types';
-import { TEST_HTML_WEEKS } from './test-data';
+import { academicWeeksParser } from './parser';
+import { AcademicWeek } from '../types';
+import { TEST_HTML_WEEKS } from '../test-data';
 
 describe('weeks-parser', () => {
   const now = new Date('2020-01-01');

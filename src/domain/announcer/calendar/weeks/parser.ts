@@ -1,6 +1,5 @@
 import * as cheerio from 'cheerio';
-import { AcademicWeeksParser, AcademicWeek } from './types';
-import { getWeekIndex } from './week';
+import { AcademicWeeksParser, AcademicWeek } from '../types';
 
 interface ExamSemesterWeek {
   type: 'exam';
@@ -15,6 +14,20 @@ interface TeachingSemesterWeek {
   semester: number;
   week: number;
 }
+
+const previousMonday = (_date: Date): Date => {
+  const date = new Date(_date);
+  date.setUTCDate(date.getUTCDate() - date.getUTCDay() + 1);
+  return date;
+};
+
+const padZeros = (value: number) => value.toString().padStart(2, '0');
+
+export const getWeekIndex = (date: Date): string => {
+  const monday = previousMonday(date);
+  return `${monday.getUTCFullYear()}-${padZeros(monday.getUTCMonth() + 1)}-${padZeros(monday.getUTCDate())}`;
+};
+
 
 export const academicWeeksParser = (now = () => new Date()): AcademicWeeksParser => {
   const parseExamWeek = (str: string): ExamSemesterWeek | null => {

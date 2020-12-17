@@ -1,6 +1,6 @@
 import nock from 'nock';
-import { mockLogger } from '../utils/logging';
-import { reverseImageSearchService } from './reverse-image-search';
+import { mockLogger } from '../../../utils/logging';
+import { reverseImageSearchService } from './service';
 
 describe('reverse-image-search', () => {
   const { reverseSearch, countKeywordOccurrences } = reverseImageSearchService(mockLogger());

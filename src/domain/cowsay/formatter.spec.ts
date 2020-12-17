@@ -1,4 +1,4 @@
-import { CowsayConfig } from './cowsay';
+import { CowsayConfig } from './module';
 import { cowsayFormatter } from './formatter';
 
 describe('cowsay-formatter', () => {

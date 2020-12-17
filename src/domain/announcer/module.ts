@@ -1,9 +1,9 @@
 import { scheduleJob } from 'node-schedule';
-import { AcademicCalendar, AcademicCalendarService, AcademicWeek, TeachingAcademicWeek } from '../../academic-calendar/types';
-import { getWeekIndex } from '../../academic-calendar/week';
+import { AcademicCalendar, AcademicCalendarService, AcademicWeek, TeachingAcademicWeek } from './calendar/types';
 import { LoggingService } from '../../utils/logging';
 import { BotActionType, BotEmbeddedMessageAction } from '../action-types';
 import { AnnouncerModule, ModuleType } from '../module-types';
+import { getWeekIndex } from './calendar/weeks/parser';
 
 type Season = 'Summer' | 'Winter';
 
@@ -41,7 +41,7 @@ const weeksUntilNextSemester = (calendar: AcademicCalendar, now: Date): number =
   return weeksBetween(now, yearEnd) + weeksBetween(yearStart, sem1Week1.date);
 };
 
-export const announcerModule = (config: AnnouncerConfig, { log }: LoggingService, calendarService: AcademicCalendarService): AnnouncerModule => {
+export const announcerModule = (config: AnnouncerConfig, { log }: LoggingService, fetchCalendar: AcademicCalendarService): AnnouncerModule => {
   const buildEmbed = (title: string, description?: string, events: { name: string; value: string; inline?: boolean }[] = []): BotEmbeddedMessageAction => ({
     type: BotActionType.EmbeddedMessage,
     channelId: config.channel,
@@ -49,7 +49,7 @@ export const announcerModule = (config: AnnouncerConfig, { log }: LoggingService
   });
 
   const announce = async (now = () => new Date()): Promise<BotEmbeddedMessageAction> => {
-    const calendar = await calendarService.fetchCalendar();
+    const calendar = await fetchCalendar();
     const week = getWeek(calendar, now());
     switch (week.type) {
       case 'teaching': {
@@ -84,6 +84,10 @@ export const announcerModule = (config: AnnouncerConfig, { log }: LoggingService
       scheduleJob('announcer', config.crontab, async () => {
         listener([await announce()]);
       });
+    },
+    onMessage: async (message) => {
+      if (message.author.tag === 'tim#1001' && message.content === '!announce') return [await announce()];
+      return [];
     },
   };
 };

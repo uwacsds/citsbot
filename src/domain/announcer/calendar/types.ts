@@ -45,5 +45,5 @@ export interface AcademicWeeksParser {
 }
 
 export interface AcademicCalendarService {
-  fetchCalendar: () => Promise<AcademicCalendar>;
+  (): Promise<AcademicCalendar>;
 }

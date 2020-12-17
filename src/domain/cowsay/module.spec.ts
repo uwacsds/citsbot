@@ -2,7 +2,7 @@ import { DiscordMessage } from '../../discord-service/types';
 import { mockLogger } from '../../utils/logging';
 import { BotActionType } from '../action-types';
 import { BotConfig } from '../config';
-import { cowsayModule } from './cowsay';
+import { cowsayModule } from './module';
 
 describe('cowsay-module', () => {
   const now = () => new Date('2020-01-01');
