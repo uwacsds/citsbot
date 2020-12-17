@@ -14,7 +14,7 @@
     2. Click "New Application" and give it a name
     3. Click on "Bot" in the list on the left
     4. Click "Add Bot" and then "Yes, do it!"
-    5. Turn on the Server Members Intent under Privileged Gateway Intents
+    5. Turn on both the Presence Intent and the Server Members Intent under Privileged Gateway Intents
     6. Click on "OAuth2" in the list on the left
     7. Tick "bot" in scopes
     8. Tick "Administrator" in bot permissions

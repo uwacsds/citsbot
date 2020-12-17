@@ -164,7 +164,7 @@ export const discordBot = (
   const emit = discordEmitter();
   const client = new Client({
     ws: {
-      intents: ['DIRECT_MESSAGES', 'DIRECT_MESSAGE_REACTIONS', 'GUILDS', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS'],
+      intents: ['DIRECT_MESSAGES', 'DIRECT_MESSAGE_REACTIONS', 'GUILDS', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'GUILD_PRESENCES'],
     },
   });
   const fetchApi = discordApi(client, guildId);
@@ -177,7 +177,7 @@ export const discordBot = (
     if (!guild) return;
     emit.memberCount(guild.name, guild.memberCount);
     emit.memberOnlineCount(guild.name, guild.members.cache.filter(member => member.presence.status !== 'offline').size);
-  }, 300_000); // 5mins
+  }, 30_000); // 30 seconds
 
   client.on('ready', async () => {
     const guild = client.guilds.cache.get(guildId);
