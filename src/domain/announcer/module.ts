@@ -85,9 +85,5 @@ export const announcerModule = (config: AnnouncerConfig, { log }: LoggingService
         listener([await announce()]);
       });
     },
-    onMessage: async (message) => {
-      if (message.author.tag === 'tim#1001' && message.content === '!announce') return [await announce()];
-      return [];
-    },
   };
 };
