@@ -38,5 +38,5 @@ export const animeDetectorModule = (config: AnimeDetectorConfig, logger: Logging
       }
       return [];
     },
-  }
+  };
 };
