@@ -13,6 +13,7 @@ import {
   BotRoleRevokeAction,
 } from '../domain/action-types';
 import { DiscordCommandHandler } from '../domain/command-handler';
+import { DiscordEmitter } from '../metrics/discord';
 import { LoggingService } from '../utils/logging';
 import { discordApi } from './discord-api';
 import { DiscordBot, DiscordAPI, DiscordChannel, DiscordEmoji, DiscordMessage, DiscordMessageAttachment, DiscordReaction, DiscordUser } from './types';
@@ -125,12 +126,13 @@ const applyDirectMessage = async ({ fetchMember }: DiscordAPI, { userId, message
 
 const applyCacheMessage = async ({ fetchMessage }: DiscordAPI, { messageId, channelId }: BotCacheMessageAction) => fetchMessage(channelId, messageId);
 
-const applyAction = (fetchApi: DiscordAPI, action: BotAction) => {
+const applyAction = (emit: DiscordEmitter, fetchApi: DiscordAPI, action: BotAction) => {
   const delay = action.delay ?? 0;
   const condition = action.condition ?? (() => true);
 
   setTimeout(() => {
     if (!condition(fetchApi)) return;
+    emit.action(action.type);
     switch (action.type) {
       case BotActionType.Message:
         return applyMessage(fetchApi, action);
@@ -155,6 +157,7 @@ const applyAction = (fetchApi: DiscordAPI, action: BotAction) => {
 };
 
 export const discordBot = (
+  emit: DiscordEmitter,
   { log }: LoggingService,
   { registerEventListener, onBotStart, onMessage, onMemberJoin, onReactionAdd, onReactionRemove }: DiscordCommandHandler,
   guildId: string
@@ -166,21 +169,24 @@ export const discordBot = (
   });
   const fetchApi = discordApi(client, guildId);
 
-  registerEventListener(action => applyAction(fetchApi, action));
+  registerEventListener(action => applyAction(emit, fetchApi, action));
 
   client.on('ready', async () => {
     const actions = await Promise.all(onBotStart());
     for (const action of actions.flat()) {
       log('info', 'Applying Action', { title: 'OnReady', data: action });
-      await applyAction(fetchApi, action);
+      await applyAction(emit, fetchApi, action);
     }
   });
   client.on('message', async message => {
     if (message.guild?.id !== guildId) return;
+    const channelName = message.guild.channels.cache.get(message.channel.id)?.name ?? 'UNKNOWN';
+    emit.message(message.channel.id, channelName, message.author.tag);
+
     const actions = await Promise.all(onMessage(parseMessage(message)));
     for (const action of actions.flat()) {
       log('info', 'Applying Action', { title: 'OnMessage', data: action });
-      await applyAction(fetchApi, action);
+      await applyAction(emit, fetchApi, action);
     }
   });
   client.on('guildMemberAdd', async member => {
@@ -188,7 +194,7 @@ export const discordBot = (
     const actions = await Promise.all(onMemberJoin(parseUser(member.user)));
     for (const action of actions.flat()) {
       log('info', 'Applying Action', { title: 'OnGuildMemberAdd', data: action });
-      await applyAction(fetchApi, action);
+      await applyAction(emit, fetchApi, action);
     }
   });
   client.on('messageReactionAdd', async (reaction, user) => {
@@ -196,7 +202,7 @@ export const discordBot = (
     const actions = await Promise.all(onReactionAdd(parseReaction(reaction), parseUser(user)));
     for (const action of actions.flat()) {
       log('info', 'Applying Action', { title: 'OnMessageReactionAdd', data: action });
-      await applyAction(fetchApi, action);
+      await applyAction(emit, fetchApi, action);
     }
   });
   client.on('messageReactionRemove', async (reaction, user) => {
@@ -204,12 +210,12 @@ export const discordBot = (
     const actions = await Promise.all(onReactionRemove(parseReaction(reaction), parseUser(user)));
     for (const action of actions.flat()) {
       log('info', 'Applying Action', { title: 'OnMessageReactionRemove', data: action });
-      await applyAction(fetchApi, action);
+      await applyAction(emit, fetchApi, action);
     }
   });
 
   return {
-    applyAction: async action => applyAction(fetchApi, action),
+    applyAction: async action => applyAction(emit, fetchApi, action),
     start: async (discordToken: string) => {
       await client.login(discordToken);
     },

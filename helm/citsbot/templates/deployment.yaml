@@ -18,14 +18,16 @@ spec:
         - name: citsbot
           image: "{{ $.Values.image }}:{{ $.Chart.Version }}"
           env:
+            - name: ENVIRONMENT
+              value: "{{ $.Values.environment }}"
             - name: DISCORD_TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: citsbot.config.{{ .Values.environment }}
+                  name: citsbot.config.{{ $.Values.environment }}
                   key: token
             - name: CONFIG
               valueFrom:
                 secretKeyRef:
-                  name: citsbot.config.{{ .Values.environment }}
+                  name: citsbot.config.{{ $.Values.environment }}
                   key: config
       terminationGracePeriodSeconds: 5
