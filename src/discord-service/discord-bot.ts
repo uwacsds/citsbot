@@ -176,9 +176,14 @@ export const discordBot = (
     const guild = client.guilds.cache.get(guildId);
     if (!guild) return;
     emit.memberCount(guild.name, guild.memberCount);
-  }, 900_000); // 15mins
+    emit.memberOnlineCount(guild.name, guild.members.cache.filter(member => member.presence.status !== 'offline').size);
+  }, 300_000); // 5mins
 
   client.on('ready', async () => {
+    const guild = client.guilds.cache.get(guildId);
+    await guild?.fetchBans();
+    await guild?.members.fetch();
+
     const actions = await Promise.all(onBotStart());
     for (const action of actions.flat()) {
       log('info', 'Applying Action', { title: 'OnReady', data: action });

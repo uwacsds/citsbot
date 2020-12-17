@@ -6,6 +6,12 @@ const memberGauge = new Gauge({
   labelNames: ['guild'],
 });
 
+const memberOnlineGauge = new Gauge({
+  name: 'discord_guild_member_online_gauge',
+  help: 'number of users online in a guild',
+  labelNames: ['guild'],
+});
+
 const clientEventCount = new Counter({
   name: 'discord_client_event_counter',
   help: 'count of discordjs client events',
@@ -26,6 +32,7 @@ const actionsCount = new Counter({
 
 export interface DiscordEmitter {
   memberCount: (guild: string, count: number) => void;
+  memberOnlineCount: (guild: string, count: number) => void;
   event: (eventType: string) => void;
   message: (channelId: string, channelName: string, userTag: string) => void;
   action: (actionType: string) => void;
@@ -33,6 +40,7 @@ export interface DiscordEmitter {
 
 export const discordEmitter = (): DiscordEmitter => ({
   memberCount: (guild, count) => memberGauge.labels(guild).set(count),
+  memberOnlineCount: (guild, count) => memberOnlineGauge.labels(guild).set(count),
   event: eventType => clientEventCount.labels(eventType).inc(),
   message: (channelId, channelName, userTag) => messageCount.labels(channelId, channelName, userTag).inc(),
   action: actionType => actionsCount.labels(actionType).inc(),

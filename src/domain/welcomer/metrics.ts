@@ -7,7 +7,7 @@ const newUserCount = new Counter({
 
 const dmCount = new Counter({
   name: 'citsbot_welcomer_dm',
-  help: 'count of new users',
+  help: 'count of welcome dms sent',
   labelNames: ['instant'],
 });
 
