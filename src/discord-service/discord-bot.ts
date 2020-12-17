@@ -280,4 +280,4 @@ const clientEvents = [
   'voiceStateUpdate',
   'warn',
   'webhookUpdate',
-]
+];

@@ -33,7 +33,7 @@ export interface DiscordEmitter {
 
 export const discordEmitter = (): DiscordEmitter => ({
   memberCount: (guild, count) => memberGauge.labels(guild).set(count),
-  event: (eventType) => clientEventCount.labels(eventType).inc(),
+  event: eventType => clientEventCount.labels(eventType).inc(),
   message: (channelId, channelName, userTag) => messageCount.labels(channelId, channelName, userTag).inc(),
   action: actionType => actionsCount.labels(actionType).inc(),
 });
