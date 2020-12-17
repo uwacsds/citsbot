@@ -20,6 +20,8 @@ spec:
           env:
             - name: ENVIRONMENT
               value: "{{ $.Values.environment }}"
+            - name: PUSHGATEWAY_URL
+              value: "{{ $.Values.pushgatewayUrl }}"
             - name: DISCORD_TOKEN
               valueFrom:
                 secretKeyRef:
