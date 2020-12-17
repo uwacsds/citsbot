@@ -2,6 +2,7 @@ import { DiscordMessage, DiscordMessageAttachment } from '../../discord-service/
 import { LoggingService } from '../../utils/logging';
 import { BotActionType } from '../action-types';
 import { AnimeDetectorModule, ModuleType } from '../module-types';
+import { animeDetectorEmitter } from './metrics';
 import { animeDetectorService } from './service';
 
 const patternAnyImageUrl = /\w*?(https?:\/\/[^ ]+?\.(jpg|jpeg|png|tif|bmp|gif|webp))\w*?/gi;
@@ -21,17 +22,21 @@ const parseImgurUrls = (message: string): string[] =>
     .map(match => match.groups?.id)
     .map(id => `https://i.imgur.com/${id}.png`); // we can use any file extension
 
-export const animeDetectorModule = (config: AnimeDetectorConfig, logger: LoggingService): AnimeDetectorModule => ({
-  type: ModuleType.AnimeDetector,
-  onMessage: async (message: DiscordMessage) => {
-    const detectAnime = animeDetectorService(config, logger);
-    for (const url of parseAllUrls(message)) {
-      const [verdict, counts] = await detectAnime(url);
-      if (verdict) {
-        logger.log('notice', 'Message removed', { title: 'Anime Purged', image: url, data: { user: message.author.tag, keywords: Object.fromEntries(counts), url } });
-        return [{ type: BotActionType.RemoveMessage, channelId: message.channel.id, messageId: message.id }];
+export const animeDetectorModule = (config: AnimeDetectorConfig, logger: LoggingService): AnimeDetectorModule => {
+  const emit = animeDetectorEmitter();
+  return {
+    type: ModuleType.AnimeDetector,
+    onMessage: async (message: DiscordMessage) => {
+      const detectAnime = animeDetectorService(config, logger);
+      for (const url of parseAllUrls(message)) {
+        const [verdict, counts] = await detectAnime(url);
+        emit.imageScanned(message.channel.id, message.author.tag ?? 'UNKNOWN', verdict);
+        if (verdict) {
+          logger.log('notice', 'Message removed', { title: 'Anime Purged', image: url, data: { user: message.author.tag, keywords: Object.fromEntries(counts), url } });
+          return [{ type: BotActionType.RemoveMessage, channelId: message.channel.id, messageId: message.id }];
+        }
       }
-    }
-    return [];
-  },
-});
+      return [];
+    },
+  }
+};
