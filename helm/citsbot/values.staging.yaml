@@ -2,6 +2,8 @@ image: ghcr.io/uwacsds/citsbot
 
 environment: staging
 
+pushgatewayUrl: http://prometheus-pushgateway.metrics:9091
+
 secrets:
   - name: citsbot.config.staging
     ref: staging/projects/citsbot

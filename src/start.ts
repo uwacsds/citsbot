@@ -8,13 +8,13 @@ import { discordEmitter } from './metrics/discord';
 
 const env = {
   environment: process.env.ENVIRONMENT as string,
-  pushgatewayUrl: process.env.PUSHGATEWAY_URL as string,
+  pushgatewayUrl: process.env.PUSHGATEWAY_URL,
   config: validateConfig(JSON.parse(process.env.CONFIG ?? '{}')),
   discordToken: process.env.DISCORD_TOKEN as string,
 };
 
 const start = async () => {
-  initPushgateway(env.pushgatewayUrl, env.environment);
+  initPushgateway(env.environment, env.pushgatewayUrl);
   const logger = discordChannelLogger(env.config.logChannel);
   const calendar = academicCalendarService(logger);
   const commandHandler = discordCommandHandler(env.config, logger, calendar);
