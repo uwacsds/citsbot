@@ -6,5 +6,5 @@ export const initPushgateway = (environment: string, url: string | undefined) =>
     return setInterval(() => {}, 5000);
   }
   const pushgateway = new Pushgateway(url);
-  return setInterval(() => pushgateway.pushAdd({ jobName: `citsbot-${environment}` }, () => { }), 5000);
+  return setInterval(() => pushgateway.pushAdd({ jobName: `citsbot-${environment}` }, () => {}), 5000);
 };

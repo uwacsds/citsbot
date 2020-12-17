@@ -28,7 +28,6 @@ export const getWeekIndex = (date: Date): string => {
   return `${monday.getUTCFullYear()}-${padZeros(monday.getUTCMonth() + 1)}-${padZeros(monday.getUTCDate())}`;
 };
 
-
 export const academicWeeksParser = (now = () => new Date()): AcademicWeeksParser => {
   const parseExamWeek = (str: string): ExamSemesterWeek | null => {
     const result = /^exams?\*?$/i.exec(str.trim());
