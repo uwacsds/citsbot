@@ -1,6 +1,6 @@
-import { reverseImageSearchService } from '../../image-search/reverse-image-search';
+import { reverseImageSearchService } from './image-search/service';
 import { LoggingService } from '../../utils/logging';
-import { AnimeDetectorConfig } from './anime-detector';
+import { AnimeDetectorConfig } from './module';
 
 export const animeDetectorService = (config: AnimeDetectorConfig, logger: LoggingService) => async (imageUrl: string): Promise<[verdict: boolean, counts: Map<string, number>]> => {
   const { reverseSearch, countKeywordOccurrences } = reverseImageSearchService(logger);

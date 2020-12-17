@@ -1,14 +1,14 @@
 import { EventEmitter } from 'events';
-import { AcademicCalendarService } from '../academic-calendar/types';
+import { AcademicCalendarService } from './announcer/calendar/types';
 import { LoggingService } from '../utils/logging';
 import { BotAction } from './action-types';
-import { animeDetectorModule } from './anime-detector/anime-detector';
-import { announcerModule } from './announcer/announcer';
+import { animeDetectorModule } from './anime-detector/module';
+import { announcerModule } from './announcer/module';
 import { BotConfig } from './config';
-import { cowsayModule } from './cowsay/cowsay';
+import { cowsayModule } from './cowsay/module';
 import { DiscordMessage, DiscordReaction, DiscordUser } from '../discord-service/types';
-import { reactRolesModule } from './react-roles/react-roles';
-import { welcomerModule } from './welcomer/welcomer';
+import { reactRolesModule } from './react-roles/module';
+import { welcomerModule } from './welcomer/module';
 
 export interface DiscordCommandHandler {
   registerEventListener: (listener: (action: BotAction) => void) => void;

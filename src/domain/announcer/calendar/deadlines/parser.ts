@@ -1,5 +1,5 @@
 import * as cheerio from 'cheerio';
-import { AcademicDeadlinesParser, Deadline } from './types';
+import { AcademicDeadlinesParser, Deadline } from '../types';
 
 const zip = <T1, T2>(arr1: T1[], arr2: T2[]): [T1, T2][] => arr1.map((_, idx) => [arr1[idx], arr2[idx]]);
 

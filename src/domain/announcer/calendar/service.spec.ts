@@ -1,9 +1,9 @@
 import nock from 'nock';
-import { mockLogger } from '../utils/logging';
-import { academicCalendarService } from './academic-calendar-service';
-import { academicDeadlinesParser } from './deadlines-parser';
+import { mockLogger } from '../../../utils/logging';
+import { academicCalendarService } from './service';
+import { academicDeadlinesParser } from './deadlines/parser';
 import { TEST_HTML_CSMARKS, TEST_HTML_CSMARKS_CITS1001, TEST_HTML_WEEKS } from './test-data';
-import { academicWeeksParser } from './weeks-parser';
+import { academicWeeksParser } from './weeks/parser';
 
 describe('academic-calendar-service', () => {
   const now = new Date('2020-01-01');
@@ -15,11 +15,7 @@ describe('academic-calendar-service', () => {
     .reply(200, TEST_HTML_CSMARKS_CITS1001);
 
   it('should parse a calendar after fetching and parsing from url', async () => {
-    const { fetchCalendar } = academicCalendarService(
-      mockLogger(),
-      academicWeeksParser(() => now),
-      academicDeadlinesParser()
-    );
+    const fetchCalendar = academicCalendarService(mockLogger());
     const { weeks } = await fetchCalendar();
     expect(Object.keys(weeks).length).toBeGreaterThan(30);
   });

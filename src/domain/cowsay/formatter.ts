@@ -1,4 +1,4 @@
-import { CowsayConfig } from './cowsay';
+import { CowsayConfig } from './module';
 
 const wrapText = (text: string, maxLineLen: number) => {
   const words = text.split(' ').reverse();

@@ -1,5 +1,5 @@
-import { academicDeadlinesParser } from './deadlines-parser';
-import { TEST_HTML_CSMARKS_CITS1001, TEST_HTML_CSMARKS_CITS3200, TEST_HTML_CSMARKS } from './test-data';
+import { academicDeadlinesParser } from './parser';
+import { TEST_HTML_CSMARKS_CITS1001, TEST_HTML_CSMARKS_CITS3200, TEST_HTML_CSMARKS } from '../test-data';
 
 describe('deadlines-parser', () => {
   const parser = academicDeadlinesParser();

@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import { LoggingService } from '../utils/logging';
+import { LoggingService } from '../../../utils/logging';
 
 const SEARCH_URL = 'https://images.google.com/searchbyimage?image_url=';
 const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36';

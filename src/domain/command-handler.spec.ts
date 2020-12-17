@@ -1,9 +1,9 @@
-import { academicWeeksParser } from '../academic-calendar/weeks-parser';
-import { academicCalendarService } from '../academic-calendar/academic-calendar-service';
+import { academicWeeksParser } from './announcer/calendar/weeks/parser';
+import { academicCalendarService } from './announcer/calendar/service';
 import { BotActionType } from './action-types';
 import { discordCommandHandler } from './command-handler';
 import { BotConfig } from './config';
-import { academicDeadlinesParser } from '../academic-calendar/deadlines-parser';
+import { academicDeadlinesParser } from './announcer/calendar/deadlines/parser';
 import { mockLogger } from '../utils/logging';
 import { DiscordUser, DiscordMessage } from '../discord-service/types';
 
@@ -33,7 +33,7 @@ describe('command-handler', () => {
   const user: DiscordUser = { avatar: 'https://avatar.png', bot: false, createdAt: now, discriminator: '1234', id: 'user1', tag: 'foo#1234', username: 'foo' };
   const message: DiscordMessage = { id: 'msg1', createdAt: now, deletable: true, content: '', attachments: [], author: user, channel: { id: 'channel1', type: 'text', createdAt: now } };
 
-  const calendar = academicCalendarService(mockLogger(), academicWeeksParser(), academicDeadlinesParser());
+  const calendar = academicCalendarService(mockLogger());
   const { onBotStart, onMessage, onMemberJoin, onReactionAdd, onReactionRemove } = discordCommandHandler(config, mockLogger(), calendar);
 
   it('should return some cache and react actions on bot start', async () => {

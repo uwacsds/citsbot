@@ -1,9 +1,7 @@
 import { discordCommandHandler } from './domain/command-handler';
 import { discordBot } from './discord-service/discord-bot';
 import { validateConfig } from './domain/config';
-import { academicCalendarService } from './academic-calendar/academic-calendar-service';
-import { academicWeeksParser } from './academic-calendar/weeks-parser';
-import { academicDeadlinesParser } from './academic-calendar/deadlines-parser';
+import { academicCalendarService } from './domain/announcer/calendar/service';
 import { discordChannelLogger } from './utils/logging';
 
 const env = {
@@ -13,7 +11,7 @@ const env = {
 
 const start = async () => {
   const logger = discordChannelLogger(env.CONFIG.logChannel);
-  const calendar = academicCalendarService(logger, academicWeeksParser(), academicDeadlinesParser());
+  const calendar = academicCalendarService(logger);
   const commandHandler = discordCommandHandler(env.CONFIG, logger, calendar);
   const bot = discordBot(logger, commandHandler, env.CONFIG.guild);
   logger.initialise(bot);
