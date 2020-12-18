@@ -42,6 +42,6 @@ export const discordEmitter = (): DiscordEmitter => ({
   memberCount: (guild, count) => memberGauge.labels(guild).set(count),
   memberOnlineCount: (guild, count) => memberOnlineGauge.labels(guild).set(count),
   event: eventType => clientEventCount.labels(eventType).inc(),
-  message: (channelName) => messageCount.labels(channelName).inc(),
+  message: channelName => messageCount.labels(channelName).inc(),
   action: actionType => actionsCount.labels(actionType).inc(),
 });
