@@ -21,7 +21,7 @@ const clientEventCount = new Counter({
 const messageCount = new Counter({
   name: 'discord_message_counter',
   help: 'count of messages sent by users in the server',
-  labelNames: ['channelId', 'channelName', 'userTag'], // cardinality of userTag might be an issue
+  labelNames: ['channelName'],
 });
 
 const actionsCount = new Counter({
@@ -34,7 +34,7 @@ export interface DiscordEmitter {
   memberCount: (guild: string, count: number) => void;
   memberOnlineCount: (guild: string, count: number) => void;
   event: (eventType: string) => void;
-  message: (channelId: string, channelName: string, userTag: string) => void;
+  message: (channelName: string) => void;
   action: (actionType: string) => void;
 }
 
@@ -42,6 +42,6 @@ export const discordEmitter = (): DiscordEmitter => ({
   memberCount: (guild, count) => memberGauge.labels(guild).set(count),
   memberOnlineCount: (guild, count) => memberOnlineGauge.labels(guild).set(count),
   event: eventType => clientEventCount.labels(eventType).inc(),
-  message: (channelId, channelName, userTag) => messageCount.labels(channelId, channelName, userTag).inc(),
+  message: (channelName) => messageCount.labels(channelName).inc(),
   action: actionType => actionsCount.labels(actionType).inc(),
 });

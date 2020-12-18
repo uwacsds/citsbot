@@ -3,13 +3,13 @@ import { Counter } from 'prom-client';
 const imageScanCount = new Counter({
   name: 'citsbot_anime_detector_images_scanned',
   help: 'count of images scanned by the anime detector',
-  labelNames: ['channelId', 'userTag', 'verdict'], // cardinality of userTag might be an issue
+  labelNames: ['channelId', 'verdict'],
 });
 
 export interface AnimeDetectorEmitter {
-  imageScanned: (channelId: string, userTag: string, verdict: boolean) => void;
+  imageScanned: (channelId: string, verdict: boolean) => void;
 }
 
 export const animeDetectorEmitter = (): AnimeDetectorEmitter => ({
-  imageScanned: (channelId, userTag, verdict) => imageScanCount.labels(channelId, userTag, String(verdict)).inc(),
+  imageScanned: (channelId, verdict) => imageScanCount.labels(channelId, String(verdict)).inc(),
 });
