@@ -193,7 +193,7 @@ export const discordBot = (
   client.on('message', async message => {
     if (message.guild?.id !== guildId) return;
     const channelName = message.guild.channels.cache.get(message.channel.id)?.name ?? 'UNKNOWN';
-    emit.message(message.channel.id, channelName, message.author.tag);
+    emit.message(channelName);
 
     const actions = await Promise.all(onMessage(parseMessage(message)));
     for (const action of actions.flat()) {

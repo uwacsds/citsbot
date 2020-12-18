@@ -30,7 +30,7 @@ export const animeDetectorModule = (config: AnimeDetectorConfig, logger: Logging
       const detectAnime = animeDetectorService(config, logger);
       for (const url of parseAllUrls(message)) {
         const [verdict, counts] = await detectAnime(url);
-        emit.imageScanned(message.channel.id, message.author.tag ?? 'UNKNOWN', verdict);
+        emit.imageScanned(message.author.tag ?? 'UNKNOWN', verdict);
         if (verdict) {
           logger.log('notice', 'Message removed', { title: 'Anime Purged', image: url, data: { user: message.author.tag, keywords: Object.fromEntries(counts), url } });
           return [{ type: BotActionType.RemoveMessage, channelId: message.channel.id, messageId: message.id }];
