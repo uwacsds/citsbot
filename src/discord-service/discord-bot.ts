@@ -157,7 +157,7 @@ const applyAction = (emit: DiscordEmitter, fetchApi: DiscordAPI, action: BotActi
 };
 
 export const discordBot = (
-  { log }: LoggingService,
+  logger: LoggingService,
   { registerEventListener, onBotStart, onMessage, onMemberJoin, onReactionAdd, onReactionRemove }: DiscordCommandHandler,
   guildId: string
 ): DiscordBot => {
@@ -171,13 +171,7 @@ export const discordBot = (
 
   registerEventListener(action => applyAction(emit, fetchApi, action));
 
-  clientEvents.forEach(event => client.addListener(event, () => emit.event(event)));
-  client.setInterval(() => {
-    const guild = client.guilds.cache.get(guildId);
-    if (!guild) return;
-    emit.memberCount(guild.name, guild.memberCount);
-    emit.memberOnlineCount(guild.name, guild.members.cache.filter(member => member.presence.status !== 'offline').size);
-  }, 30_000); // 30 seconds
+  registerMetrics(client, logger, emit, guildId);
 
   client.on('ready', async () => {
     const guild = client.guilds.cache.get(guildId);
@@ -186,18 +180,15 @@ export const discordBot = (
 
     const actions = await Promise.all(onBotStart());
     for (const action of actions.flat()) {
-      log('info', 'Applying Action', { title: 'OnReady', data: action });
+      logger.log('info', 'Applying Action', { title: 'OnReady', data: action });
       await applyAction(emit, fetchApi, action);
     }
   });
   client.on('message', async message => {
     if (message.guild?.id !== guildId) return;
-    const channelName = message.guild.channels.cache.get(message.channel.id)?.name ?? 'UNKNOWN';
-    emit.message(channelName);
-
     const actions = await Promise.all(onMessage(parseMessage(message)));
     for (const action of actions.flat()) {
-      log('info', 'Applying Action', { title: 'OnMessage', data: action });
+      logger.log('info', 'Applying Action', { title: 'OnMessage', data: action });
       await applyAction(emit, fetchApi, action);
     }
   });
@@ -205,7 +196,7 @@ export const discordBot = (
     if (!member.user || member.guild.id !== guildId) return;
     const actions = await Promise.all(onMemberJoin(parseUser(member.user)));
     for (const action of actions.flat()) {
-      log('info', 'Applying Action', { title: 'OnGuildMemberAdd', data: action });
+      logger.log('info', 'Applying Action', { title: 'OnGuildMemberAdd', data: action });
       await applyAction(emit, fetchApi, action);
     }
   });
@@ -213,7 +204,7 @@ export const discordBot = (
     if (reaction.message.guild?.id !== guildId) return;
     const actions = await Promise.all(onReactionAdd(parseReaction(reaction), parseUser(user)));
     for (const action of actions.flat()) {
-      log('info', 'Applying Action', { title: 'OnMessageReactionAdd', data: action });
+      logger.log('info', 'Applying Action', { title: 'OnMessageReactionAdd', data: action });
       await applyAction(emit, fetchApi, action);
     }
   });
@@ -221,7 +212,7 @@ export const discordBot = (
     if (reaction.message.guild?.id !== guildId) return;
     const actions = await Promise.all(onReactionRemove(parseReaction(reaction), parseUser(user)));
     for (const action of actions.flat()) {
-      log('info', 'Applying Action', { title: 'OnMessageReactionRemove', data: action });
+      logger.log('info', 'Applying Action', { title: 'OnMessageReactionRemove', data: action });
       await applyAction(emit, fetchApi, action);
     }
   });
@@ -233,6 +224,26 @@ export const discordBot = (
     },
     stop: async () => client.destroy(),
   };
+};
+
+const registerMetrics = (client: Client, logger: LoggingService, emit: DiscordEmitter, guildId: string) => {
+  clientEvents.forEach(event => client.addListener(event, () => emit.event(event)));
+
+  client.on('message', message => {
+    if (message.guild?.id !== guildId) return;
+    const channelName = message.guild.channels.cache.get(message.channel.id)?.name ?? 'UNKNOWN';
+    emit.message(channelName);
+    const parsedMessage = parseMessage(message) as DiscordMessage & { channel: { name: string } };
+    parsedMessage.channel.name = channelName;
+    logger.log('info', 'client.on.message', { data: { ...parsedMessage } });
+  });
+
+  client.setInterval(() => {
+    const guild = client.guilds.cache.get(guildId);
+    if (!guild) return;
+    emit.memberCount(guild.name, guild.memberCount);
+    emit.memberOnlineCount(guild.name, guild.members.cache.filter(member => member.presence.status !== 'offline').size);
+  }, 30_000);
 };
 
 const clientEvents = [
