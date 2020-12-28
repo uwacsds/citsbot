@@ -6,9 +6,9 @@ pushgatewayUrl: http://prometheus-pushgateway.metrics:9091
 
 secrets:
   - name: citsbot.config.prod
-    ref: prod/projects/citsbot
+    ref: prod/cluster0/json
     properties:
       - name: token
-        key: token
+        key: projects.citsbot.prod.token
       - name: config
-        key: config
+        key: projects.citsbot.prod.config
