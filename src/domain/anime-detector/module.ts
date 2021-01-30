@@ -2,6 +2,7 @@ import { DiscordMessage, DiscordMessageAttachment } from '../../discord-service/
 import { LoggingService } from '../../utils/logging';
 import { BotActionType } from '../action-types';
 import { AnimeDetectorModule, ModuleType } from '../module-types';
+import { reverseImageSearchService } from './image-search/service';
 import { animeDetectorEmitter } from './metrics';
 import { animeDetectorService } from './service';
 
@@ -27,7 +28,7 @@ export const animeDetectorModule = (config: AnimeDetectorConfig, logger: Logging
   return {
     type: ModuleType.AnimeDetector,
     onMessage: async (message: DiscordMessage) => {
-      const detectAnime = animeDetectorService(config, logger);
+      const detectAnime = animeDetectorService(config, reverseImageSearchService(logger));
       for (const url of parseAllUrls(message)) {
         const [verdict, counts] = await detectAnime(url);
         emit.imageScanned(message.author.tag ?? 'UNKNOWN', verdict);
