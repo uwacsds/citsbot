@@ -1532,12 +1532,13 @@ Tuesdays and Thursdays, between 1pm and 5pm.
 </html>
 `;
 
-export const TEST_HTML_WEEKS = `<!DOCTYPE html>
+export const TEST_HTML_WEEKS = `
+<!DOCTYPE html>
 <html lang="en-AU">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width" />
-    <title>2020 undergraduate dates and teaching weeks - askUWA</title>
+    <title>2021 undergraduate dates and teaching weeks - askUWA</title>
     <meta name="google-site-verification" content="Lxo0TTbWrLWwWDYgdNJ6_Hi8w1LB0T2r20erqMtwLYI" />
     <meta name="description" content="Find answers to your questions about the University of Western Australia. Online anytime for current students, future students, community and UWA staff." />    
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -1545,16 +1546,16 @@ export const TEST_HTML_WEEKS = `<!DOCTYPE html>
 	<link href='//fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>             
 	<link rel="stylesheet" href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">			                       
     <link rel="search" type="application/opensearchdescription+xml" title="Support Home Page Search" href="/ci/browserSearch/desc/https%3A%2F%2Fipoint.uwa.edu.au%2Fapp%2Fanswers%2Flist%2Fkw%2F%7BsearchTerms%7D/Support+Home+Page+Search/Support+Home+Page+Search/%2Feuf%2Fassets%2Fimages%2Ficons%2Ffavicon_browserSearchPlugin.ico"/>
-    <link rel='canonical' href='https://ipoint.uwa.edu.au/app/answers/detail/a_id/1405/~/2020-undergraduate-dates-and-teaching-weeks'/>
+    <link rel='canonical' href='https://ipoint.uwa.edu.au/app/answers/detail/a_id/1241/~/2021-undergraduate-dates-and-teaching-weeks'/>
 <style type='text/css'>
  <!-- 
 .rn_ScreenReaderOnly{position:absolute; height:1px; left:-10000px; overflow:hidden; top:auto; width:1px;}
 .rn_Hidden{display:none !important;}
  --></style>
-<base href='https://ipoint.uwa.edu.au/euf/generated/optimized/1603846217/themes/askuwa5_cp3.8/'/>
-<link href='/euf/generated/optimized/1603846217/templates/standard.themes.askuwa5_cp3.8.SITE.css' rel='stylesheet' type='text/css' media='all'/>
-<link href='/euf/generated/optimized/1603846217/templates/standard.themes.askuwa5_cp3.8.css' rel='stylesheet' type='text/css' media='all'/>
-<link href='/euf/generated/optimized/1603846217/pages/answers/detail.themes.askuwa5_cp3.8.css' rel='stylesheet' type='text/css' media='all'/>
+<base href='https://ipoint.uwa.edu.au/euf/generated/optimized/1611333288/themes/askuwa5_cp3.8/'/>
+<link href='/euf/generated/optimized/1611333288/templates/standard.themes.askuwa5_cp3.8.SITE.css' rel='stylesheet' type='text/css' media='all'/>
+<link href='/euf/generated/optimized/1611333288/templates/standard.themes.askuwa5_cp3.8.css' rel='stylesheet' type='text/css' media='all'/>
+<link href='/euf/generated/optimized/1611333288/pages/answers/detail.themes.askuwa5_cp3.8.css' rel='stylesheet' type='text/css' media='all'/>
 
     <!-- CUSTOM UWA -->
 	<script type="text/javascript" src="//static.weboffice.uwa.edu.au/visualid/scripts/id-core.js?r11"></script>
@@ -1569,25 +1570,19 @@ export const TEST_HTML_WEEKS = `<!DOCTYPE html>
 	<script type="text/javascript">
     $(document).ready(function() {
     //--- begin js
-    	
     	var keywordtext1 = '#rn_KeywordText_5_Text';
         var keywordtext2 = '#rn_KeywordText_6_Text';
-    	
     	$(keywordtext1).attr('placeholder','Search for an answer..');
     	$(keywordtext2).attr('placeholder','Search for an answer..');    	
-    		
     	//Check email input for uwa addresses
     	$('#rn_TextInput_7_email').keyup(function() {checkEmail('#rn_TextInput_7_email');});
     	$('#rn_TextInput_7_email').blur(function() {checkEmail('#rn_TextInput_7_email');});	
     	$('#rn_TextInput_7_email').focus(function() {checkEmail('#rn_TextInput_7_email');});
-    	
     	$('#rn_TextInput_12_email').keyup(function() {checkEmail('#rn_TextInput_12_email');});
     	$('#rn_TextInput_12_email').blur(function() {checkEmail('#rn_TextInput_12_email');});	
     	$('#rn_TextInput_12_email').focus(function() {checkEmail('#rn_TextInput_12_email');});
-    	
     	//set the width of attachment file upload to lower for Firefox on Mac
     	$('#rn_FileAttachmentUpload2_17_FileInput').attr('size','25'); 
-    	    	    	    	             		     
     //--- end js   
     });
     </script>
@@ -1654,19 +1649,19 @@ export const TEST_HTML_WEEKS = `<!DOCTYPE html>
             <ul>
                 <!--<li><rn:widget path="navigation/NavigationTab" label_tab="Support Home" link="/app/answers/list" pages="home, "/></li>-->
                 <li><span id="rn_NavigationTab_1" class="rn_NavigationTab">
-    <a class="rn_SelectedTab" href="/app/answers/list/session/L2F2LzEvdGltZS8xNjA1MDExODI4L2dlbi8xNjA1MDExODI4L3NpZC9mVWhDQ1NYSU9HTDlpRnR2aDRLanhZZ1U5bWlzeU8yVGlqa3RKa2xiNFhyUDdfOW01X3NOSm9najByX1h0cE1ES05aWTlPRkVYZ19za0tuRVBYbTZoNEI4TDllTzEzSEQ0UXMlN0VZQm92RndGNSU3RVpJY19fR2pISmdnJTIxJTIx" target="_self" aria-label="FAQs selected">
+    <a class="rn_SelectedTab" href="/app/answers/list" target="_self" aria-label="FAQs selected">
         <span>FAQs</span>
     </a>
 </span>
 </li>
                                 <li><span id="rn_NavigationTab_2" class="rn_NavigationTab">
-    <a class="" href="/app/ask/session/L2F2LzEvdGltZS8xNjA1MDExODI4L2dlbi8xNjA1MDExODI4L3NpZC9mVWhDQ1NYSU9HTDlpRnR2aDRLanhZZ1U5bWlzeU8yVGlqa3RKa2xiNFhyUDdfOW01X3NOSm9najByX1h0cE1ES05aWTlPRkVYZ19za0tuRVBYbTZoNEI4TDllTzEzSEQ0UXMlN0VZQm92RndGNSU3RVpJY19fR2pISmdnJTIxJTIx" target="_self" aria-label="">
+    <a class="" href="/app/ask" target="_self" aria-label="">
         <span>Email Us</span>
     </a>
 </span>
 </li>
                 <li style="border-right:0"><span id="rn_NavigationTab_3" class="rn_NavigationTab">
-    <a id="rn_NavigationTab_3_Link" class=" rn_DropDown" href="/app/account/overview/session/L2F2LzEvdGltZS8xNjA1MDExODI4L2dlbi8xNjA1MDExODI4L3NpZC9mVWhDQ1NYSU9HTDlpRnR2aDRLanhZZ1U5bWlzeU8yVGlqa3RKa2xiNFhyUDdfOW01X3NOSm9najByX1h0cE1ES05aWTlPRkVYZ19za0tuRVBYbTZoNEI4TDllTzEzSEQ0UXMlN0VZQm92RndGNSU3RVpJY19fR2pISmdnJTIxJTIx" target="_self">
+    <a id="rn_NavigationTab_3_Link" class=" rn_DropDown" href="/app/account/overview" target="_self">
         <span>Your Account</span>
         <em id="rn_NavigationTab_3_DropdownButton" class="rn_ButtonOff"></em>
     </a>
@@ -1685,7 +1680,7 @@ export const TEST_HTML_WEEKS = `<!DOCTYPE html>
     <div id="rn_SkipNav"><a href="#rn_MainContent">Skip Navigation</a></div>
     <div id="rn_Header" role="banner">
     <noscript><h1>Scripting must be enabled to use this site.</h1></noscript>
-        <!--<div id="rn_Logo"><a href="/app/answers/list/session/L2F2LzEvdGltZS8xNjA1MDExODI4L2dlbi8xNjA1MDExODI4L3NpZC9mVWhDQ1NYSU9HTDlpRnR2aDRLanhZZ1U5bWlzeU8yVGlqa3RKa2xiNFhyUDdfOW01X3NOSm9najByX1h0cE1ES05aWTlPRkVYZ19za0tuRVBYbTZoNEI4TDllTzEzSEQ0UXMlN0VZQm92RndGNSU3RVpJY19fR2pISmdnJTIxJTIx"><span class="rn_LogoTitle">Support <span class="rn_LogoTitleMinor">Centre</span></span></a></div>-->
+        <!--<div id="rn_Logo"><a href="/app/answers/list"><span class="rn_LogoTitle">Support <span class="rn_LogoTitleMinor">Centre</span></span></a></div>-->
     </div>
         <div id="rn_Body">
         <div id="rn_MainColumn" role="main">
@@ -1718,16 +1713,16 @@ export const TEST_HTML_WEEKS = `<!DOCTYPE html>
 <div id="rn_PageContent" class="rn_AnswerDetail" style="float:left;width:760px">
     <div id="rn_PageTitle" class="rn_AnswerDetail">
     <h1 id="rn_Summary" class="ans-summery">
-       2020 undergraduate dates and teaching weeks    </h1>
-    <div id="ans_desc"><div>What are the undergraduate teaching dates in 2020?</div>
+       2021 undergraduate dates and teaching weeks    </h1>
+    <div id="ans_desc"><div>What are the undergraduate teaching dates in 2021?</div>
 </div>    
     </div>
     <div id="rn_AnswerText">
-        <p style="FONT-SIZE: 12pt">This table lists the teaching days and weeks for the <span style="font-weight:bold;">Undergraduate timetable</span> and&nbsp;can be downloaded via the associated attachment at the bottom of this page or you can&nbsp;<a href="http://www.bits.uwa.edu.au/it-help/email/staff/ecs/uwa-events-calendar" style="TEXT-DECORATION: underline" target="_blank">add the digital calendar</a>&nbsp;to your device or email client.</p>
+        <p style="FONT-SIZE: 12pt">This table lists the teaching days and weeks for the <span style="font-weight:bold;">Undergraduate timetable</span> and&nbsp;can be downloaded via the associated attachment at the bottom of this page or you can&nbsp;<a href="https://www.it.uwa.edu.au/it-help/email/staff/ecs/uwa-events-calendar" style="TEXT-DECORATION: underline" target="_blank">add the digital calendar</a>&nbsp;to your device or email client.</p>
 
 <p style="FONT-SIZE: 12pt">Dates for non-standard teaching periods are available from the <a href="https://www.student.uwa.edu.au/course/dates/important" target="_blank">Important Dates</a> page.</p>
 
-<p style="FONT-SIZE: 12pt"><span style="font-weight:bold;">*Important Note</span>: the Exam period is subject to change. Exams will commence on Saturday 6 June and best endeavours will be made to be completed in a timely manner. &nbsp;Your personal exam timetable is published five weeks before the <a href="https://www.uwa.edu.au/students/my-course/exams">exam period</a> (from 4 May) on <a href="https://www.student.uwa.edu.au/course/studentconnect">studentConnect</a>.</p>
+<p style="FONT-SIZE: 12pt"><span style="font-weight:bold;">*Important Note</span>: the Exam period is subject to change. Your personal exam timetable is published five weeks before the <a href="https://www.uwa.edu.au/students/my-course/exams">exam period</a>&nbsp;on <a href="https://www.student.uwa.edu.au/course/studentconnect">studentConnect</a>.</p>
 
 <table border="1">
 	<tbody>
@@ -1740,26 +1735,25 @@ export const TEST_HTML_WEEKS = `<!DOCTYPE html>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">1</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;30 December</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;4 January</font></p>
 			</td>
 			<td><font style="FONT-SIZE: 12pt">&nbsp;</font></td>
 			<td>
-			<p align="left"><br />
-			</p>
+			<p align="left">&nbsp;</p>
 			</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">2</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday 6&nbsp;January</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;11 January</font></p>
 			</td>
 			<td><font style="FONT-SIZE: 12pt">&nbsp;</font></td>
-			<td style="text-align: left;"><span style="font-size: 16px;">University re-opens</span><font style="FONT-SIZE: 12pt">&nbsp;</font></td>
+			<td style="text-align: left;"><font style="FONT-SIZE: 12pt">&nbsp;</font></td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">3</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday 13&nbsp;January</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday 18&nbsp;January</font></p>
 			</td>
 			<td><font style="FONT-SIZE: 12pt">&nbsp;</font></td>
 			<td><font style="FONT-SIZE: 12pt">&nbsp;</font></td>
@@ -1767,37 +1761,37 @@ export const TEST_HTML_WEEKS = `<!DOCTYPE html>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">4</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;20&nbsp;January</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;25&nbsp;January</font></p>
 			</td>
 			<td><font style="FONT-SIZE: 12pt">&nbsp;</font></td>
 			<td>
-			<p align="left"><br />
-			</p>
+			<p align="left"><font style="FONT-SIZE:12pt">Tue 26 Jan Australia Day (University Holiday)</font></p>
 			</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">5</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;27&nbsp;January</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;1 February</font></p>
 			</td>
 			<td><font style="FONT-SIZE: 12pt">&nbsp;</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Mon 27&nbsp;Jan - In lieu Australia Day (University Holiday) </font></p>
+			<p align="left">&nbsp;</p>
 			</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">6</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday 3&nbsp;February</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;8&nbsp;February</font></p>
 			</td>
 			<td><font style="FONT-SIZE: 12pt">&nbsp;</font></td>
-			<td style="text-align: left;"><br />
+			<td>
+			<p align="left"><font style="FONT-SIZE: 12pt"><font style="FONT-SIZE: 12pt">&nbsp;&nbsp;</font></font></p>
 			</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">7</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday 10&nbsp;February</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday 15&nbsp;February</font></p>
 			</td>
 			<td><font style="FONT-SIZE: 12pt">&nbsp;</font></td>
 			<td><font style="FONT-SIZE: 12pt">&nbsp;</font></td>
@@ -1805,165 +1799,158 @@ export const TEST_HTML_WEEKS = `<!DOCTYPE html>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">8</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;17&nbsp;February</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;22 February</font></p>
 			</td>
-			<td><font style="FONT-SIZE: 12pt">&nbsp;</font></td>
+			<td><font style="FONT-SIZE: 12pt">&nbsp;Sem 1 / Wk 1</font></td>
 			<td><font style="FONT-SIZE: 12pt">&nbsp;</font></td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">9</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday 24&nbsp;February</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday 1 March</font></p>
 			</td>
-			<td><font style="FONT-SIZE: 12pt">Sem 1 / Wk 1</font></td>
+			<td><font style="FONT-SIZE:12pt">Sem 1&nbsp;/ Wk 2</font></td>
 			<td>
-			<p align="left"><br />
-			</p>
+			<p align="left"><font style="FONT-SIZE:12pt">Mon&nbsp;1 March - Labour Day (University Holiday)</font></p>
 			</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">10</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday 2&nbsp;March</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;8&nbsp;March</font></p>
 			</td>
-			<td><font style="FONT-SIZE: 12pt">Sem 1&nbsp;/ Wk 2</font></td>
+			<td><font style="FONT-SIZE:12pt">Sem 1 / Wk 3</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Mon 2&nbsp;March - Labour Day (University Holiday)</font></p>
+			<p align="left">&nbsp;</p>
 			</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">11</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday 9&nbsp;March</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday 15&nbsp;March</font></p>
 			</td>
-			<td><font style="FONT-SIZE: 12pt">Sem 1 / Wk 3</font></td>
-			<td><br />
-			</td>
+			<td><font style="FONT-SIZE:12pt">Sem 1 / Wk 4</font></td>
+			<td>&nbsp;</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">12</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;16&nbsp;March</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;22 March</font></p>
 			</td>
-			<td><font style="FONT-SIZE: 12pt">Sem 1 / Wk 4</font></td>
+			<td><font style="FONT-SIZE:12pt">Sem 1 / Wk 5</font></td>
 			<td>
-			<p align="left"><br />
-			</p>
+			<p align="left">&nbsp;</p>
 			</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">13</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday 23&nbsp;March</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday 29&nbsp;March</font></p>
 			</td>
-			<td><font style="FONT-SIZE: 12pt">Sem 1 / Wk 5</font></td>
+			<td><font style="FONT-SIZE:12pt">Sem 1 / Wk 6</font></td>
 			<td>
-			<p align="left"><br />
-			</p>
+			<p align="left"><font style="FONT-SIZE:12pt">Fri 2 April - Good Friday (University Holiday)</font></p>
 			</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">14</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;30 March</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;5 April</font></p>
 			</td>
-			<td><font style="FONT-SIZE:12pt">Sem 1 / Wk 6</font></td>
-			<td>
-			<p align="left"><br />
-			</p>
-			</td>
+			<td><font style="FONT-SIZE:12pt"><strong>Study Break</strong></font></td>
+			<td style="text-align: left;"><span style="font-size: 16px;">Mon 5 April - Easter Monday (University Holiday)</span></td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">15</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday 6&nbsp;April</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;12 April</font></p>
 			</td>
-			<td><font style="FONT-SIZE:12pt"><strong>Study Break</strong></font></td>
+			<td><font style="FONT-SIZE: 12pt">Sem 1 / Wk 7</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE:12pt">Tuition Free Week / Good Friday (University Holiday)</font></p>
+			<p align="left">&nbsp;</p>
 			</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">16</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;13&nbsp;April</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;19 April</font></p>
 			</td>
-			<td><font style="FONT-SIZE:12pt"><strong>Study Break</strong></font></td>
+			<td><font size="3">Sem 1 / Wk 8</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Easter Monday (University Holiday)</font></p>
+			<p align="left">&nbsp;</p>
 			</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">17</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;20&nbsp;April</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;26&nbsp;April</font></p>
 			</td>
-			<td><font style="FONT-SIZE:12pt">Sem 1 / Wk 7</font></td>
+			<td><font style="FONT-SIZE:12pt">Sem 1 / Wk 9</font></td>
 			<td>
-			<p align="left"><span style="font-size: 16px;">Online Classes Resume</span></p>
+			<p align="left"><font style="FONT-SIZE:12pt">Mon 26 April in lieu of Anzac Day (University Holiday)</font></p>
 			</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">18</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;27 April</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;3 May</font></p>
 			</td>
-			<td><font style="FONT-SIZE: 12pt">Sem 1 / Wk 8</font></td>
-			<td style="text-align: left;"><font style="FONT-SIZE:12pt">Mon 27 April - in lieu Anzac Day (University Holiday)</font></td>
+			<td><font style="FONT-SIZE:12pt">Sem 1 / Wk 10</font></td>
+			<td>&nbsp;</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">19</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday 4&nbsp;May</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;10 May</font></p>
 			</td>
-			<td><font style="FONT-SIZE: 12pt">Sem 1 / Wk 9</font></td>
-			<td><br />
-			</td>
+			<td><font style="FONT-SIZE:12pt">Sem 1 / Wk 11</font></td>
+			<td>&nbsp;</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">20</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday 11&nbsp;May</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday 17&nbsp;May</font></p>
 			</td>
-			<td><font style="FONT-SIZE: 12pt">Sem 1 / Wk 10</font></td>
-			<td><br />
-			</td>
+			<td><font style="FONT-SIZE:12pt">Sem 1 / Wk 12</font></td>
+			<td>&nbsp;</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">21</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;18 May</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;24&nbsp;May</font></p>
 			</td>
-			<td><font style="FONT-SIZE: 12pt">Sem 1 / Wk 11</font></td>
-			<td><br />
-			</td>
+			<td><font style="FONT-SIZE:12pt"><strong>Study Break</strong></font></td>
+			<td>&nbsp;</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">22</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;25 May</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;31 May</font></p>
 			</td>
-			<td><font style="FONT-SIZE:12pt">Sem 1 / Wk 12</font></td>
-			<td><br />
+			<td><font size="-1"><font size="-1"><strong style="FONT-SIZE:12pt">Exams</strong></font></font></td>
+			<td>
+			<p align="left">&nbsp;</p>
 			</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">23</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday 1&nbsp;June</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;7 June</font></p>
 			</td>
-			<td><font size="-1"><strong style="FONT-SIZE:12pt">Study Break</strong></font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Mon 1&nbsp;June - WA Day (University Holiday)</font></p>
+			<p align="center"><font size="-1"><strong style="FONT-SIZE:12pt">Exams</strong></font></p>
+			</td>
+			<td>
+			<p align="left"><font style="FONT-SIZE:12pt">Mon 7&nbsp;June - WA Day (University Holiday)</font></p>
 			</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">24</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday 8&nbsp;June</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;14&nbsp;June</font></p>
 			</td>
 			<td>
-			<p align="center"><font size="-1"><strong style="FONT-SIZE:12pt">Exams*</strong></font></p>
+			<p align="center">&nbsp;</p>
 			</td>
 			<td>
 			<p align="left">&nbsp;</p>
@@ -1972,17 +1959,17 @@ export const TEST_HTML_WEEKS = `<!DOCTYPE html>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">25</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;15&nbsp;June</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday 21&nbsp;June</font></p>
 			</td>
 			<td>
-			<p align="center"><font size="-1"><strong style="FONT-SIZE:12pt">Exams*</strong></font></p>
+			<p align="center">&nbsp;</p>
 			</td>
-			<td style="text-align: left;">&nbsp;</td>
+			<td><font style="FONT-SIZE: 12pt">&nbsp;</font></td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">26</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday 22&nbsp;June</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday 28&nbsp;June</font></p>
 			</td>
 			<td><font style="FONT-SIZE: 12pt">&nbsp;</font></td>
 			<td><font style="FONT-SIZE: 12pt">&nbsp;</font></td>
@@ -1990,208 +1977,195 @@ export const TEST_HTML_WEEKS = `<!DOCTYPE html>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">27</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;29 June</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;5 July</font></p>
 			</td>
 			<td><font style="FONT-SIZE: 12pt">&nbsp;</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">&nbsp;</font></p>
+			<p align="left">&nbsp;</p>
 			</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">28</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday 6&nbsp;July</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;12 July</font></p>
 			</td>
 			<td><font style="FONT-SIZE: 12pt">&nbsp;</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">&nbsp;</font></p>
+			<p align="left">&nbsp;</p>
 			</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">29</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday 13&nbsp;July</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday 19 July</font></p>
 			</td>
 			<td><font style="FONT-SIZE: 12pt">&nbsp;</font></td>
-			<td style="text-align: left;"><br />
+			<td>
+			<p align="left">&nbsp;</p>
 			</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">30</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday 20&nbsp;July</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday 26&nbsp;July</font></p>
 			</td>
-			<td><font style="FONT-SIZE: 12pt">&nbsp;</font></td>
+			<td><font style="FONT-SIZE: 12pt">&nbsp;Sem 2 / Wk 1</font></td>
 			<td><font style="FONT-SIZE: 12pt">&nbsp;</font></td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">31</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday 27&nbsp;July</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;2 August</font></p>
 			</td>
-			<td><font style="FONT-SIZE: 12pt">Sem 2 / Wk 1</font></td>
-			<td><br />
-			</td>
+			<td><font style="FONT-SIZE:12pt">Sem 2 / Wk 2</font></td>
+			<td>&nbsp;</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">32</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday 3&nbsp;August</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;9&nbsp;August</font></p>
 			</td>
-			<td><font style="FONT-SIZE: 12pt">Sem 2 / Wk 2</font></td>
-			<td><br />
-			</td>
+			<td><font style="FONT-SIZE:12pt">Sem 2 / Wk 3</font></td>
+			<td>&nbsp;</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">33</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday 10&nbsp;August</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday 16&nbsp;August</font></p>
 			</td>
-			<td><font style="FONT-SIZE: 12pt">Sem 2 / Wk 3</font></td>
-			<td><br />
-			</td>
+			<td><font style="FONT-SIZE:12pt">Sem 2 / Wk 4</font></td>
+			<td>&nbsp;</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">34</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday 17&nbsp;August</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;23 August</font></p>
 			</td>
-			<td><font style="FONT-SIZE: 12pt">Sem 2 / Wk 4</font></td>
-			<td><br />
-			</td>
+			<td><font style="FONT-SIZE:12pt">Sem 2 / Wk 5</font></td>
+			<td>&nbsp;</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">35</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday 24&nbsp;August</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday 30 August</font></p>
 			</td>
-			<td><font style="FONT-SIZE: 12pt">Sem 2 / Wk 5</font></td>
-			<td><br />
-			</td>
+			<td><font style="FONT-SIZE:12pt">Sem 2 / Wk 6</font></td>
+			<td>&nbsp;</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">36</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;31 August</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;6&nbsp;September</font></p>
 			</td>
-			<td><font style="FONT-SIZE: 12pt">Sem 2 / Wk 6</font></td>
-			<td><br />
-			</td>
+			<td><font style="FONT-SIZE:12pt"><strong><font size="3"><font size="3">Study Break</font></font></strong></font></td>
+			<td>&nbsp;</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">37</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday 7&nbsp;September</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;13 September</font></p>
 			</td>
-			<td><font style="FONT-SIZE: 12pt">Sem 2 / Wk 7</font></td>
-			<td><br />
-			</td>
+			<td><font style="FONT-SIZE:12pt">Sem 2 /Wk 7</font></td>
+			<td>&nbsp;</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">38</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday 14&nbsp;September</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday 20 September</font></p>
 			</td>
-			<td><font style="FONT-SIZE: 12pt">Sem 2 /Wk 8</font></td>
-			<td><br />
-			</td>
+			<td><font size="3">Sem 2 /Wk 8</font></td>
+			<td>&nbsp;</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">39</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday 21&nbsp;September</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;27 September</font></p>
 			</td>
-			<td><font style="FONT-SIZE:12pt">Sem 2 /Wk 9</font></td>
+			<td><font size="3">Sem 2 /Wk 9</font></td>
 			<td>
-			<p align="left"><font size="-1"><font style="FONT-SIZE: 12pt">&nbsp;</font></font></p>
+			<p align="left"><font size="-1"><font style="FONT-SIZE:12pt"><font size="-1"><font style="FONT-SIZE:12pt">Mon&nbsp;27 Sept - Queens B/Day (University Holiday)</font></font></font></font></p>
 			</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">40</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;28 September</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;4 October</font></p>
 			</td>
-			<td><font size="-1"><strong style="FONT-SIZE:12pt">Study Break</strong></font></td>
+			<td><font style="FONT-SIZE:12pt">Sem 2 / Wk 10</font></td>
 			<td>
-			<p align="left"><font size="-1"><font style="FONT-SIZE: 12pt">Mon 28 Sept - Queens B/Day (University Holiday)&nbsp;</font></font></p>
+			<p align="left"><font size="-1"><font style="FONT-SIZE: 12pt"><font size="-1"><font style="FONT-SIZE: 12pt">&nbsp;</font></font></font></font></p>
 			</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">41</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday 5&nbsp;October</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;11 October</font></p>
 			</td>
-			<td><font style="FONT-SIZE: 12pt">Sem 2 / Wk 10</font></td>
-			<td style="text-align: left;"><br />
+			<td><font style="FONT-SIZE:12pt">Sem 2 / Wk 11</font></td>
+			<td>
+			<p align="left">&nbsp;</p>
 			</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">42</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday 12&nbsp;October</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;18&nbsp;October</font></p>
 			</td>
-			<td><font style="FONT-SIZE: 12pt">Sem 2 / Wk 11</font></td>
-			<td><br />
-			</td>
+			<td><font style="FONT-SIZE:12pt">Sem 2 / Wk 12</font></td>
+			<td>&nbsp;</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">43</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday 19&nbsp;October</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday 25&nbsp;October</font></p>
 			</td>
-			<td><font style="FONT-SIZE: 12pt">Sem 2 / Wk 12</font></td>
-			<td><br />
-			</td>
+			<td><font style="FONT-SIZE:12pt"><strong>Study Break</strong></font></td>
+			<td>&nbsp;</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">44</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;26&nbsp;October</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;1 November</font></p>
 			</td>
-			<td><font style="FONT-SIZE: 12pt"><strong>Study Break</strong></font></td>
+			<td><font size="-1"><font size="-1"><strong style="FONT-SIZE:12pt">Exams</strong></font></font></td>
 			<td>
-			<p align="left"><br />
-			</p>
+			<p align="left">&nbsp;</p>
 			</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">45</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday 2&nbsp;November</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;8 November</font></p>
 			</td>
 			<td>
-			<p align="center"><font size="-1"><font size="-1"><strong style="FONT-SIZE: 12pt">Exams</strong></font></font></p>
+			<p align="center"><font size="-1"><font size="-1"><strong style="FONT-SIZE:12pt">Exams</strong></font></font></p>
 			</td>
-			<td><br />
+			<td>
+			<p align="left">&nbsp;</p>
 			</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">46</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday 9&nbsp;November</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;15&nbsp;November</font></p>
 			</td>
 			<td>
-			<p align="center"><font size="-1"><font size="-1"><strong style="FONT-SIZE: 12pt">Exams</strong></font></font></p>
+			<p align="center">&nbsp;</p>
 			</td>
-			<td><br />
-			</td>
+			<td style="FONT-STYLE: italic">&nbsp;</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">47</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;16&nbsp;November</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;22 November</font></p>
 			</td>
-			<td>
-			<p align="center"><br />
-			</p>
-			</td>
-			<td><br />
-			</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">48</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday 23&nbsp;November</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday 29&nbsp;November</font></p>
 			</td>
 			<td><font style="FONT-SIZE: 12pt">&nbsp;</font></td>
 			<td><font style="FONT-SIZE: 12pt">&nbsp;</font></td>
@@ -2199,7 +2173,7 @@ export const TEST_HTML_WEEKS = `<!DOCTYPE html>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">49</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;30 November</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;6&nbsp;December</font></p>
 			</td>
 			<td><font style="FONT-SIZE: 12pt">&nbsp;</font></td>
 			<td><font style="FONT-SIZE: 12pt">&nbsp;</font></td>
@@ -2207,31 +2181,32 @@ export const TEST_HTML_WEEKS = `<!DOCTYPE html>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">50</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday 7&nbsp;December</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;13 December</font></p>
 			</td>
 			<td><font style="FONT-SIZE: 12pt">&nbsp;</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">&nbsp;</font></p>
+			<p align="left">&nbsp;</p>
 			</td>
 		</tr>
 		<tr align="center" valign="top">
 			<td><font style="FONT-SIZE: 12pt">51</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday&nbsp;14&nbsp;December</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday 20&nbsp;December</font></p>
 			</td>
 			<td><font style="FONT-SIZE: 12pt">&nbsp;</font></td>
 			<td>
-			<p align="left"><br />
-			</p>
+			<p align="left">&nbsp;</p>
 			</td>
 		</tr>
 		<tr align="center" valign="top">
-			<td><font style="FONT-SIZE: 12pt">52 &amp; 53</font></td>
+			<td><font style="FONT-SIZE: 12pt">52</font></td>
 			<td>
-			<p align="left"><font style="FONT-SIZE: 12pt">Monday 21/28&nbsp;December</font></p>
+			<p align="left"><font style="FONT-SIZE: 12pt">Monday 27&nbsp;December</font></p>
 			</td>
 			<td><font style="FONT-SIZE: 12pt">&nbsp;</font></td>
-			<td style="text-align: left;"><font style="FONT-SIZE: 12pt">&nbsp;</font></td>
+			<td>
+			<p align="left">&nbsp;</p>
+			</td>
 		</tr>
 	</tbody>
 </table>
@@ -2243,9 +2218,9 @@ export const TEST_HTML_WEEKS = `<!DOCTYPE html>
                 <div class="rn_DataValue">
             <ul>
                             <li>
-                                        <a href="/ci/fattach/get/1270579/0/session/L2F2LzEvdGltZS8xNjA1MDExODI4L2dlbi8xNjA1MDExODI4L3NpZC9mVWhDQ1NYSU9HTDlpRnR2aDRLanhZZ1U5bWlzeU8yVGlqa3RKa2xiNFhyUDdfOW01X3NOSm9najByX1h0cE1ES05aWTlPRkVYZ19za0tuRVBYbTZoNEI4TDllTzEzSEQ0UXMlN0VZQm92RndGNSU3RVpJY19fR2pISmdnJTIxJTIx/filename/Calendar+2020.docx" target="_self">
-                                                    <span class='rn_FileTypeIcon rn_docx'><span class='rn_ScreenReaderOnly'>File Type docx</span></span>                                                Calendar 2020.docx                    </a>
-                                       <span class="rn_FileSize">(21.85 KB)</span>
+                                        <a href="/ci/fattach/get/1530351/0/filename/Calendar+2021.docx" target="_self">
+                                                    <span class='rn_FileTypeIcon rn_docx'><span class='rn_ScreenReaderOnly'>File Type docx</span></span>                                                Calendar 2021.docx                    </a>
+                                       <span class="rn_FileSize">(21.89 KB)</span>
                                    </li>
                         </ul>
        </div>
@@ -2260,9 +2235,7 @@ export const TEST_HTML_WEEKS = `<!DOCTYPE html>
 </div>
             </div>
 </div>
-    	
-	
-</div>
+    </div>
 <div id="rn_SideBar" role="navigation" style="margin-top:30px">
     <div class="sidebox boxshadow">
         <h2 class="rn_Title">Need More Info?</h2>
@@ -2275,24 +2248,24 @@ export const TEST_HTML_WEEKS = `<!DOCTYPE html>
                 <h2>Related Answers</h2>
         <ul>
                 <li>
-            <a href="/app/answers/detail/a_id/1241/related/1/session/L2F2LzEvdGltZS8xNjA1MDExODI4L2dlbi8xNjA1MDExODI4L3NpZC9mVWhDQ1NYSU9HTDlpRnR2aDRLanhZZ1U5bWlzeU8yVGlqa3RKa2xiNFhyUDdfOW01X3NOSm9najByX1h0cE1ES05aWTlPRkVYZ19za0tuRVBYbTZoNEI4TDllTzEzSEQ0UXMlN0VZQm92RndGNSU3RVpJY19fR2pISmdnJTIxJTIx" target="_self">
-                2021 undergraduate dates and teaching weeks            </a>
+            <a href="/app/answers/detail/a_id/1405/related/1" target="_self">
+                2022 undergraduate dates and teaching weeks            </a>
         </li>
                 <li>
-            <a href="/app/answers/detail/a_id/353/related/1/session/L2F2LzEvdGltZS8xNjA1MDExODI4L2dlbi8xNjA1MDExODI4L3NpZC9mVWhDQ1NYSU9HTDlpRnR2aDRLanhZZ1U5bWlzeU8yVGlqa3RKa2xiNFhyUDdfOW01X3NOSm9najByX1h0cE1ES05aWTlPRkVYZ19za0tuRVBYbTZoNEI4TDllTzEzSEQ0UXMlN0VZQm92RndGNSU3RVpJY19fR2pISmdnJTIxJTIx" target="_self">
-                Holidays and other important date information            </a>
-        </li>
-                <li>
-            <a href="/app/answers/detail/a_id/76/related/1/session/L2F2LzEvdGltZS8xNjA1MDExODI4L2dlbi8xNjA1MDExODI4L3NpZC9mVWhDQ1NYSU9HTDlpRnR2aDRLanhZZ1U5bWlzeU8yVGlqa3RKa2xiNFhyUDdfOW01X3NOSm9najByX1h0cE1ES05aWTlPRkVYZ19za0tuRVBYbTZoNEI4TDllTzEzSEQ0UXMlN0VZQm92RndGNSU3RVpJY19fR2pISmdnJTIxJTIx" target="_self">
+            <a href="/app/answers/detail/a_id/76/related/1" target="_self">
                 Exam timetable release dates            </a>
         </li>
                 <li>
-            <a href="/app/answers/detail/a_id/75/related/1/session/L2F2LzEvdGltZS8xNjA1MDExODI4L2dlbi8xNjA1MDExODI4L3NpZC9mVWhDQ1NYSU9HTDlpRnR2aDRLanhZZ1U5bWlzeU8yVGlqa3RKa2xiNFhyUDdfOW01X3NOSm9najByX1h0cE1ES05aWTlPRkVYZ19za0tuRVBYbTZoNEI4TDllTzEzSEQ0UXMlN0VZQm92RndGNSU3RVpJY19fR2pISmdnJTIxJTIx" target="_self">
-                Exam start times            </a>
+            <a href="/app/answers/detail/a_id/2969/related/1" target="_self">
+                Last date to add a unit for Summer School            </a>
         </li>
                 <li>
-            <a href="/app/answers/detail/a_id/2969/related/1/session/L2F2LzEvdGltZS8xNjA1MDExODI4L2dlbi8xNjA1MDExODI4L3NpZC9mVWhDQ1NYSU9HTDlpRnR2aDRLanhZZ1U5bWlzeU8yVGlqa3RKa2xiNFhyUDdfOW01X3NOSm9najByX1h0cE1ES05aWTlPRkVYZ19za0tuRVBYbTZoNEI4TDllTzEzSEQ0UXMlN0VZQm92RndGNSU3RVpJY19fR2pISmdnJTIxJTIx" target="_self">
-                Last date to add a unit for Summer School            </a>
+            <a href="/app/answers/detail/a_id/852/related/1" target="_self">
+                Semester starting dates            </a>
+        </li>
+                <li>
+            <a href="/app/answers/detail/a_id/2131/related/1" target="_self">
+                Last date to add units to your enrolment            </a>
         </li>
         </ul>
 </div>
@@ -2364,34 +2337,33 @@ export const TEST_HTML_WEEKS = `<!DOCTYPE html>
 	'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 	})(window,document,'script','dataLayer','GTM-W6NNMJ');</script>
 	<!-- End Google Tag Manager -->
-<script>var YUI_config={"fetchCSS":false,"modules":{"RightNowTreeView":"/euf/core/3.8/js/0.332/min/modules/ui/treeview.js","RightNowTreeViewDialog":"/euf/core/3.8/js/0.332/min/modules/ui/treeviewdialog.js","RightNowTreeViewDropdown":"/euf/core/3.8/js/0.332/min/modules/ui/treeviewdropdown.js"},"lang":["en-AU","en-US"],"injected":true,"comboBase":"//ipoint.widget.custhelp.com/ci/cache/yuiCombo/","groups":{"gallery-treeview":{"base":"/rnt/rnw/yui_3.18/gallery-treeview/","modules":{"gallery-treeview":{"path":"gallery-treeview-min.js"}}}}};</script>
-<script type="text/javascript" src="/euf/core/3.8/js/0.332/min/RightNow.js"></script>
-<script type="text/javascript" src="/euf/generated/optimized/1603846217/templates/standard.1a3f270a5da53ada382f9e9a791de08b.js"></script>
-<script type="text/javascript" src="/euf/generated/optimized/1603846217/pages/answers/detail.ccce2e1d272c781e28875b54f13d62c2.js"></script>
+<script>var YUI_config={"fetchCSS":false,"modules":{"RightNowTreeView":"/euf/core/3.8/js/3.332/min/modules/ui/treeview.js","RightNowTreeViewDialog":"/euf/core/3.8/js/3.332/min/modules/ui/treeviewdialog.js","RightNowTreeViewDropdown":"/euf/core/3.8/js/3.332/min/modules/ui/treeviewdropdown.js"},"lang":["en-AU","en-US"],"injected":true,"comboBase":"//ipoint.widget.custhelp.com/ci/cache/yuiCombo/","groups":{"gallery-treeview":{"base":"/rnt/rnw/yui_3.18/gallery-treeview/","modules":{"gallery-treeview":{"path":"gallery-treeview-min.js"}}}}};</script>
+<script type="text/javascript" src="/euf/core/3.8/js/3.332/min/RightNow.js"></script>
+<script type="text/javascript" src="/euf/generated/optimized/1611333288/templates/standard.267e0d073a1bf3cbd86ebe74bd804ad9.js"></script>
+<script type="text/javascript" src="/euf/generated/optimized/1611333288/pages/answers/detail.86e4b7f9e9872283c7fcf8aaf1b4bf47.js"></script>
 <script>
 /* <![CDATA[ */
 RightNow.Env=(function(){var _props={module:'standard',coreAssets:'/euf/core/3.8/',yuiCore:'/rnt/rnw/yui_3.18/',profileData:{"isLoggedIn":false,"previouslySeenEmail":null}};return function(prop){return _props[prop];};})();RightNow.Interface.setMessagebase(function(){return {"ATTRIBUTES_LC_LBL":"attributes","ATTRIBUTE_HAVENT_SPECIFIED_VALID_IT_LBL":"Value for '%s' attribute is a number and you haven't specified a valid value for it.","BACK_LBL":"Back","BEG_DIALOG_PLS_DISMISS_DIALOG_BEF_MSG":"Beginning of dialogue. Please dismiss dialogue before continuing","CHANGED_LBL":"Changed","CLOSE_CMD":"Close","COL_SAVE_ED_ERR_L_INV_E_PERMISSIONS_MSG":"Widget changes could not be saved due to errors while saving. Please check the file permissions.","DIALOG_LBL":"dialogue","DIALOG_PLEASE_READ_TEXT_DIALOG_MSG_MSG":"Dialogue. Please read text above for dialogue message","END_DIALOG_PLS_DISMISS_DIALOG_BEF_MSG":"End of dialogue. Please dismiss dialogue before continuing","ERROR_LBL":"Error","ERRORS_LBL":"Errors","ERROR_PCT_S_LBL":"Error: %s","ERROR_REQUEST_ACTION_COMPLETED_MSG":"There was an error with the request and the action could not be completed.","ERR_SUBMITTING_FORM_DUE_INV_INPUT_LBL":"There was an error submitting the form, due to invalid input","ERR_SUBMITTING_SEARCH_MSG":"There was a problem with your request. Please change your search terms and try again.","HELP_LBL":"Help","INFORMATION_LBL":"Information","INFORMATION_S_LBL":"Information: %s","OK_LBL":"OK","PCT_S_ATTRIB_REQD_HAVENT_VALUE_MSG":"The '%s' attribute is required and you haven't specified a value for it.","PG_COL_SAVE_ED_ERR_L_INV_E_PERMISSIONS_MSG":"Widget changes of page could not be saved due to errors while saving. Please check the page file permissions.","REVEALED_DISP_TB_DD_OP_ADDTL_T_EXPOSED_MSG":"Note: The widget, when revealed, can be inspected, but you may need to perform additional actions for it to be exposed.","SOME_INST_ID_BUT_SEE_ITS_SATTRIBUTESS_MSG":"Some or all instances of this widget are hidden, but you can see its %sattributes%s.","SUCCESS_S_LBL":"Success: %s","TEMPL_COL_SAVE_ED_ERR_INV_TEMPL_PRMSSNS_MSG":"Widget changes of template could not be saved due to errors while saving. Please check the template file permissions.","THIS_WIDGET_HAS_NO_ATTRIBUTES_MSG":"This widget has no attributes.","THIS_WIDGET_HAS_NO_VIEW_LBL":"This widget has no view","VAL_PCT_S_ATTRIB_MINIMUM_VAL_ACCD_MSG":"Value for '%s' attribute is too small. The minimum value accepted is %s, but the value received was %s.","VAL_PCT_S_ATTRIB_MAX_VAL_ACCD_PCT_S_MSG":"Value for '%s' attribute is too large. The maximum value accepted is %s, but the value received was %s.","VIEW_ATTRIBUTES_LBL":"View Attributes","WARNING_LBL":"Warning","WARNING_S_LBL":"Warning: %s","WIDGET_CHANGES_ERRORS_WILL_IGNORED_MSG":"Widget changes with errors will be ignored.","RESPONSE_PLACEHOLDER_LBL":"<Response Placeholder>","NO_ANSWERS_FOUND_MSG":"No Answers found.","AGT_TEXT_LBL":"Agent text:","ADD_TO_CHAT_CMD":"Add to Chat","NEW_CONTENT_ADDED_BELOW_MSG":"New content added below.","TOP_CONTENT_CONTENT_ADDED_MSG":"Top of new content. New content has been added below.","PCT_S_IS_REQUIRED_MSG":"%s is required","FIELD_IS_NOT_A_VALID_EMAIL_ADDRESS_MSG":"field is not a valid email address.","PLEASE_LOG_CREATE_AN_ACCOUNT_CONTINUE_LBL":"Please log in or create an account to continue","PCT_S_CONTAIN_THAN_MSG":"%s must not contain either '<' or '>'","PCT_S_MUST_NOT_CONTAIN_QUOTES_MSG":"%s must not contain quotes","PCT_S_MUST_NOT_CONTAIN_MSG":"%s must not contain '&'","PLEASE_ENTER_SINGLE_EMAIL_ADDRESS_MSG":"Please enter a single email address.","PCT_S_IS_INVALID_MSG":"%s is invalid","PCT_S_IS_TOO_LONG_MSG":"%s is too long","THERE_PROB_REQ_ACTION_COULD_COMPLETED_MSG":"There was a problem with the request and the action could not be completed.","THUMBNAIL_FOR_ATTACHED_IMAGE_MSG":"Thumbnail for attached image.","REQUIRED_LBL":"Required","FIELD_REQUIRED_MARK_LBL":"*","FORMSUBMIT_PLACED_FORM_UNIQUE_ID_MSG":"FormSubmit must be placed within a form with a unique ID.","PLS_VERIFY_REQ_ENTERING_TEXT_IMG_MSG":"Please verify your request by entering the text in the image.","VALUE_MUST_BE_AN_INTEGER_MSG":"value must be an integer","VALUE_IS_TOO_LARGE_MAX_VALUE_MSG":"value is too large (max value: ","VALUE_IS_TOO_SMALL_MIN_VALUE_MSG":"value is too small (min value: ","CONTAIN_1_CHARACTER_MSG":"must contain at least 1 more character","PCT_D_CHARACTERS_MSG":"must be at least %d characters long","EXCEEDS_SZ_LIMIT_PCT_D_CHARS_1_LBL":"exceeds its size limit of %d characters by 1 character","S_SZ_CHARS_CHARS_CHARS_XP_SBM_SZ_XCDD_MSG":"exceeds its size limit of %d characters by %d characters. Note that some characters (such as '&' and '<') are expanded upon submission which may cause the size limit to be exceeded.","PCT_S_IS_AN_INVALID_POSTAL_CODE_MSG":"%s is an invalid postal code","PCT_S_IS_AN_INVALID_PHONE_NUMBER_MSG":"%s is an invalid phone number","PCT_S_CONT_SPACES_DOUBLE_QUOTES_LBL":"%s cannot contain spaces, double quotes or <>","PCT_S_DIDNT_MATCH_EXPECTED_INPUT_LBL":"%s didn't match expected input","CONTAIN_SPACES_PLEASE_TRY_MSG":"must not contain quotes. Please try again.","IS_NOT_A_VALID_URL_MSG":"is not a valid URL","PCT_S_MUST_NOT_CONTAIN_SPACES_MSG":"%s must not contain spaces.","USERNAME_LBL":"Username","PCT_S_CONTAIN_DOUBLE_QUOTES_MSG":"%s must not contain double quotes.","PCT_S_CNT_THAN_MSG":"%s must not contain either '<' or '>'","DISPLAY_NAME_LBL":"Display Name","LOGIN_LBL":"Login","CANCEL_LBL":"Cancel","OOPS_LBL":"Oops!","COOKIES_ENABLED_BROWSER_ORDER_LOG_MSG":"You must have cookies enabled in your browser in order to log in. Please enable cookies and try again.","ERROR_PAGE_PLEASE_S_TRY_MSG":"There is an error on the page. Please correct the problem(s) and try again.","PCT_S_IS_NOT_COMPLETELY_FILLED_IN_MSG":"%s is not completely filled in","PCT_S_IS_NOT_A_VALID_DATE_MSG":"%s is not a valid date","VALUE_MIN_VALUE_PCT_S_MSG":"value is too small (min value: %s)","PCT_S_REQUIREMENTS_MET_LBL":"%s requirements have not been met","PASSWD_VALIDATION_REQS_READ_L_MSG":"For password validation requirements, read the list below.","PASSWORD_IS_TOO_SHORT_MSG":"Password is too short","PERFECT_LBL":"Perfect","PASSWORD_IS_TOO_INSECURE_MSG":"Password is too insecure","COMPLETE_LBL":"Complete","INCOMPLETE_LBL":"Incomplete","EXPECTED_INPUT_LBL":"Expected Input","WAITING_FOR_CHARACTER_LBL":"Waiting for character: ' ","PLEASE_TYPE_A_NUMBER_MSG":"Please type a number","PLEASE_ENTER_UPPERCASE_LETTER_MSG":"Please enter an upper case letter or a number","PLEASE_ENTER_AN_UPPERCASE_LETTER_MSG":"Please enter an upper case letter","PLS_ENTER_UPPERCASE_LETTER_SPECIAL_MSG":"Please enter an upper case letter, a number or a special character","PLEASE_ENTER_LOWERCASE_LETTER_MSG":"Please enter a lower case letter or a number","PLEASE_ENTER_A_LOWERCASE_LETTER_MSG":"Please enter a lower case letter","PLS_ENTER_LOWERCASE_LETTER_SPECIAL_MSG":"Please enter a lower case letter, a number or a special character","PLEASE_ENTER_A_LETTER_OR_A_NUMBER_MSG":"Please enter a letter or a number","PLEASE_ENTER_A_LETTER_MSG":"Please enter a letter","PLEASE_ENTER_LETTER_SPECIAL_CHAR_MSG":"Please enter a letter, a number or a special character","THE_INPUT_IS_TOO_LONG_MSG":"The input is too long","THE_INPUT_IS_TOO_SHORT_MSG":"The input is too short","CHARACTER_LBL":"Character"};});
-RightNow.Interface.setConfigbase(function(){return {"DE_VALID_EMAIL_PATTERN":"^((([-_!#$%&'*+\/=?^~\`{|}\\w]+(\\.[.]?[-_!#$%&'*+\/=?^~\`{|}\\w]+)*)|(\"[^\"]+\"))@[0-9A-Za-z]+([\\-]+[0-9A-Za-z]+)*(\\.[0-9A-Za-z]+([\\-]+[0-9A-Za-z]+)*)+[; ]*)$","CP_HOME_URL":"answers\/list","CP_FILE_UPLOAD_MAX_TIME":300,"OE_WEB_SERVER":"ipoint.uwa.edu.au","SUBMIT_TOKEN_EXP":30,"ANS_NOTIF_ENABLED":true};});
+RightNow.Interface.setConfigbase(function(){return {"DE_VALID_EMAIL_PATTERN":"^((([-_!#$%&'*+\/=?^~'{|}\\w]+(\\.[.]?[-_!#$%&'*+\/=?^~'{|}\\w]+)*)|(\"[^\"]+\"))@[0-9A-Za-z]+([\\-]+[0-9A-Za-z]+)*(\\.[0-9A-Za-z]+([\\-]+[0-9A-Za-z]+)*)+[; ]*)$","CP_HOME_URL":"answers\/list","CP_FILE_UPLOAD_MAX_TIME":300,"OE_WEB_SERVER":"ipoint.uwa.edu.au","SUBMIT_TOKEN_EXP":30,"ANS_NOTIF_ENABLED":true};});
 RightNow.Url.setParameterSegment(5);
-RightNow.Url.setSession('L2F2LzEvdGltZS8xNjA1MDExODI4L2dlbi8xNjA1MDExODI4L3NpZC9mVWhDQ1NYSU9HTDlpRnR2aDRLanhZZ1U5bWlzeU8yVGlqa3RKa2xiNFhyUDdfOW01X3NOSm9najByX1h0cE1ES05aWTlPRkVYZ19za0tuRVBYbTZoNEI4TDllTzEzSEQ0UXMlN0VZQm92RndGNSU3RVpJY19fR2pISmdnJTIxJTIx');
-RightNow.Event.setNoSessionCookies(true);
 RightNow.Interface.Constants = 
-{"API_VALIDATION_REGEX_EMAIL":"((([-_!#$%&'*+\/=?^~\`{|}\\w]+([.][-_!#$%&'*+\/=?^~\`{|}\\w]*)*)|(\"[^\"]+\"))@[0-9A-Za-z]+([\\-]+[0-9A-Za-z]+)*(\\.[0-9A-Za-z]+([\\-]+[0-9A-Za-z]+)*)+[;, ]*)+"};
+{"API_VALIDATION_REGEX_EMAIL":"((([-_!#$%&'*+\/=?^~'{|}\\w]+([.][-_!#$%&'*+\/=?^~'{|}\\w]*)*)|(\"[^\"]+\"))@[0-9A-Za-z]+([\\-]+[0-9A-Za-z]+)*(\\.[0-9A-Za-z]+([\\-]+[0-9A-Za-z]+)*)+[;, ]*)+"};
 YUI().use('event-base',function(Y){Y.on('domready',function(){var n=RightNow.namespace,W=RightNow.Widgets,c='createWidgetInstance';
 n('RightNow.Widgets.FileListDisplay').templates={"refreshedFileList":"<div id=\"rn_<%= instanceID %>\" class=\"rn_FileListDisplay rn_Output\">  <% if (attrs.label) { %>  <span class=\"rn_DataLabel\"><%= attrs.label %><\/span>  <% } %> <div class=\"rn_DataValue\">  <ul> <% for(var i=0; i < fileAttachments.length; i++) { %>  <li id=\"<%='rn_File_' + fileAttachments[i].ID %>\">  <a href=\"<%= fileAttachments[i].AttachmentUrl %>\" rel=\"nofollow\" target=\"_blank\"> <% if (attrs.display_thumbnail && fileAttachments[i].ThumbnailScreenReaderText) { %>  <img class='rn_FileTypeImageThumbnail' alt=\"<%= thumbnailAltText %>\"\/> <span class=\"rn_ScreenReaderOnly\"><%= fileAttachments[i].ThumbnailScreenReaderText %><\/span>  <% } %>  <%= fileAttachments[i].FileName %>  <\/a> <% if(attrs.display_file_size) { %>  <span class=\"rn_FileSize\">(<%= fileAttachments[i].FileSize %>)<\/span>  <% } %>  <\/li>  <% } %> <\/ul>  <\/div> <\/div>"};
 n('RightNow.Widgets.AnswerFeedback').templates={"feedbackForm":"<div id=\"<%= domPrefix %>_AnswerFeedbackForm\" class=\"rn_AnswerFeedbackForm\"> <div id=\"<%= domPrefix %>_DialogDescription\" class=\"rn_DialogSubtitle\"><%= labelDialogDescription %><\/div> <div id=\"<%= domPrefix %>_ErrorMessage\"><\/div>  <form>  <% if (!isProfile) { %>  <label for=\"<%= domPrefix %>_EmailInput\"><%= labelEmailAddress %> <%= getRequiredLabel() %> <\/label> <input id=\"<%= domPrefix %>_EmailInput\" class=\"rn_EmailField\" type=\"text\" value=\"<%= userEmail %>\"\/>  <% } %>  <label for=\"<%= domPrefix %>_FeedbackTextarea\"><%= labelCommentBox %> <%= getRequiredLabel() %> <\/label> <textarea id=\"<%= domPrefix %>_FeedbackTextarea\" class=\"rn_Textarea\" rows=\"4\" cols=\"60\"><\/textarea>   <\/form> <\/div>"};
 W.setInitialWidgetCount(5);
-W[c]({"i":{"c":"NavigationTab","n":"NavigationTab","w":1},"a":{"label_tab":"FAQs","link":"\/app\/answers\/list\/session\/L2F2LzEvdGltZS8xNjA1MDExODI4L2dlbi8xNjA1MDExODI4L3NpZC9mVWhDQ1NYSU9HTDlpRnR2aDRLanhZZ1U5bWlzeU8yVGlqa3RKa2xiNFhyUDdfOW01X3NOSm9najByX1h0cE1ES05aWTlPRkVYZ19za0tuRVBYbTZoNEI4TDllTzEzSEQ0UXMlN0VZQm92RndGNSU3RVpJY19fR2pISmdnJTIxJTIx","pages":["answers\/list","answers\/detail","answers\/intent"],"subpages":"","css_class":"rn_SelectedTab","target":"_self","external":false,"searches_done":null,"label_selected_tab":"%s selected"},"j":[]},'W10=','fUAc66BcwVtaWifWF9gCYygzy80yXCW8vgeW2ZHwhPlYyJUs2oywLXUvLeHkuSwBNLpfnM0lPe3aXQPtrYVdZkENLUDebPFXwFPR6izDbeZr0FW~L4HJ8bUKx4RCnS4_aSFGVUTGDUb0U!',1605011828,'NavigationTab_1','standard/navigation/NavigationTab','RightNow.Widgets.NavigationTab','1','ZlVydWRVdmZIQXlHSlZmWVhzV3FpU3VaWjRpNzRWWWVJcVR2SUN4MHZIanNZTGM2eTBpeDhYQXBXQW11ZmZqcGxXXzZpblFMdXVkMWM5bkhhTGd0MTFFNFB1dGkzS3lUSzg0MHNIZTZqVmkxbWNNR0dabHRzRll6bmhUdmh_NVFVbFNtNTRWNjVGaDRjIQ!!');
-W[c]({"i":{"c":"NavigationTab","n":"NavigationTab","w":2},"a":{"label_tab":"Email Us","link":"\/app\/ask\/session\/L2F2LzEvdGltZS8xNjA1MDExODI4L2dlbi8xNjA1MDExODI4L3NpZC9mVWhDQ1NYSU9HTDlpRnR2aDRLanhZZ1U5bWlzeU8yVGlqa3RKa2xiNFhyUDdfOW01X3NOSm9najByX1h0cE1ES05aWTlPRkVYZ19za0tuRVBYbTZoNEI4TDllTzEzSEQ0UXMlN0VZQm92RndGNSU3RVpJY19fR2pISmdnJTIxJTIx","pages":["ask","ask_confirm"],"subpages":"","css_class":"rn_SelectedTab","target":"_self","external":false,"searches_done":null,"label_selected_tab":"%s selected"},"j":[]},'W10=','fUOGlLIYnBFSKSICHaKY1xJ0CtIpTzKpco89UfL6uHA4Mu9K7fot0eHTrkt7S38UzAMFsNGXYoX7oYNe4mUZifq7HvljfmK1Dj2IOhodaTwdYu0DYyvUTaTRoQXkiYpYnmVXw5qZCSITk!',1605011828,'NavigationTab_2','standard/navigation/NavigationTab','RightNow.Widgets.NavigationTab','2','ZlVPMn5mdGpMbGxMMW5qeDZUNU05dkI5Tn43aFl4OHplTHZiRFhSRVphWG9KfnNqWm43R1NxZ3l0NzRMYms3OWhpMkVTc0t4eHgzelBPU24wNHZFSFJaQU5IMVhNcFhLSWNGcFR1NFhEUUJSQjdoVWF0QjlUdVA4d19JbUxyMnB0ZHJVSWJrWUlGaVJBIQ!!');
-W[c]({"i":{"c":"NavigationTab","n":"NavigationTab","w":3},"a":{"label_tab":"Your Account","link":"\/app\/account\/overview\/session\/L2F2LzEvdGltZS8xNjA1MDExODI4L2dlbi8xNjA1MDExODI4L3NpZC9mVWhDQ1NYSU9HTDlpRnR2aDRLanhZZ1U5bWlzeU8yVGlqa3RKa2xiNFhyUDdfOW01X3NOSm9najByX1h0cE1ES05aWTlPRkVYZ19za0tuRVBYbTZoNEI4TDllTzEzSEQ0UXMlN0VZQm92RndGNSU3RVpJY19fR2pISmdnJTIxJTIx","pages":["utils\/account_assistance","account\/overview","account\/profile","account\/notif","account\/change_password","account\/questions\/list","account\/questions\/detail","account\/notif\/list","utils\/login_form","utils\/create_account","utils\/submit\/password_changed","utils\/submit\/profile_updated"],"subpages":"Account Overview > \/app\/account\/overview, Support History > \/app\/account\/questions\/list, Account Settings > \/app\/account\/profile","css_class":"rn_SelectedTab","target":"_self","external":false,"searches_done":null,"label_selected_tab":"%s selected"},"j":[]},'W10=','fUvV~yZyYfvleARGpTJl8JPa8EW71Zz_JQ~Iqdf~Tq8B2_Cbyou7DnPPviUIrZiCRcMuP~xmPSiUbFj875RBgE1xrR4gE7EzmvvPCmr6nPDnX_j5O6~PUa0~dcnG417N2VwoFzSHLq9eU!',1605011828,'NavigationTab_3','standard/navigation/NavigationTab','RightNow.Widgets.NavigationTab','3','ZlUzOVcwc0tmTUN1R19FdFZpa2kyTDZhVTB2VE1sV0NpMVRzSF9TZUNoMlFLU1p3XzdJS2FDMThiR0tUWUlfVTNuWm9jQUJQamVqX1VDQ25OMWV1b2F3T3d6T2M1SVBfNG5NRWx6MXdsNGZOTWlWdVl1N21HRDBqen5wRW1tdVhIOVM1cUpMa3djR1dJIQ!!');
-W[c]({"i":{"c":"FileListDisplay","n":"FileListDisplay","w":6},"a":{"display_thumbnail":true,"label":"Attachments","left_justify":false,"name":"Answer.FileAttachments","display_file_size":true,"sort_by_filename":false,"parent_object_id":null,"sub_id":"file"},"j":{"attachments":[{"ContentType":"application\/vnd.openxmlformats-officedocument.wordprocessingml.document","CreatedTime":null,"FileName":"Calendar 2020.docx","ID":1270579,"Size":22377,"UpdatedTime":null,"URL":null,"Description":null,"Name":null,"Disabled":null,"Indexed":null,"Private":false,"Target":"_self","Icon":"<span class='rn_FileTypeIcon rn_docx'><span class='rn_ScreenReaderOnly'>File Type docx<\/span><\/span>","ReadableSize":"21.85 KB","AttachmentUrl":"\/ci\/fattach\/get\/1270579\/0\/session\/L2F2LzEvdGltZS8xNjA1MDExODI4L2dlbi8xNjA1MDExODI4L3NpZC9mVWhDQ1NYSU9HTDlpRnR2aDRLanhZZ1U5bWlzeU8yVGlqa3RKa2xiNFhyUDdfOW01X3NOSm9najByX1h0cE1ES05aWTlPRkVYZ19za0tuRVBYbTZoNEI4TDllTzEzSEQ0UXMlN0VZQm92RndGNSU3RVpJY19fR2pISmdnJTIxJTIx\/filename\/Calendar+2020.docx","ThumbnailScreenReaderText":null,"ThumbnailUrl":null}]}},'W10=','fUzWL_gxcG2fV1Fk8zM50fWK1kRcrUxfhlnlh4PbG~qqFXynmMfxAK22pHDbMRM6qhcn1Fxmj~cgR~aMrJ1nK~1J6qpRDBvZuWtwTrw~K~qE~cXI7kkbTegU1iiXloOwhVJvLQi52RT_c!',1605011828,'FileListDisplay_6','standard/output/FileListDisplay','RightNow.Widgets.FileListDisplay','6','ZlVmWX5tUm1SUVNydERvTkczVElhRjZkU18yaVZTbDZTaGtNcGpjdUU0d0ZVX2l2U2JhSGJFOXJBZTlncEp1V2JXS2xrbU52YzhTVXV2T3d5dDV5NmJUQzFoMXYwflZxSGNOUVJfd08weFdldlc4fmloTW91QUE0TUZBVHJmRFYzVFBzTlc2WFljZ1U0IQ!!');
-W[c]({"i":{"c":"AnswerFeedback","n":"AnswerFeedback","w":7},"a":{"submit_rating_ajax":"\/ci\/ajaxRequest\/submitAnswerRating","submit_feedback_ajax":"\/ci\/ajaxRequest\/submitAnswerFeedback","label_title":"Was this answer helpful?","label_accessible_option_description":"Rate answer %d of %d","label_dialog_title":"Provide Additional Information","label_dialog_description":"Your rating has been submitted; please tell us how we can make this answer more useful.","options_count":2,"options_descending":false,"label_yes_button":"Yes","label_no_button":"No","feedback_page_url":"","dialog_threshold":1,"label_feedback_submitted":"Your feedback has been submitted.","label_feedback_thanks":"Thanks for your feedback.","label_email_address":"Email","label_comment_box":"Your Feedback","label_send_button":"Submit","label_cancel_button":"Cancel","use_rank_labels":false,"dialog_width":"375px"},"j":{"f_tok":"ZlVweWVBZlhPa2xVYU40X0d5NllBaHFjdl9meDNBX29QWGNpUkdJWTRpUDFpVTdhcERvN3lMWXNmNXJQSE96MktyemIwbDlRQ1ZNVXh2bTk5Ykl3N0kyMGdDZ2xic1lYNWNCMjhDcExEdTlTOWN2NmJjT2FHc0NyejNCX3VNaTFjRUViTDhHeURmcmRrIQ!!","isProfile":false,"email":"","buttonView":true,"answerID":"1405"}},'W10=','fUR9cZEWWT6R_gFWbMgeaN7WjJWVMBcg4BYPHlErha4BrLMKwFEiaFP5gTmtfh0oAriVW1wLWc3HcBlE1BXEDGc8IZuMi9Hpu8RXOUNDdqksFOQU9inBxMzaqAutyGFK01gRvHl7VJW~U!',1605011828,'AnswerFeedback_7','standard/feedback/AnswerFeedback','RightNow.Widgets.AnswerFeedback','7','ZlVUOUZnejdqWjV2VFBlR3ZweVRHTFhKa0lpYjJMQlRDV3hmNm5mYWNWVFc0T242VTIzYktTSG5zTko4TU1MMVAwTm1EVzVFbXJJQ04wY08yQmhQUnQxV2w3eUplWDd0cFlSeXh_TFNiZXM3Tm1HcXBFRUZWVGJyVUJQQTZCcn40MGtKRnJwQUh2eEFBIQ!!');
+W[c]({"i":{"c":"NavigationTab","n":"NavigationTab","w":1},"a":{"label_tab":"FAQs","link":"\/app\/answers\/list","pages":["answers\/list","answers\/detail","answers\/intent"],"subpages":"","css_class":"rn_SelectedTab","target":"_self","external":false,"searches_done":null,"label_selected_tab":"%s selected"},"j":[]},'W10=','fUiI9zzvGNyGbFIxAfyTbTXcOQsTZXm53LxClmqI_8vAde36csnfNQLtnpZeps0hgqzscWZ4hMnASgsM9UBztauWsZ361WPaqyNTtwEjaMMtLi60z_YcXBLDbAWlvYMYYDdeIhH~HuL0g!',1611988952,'NavigationTab_1','standard/navigation/NavigationTab','RightNow.Widgets.NavigationTab','1','ZlVNRWNKenNpflA5VEFfbm1FZ21kSWg4aU9vOUxaSkhHSUNIT0tRaUMzcG5SUG8wSHBXN2dmWkxBTWtEcmt0VF96RFFuc1BjVm9NRVhGV0VQczRhVW41Z19tWHZGNTNtUWQzVnBnSXJhUnl2RjlBc1prZldvcFo5UkNJdW1SUVhfaUtTZjM2Q0xQbWpBIQ!!');
+W[c]({"i":{"c":"NavigationTab","n":"NavigationTab","w":2},"a":{"label_tab":"Email Us","link":"\/app\/ask","pages":["ask","ask_confirm"],"subpages":"","css_class":"rn_SelectedTab","target":"_self","external":false,"searches_done":null,"label_selected_tab":"%s selected"},"j":[]},'W10=','fU9P4Rys7aKfYS8kDVAE5QeIE1ZBwIfXcExzUDawKCnIlXvHs23RkiWiTo~PxV2sStdPRYdlMuUqL0_URCm8uKSKAa2k7pDLwIZyXP6Jfvc0pFm3WgeYtj_SGcfHSUWJiyU5PMrY6ZYgM!',1611988952,'NavigationTab_2','standard/navigation/NavigationTab','RightNow.Widgets.NavigationTab','2','ZlVWNlV2WGFxQWNIV0llY0h_YUxlfjlPeDhBTFhMX1I3U0tpd2NhSEJCX1ZZRENFUEF4WnE3anVoMzBzMDl2bFpocE9IQXNrRWxsU3VNR2tZd2lxczZWblIzU2E0c3kybDQ4UU9jckQ5UlBjYnZ3ZG03aTRmQU1_VDl6T3c3U2dnaU9aQ2gyWDVGSFhRIQ!!');
+W[c]({"i":{"c":"NavigationTab","n":"NavigationTab","w":3},"a":{"label_tab":"Your Account","link":"\/app\/account\/overview","pages":["utils\/account_assistance","account\/overview","account\/profile","account\/notif","account\/change_password","account\/questions\/list","account\/questions\/detail","account\/notif\/list","utils\/login_form","utils\/create_account","utils\/submit\/password_changed","utils\/submit\/profile_updated"],"subpages":"Account Overview > \/app\/account\/overview, Support History > \/app\/account\/questions\/list, Account Settings > \/app\/account\/profile","css_class":"rn_SelectedTab","target":"_self","external":false,"searches_done":null,"label_selected_tab":"%s selected"},"j":[]},'W10=','fUDC9eFmVtn07cnrQZoct0INFVys5fOJaXNr9wabAxJpENd8_vMNKMGU3uy3atTiKB93smdgh9n~XLXVGUDy2YwgSq1bV~3cNBE8PWhT4nrvxH7ngPOqy4OhlatQIciOHGy4KXX1j8UIM!',1611988952,'NavigationTab_3','standard/navigation/NavigationTab','RightNow.Widgets.NavigationTab','3','ZlVmeWFaRlpPRjhnTHliZlV4NF9SUXQ3S2hxMzRBR1lkSDBBRW01TE1yUTNwWE9RZXFIODVqMFpGMTU2STVKX1ZGN0JnbU1LQ0czSlNIfmlxZ1pNN2s1XzdEVVJ3OGpBTExkZXZfSzlEWE9qU1ptWUpseVRoVnRYUW00dkRRZTNzYVhQTmRORXVOS3dvIQ!!');
+W[c]({"i":{"c":"FileListDisplay","n":"FileListDisplay","w":6},"a":{"display_thumbnail":true,"label":"Attachments","left_justify":false,"name":"Answer.FileAttachments","display_file_size":true,"sort_by_filename":false,"parent_object_id":null,"sub_id":"file"},"j":{"attachments":[{"ContentType":"application\/vnd.openxmlformats-officedocument.wordprocessingml.document","CreatedTime":null,"FileName":"Calendar 2021.docx","ID":1530351,"Size":22415,"UpdatedTime":null,"URL":null,"Description":null,"Name":null,"Disabled":null,"Indexed":null,"Private":false,"Target":"_self","Icon":"<span class='rn_FileTypeIcon rn_docx'><span class='rn_ScreenReaderOnly'>File Type docx<\/span><\/span>","ReadableSize":"21.89 KB","AttachmentUrl":"\/ci\/fattach\/get\/1530351\/0\/filename\/Calendar+2021.docx","ThumbnailScreenReaderText":null,"ThumbnailUrl":null}]}},'W10=','fUC6gVGV6jd2eOecXSsf_KQzXrzMJMwAdY_cE302Eh~G728tSBFteufVBog8IGqBcVuNJUBF7L4iovsYVUSJ766DuOSUtwkzGgtIFXSI0Ylh_wyeaiWVEngv5xwSNOqrUiDjQrS0NdtzE!',1611988952,'FileListDisplay_6','standard/output/FileListDisplay','RightNow.Widgets.FileListDisplay','6','ZlV5andPU0pFeGRGNVh2NmRHaTc5OFc1NzR6NXJwXzh3X09hZ0cxY3BqM3NhSjhUSDhkNkZDfkpjYTh4NzQ2QzBESFF6U25EX0RjQVBEdUhSemM0Um1yRk9zUkR3QldsWW5tZFRKaUUwb1ZUTnYxQlMwTHcyZWJCaHAydGNrNEFVcVlJTGZleVZnOWc4IQ!!');
+W[c]({"i":{"c":"AnswerFeedback","n":"AnswerFeedback","w":7},"a":{"submit_rating_ajax":"\/ci\/ajaxRequest\/submitAnswerRating","submit_feedback_ajax":"\/ci\/ajaxRequest\/submitAnswerFeedback","label_title":"Was this answer helpful?","label_accessible_option_description":"Rate answer %d of %d","label_dialog_title":"Provide Additional Information","label_dialog_description":"Your rating has been submitted; please tell us how we can make this answer more useful.","options_count":2,"options_descending":false,"label_yes_button":"Yes","label_no_button":"No","feedback_page_url":"","dialog_threshold":1,"label_feedback_submitted":"Your feedback has been submitted.","label_feedback_thanks":"Thanks for your feedback.","label_email_address":"Email","label_comment_box":"Your Feedback","label_send_button":"Submit","label_cancel_button":"Cancel","use_rank_labels":false,"dialog_width":"375px"},"j":{"f_tok":"ZlVFY1IyYnpDd0xOdU41ZWVyZW4xQ2g5VExVUXFHeXAxRGJjX3JZM2QwZEJJT2FqOUZySzJmX29LczhkfmpTV0k2N1d4X1hffk1QVVhrT1ozYVhNN2JnU1ZQYW1HOGNMdEJWd082NXFISWx5cVdUQTRCZFlXeEJCeV9hZGxlYUJoMk92S3lHZnhqN35RIQ!!","isProfile":false,"email":"","buttonView":true,"answerID":"1241"}},'W10=','fUOxPH5boNBZnXg6M2xhtfRINhobfzPRTNJzvS1IYTFPch5HTKFO4oslCO4ZeaJiu1Dzoj7tfoZbV0kwUJj1ntWAO1xiZ8pgUhUIMMh5KIMA2aC2epM12_n4Oj9na86LIpmjAbn4~Iiio!',1611988952,'AnswerFeedback_7','standard/feedback/AnswerFeedback','RightNow.Widgets.AnswerFeedback','7','ZlV4YnkxN3RxY21rMmFIaUFma3dmUjlNS01ndGdGX0xVWTllY3lMYmtEb0xnbkJ5bH5FNXJiY1ZvdEdkYkZjbTN5bWNOZTVZRGJyTEFkaVVFTE9ydmxIdEZUT2Z_SFcwQlZkbjFBS2tDYlFubnRFZnR4SlBCUTNBc0lBQ0t6bjFkQlpJQkRvUDBlZTRvIQ!!');
 })});
 /* ]]> */
 </script>
 <script type="text/javascript">
-var _rnq=_rnq||[];_rnq.push({"s":"f37uaHXo","uh":"c43f5169","uc":"ipoint.uwa.edu.au\/app\/answers\/detail\/a_id\/1405","b":"ca27814","i":"ipoint:ipoint","f":"rnw","p":"Customer Portal","v":"20.8.0.1-b332","th":"www.rnengage.com"});
+var _rnq=_rnq||[];_rnq.push({"s":"YznD*k2p","uh":"641b96df","uc":"ipoint.uwa.edu.au\/app\/answers\/detail\/a_id\/1241","b":"ca27814","i":"ipoint:ipoint","f":"rnw","p":"Customer Portal","v":"20.8.0.1-b332-sp3","th":"www.rnengage.com"});
 (function(e){var b,d,a=document.createElement("iframe"),c=document.getElementsByTagName("script");a.src="javascript:false";a.title="Action Capture";a.role="presentation";(a.frameElement||a).style.cssText="position:absolute;width:0;height:0;border:0";c=c[c.length-1];c.parentNode.insertBefore(a,c);try{b=a.contentWindow.document}catch(f){d=document.domain,a.src="javascript:var d=document.open();d.domain='"+d+"';void(0);",b=a.contentWindow.document}b.open()._l=function(){for(var a;e.length;)a=this.createElement("script"),
 d&&(this.domain=d),a.src=e.pop(),this.body.appendChild(a)};b.write('<head><title>Action Capture</title></head><body onload="document._l();">');b.close()})(["https://www.rnengage.com/api/e/ca27814/e.js","//www.rnengage.com/api/1/javascript/acs.js"]);
 </script></body>
-</html>`;
+</html>
+`;
