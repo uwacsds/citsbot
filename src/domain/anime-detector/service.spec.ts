@@ -1,5 +1,6 @@
 import nock from 'nock';
 import { mockLogger } from '../../utils/logging';
+import { reverseImageSearchService } from './image-search/service';
 import { AnimeDetectorConfig } from './module';
 import { animeDetectorService } from './service';
 
@@ -15,7 +16,7 @@ describe('anime-detector-service', () => {
   createNocks('notAnime.png', 'something else that does not mention it once');
 
   const config: AnimeDetectorConfig = { keywordCountThreshold: 5, keywords: ['anime', 'manga'] };
-  const detectAnime = animeDetectorService(config, mockLogger());
+  const detectAnime = animeDetectorService(config, reverseImageSearchService(mockLogger()));
 
   it('given image that is anime > when detect anime > should return true verdict and word counts', async () => {
     await expect(detectAnime('anime.png')).resolves.toEqual([true, new Map().set('anime', 4).set('manga', 2)]);

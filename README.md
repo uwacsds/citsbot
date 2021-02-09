@@ -39,14 +39,16 @@
 
 1. Run `yarn` to install dependencies for your IDE
 2. Install docker and docker-compose from https://www.docker.com/products/docker-desktop
-3. Enable Kubernetes in the Docker Desktop preferences
+3. Install helm by following https://helm.sh/docs/intro/install/
+4. Enable Kubernetes in the Docker Desktop preferences
 
 #### Linux
 
 1. Run `yarn` to install dependencies for your IDE
 2. Install docker and [minikube](https://minikube.sigs.k8s.io/docs/) using your distro's package manager (`apt`/`pacman`/etc.)
-3. Set the `LOCAL_KUBE_CONTEXT` environment variable to `minikube`
-4. Start a local kubernetes cluster by running `minikube start`
+3. Install helm by following https://helm.sh/docs/intro/install/
+4. Set the `LOCAL_KUBE_CONTEXT` environment variable to `minikube`
+5. Start a local kubernetes cluster by running `minikube start`
 
 ### Running tests
 

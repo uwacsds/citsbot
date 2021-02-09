@@ -6,7 +6,7 @@ const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
 
 const formatSearchUrl = (imageUrl: string): string => `${SEARCH_URL}${encodeURI(imageUrl)}`;
 
-interface ReverseImageSearchService {
+export interface ReverseImageSearchService {
   reverseSearch: (imageUrl: string) => Promise<string>;
   countKeywordOccurrences: (resultsPageHtml: string, keywords: string[]) => Map<string, number>;
 }

@@ -4,24 +4,21 @@ import { academicDeadlinesParser } from './deadlines/parser';
 import { AcademicCalendarService, AcademicCalendar, Deadline } from './types';
 import { academicWeeksParser, getWeekIndex } from './weeks/parser';
 
-const TEACHING_WEEKS_URL = 'https://ipoint.uwa.edu.au/app/answers/detail/a_id/1405/~/2016-dates-and-teaching-weeks';
-const CS_MARKS_URL = 'https://secure.csse.uwa.edu.au/run/cssubmit';
-
 const zip = <T1, T2>(arr1: T1[], arr2: T2[]): [T1, T2][] => arr1.map((_, idx) => [arr1[idx], arr2[idx]]);
 
-export const academicCalendarService = ({ log }: LoggingService, filterPostgrad = true): AcademicCalendarService => {
+export const academicCalendarService = ({ log }: LoggingService, teachingWeeksUrl: string, csMarksUrl: string, filterPostgrad = true): AcademicCalendarService => {
   const weeksParser = academicWeeksParser();
   const deadlinesParser = academicDeadlinesParser();
 
   return async () => {
     const fetchWeeks = async () => {
-      const weeksResult = await fetch(TEACHING_WEEKS_URL);
+      const weeksResult = await fetch(teachingWeeksUrl);
       const weeksHtml = await weeksResult.text();
       return weeksParser.parseWeeks(weeksHtml);
     };
 
     const fetchDeadlines = async () => {
-      const unitsPageResult = await fetch(CS_MARKS_URL);
+      const unitsPageResult = await fetch(csMarksUrl);
       const unitsPageHtml = await unitsPageResult.text();
       const unitLinks = deadlinesParser.parseUnitLinks(unitsPageHtml).filter(({ code }) => !filterPostgrad || Number(code.slice('CITS'.length)) < 4000);
       const unitCodes = unitLinks.map(({ code }) => code);
