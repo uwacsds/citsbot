@@ -28,8 +28,5 @@ spec:
                   name: citsbot.config.{{ $.Values.environment }}
                   key: token
             - name: CONFIG
-              valueFrom:
-                secretKeyRef:
-                  name: citsbot.config.{{ $.Values.environment }}
-                  key: config
+              value: {{ .Values.botConfig | toJson | quote }}
       terminationGracePeriodSeconds: 5

@@ -2,6 +2,6 @@
 
 sh ./local-set-context.sh
 
-if [[ $(helm list -n citsbot | grep citsbot) ]]; then
-    helm uninstall -n citsbot citsbot
+if [[ $(sudo helm list -n citsbot | grep citsbot) ]]; then
+    sudo helm uninstall -n citsbot citsbot
 fi

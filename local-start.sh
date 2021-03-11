@@ -9,8 +9,7 @@ if [ -z "$DISCORD_TOKEN" ]; then
 fi
 BOT_CONFIG_FILE="config.local.json"
 
-helm upgrade -i citsbot ./helm/citsbot \
+sudo helm upgrade -i citsbot ./helm/citsbot \
   --namespace citsbot --create-namespace \
   -f ./helm/citsbot/values.local.yaml \
-  --set localSecrets.token=$DISCORD_TOKEN \
-  --set-file localSecrets.config=$BOT_CONFIG_FILE
+  --set localSecrets.token=$DISCORD_TOKEN
