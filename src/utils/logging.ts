@@ -1,9 +1,9 @@
 import * as winston from 'winston';
-import Transport = require('winston-transport');
-import { DiscordBot } from '../discord-service/types';
-import { BotActionType, BotEmbeddedMessageAction } from '../domain/action-types';
+import Transport from 'winston-transport';
+import { DiscordBot } from '../discord/types';
+import { BotEmbeddedMessageAction, BotActionType } from '../domain/action-types';
 
-type LogLevel = 'emerg' | 'alert' | 'crit' | 'error' | 'warning' | 'notice' | 'info' | 'debug';
+type LogLevel = `emerg` | `alert` | `crit` | `error` | `warning` | `notice` | `info` | `debug`;
 
 const logLevels: Record<LogLevel, number> = {
   emerg: 0,
@@ -30,24 +30,24 @@ export interface LoggingService {
 
 const getColour = (level: LogLevel) => {
   switch (level) {
-    case 'emerg':
-      return '#ff0000';
-    case 'alert':
-      return '#ff0000';
-    case 'crit':
-      return '#ff0000';
-    case 'error':
-      return '#f04747';
-    case 'warning':
-      return '#fff200';
-    case 'notice':
-      return '#96f6ff';
-    case 'info':
-      return '#96f6ff';
-    case 'debug':
-      return '#e305c5';
+    case `emerg`:
+      return `#ff0000`;
+    case `alert`:
+      return `#ff0000`;
+    case `crit`:
+      return `#ff0000`;
+    case `error`:
+      return `#f04747`;
+    case `warning`:
+      return `#fff200`;
+    case `notice`:
+      return `#96f6ff`;
+    case `info`:
+      return `#96f6ff`;
+    case `debug`:
+      return `#e305c5`;
     default:
-      return '#96f6ff';
+      return `#96f6ff`;
   }
 };
 
@@ -64,9 +64,9 @@ class DiscordLogTransport extends Transport {
 
   async log({ level, message, context }: LogInfo, next: () => void) {
     const formatContextData = (context?: LogMessageContext) => {
-      const str = JSON.stringify(context?.data) ?? '';
-      if (str === '') return null;
-      return `\`\`\`json\n${str.slice(0, 1000).replace(/`/g, '\\`')}\`\`\``;
+      const str = JSON.stringify(context?.data) ?? ``;
+      if (str === ``) return null;
+      return `\`\`\`json\n${str.slice(0, 1000).replace(/`/g, `\\\``)}\`\`\``;
     };
     const action: BotEmbeddedMessageAction = {
       type: BotActionType.EmbeddedMessage,
@@ -76,13 +76,13 @@ class DiscordLogTransport extends Transport {
         colour: getColour(level),
         image: context?.image,
         fields: [
-          { name: 'Time', value: new Date().toJSON() },
-          { name: 'Message', value: message },
+          { name: `Time`, value: new Date().toJSON() },
+          { name: `Message`, value: message },
         ],
       },
     };
     const contextField = formatContextData(context);
-    if (contextField) action.embed.fields?.push({ name: 'Context', value: contextField });
+    if (contextField) action.embed.fields?.push({ name: `Context`, value: contextField });
     await this.bot.applyAction(action);
     next();
   }
@@ -91,20 +91,20 @@ class DiscordLogTransport extends Transport {
 export const discordChannelLogger = (channelId: string): LoggingService => {
   let logger: winston.Logger;
 
-  process.on('uncaughtExceptionMonitor', (err: Error, origin: string) => {
-    if (!logger) console.error('CRASHED BEFORE LOG INITIALISE:', err);
-    logger.log('emerg', 'Uncaught Exception', { title: 'Uncaught Exception', data: { err, origin } });
+  process.on(`uncaughtExceptionMonitor`, (err: Error, origin: string) => {
+    if (!logger) console.error(`CRASHED BEFORE LOG INITIALISE:`, err);
+    logger.log(`emerg`, `Uncaught Exception`, { title: `Uncaught Exception`, data: { err, origin } });
   });
 
   return {
     log: (level, message, context = {}) => logger.log(level, message, { context }),
     initialise: (bot: DiscordBot) => {
       logger = winston.createLogger({
-        level: 'info',
+        level: `info`,
         levels: logLevels,
         format: winston.format.json(),
-        defaultMeta: { service: 'user-service' },
-        transports: [new winston.transports.Console(), new DiscordLogTransport(bot, channelId, { level: 'notice' })],
+        defaultMeta: { service: `user-service` },
+        transports: [new winston.transports.Console(), new DiscordLogTransport(bot, channelId, { level: `notice` })],
       });
     },
   };
