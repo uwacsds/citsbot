@@ -1,15 +1,15 @@
-import { DiscordAPI, DiscordUser } from '../discord-service/types';
+import { DiscordAPI, DiscordUser } from '../discord/types';
 
 export enum BotActionType {
-  Message = 'Message',
-  RemoveMessage = 'RemoveMessage',
-  EmbeddedMessage = 'EmbeddedMessage',
-  RoleGrant = 'RoleGrant',
-  RoleRevoke = 'RoleRevoke',
-  AddReaction = 'AddReaction',
-  RemoveReaction = 'RemoveReaction',
-  DirectMessage = 'DirectMessage',
-  CacheMessage = 'CacheMessage',
+  Message = `Message`,
+  RemoveMessage = `RemoveMessage`,
+  EmbeddedMessage = `EmbeddedMessage`,
+  RoleGrant = `RoleGrant`,
+  RoleRevoke = `RoleRevoke`,
+  AddReaction = `AddReaction`,
+  RemoveReaction = `RemoveReaction`,
+  DirectMessage = `DirectMessage`,
+  CacheMessage = `CacheMessage`,
 }
 
 interface BotBaseAction {
