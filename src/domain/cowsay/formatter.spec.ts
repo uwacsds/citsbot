@@ -8,14 +8,14 @@ describe(`cowsay formatter`, () => {
   };
   const formatMessage = cowsayFormatter(config);
 
-  it(`should format a short one line message`, () => {
+  test(`given short single line message > when format > should return expected string`, () => {
     const message = `this is a short one liner`;
     expect(formatMessage(message)).toEqual(
       `\`\`\`\n  _________________________\n< this is a short one liner >\n  -------------------------\n     \\   ^__^\n      \\  (oo)\\_______\n         (__)\\       )\\/\\\n             ||----w |\n             ||     ||\n\`\`\``
     );
   });
 
-  it(`should format a long multi line message`, () => {
+  test(`given long multiline message > when format > should return expected string`, () => {
     const message =
       `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pretium in enim quis pulvinar. Nam vulputate, orci tincidunt suscipit commodo, dolor libero rhoncus orci, non aliquet risus purus in est. Nunc fringilla pellentesque ante, at ultrices enim euismod in. Etiam rhoncus ipsum vel ex fermentum mollis. Aliquam auctor sit amet est vel aliquet. Suspendisse eleifend orci eget massa finibus, sed dictum turpis blandit. Pellentesque pellentesque sodales mauris, in malesuada velit. Nullam at eros lacus. Etiam sed odio semper, tempor mauris eget, laoreet quam. Proin quis magna fermentum, suscipit ipsum non, posuere odio. Suspendisse hendrerit elit vitae metus maximus facilisis. Nunc.`;
     expect(formatMessage(message)).toEqual(
