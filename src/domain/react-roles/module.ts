@@ -6,8 +6,8 @@ import { ModuleType, ReactRolesModule } from '../module-types';
 import { ReactRolesConfig } from './config';
 
 export const reactRolesModule = (
-  config: ReactRolesConfig,
   { log }: LoggingService,
+  config: ReactRolesConfig,
   units: Record<string, UnitConfig>
 ): ReactRolesModule => {
 

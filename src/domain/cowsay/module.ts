@@ -5,8 +5,8 @@ import { CowsayModule, ModuleType } from '../module-types';
 import { CowsayFormatter } from './formatter';
 
 export const cowsayModule = (
-  globalPrefix: string,
   { log }: LoggingService,
+  globalPrefix: string,
   formatMessage: CowsayFormatter,
 ): CowsayModule => {
 
