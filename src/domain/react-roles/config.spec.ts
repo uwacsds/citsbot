@@ -15,7 +15,7 @@ describe(`react roles config`, () => {
     ],
   };
 
-  test(`given valid config > when validate > should not throw`, () => {
+  test(`given valid config > when validate > should return valid config`, () => {
     expect(validateReactRolesConfig(validConfig, unitsConfig)).toEqual(validConfig);
   });
 
