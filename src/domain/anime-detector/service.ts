@@ -1,10 +1,27 @@
-import { ReverseImageSearchService } from './image-search/service';
-import { AnimeDetectorConfig } from './module';
+import { AnimeDetectorConfig } from './config';
+import { KeywordCounterService } from './keyword-counter';
+import { ReverseImageSearchService } from './reverse-image-search';
 
-export const animeDetectorService = (config: AnimeDetectorConfig, { reverseSearch, countKeywordOccurrences }: ReverseImageSearchService) =>
-  async (imageUrl: string): Promise<[verdict: boolean, counts: Map<string, number>]> => {
+export interface AnimeDetectorResult { 
+  verdict: boolean, 
+  keywordCounts: { [keyword: string]: number }
+}
+
+export interface AnimeDetectorService {
+  (imageUrl: string): Promise<AnimeDetectorResult>
+}
+
+export const animeDetectorService = (
+  config: AnimeDetectorConfig,
+  reverseSearch: ReverseImageSearchService,
+  countKeywords: KeywordCounterService,
+): AnimeDetectorService =>
+  async imageUrl => {
     const results = await reverseSearch(imageUrl);
-    const counts = countKeywordOccurrences(results, config.keywords);
-    const totalCount = Array.from(counts.values()).reduce((total, count) => total + count, 0);
-    return [totalCount >= config.keywordCountThreshold, counts];
+    const counts = countKeywords(results, config.keywords);
+    const totalCount = Object.values(counts).reduce((total, count) => total + count, 0);
+    return { 
+      verdict: totalCount >= config.keywordCountThreshold, 
+      keywordCounts: counts,
+    };
   };

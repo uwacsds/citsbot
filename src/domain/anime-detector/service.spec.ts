@@ -1,32 +1,30 @@
-import nock from 'nock';
-import { mockLogger } from '../../utils/logging';
-import { reverseImageSearchService } from './image-search/service';
-import { AnimeDetectorConfig } from './module';
+import { AnimeDetectorConfig } from './config';
 import { animeDetectorService } from './service';
 
-describe('anime-detector-service', () => {
-  const createNocks = (imageUrl: string, resultsPage: string) => {
-    nock('https://images.google.com')
-      .get(`/searchbyimage?image_url=${imageUrl}`)
-      .reply(302, '', { location: `https://www.google.com/search?tbs=sbi:${imageUrl}` });
-    nock('https://www.google.com').get(`/search?tbs=sbi:${imageUrl}`).reply(200, resultsPage);
-  };
-  createNocks('anime.png', 'anime hello anime world anime manga manga anime something else');
-  createNocks('notQuiteAnime.png', 'anime hello this has a references to manga and anime but it is not over the threshold');
-  createNocks('notAnime.png', 'something else that does not mention it once');
+describe(`anime detector service`, () => {
+  const config: AnimeDetectorConfig = { keywordCountThreshold: 5, keywords: [`anime`, `manga`] };
+  const mockReverseSearch = jest.fn();
+  const mockCountKeywords = jest.fn();
+  const detectAnime = animeDetectorService(config, mockReverseSearch, mockCountKeywords);
 
-  const config: AnimeDetectorConfig = { keywordCountThreshold: 5, keywords: ['anime', 'manga'] };
-  const detectAnime = animeDetectorService(config, reverseImageSearchService(mockLogger()));
-
-  it('given image that is anime > when detect anime > should return true verdict and word counts', async () => {
-    await expect(detectAnime('anime.png')).resolves.toEqual([true, new Map().set('anime', 4).set('manga', 2)]);
+  beforeEach(() => {
+    mockReverseSearch.mockReset();
+    mockCountKeywords.mockReset();
   });
 
-  it('given image that is not quite anime > when detect anime > should return false verdict and word counts', async () => {
-    await expect(detectAnime('notQuiteAnime.png')).resolves.toEqual([false, new Map().set('anime', 2).set('manga', 1)]);
+  test(`given total keyword count below threshold > when detect > should return false verdict`, async () => {
+    mockReverseSearch.mockResolvedValue(`<html>no keywords here</html>`);
+    mockCountKeywords.mockReturnValue({ [`anime`]: 0, [`manga`]: 0 });
+    await expect(detectAnime(`notAnime.png`)).resolves.toEqual({ verdict: false, keywordCounts: { [`anime`]: 0, [`manga`]: 0 } });
+    expect(mockReverseSearch).toHaveBeenCalledWith(`notAnime.png`);
+    expect(mockCountKeywords).toHaveBeenCalledWith(`<html>no keywords here</html>`, config.keywords);
   });
 
-  it('given image that is not anime > when detect anime > should return false verdict and word counts', async () => {
-    await expect(detectAnime('notAnime.png')).resolves.toEqual([false, new Map().set('anime', 0).set('manga', 0)]);
+  test(`given total keyword count at threshold > when detect > should return false verdict`, async () => {
+    mockReverseSearch.mockResolvedValue(`<html>anime anime manga manga manga</html>`);
+    mockCountKeywords.mockReturnValue({ [`anime`]: 2, [`manga`]: 3 });
+    await expect(detectAnime(`anime.png`)).resolves.toEqual({ verdict: true, keywordCounts: { [`anime`]: 2, [`manga`]: 3 } });
+    expect(mockReverseSearch).toHaveBeenCalledWith(`anime.png`);
+    expect(mockCountKeywords).toHaveBeenCalledWith(`<html>anime anime manga manga manga</html>`, config.keywords);
   });
 });
