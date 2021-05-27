@@ -2,15 +2,15 @@ import * as cheerio from 'cheerio';
 import { AcademicWeeksParser, AcademicWeek } from '../types';
 
 interface ExamSemesterWeek {
-  type: 'exam';
+  type: `exam`;
 }
 
 interface StudyBreakSemesterWeek {
-  type: 'study-break';
+  type: `study-break`;
 }
 
 interface TeachingSemesterWeek {
-  type: 'teaching';
+  type: `teaching`;
   semester: number;
   week: number;
 }
@@ -21,7 +21,7 @@ const previousMonday = (_date: Date): Date => {
   return date;
 };
 
-const padZeros = (value: number) => value.toString().padStart(2, '0');
+const padZeros = (value: number) => value.toString().padStart(2, `0`);
 
 export const getWeekIndex = (date: Date): string => {
   const monday = previousMonday(date);
@@ -32,19 +32,19 @@ export const academicWeeksParser = (now = () => new Date()): AcademicWeeksParser
   const parseExamWeek = (str: string): ExamSemesterWeek | null => {
     const result = /^exams?\*?$/i.exec(str.trim());
     if (result === null) return null;
-    return { type: 'exam' };
+    return { type: `exam` };
   };
 
   const parseStudyBreakWeek = (str: string): StudyBreakSemesterWeek | null => {
-    if (str.trim().toLowerCase() !== 'study break') return null;
-    return { type: 'study-break' };
+    if (str.trim().toLowerCase() !== `study break`) return null;
+    return { type: `study-break` };
   };
 
   const parseSemesterWeek = (str: string): TeachingSemesterWeek | null => {
     const result = /^Sem\s*(?<semester>\d+)\s*\/\s*Wk\s*(?<week>\d+)$/.exec(str.trim());
     if (result === null || result.groups == null) return null;
     return {
-      type: 'teaching',
+      type: `teaching`,
       semester: Number(result.groups.semester),
       week: Number(result.groups.week),
     };
@@ -62,7 +62,7 @@ export const academicWeeksParser = (now = () => new Date()): AcademicWeeksParser
   return {
     parseWeeks: (html: string) => {
       const $ = cheerio.load(html);
-      const cells = $('table[border=1] td font')
+      const cells = $(`table[border=1] td font`)
         .toArray()
         .map(cell => {
           if (cell.firstChild?.firstChild?.data) return cell.firstChild.firstChild.data.trim();
@@ -70,7 +70,7 @@ export const academicWeeksParser = (now = () => new Date()): AcademicWeeksParser
         });
       const weeks: Record<string, AcademicWeek> = {};
       let lastDate = -1;
-      let lastMonth = '';
+      let lastMonth = ``;
       for (const cell of cells) {
         if (!cell) continue;
 
@@ -86,25 +86,25 @@ export const academicWeeksParser = (now = () => new Date()): AcademicWeeksParser
 
         const date = new Date(`${now().getFullYear()}-${lastMonth}-${lastDate}Z00:00+00:00`);
         switch (semesterWeek.type) {
-          case 'teaching':
+          case `teaching`:
             weeks[getWeekIndex(date)] = {
-              type: 'teaching',
+              type: `teaching`,
               deadlines: [],
               week: semesterWeek.week,
               semester: semesterWeek.semester,
               date,
             };
             break;
-          case 'study-break':
+          case `study-break`:
             weeks[getWeekIndex(date)] = {
-              type: 'study-break',
+              type: `study-break`,
               deadlines: [],
               date,
             };
             break;
-          case 'exam':
+          case `exam`:
             weeks[getWeekIndex(date)] = {
-              type: 'exam',
+              type: `exam`,
               deadlines: [],
               date,
             };

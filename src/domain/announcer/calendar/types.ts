@@ -5,7 +5,7 @@ export interface Deadline {
 }
 
 export interface TeachingAcademicWeek {
-  type: 'teaching';
+  type: `teaching`;
   date: Date;
   semester: number;
   week: number;
@@ -13,19 +13,19 @@ export interface TeachingAcademicWeek {
 }
 
 export interface StudyBreakAcademicWeek {
-  type: 'study-break';
+  type: `study-break`;
   date: Date;
   deadlines: Deadline[];
 }
 
 export interface ExamAcademicWeek {
-  type: 'exam';
+  type: `exam`;
   date: Date;
   deadlines: Deadline[];
 }
 
 export interface UnknownAcademicWeek {
-  type: 'unknown';
+  type: `unknown`;
   deadlines: Deadline[];
 }
 

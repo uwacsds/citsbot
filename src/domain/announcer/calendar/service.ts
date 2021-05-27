@@ -20,7 +20,7 @@ export const academicCalendarService = ({ log }: LoggingService, teachingWeeksUr
     const fetchDeadlines = async () => {
       const unitsPageResult = await fetch(csMarksUrl);
       const unitsPageHtml = await unitsPageResult.text();
-      const unitLinks = deadlinesParser.parseUnitLinks(unitsPageHtml).filter(({ code }) => !filterPostgrad || Number(code.slice('CITS'.length)) < 4000);
+      const unitLinks = deadlinesParser.parseUnitLinks(unitsPageHtml).filter(({ code }) => !filterPostgrad || Number(code.slice(`CITS`.length)) < 4000);
       const unitCodes = unitLinks.map(({ code }) => code);
 
       const deadlineResults = await Promise.all(unitLinks.map(({ link }) => fetch(link)));
@@ -34,7 +34,7 @@ export const academicCalendarService = ({ log }: LoggingService, teachingWeeksUr
     const calendar: AcademicCalendar = { weeks };
     deadlines.forEach(deadline => calendar.weeks[getWeekIndex(deadline.date)]?.deadlines.push(deadline));
 
-    log('info', 'Fetched and parsed an academic calendar', { title: 'Academic Calendar Service', data: { calendar } });
+    log(`info`, `Fetched and parsed an academic calendar`, { title: `Academic Calendar Service`, data: { calendar } });
     return calendar;
   };
 };

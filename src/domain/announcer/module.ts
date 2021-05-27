@@ -5,7 +5,7 @@ import { BotActionType, BotEmbeddedMessageAction } from '../action-types';
 import { AnnouncerModule, ModuleType } from '../module-types';
 import { getWeekIndex } from './calendar/weeks/parser';
 
-type Season = 'Summer' | 'Winter';
+type Season = `Summer` | `Winter`;
 
 export interface AnnouncerConfig {
   channel: string;
@@ -19,10 +19,10 @@ const currentSemester = (date: Date) => (date.getUTCMonth() > 6 ? 2 : 1);
 
 const currentSeason = (date: Date): Season => {
   const month = date.getUTCMonth() + 1;
-  return month >= 6 && month < 9 ? 'Winter' : 'Summer';
+  return month >= 6 && month < 9 ? `Winter` : `Summer`;
 };
 
-const getWeek = (calendar: AcademicCalendar, date: Date): AcademicWeek => calendar.weeks[getWeekIndex(date)] ?? { type: 'unknown', deadlines: [] };
+const getWeek = (calendar: AcademicCalendar, date: Date): AcademicWeek => calendar.weeks[getWeekIndex(date)] ?? { type: `unknown`, deadlines: [] };
 
 const weeksBetween = (start: Date, end: Date): number => {
   const diff = (end.getTime() - start.getTime()) / 1000;
@@ -30,10 +30,10 @@ const weeksBetween = (start: Date, end: Date): number => {
 };
 
 const weeksUntilNextSemester = (calendar: AcademicCalendar, now: Date): number => {
-  const sem1Week1 = Object.values(calendar.weeks).find(week => week.type === 'teaching' && week.semester === 1 && week.week === 1) as TeachingAcademicWeek;
-  const sem2Week1 = Object.values(calendar.weeks).find(week => week.type === 'teaching' && week.semester === 2 && week.week === 1) as TeachingAcademicWeek;
-  if (sem1Week1?.type !== 'teaching') throw Error('Academic calendar missing first week of semester 1');
-  if (sem2Week1?.type !== 'teaching') throw Error('Academic calendar missing first week of semester 2');
+  const sem1Week1 = Object.values(calendar.weeks).find(week => week.type === `teaching` && week.semester === 1 && week.week === 1) as TeachingAcademicWeek;
+  const sem2Week1 = Object.values(calendar.weeks).find(week => week.type === `teaching` && week.semester === 2 && week.week === 1) as TeachingAcademicWeek;
+  if (sem1Week1?.type !== `teaching`) throw Error(`Academic calendar missing first week of semester 1`);
+  if (sem2Week1?.type !== `teaching`) throw Error(`Academic calendar missing first week of semester 2`);
   if (now < sem1Week1.date) return weeksBetween(now, sem1Week1.date);
   if (now < sem2Week1.date) return weeksBetween(now, sem2Week1.date);
   const yearStart = new Date(`${now.getUTCFullYear()}-01-01Z00:00+00:00`);
@@ -52,26 +52,26 @@ export const announcerModule = (config: AnnouncerConfig, { log }: LoggingService
     const calendar = await fetchCalendar();
     const week = getWeek(calendar, now());
     switch (week.type) {
-      case 'teaching': {
+      case `teaching`: {
         const title = `Welcome to Week ${week.week} of Semester ${week.semester}`;
         const events = week.deadlines.map(({ unit, title, date }) => ({
           name: `📝 ${unit}`,
-          value: `${title}, ${date.toLocaleString('en-AU', { timeZone: 'Australia/Perth' })}`,
+          value: `${title}, ${date.toLocaleString(`en-AU`, { timeZone: `Australia/Perth` })}`,
         }));
-        const description = events.length > 0 ? 'Here are some things happening this week' : undefined;
-        log('info', 'Announcing teaching week', { title: 'Announcer', data: { week } });
+        const description = events.length > 0 ? `Here are some things happening this week` : undefined;
+        log(`info`, `Announcing teaching week`, { title: `Announcer`, data: { week } });
         return buildEmbed(title, description, events);
       }
-      case 'study-break':
-        log('info', 'Announcing study break week', { title: 'Announcer', data: { week } });
+      case `study-break`:
+        log(`info`, `Announcing study break week`, { title: `Announcer`, data: { week } });
         return buildEmbed(`Welcome to Semester ${currentSemester(now())} Study Break`);
-      case 'exam':
-        log('info', 'Announcing exam week', { title: 'Announcer', data: { week } });
+      case `exam`:
+        log(`info`, `Announcing exam week`, { title: `Announcer`, data: { week } });
         return buildEmbed(`Welcome to Semester ${currentSemester(now())} Exams`);
       default: {
         const title = `${currentSeason(now())} Vacation`;
-        const description = [`📅 ${weeksUntilNextSemester(calendar, now())} weeks left until next semester`, '📝 Enrolment details: https://www.uwa.edu.au/students/my-course/enrolment'].join('\n\n');
-        log('info', 'Announcing vacation week', { title: 'Announcer', data: { week } });
+        const description = [`📅 ${weeksUntilNextSemester(calendar, now())} weeks left until next semester`, `📝 Enrolment details: https://www.uwa.edu.au/students/my-course/enrolment`].join(`\n\n`);
+        log(`info`, `Announcing vacation week`, { title: `Announcer`, data: { week } });
         return buildEmbed(title, description);
       }
     }
@@ -81,7 +81,7 @@ export const announcerModule = (config: AnnouncerConfig, { log }: LoggingService
     type: ModuleType.Announcer,
     announce,
     registerWeeklyAnnouncement: listener => {
-      scheduleJob('announcer', config.crontab, async () => {
+      scheduleJob(`announcer`, config.crontab, async () => {
         listener([await announce()]);
       });
     },
