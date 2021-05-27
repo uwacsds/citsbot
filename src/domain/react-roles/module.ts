@@ -48,13 +48,13 @@ const getMessage = (config: ReactRolesConfig, message: DiscordMessage) => config
 
 const getRole = (config: ReactRolesConfig, units: Record<string, UnitConfig>, reaction: DiscordReaction) => {
   const msg = getMessage(config, reaction.message);
-  if (!msg) return null;
+  if (!msg) return undefined;
 
   const roleConfig = msg.reactions.find(r => r.emoji === reaction.emoji.name);
   if (roleConfig?.role) return roleConfig.role;
 
   const unitConfig = Object.entries(units).find(([code, _]) => code === roleConfig?.unit);
-  if (!unitConfig) return null;
+  if (!unitConfig) return undefined;
 
   const [_, unit] = unitConfig;
   return unit.role;

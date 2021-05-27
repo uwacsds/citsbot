@@ -33,7 +33,7 @@ const PATTERN_IMGUR = /\w*?https?:\/\/(i.)?imgur\.com\/(?<id>[^. ]+)\w*?/gi;
 
 const parseAllUrls = (message: DiscordMessage): string[] => Array.from(new Set([...parseAttachmentUrls(message.attachments), ...parseContentUrls(message.content)]));
 const parseContentUrls = (message: string): string[] => [...parsePlainImageUrls(message), ...parseImgurUrls(message)];
-const parseAttachmentUrls = (attachments: DiscordMessageAttachment[]): string[] => attachments.filter(({ width }) => width !== null).map(({ url }) => url);
+const parseAttachmentUrls = (attachments: DiscordMessageAttachment[]): string[] => attachments.filter(({ width }) => width !== undefined).map(({ url }) => url);
 const parsePlainImageUrls = (message: string): string[] => Array.from(message.matchAll(PATTERN_GENERIC_IMAGE)).map(match => match[0]);
 const parseImgurUrls = (message: string): string[] =>
   Array.from(message.matchAll(PATTERN_IMGUR))

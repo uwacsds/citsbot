@@ -3,24 +3,24 @@ import { AcademicDeadlinesParser, Deadline } from '../types';
 
 const zip = <T1, T2>(arr1: T1[], arr2: T2[]): [T1, T2][] => arr1.map((_, idx) => [arr1[idx], arr2[idx]]);
 
-const parseDate = (str: string): Date | null => {
+const parseDate = (str: string): Date | undefined => {
   const result = /(?<hours12>\d\d?):(?<mins>\d\d)(?<meridiem>am|pm) (?<day>[^ ]+) (?<date>\d\d?)(st|nd|rd|th) (?<month>[^ ,]+), (?<year>\d{4})/i.exec(str);
-  if (!result || !result.groups) return null;
+  if (!result || !result.groups) return undefined;
   const { hours12, mins, meridiem, date, month, year } = result.groups;
   const hours24 = meridiem === `pm` ? Number(hours12) + 12 : Number(hours12);
   return new Date(`${year}-${month}-${date} ${hours24}:${mins}+08:00`);
 };
 
-const parseDeadlineRow = (unit: string) => (row: cheerio.Element): Deadline | null => {
+const parseDeadlineRow = (unit: string) => (row: cheerio.Element): Deadline | undefined => {
   const cells = cheerio.load(row)(`td`).toArray();
-  if (cells.length !== 3) return null;
+  if (cells.length !== 3) return undefined;
 
   const [_, titleCell, dateCell] = cells;
   const title = titleCell.lastChild.data?.trim();
-  if (!title) return null;
+  if (!title) return undefined;
 
   const date = parseDate(dateCell.firstChild.firstChild.data?.trim() ?? ``);
-  if (!date) return null;
+  if (!date) return undefined;
 
   return {
     date,
@@ -47,6 +47,6 @@ export const academicDeadlinesParser = (): AcademicDeadlinesParser => ({
     return $(`table.thin > tbody > tr`)
       .toArray()
       .map(parseDeadlineRow(unitCode))
-      .filter((deadline): deadline is Deadline => deadline !== null);
+      .filter((deadline): deadline is Deadline => deadline !== undefined);
   },
 });

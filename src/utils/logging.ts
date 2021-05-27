@@ -65,7 +65,7 @@ class DiscordLogTransport extends Transport {
   async log({ level, message, context }: LogInfo, next: () => void) {
     const formatContextData = (context?: LogMessageContext) => {
       const str = JSON.stringify(context?.data) ?? ``;
-      if (str === ``) return null;
+      if (str === ``) return undefined;
       return `\`\`\`json\n${str.slice(0, 1000).replace(/`/g, `\\\``)}\`\`\``;
     };
     const action: BotEmbeddedMessageAction = {
@@ -111,6 +111,6 @@ export const discordChannelLogger = (channelId: string): LoggingService => {
 };
 
 export const mockLogger = (): LoggingService => ({
-  log: () => null,
-  initialise: () => null,
+  log: () => undefined,
+  initialise: () => undefined,
 });

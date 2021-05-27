@@ -29,20 +29,20 @@ export const getWeekIndex = (date: Date): string => {
 };
 
 export const academicWeeksParser = (now = () => new Date()): AcademicWeeksParser => {
-  const parseExamWeek = (str: string): ExamSemesterWeek | null => {
+  const parseExamWeek = (str: string): ExamSemesterWeek | undefined => {
     const result = /^exams?\*?$/i.exec(str.trim());
-    if (result === null) return null;
+    if (result === undefined) return undefined;
     return { type: `exam` };
   };
 
-  const parseStudyBreakWeek = (str: string): StudyBreakSemesterWeek | null => {
-    if (str.trim().toLowerCase() !== `study break`) return null;
+  const parseStudyBreakWeek = (str: string): StudyBreakSemesterWeek | undefined => {
+    if (str.trim().toLowerCase() !== `study break`) return undefined;
     return { type: `study-break` };
   };
 
-  const parseSemesterWeek = (str: string): TeachingSemesterWeek | null => {
+  const parseSemesterWeek = (str: string): TeachingSemesterWeek | undefined => {
     const result = /^Sem\s*(?<semester>\d+)\s*\/\s*Wk\s*(?<week>\d+)$/.exec(str.trim());
-    if (result === null || result.groups == null) return null;
+    if (result == undefined || result.groups == undefined) return undefined;
     return {
       type: `teaching`,
       semester: Number(result.groups.semester),
@@ -50,9 +50,9 @@ export const academicWeeksParser = (now = () => new Date()): AcademicWeeksParser
     };
   };
 
-  const parseWeekCommencing = (str: string): { date: number; month: string } | null => {
+  const parseWeekCommencing = (str: string): { date: number; month: string } | undefined => {
     const result = /^Monday\s*(?<date>\d+)\s*(?<month>.+)$/.exec(str.trim());
-    if (result === null || result.groups === undefined) return null;
+    if (result == undefined || result.groups == undefined) return undefined;
     return {
       date: Number(result.groups.date),
       month: result.groups.month,
