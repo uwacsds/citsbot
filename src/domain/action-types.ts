@@ -96,8 +96,8 @@ export interface BotCacheMessageAction extends BotBaseAction {
   messageId: string;
 }
 
-export type BotAction =
-  | BotMessageAction
+export type BotAction 
+  = BotMessageAction
   | BotRoleGrantAction
   | BotRoleRevokeAction
   | BotEmbeddedMessageAction
