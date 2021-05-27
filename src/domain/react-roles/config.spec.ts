@@ -15,7 +15,11 @@ describe(`react roles config`, () => {
     ],
   };
 
-  describe(`root`, () => {
+  test(`given valid config > when validate > should not throw`, () => {
+    expect(validateReactRolesConfig(validConfig, unitsConfig)).toEqual(validConfig);
+  });
+
+  describe(`invalid root`, () => {
     test(`given config has invalid messages > when validate > should throw`, () => {
       const rawConfig = { 
         ...validConfig,
@@ -25,7 +29,7 @@ describe(`react roles config`, () => {
     });
   });
 
-  describe(`messages`, () => {
+  describe(`invalid messages`, () => {
     test(`given message config has invalid id > when validate > should throw`, () => {
       const rawConfig = { 
         ...validConfig, 
@@ -60,7 +64,7 @@ describe(`react roles config`, () => {
     });
   });
 
-  describe(`reaction`, () => {
+  describe(`invalid reactions`, () => {
     test(`given reaction config has invalid emoji > when validate > should throw`, () => {
       const rawConfig = { 
         ...validConfig, 
@@ -78,7 +82,7 @@ describe(`react roles config`, () => {
       expect(() => validateReactRolesConfig(rawConfig, unitsConfig)).toThrowError(`Config Validation: modules.reactRoles.messages[2].reactions[1]: Expected 'emoji' to have type 'string', got 'undefined'`);
     });
 
-    test(`given reaction config does not have both role and unit > when validate > should throw`, () => {
+    test(`given reaction config does not have role and does not have unit > when validate > should throw`, () => {
       const rawConfig = { 
         ...validConfig, 
         messages: [
