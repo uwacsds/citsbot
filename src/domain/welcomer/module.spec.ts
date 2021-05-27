@@ -15,55 +15,63 @@ describe(`welcomer module`, () => {
 
   const welcomer = welcomerModule(mockLogger(), { directMessageSent: jest.fn(), userJoin: jest.fn() }, config, () => now);
 
-  it(`given an old user > should create an embedded message action to welcome the user and a delayed direct message action`, async () => {
+  test(`given an old user > when member join > should dispatch embed message and direct message with delay and condition`, async () => {
     const previousYear = new Date(now);
     previousYear.setUTCFullYear(now.getUTCFullYear() - 1);
 
     const user: DiscordUser = { avatar: `https://avatar.png`, bot: false, createdAt: previousYear, discriminator: `1234`, id: `id1`, tag: `testUser#1234`, username: `testUser` };
 
-    const actions = await welcomer.onMemberJoin(user);
-    expect(actions).toHaveLength(2);
-    expect(actions[0]).toEqual({
-      type: BotActionType.EmbeddedMessage,
-      channelId: config.channel,
-      embed: {
-        title: `Hello, world!`,
-        description: `Hey, ${user.username}`,
-        colour: `#0864a5`,
-        thumbnail: user.avatar,
-        fields: [{ name: `Hot tip`, value: `Check out the rules at #overview` }],
-        footer: { text: `Joined • ${now.toDateString()}`, iconUrl: user.avatar },
+    await expect(welcomer.onMemberJoin(user)).resolves.toEqual([
+      {
+        type: BotActionType.EmbeddedMessage,
+        channelId: config.channel,
+        embed: {
+          title: `Hello, world!`,
+          description: `Hey, ${user.username}`,
+          colour: `#0864a5`,
+          thumbnail: user.avatar,
+          fields: [{ name: `Hot tip`, value: `Check out the rules at #overview` }],
+          footer: { text: `Joined • ${now.toDateString()}`, iconUrl: user.avatar },
+        },
       },
-    });
-    expect(actions[1]).toMatchObject({
-      type: BotActionType.DirectMessage,
-      userId: user.id,
-      messageContent: config.newMemberDm.message.replace(`{name}`, user.username ?? ``),
-      delay: config.newMemberDm.delay,
-    });
+      {
+        type: BotActionType.DirectMessage,
+        userId: user.id,
+        messageContent: config.newMemberDm.message.replace(`{name}`, user.username ?? ``),
+        delay: config.newMemberDm.delay,
+        condition: expect.any(Function), // TODO: test this callback
+      },
+    ]);
   });
 
-  it(`given a new user > should create an instant direct message action`, async () => {
+  test(`given a new user > when member join > should dispatch embed message and instant direct message`, async () => {
     const user: DiscordUser = { avatar: `https://avatar.png`, bot: false, createdAt: now, discriminator: `1234`, id: `id1`, tag: `testUser#1234`, username: `testUser` };
-    const actions = await welcomer.onMemberJoin(user);
-    expect(actions).toHaveLength(2);
-    expect(actions[1]).toMatchObject({
-      type: BotActionType.DirectMessage,
-      userId: user.id,
-      delay: 0,
-    });
+
+    await expect(welcomer.onMemberJoin(user)).resolves.toEqual([
+      {
+        type: BotActionType.EmbeddedMessage,
+        channelId: config.channel,
+        embed: {
+          title: `Hello, world!`,
+          description: `Hey, ${user.username}`,
+          colour: `#0864a5`,
+          thumbnail: user.avatar,
+          fields: [{ name: `Hot tip`, value: `Check out the rules at #overview` }],
+          footer: { text: `Joined • ${now.toDateString()}`, iconUrl: user.avatar },
+        },
+      },
+      {
+        type: BotActionType.DirectMessage,
+        userId: user.id,
+        messageContent: config.newMemberDm.message.replace(`{name}`, user.username ?? ``),
+        delay: 0,
+        condition: expect.any(Function), // TODO: test this callback
+      },
+    ]);
   });
 
-  it(`should create a wave at event for a message`, async () => {
-    const message: DiscordMessage = {
-      author: null as never,
-      channel: { id: config.channel, createdAt: now, type: `text` },
-      content: `welcome to the server!`,
-      createdAt: now,
-      deletable: true,
-      id: `msg1`,
-      attachments: [],
-    };
+  test(`given welcome channel > when message > should dispatch add reaction`, async () => {
+    const message: DiscordMessage = { author: undefined as never, channel: { id: config.channel, createdAt: now, type: `text` }, content: `welcome to the server!`, createdAt: now, deletable: true, id: `msg1`,attachments: [] };
     await expect(welcomer.onMessage(message)).resolves.toEqual([
       {
         type: BotActionType.AddReaction,
