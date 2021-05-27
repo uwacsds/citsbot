@@ -48,4 +48,9 @@ export interface AnimeDetectorModule extends BaseModule {
   onMessage: (message: DiscordMessage) => Promise<BotAction[]>;
 }
 
-export type BotModule = CowsayModule | WelcomerModule | ReactRolesModule | AnnouncerModule | AnimeDetectorModule;
+export type BotModule
+  = CowsayModule
+  | WelcomerModule
+  | ReactRolesModule
+  | AnnouncerModule
+  | AnimeDetectorModule;

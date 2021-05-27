@@ -1,22 +1,13 @@
 import { Channel, Client, GuildEmoji, Message, MessageAttachment, MessageEmbed, MessageReaction, PartialUser, ReactionEmoji, User } from 'discord.js';
 import {
-  BotAction,
-  BotActionType,
-  BotAddReactionAction,
-  BotCacheMessageAction,
-  BotDirectMessageAction,
-  BotEmbeddedMessageAction,
-  BotMessageAction,
-  BotRemoveMessageAction,
-  BotRemoveReactionAction,
-  BotRoleGrantAction,
-  BotRoleRevokeAction,
+  BotAction, BotActionType, BotAddReactionAction, BotCacheMessageAction, BotDirectMessageAction, BotEmbeddedMessageAction, 
+  BotMessageAction, BotRemoveMessageAction, BotRemoveReactionAction, BotRoleGrantAction, BotRoleRevokeAction, 
 } from '../domain/action-types';
-import { DiscordCommandHandler } from '../domain/command-handler';
 import { discordEmitter, DiscordEmitter } from './metrics';
 import { LoggingService } from '../utils/logging';
 import { discordApi } from './discord-api';
 import { DiscordBot, DiscordAPI, DiscordChannel, DiscordEmoji, DiscordMessage, DiscordMessageAttachment, DiscordReaction, DiscordUser } from './types';
+import { BotModule } from '../domain/module-types';
 
 const parseUser = (user: User | PartialUser): DiscordUser => ({
   id: user.id,
@@ -158,18 +149,20 @@ const applyAction = (emit: DiscordEmitter, fetchApi: DiscordAPI, action: BotActi
 
 export const discordBot = (
   logger: LoggingService,
-  { registerEventListener, onBotStart, onMessage, onMemberJoin, onReactionAdd, onReactionRemove }: DiscordCommandHandler,
-  guildId: string
+  guildId: string,
+  modules: BotModule[],
 ): DiscordBot => {
   const emit = discordEmitter();
   const client = new Client({
-    ws: {
-      intents: ['DIRECT_MESSAGES', 'DIRECT_MESSAGE_REACTIONS', 'GUILDS', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'GUILD_PRESENCES'],
-    },
+    ws: { intents: ['DIRECT_MESSAGES', 'DIRECT_MESSAGE_REACTIONS', 'GUILDS', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'GUILD_PRESENCES'] },
   });
   const fetchApi = discordApi(client, guildId);
 
-  registerEventListener(action => applyAction(emit, fetchApi, action));
+  const onBotStart = () => modules.flatMap(module => module.onBotStart?.() ?? []);
+  const onMemberJoin = (user: DiscordUser) => modules.flatMap(module => module.onMemberJoin?.(user) ?? []);
+  const onReactionAdd = (reaction: DiscordReaction, user: DiscordUser) => modules.flatMap(module => module.onReactionAdd?.(reaction, user) ?? []);
+  const onReactionRemove = (reaction: DiscordReaction, user: DiscordUser) => modules.flatMap(module => module.onReactionRemove?.(reaction, user) ?? []);
+  const onMessage = (message: DiscordMessage) => modules.flatMap(module => module.onMessage?.(message) ?? []);
 
   registerMetrics(client, logger, emit, guildId);
 
@@ -181,7 +174,7 @@ export const discordBot = (
     const actions = await Promise.all(onBotStart());
     for (const action of actions.flat()) {
       logger.log('info', 'Applying Action', { title: 'OnReady', data: action });
-      await applyAction(emit, fetchApi, action);
+      applyAction(emit, fetchApi, action);
     }
   });
   client.on('message', async message => {
@@ -189,7 +182,7 @@ export const discordBot = (
     const actions = await Promise.all(onMessage(parseMessage(message)));
     for (const action of actions.flat()) {
       logger.log('info', 'Applying Action', { title: 'OnMessage', data: action });
-      await applyAction(emit, fetchApi, action);
+      applyAction(emit, fetchApi, action);
     }
   });
   client.on('guildMemberAdd', async member => {
@@ -197,7 +190,7 @@ export const discordBot = (
     const actions = await Promise.all(onMemberJoin(parseUser(member.user)));
     for (const action of actions.flat()) {
       logger.log('info', 'Applying Action', { title: 'OnGuildMemberAdd', data: action });
-      await applyAction(emit, fetchApi, action);
+      applyAction(emit, fetchApi, action);
     }
   });
   client.on('messageReactionAdd', async (reaction, user) => {
@@ -205,7 +198,7 @@ export const discordBot = (
     const actions = await Promise.all(onReactionAdd(parseReaction(reaction), parseUser(user)));
     for (const action of actions.flat()) {
       logger.log('info', 'Applying Action', { title: 'OnMessageReactionAdd', data: action });
-      await applyAction(emit, fetchApi, action);
+      applyAction(emit, fetchApi, action);
     }
   });
   client.on('messageReactionRemove', async (reaction, user) => {
@@ -213,16 +206,14 @@ export const discordBot = (
     const actions = await Promise.all(onReactionRemove(parseReaction(reaction), parseUser(user)));
     for (const action of actions.flat()) {
       logger.log('info', 'Applying Action', { title: 'OnMessageReactionRemove', data: action });
-      await applyAction(emit, fetchApi, action);
+      applyAction(emit, fetchApi, action);
     }
   });
 
   return {
-    applyAction: async action => applyAction(emit, fetchApi, action),
-    start: async (discordToken: string) => {
-      await client.login(discordToken);
-    },
-    stop: async () => client.destroy(),
+    applyAction: action => applyAction(emit, fetchApi, action),
+    start: discordToken => client.login(discordToken),
+    stop: () => client.destroy(),
   };
 };
 

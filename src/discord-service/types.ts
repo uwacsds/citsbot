@@ -2,16 +2,16 @@ import { Channel, GuildMember, Message, TextChannel } from 'discord.js';
 import { BotAction } from '../domain/action-types';
 
 export interface DiscordAPI {
-  fetchChannel: (id: string) => Promise<Channel | null>;
-  fetchTextChannel: (id: string) => Promise<TextChannel | null>;
-  fetchMessage: (channelId: string, messageId: string) => Promise<Message | null>;
+  fetchChannel: (id: string) => Promise<Channel | undefined>;
+  fetchTextChannel: (id: string) => Promise<TextChannel | undefined>;
+  fetchMessage: (channelId: string, messageId: string) => Promise<Message | undefined>;
   fetchMember: (userId: string) => Promise<GuildMember>;
 }
 
 export interface DiscordBot {
-  applyAction: (action: BotAction) => Promise<void>;
-  start: (discordToken: string) => Promise<void>;
-  stop: () => Promise<void>;
+  applyAction: (action: BotAction) => void;
+  start: (discordToken: string) => Promise<string>;
+  stop: () => void;
 }
 
 export interface DiscordChannel {

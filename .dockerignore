@@ -8,3 +8,4 @@ docker-compose.yaml
 run.sh
 helm/
 *.sh
+node_modules/
