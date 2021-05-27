@@ -2,7 +2,7 @@ import { DiscordUser, DiscordMessageAttachment, DiscordMessage } from '../../dis
 import { mockLogger } from '../../utils/logging';
 import { BotActionType } from '../action-types';
 import { animeDetectorModule } from './module';
-import { AnimeDetectorResult } from './service';
+import { AnimeDetectorResult } from './detector-service';
 
 describe(`anime detector module`, () => {
   const now = new Date(`2020-01-01`);

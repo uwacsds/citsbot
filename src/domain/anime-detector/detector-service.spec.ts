@@ -1,5 +1,5 @@
 import { AnimeDetectorConfig } from './config';
-import { animeDetectorService } from './service';
+import { animeDetectorService } from './detector-service';
 
 describe(`anime detector service`, () => {
   const config: AnimeDetectorConfig = { keywordCountThreshold: 5, keywords: [`anime`, `manga`] };

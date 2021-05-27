@@ -3,7 +3,7 @@ import { LoggingService } from '../../utils/logging';
 import { BotAction, BotActionType } from '../action-types';
 import { AnimeDetectorModule, ModuleType } from '../module-types';
 import { AnimeDetectorEmitter } from './metrics';
-import { AnimeDetectorService } from './service';
+import { AnimeDetectorService } from './detector-service';
 
 export const animeDetectorModule = (
   { log }: LoggingService,
