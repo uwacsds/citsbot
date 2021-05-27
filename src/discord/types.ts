@@ -17,7 +17,7 @@ export interface DiscordBot {
 export interface DiscordChannel {
   id: string;
   createdAt: Date;
-  type: 'text' | 'dm' | 'voice' | 'group' | 'category' | 'news' | 'store' | 'unknown';
+  type: `text` | `dm` | `voice` | `group` | `category` | `news` | `store` | `unknown`;
 }
 
 export interface DiscordUser {

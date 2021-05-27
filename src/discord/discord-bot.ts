@@ -154,7 +154,7 @@ export const discordBot = (
 ): DiscordBot => {
   const emit = discordEmitter();
   const client = new Client({
-    ws: { intents: ['DIRECT_MESSAGES', 'DIRECT_MESSAGE_REACTIONS', 'GUILDS', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'GUILD_PRESENCES'] },
+    ws: { intents: [`DIRECT_MESSAGES`, `DIRECT_MESSAGE_REACTIONS`, `GUILDS`, `GUILD_MEMBERS`, `GUILD_MESSAGES`, `GUILD_MESSAGE_REACTIONS`, `GUILD_PRESENCES`] },
   });
   const fetchApi = discordApi(client, guildId);
 
@@ -166,46 +166,46 @@ export const discordBot = (
 
   registerMetrics(client, logger, emit, guildId);
 
-  client.on('ready', async () => {
+  client.on(`ready`, async () => {
     const guild = client.guilds.cache.get(guildId);
     await guild?.fetchBans();
     await guild?.members.fetch();
 
     const actions = await Promise.all(onBotStart());
     for (const action of actions.flat()) {
-      logger.log('info', 'Applying Action', { title: 'OnReady', data: action });
+      logger.log(`info`, `Applying Action`, { title: `OnReady`, data: action });
       applyAction(emit, fetchApi, action);
     }
   });
-  client.on('message', async message => {
+  client.on(`message`, async message => {
     if (message.guild?.id !== guildId) return;
     const actions = await Promise.all(onMessage(parseMessage(message)));
     for (const action of actions.flat()) {
-      logger.log('info', 'Applying Action', { title: 'OnMessage', data: action });
+      logger.log(`info`, `Applying Action`, { title: `OnMessage`, data: action });
       applyAction(emit, fetchApi, action);
     }
   });
-  client.on('guildMemberAdd', async member => {
+  client.on(`guildMemberAdd`, async member => {
     if (!member.user || member.guild.id !== guildId) return;
     const actions = await Promise.all(onMemberJoin(parseUser(member.user)));
     for (const action of actions.flat()) {
-      logger.log('info', 'Applying Action', { title: 'OnGuildMemberAdd', data: action });
+      logger.log(`info`, `Applying Action`, { title: `OnGuildMemberAdd`, data: action });
       applyAction(emit, fetchApi, action);
     }
   });
-  client.on('messageReactionAdd', async (reaction, user) => {
+  client.on(`messageReactionAdd`, async (reaction, user) => {
     if (reaction.message.guild?.id !== guildId) return;
     const actions = await Promise.all(onReactionAdd(parseReaction(reaction), parseUser(user)));
     for (const action of actions.flat()) {
-      logger.log('info', 'Applying Action', { title: 'OnMessageReactionAdd', data: action });
+      logger.log(`info`, `Applying Action`, { title: `OnMessageReactionAdd`, data: action });
       applyAction(emit, fetchApi, action);
     }
   });
-  client.on('messageReactionRemove', async (reaction, user) => {
+  client.on(`messageReactionRemove`, async (reaction, user) => {
     if (reaction.message.guild?.id !== guildId) return;
     const actions = await Promise.all(onReactionRemove(parseReaction(reaction), parseUser(user)));
     for (const action of actions.flat()) {
-      logger.log('info', 'Applying Action', { title: 'OnMessageReactionRemove', data: action });
+      logger.log(`info`, `Applying Action`, { title: `OnMessageReactionRemove`, data: action });
       applyAction(emit, fetchApi, action);
     }
   });
@@ -220,71 +220,71 @@ export const discordBot = (
 const registerMetrics = (client: Client, logger: LoggingService, emit: DiscordEmitter, guildId: string) => {
   clientEvents.forEach(event => client.addListener(event, () => emit.event(event)));
 
-  client.on('message', message => {
+  client.on(`message`, message => {
     if (message.guild?.id !== guildId) return;
-    const channelName = message.guild.channels.cache.get(message.channel.id)?.name ?? 'UNKNOWN';
+    const channelName = message.guild.channels.cache.get(message.channel.id)?.name ?? `UNKNOWN`;
     emit.message(channelName);
     const parsedMessage = parseMessage(message) as DiscordMessage & { channel: { name: string } };
     parsedMessage.channel.name = channelName;
-    logger.log('info', 'client.on.message', { data: { ...parsedMessage } });
+    logger.log(`info`, `client.on.message`, { data: { ...parsedMessage } });
   });
 
   client.setInterval(() => {
     const guild = client.guilds.cache.get(guildId);
     if (!guild) return;
     emit.memberCount(guild.name, guild.memberCount);
-    emit.memberOnlineCount(guild.name, guild.members.cache.filter(member => member.presence.status !== 'offline').size);
+    emit.memberOnlineCount(guild.name, guild.members.cache.filter(member => member.presence.status !== `offline`).size);
   }, 30_000);
 };
 
 const clientEvents = [
-  'channelCreate',
-  'channelDelete',
-  'channelPinsUpdate',
-  'channelUpdate',
-  'debug',
-  'emojiCreate',
-  'emojiDelete',
-  'emojiUpdate',
-  'error',
-  'guildBanAdd',
-  'guildBanRemove',
-  'guildCreate',
-  'guildDelete',
-  'guildIntegrationsUpdate',
-  'guildMemberAdd',
-  'guildMemberAvailable',
-  'guildMemberRemove',
-  'guildMembersChunk',
-  'guildMemberSpeaking',
-  'guildMemberUpdate',
-  'guildUnavailable',
-  'guildUpdate',
-  'invalidated',
-  'inviteCreate',
-  'inviteDelete',
-  'message',
-  'messageDelete',
-  'messageDeleteBulk',
-  'messageReactionAdd',
-  'messageReactionRemove',
-  'messageReactionRemoveAll',
-  'messageReactionRemoveEmoji',
-  'messageUpdate',
-  'presenceUpdate',
-  'rateLimit',
-  'ready',
-  'roleCreate',
-  'roleDelete',
-  'roleUpdate',
-  'shardDisconnect',
-  'shardError',
-  'shardReady',
-  'shardReconnecting',
-  'shardResume',
-  'typingStart',
-  'userUpdate',
-  'voiceStateUpdate',
-  'warn',
-  'webhookUpdate',
+  `channelCreate`,
+  `channelDelete`,
+  `channelPinsUpdate`,
+  `channelUpdate`,
+  `debug`,
+  `emojiCreate`,
+  `emojiDelete`,
+  `emojiUpdate`,
+  `error`,
+  `guildBanAdd`,
+  `guildBanRemove`,
+  `guildCreate`,
+  `guildDelete`,
+  `guildIntegrationsUpdate`,
+  `guildMemberAdd`,
+  `guildMemberAvailable`,
+  `guildMemberRemove`,
+  `guildMembersChunk`,
+  `guildMemberSpeaking`,
+  `guildMemberUpdate`,
+  `guildUnavailable`,
+  `guildUpdate`,
+  `invalidated`,
+  `inviteCreate`,
+  `inviteDelete`,
+  `message`,
+  `messageDelete`,
+  `messageDeleteBulk`,
+  `messageReactionAdd`,
+  `messageReactionRemove`,
+  `messageReactionRemoveAll`,
+  `messageReactionRemoveEmoji`,
+  `messageUpdate`,
+  `presenceUpdate`,
+  `rateLimit`,
+  `ready`,
+  `roleCreate`,
+  `roleDelete`,
+  `roleUpdate`,
+  `shardDisconnect`,
+  `shardError`,
+  `shardReady`,
+  `shardReconnecting`,
+  `shardResume`,
+  `typingStart`,
+  `userUpdate`,
+  `voiceStateUpdate`,
+  `warn`,
+  `webhookUpdate`,
 ];

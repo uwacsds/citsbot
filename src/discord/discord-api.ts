@@ -5,7 +5,7 @@ const fetchChannel = (client: Client) => async (id: string): Promise<Channel | u
 
 const fetchTextChannel = (client: Client) => async (id: string): Promise<TextChannel | undefined> => {
   const channel = await fetchChannel(client)(id);
-  if (channel?.type !== 'text') return undefined;
+  if (channel?.type !== `text`) return undefined;
   return channel as TextChannel;
 };
 
