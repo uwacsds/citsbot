@@ -1,14 +1,14 @@
 import { Counter } from 'prom-client';
 
 const newUserCount = new Counter({
-  name: 'citsbot_welcomer_new_users',
-  help: 'count of new users',
+  name: `citsbot_welcomer_new_users`,
+  help: `count of new users`,
 });
 
 const dmCount = new Counter({
-  name: 'citsbot_welcomer_dm',
-  help: 'count of welcome dms sent',
-  labelNames: ['instant'],
+  name: `citsbot_welcomer_dm`,
+  help: `count of welcome dms sent`,
+  labelNames: [`instant`],
 });
 
 export interface WelcomerEmitter {
