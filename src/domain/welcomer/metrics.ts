@@ -13,10 +13,10 @@ const dmCount = new Counter({
 
 export interface WelcomerEmitter {
   userJoin: () => void;
-  dmSent: (instant: boolean) => void;
+  directMessageSent: (instant: boolean) => void;
 }
 
 export const welcomerEmitter = (): WelcomerEmitter => ({
   userJoin: () => newUserCount.labels().inc(),
-  dmSent: instant => dmCount.labels(String(instant)).inc(),
+  directMessageSent: instant => dmCount.labels(String(instant)).inc(),
 });

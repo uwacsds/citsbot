@@ -1,7 +1,8 @@
 import { DiscordUser, DiscordMessage } from '../../discord/types';
 import { mockLogger } from '../../utils/logging';
 import { BotActionType } from '../action-types';
-import { WelcomerConfig, welcomerModule } from './module';
+import { WelcomerConfig } from './config';
+import { welcomerModule } from './module';
 
 describe(`welcomer module`, () => {
   const now = new Date(`2020-01-01T00:00Z`);
@@ -12,7 +13,7 @@ describe(`welcomer module`, () => {
     newMemberDm: { delay: 3000, instantAccountAge: 7, message: `hello {name}`, roleThreshold: 1 },
   };
 
-  const welcomer = welcomerModule(config, mockLogger(), () => now);
+  const welcomer = welcomerModule(mockLogger(), { directMessageSent: jest.fn(), userJoin: jest.fn() }, config, () => now);
 
   it(`given an old user > should create an embedded message action to welcome the user and a delayed direct message action`, async () => {
     const previousYear = new Date(now);
