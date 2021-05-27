@@ -24,17 +24,17 @@ export interface DiscordUser {
   id: string;
   createdAt: Date;
   avatar: string;
-  bot: boolean | null;
-  username: string | null;
-  tag: string | null;
-  discriminator: string | null;
+  bot: boolean | undefined;
+  username: string | undefined;
+  tag: string | undefined;
+  discriminator: string | undefined;
 }
 
 export interface DiscordMessageAttachment {
   id: string;
   url: string;
-  width: number | null;
-  height: number | null;
+  width: number | undefined;
+  height: number | undefined;
   size: number;
 }
 

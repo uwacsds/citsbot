@@ -12,11 +12,11 @@ import { BotModule } from '../domain/module-types';
 const parseUser = (user: User | PartialUser): DiscordUser => ({
   id: user.id,
   avatar: user.displayAvatarURL(),
-  bot: user.bot,
+  bot: user.bot ?? undefined,
   createdAt: user.createdAt,
-  discriminator: user.discriminator,
-  username: user.username,
-  tag: user.tag,
+  discriminator: user.discriminator ?? undefined,
+  username: user.username ?? undefined,
+  tag: user.tag ?? undefined,
 });
 
 const parseChannel = (channel: Channel): DiscordChannel => ({
@@ -28,8 +28,8 @@ const parseChannel = (channel: Channel): DiscordChannel => ({
 const parseAttachment = (attachment: MessageAttachment): DiscordMessageAttachment => ({
   id: attachment.id,
   url: attachment.url,
-  width: attachment.width,
-  height: attachment.height,
+  width: attachment.width ?? undefined,
+  height: attachment.height ?? undefined,
   size: attachment.size,
 });
 
