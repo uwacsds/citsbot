@@ -2,39 +2,39 @@ import { Channel, GuildMember, Message, TextChannel } from 'discord.js';
 import { BotAction } from '../domain/action-types';
 
 export interface DiscordAPI {
-  fetchChannel: (id: string) => Promise<Channel | null>;
-  fetchTextChannel: (id: string) => Promise<TextChannel | null>;
-  fetchMessage: (channelId: string, messageId: string) => Promise<Message | null>;
+  fetchChannel: (id: string) => Promise<Channel | undefined>;
+  fetchTextChannel: (id: string) => Promise<TextChannel | undefined>;
+  fetchMessage: (channelId: string, messageId: string) => Promise<Message | undefined>;
   fetchMember: (userId: string) => Promise<GuildMember>;
 }
 
 export interface DiscordBot {
-  applyAction: (action: BotAction) => Promise<void>;
-  start: (discordToken: string) => Promise<void>;
-  stop: () => Promise<void>;
+  applyAction: (action: BotAction) => void;
+  start: (discordToken: string) => Promise<string>;
+  stop: () => void;
 }
 
 export interface DiscordChannel {
   id: string;
   createdAt: Date;
-  type: 'text' | 'dm' | 'voice' | 'group' | 'category' | 'news' | 'store' | 'unknown';
+  type: `text` | `dm` | `voice` | `group` | `category` | `news` | `store` | `unknown`;
 }
 
 export interface DiscordUser {
   id: string;
   createdAt: Date;
   avatar: string;
-  bot: boolean | null;
-  username: string | null;
-  tag: string | null;
-  discriminator: string | null;
+  bot: boolean | undefined;
+  username: string | undefined;
+  tag: string | undefined;
+  discriminator: string | undefined;
 }
 
 export interface DiscordMessageAttachment {
   id: string;
   url: string;
-  width: number | null;
-  height: number | null;
+  width: number | undefined;
+  height: number | undefined;
   size: number;
 }
 

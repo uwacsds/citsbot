@@ -61,7 +61,7 @@
 
 Script | Description
 --- | ---
-`./local-reset.sh` | Can be used at any time to bring up a fresh instance of the bot with your latest changes. This is the primary script you would use during development
+`./local-reset.sh` | Helper to easily restart the bot with your latest changes
 `./local-build.sh` | Builds the bot using docker
 `./local-start.sh` | Installs the bot's helm chart
 `./local-stop.sh` | Uninstalls the bot's helm chart
