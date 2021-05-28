@@ -1,4 +1,4 @@
-import { fieldValidator } from '../../utils/validator';
+import { fieldValidator } from '../../utils/validation';
 
 export type WelcomerConfig = {
   channel: string;

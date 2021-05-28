@@ -1,4 +1,4 @@
-import { fieldValidator } from '../../utils/validator';
+import { fieldValidator } from '../../utils/validation';
 import { UnitConfig } from '../config';
 
 export type ReactRolesConfig = {

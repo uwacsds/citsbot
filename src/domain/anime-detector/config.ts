@@ -1,4 +1,4 @@
-import { fieldValidator, validString } from '../../utils/validator';
+import { fieldValidator, validString } from '../../utils/validation';
 
 export type AnimeDetectorConfig = {
   keywords: string[];

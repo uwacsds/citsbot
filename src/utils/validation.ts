@@ -1,6 +1,4 @@
 export const validString = (value: unknown): value is string => typeof value === `string`;
-export const validNumber = (value: unknown): value is number => typeof value === `number`;
-export const validArray = (value: unknown): value is [] => Array.isArray(value);
 
 export const fieldValidator = (prefix: string) => ({
   validateValue: (parent: Record<string, unknown>, field: string, expectedType: `bigint` | `boolean` | `number` | `string`): void => {
