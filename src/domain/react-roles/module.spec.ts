@@ -15,7 +15,7 @@ describe(`react roles module`, () => {
     ],
   };
   const units: Record<string, UnitConfig> = { unit1: { channels: { general: ``, resources: `` }, name: `unitOne`, role: `unit1Role` } };
-  const reactRoles = reactRolesModule(config, mockLogger(), units);
+  const reactRoles = reactRolesModule(mockLogger(), config, units);
   const user: DiscordUser = { avatar: `https://avatar.png`, bot: false, createdAt: now, discriminator: `1234`, id: `user1`, tag: `userA#1234`, username: `userA` };
 
   test(`given config > when handle bot start > should dispatch expected cache message and add reaction actions`, async () => {

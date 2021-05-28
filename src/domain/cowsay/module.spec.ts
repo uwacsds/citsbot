@@ -8,7 +8,7 @@ describe(`cowsay-module`, () => {
   const globalPrefix = `!`;
   const mockFormatter = jest.fn();
 
-  const cowsay = cowsayModule(globalPrefix, mockLogger(), mockFormatter);
+  const cowsay = cowsayModule(mockLogger(), globalPrefix, mockFormatter);
 
   beforeEach(() => {
     mockFormatter.mockReset().mockReturnValue(`moo`);
