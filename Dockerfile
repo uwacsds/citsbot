@@ -5,9 +5,6 @@ RUN yarn install --pure-lockfile --network-timeout 600000
 COPY tsconfig.json /app
 COPY src/ /app/src/
 
-FROM base as dev
-CMD ["yarn", "watch"]
-
 FROM base as builder
 COPY jest.config.js /app
 RUN yarn build
