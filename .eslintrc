@@ -11,8 +11,7 @@
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended",
-    "prettier"
+    "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
     "semi": "error",
@@ -20,9 +19,10 @@
     "comma-dangle": ["warn", "always-multiline"],
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": ["warn", { "varsIgnorePattern": "^_", "args": "none" }],
-    "quotes": ["error", "single", { "avoidEscape": true }],
+    "quotes": ["error", "backtick", { "avoidEscape": true }],
     "indent": ["warn", 2, { "SwitchCase": 1 }],
     "object-curly-spacing": ["warn", "always"],
-    "no-console": ["off"]
+    "no-console": ["off"],
+    "@typescript-eslint/explicit-module-boundary-types": "off"
   }
 }

@@ -1,9 +1,9 @@
 import { Counter } from 'prom-client';
 
 const imageScanCount = new Counter({
-  name: 'citsbot_anime_detector_images_scanned',
-  help: 'count of images scanned by the anime detector',
-  labelNames: ['channelId', 'verdict'],
+  name: `citsbot_anime_detector_images_scanned`,
+  help: `count of images scanned by the anime detector`,
+  labelNames: [`channelId`, `verdict`],
 });
 
 export interface AnimeDetectorEmitter {
