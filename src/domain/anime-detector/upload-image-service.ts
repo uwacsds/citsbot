@@ -18,7 +18,7 @@ export const imgurImageUploaderService = (
 
     const data = await response.json();
     const imgurLink = data?.data?.link;
-    if (imgurLink === undefined) throw Error(`Failed to upload image to imgur. Link not present in response body: ${JSON.stringify(data)}`);
+    if (typeof imgurLink !== `string`) throw Error(`Failed to upload image to imgur. Link not present in response body: ${JSON.stringify(data)}`);
 
     return imgurLink;
   };
