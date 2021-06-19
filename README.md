@@ -24,7 +24,7 @@
 
 1. Set up config file
 
-    1. Make a copy of `config.local.sample.json` called `config.local.json`. The `config.json` files contain IDs for channels, servers, and roles for their respective servers. You will need to change the sample values in your `config.local.json` to ones from your test server.
+    1. You will need to update `botConfig` in `helm/citsbot/values.local.yaml` with values from your own test server. Please try avoid committing your changes to this file or revert them before you submit your pull request.
     2. To get IDs go to your discord settings and enable developer mode. The toggle can be found at the bottom of the "Appearance" section under Advanced.
     3. You can now right click on channels, users, roles, etc. to copy their ID which you can put in your `config.local.json` file
 
@@ -32,6 +32,7 @@
 
     1. Create a new file called `.env` in the root directory (next to package.json)
     2. Add the following to it `DISCORD_TOKEN=<your-discord-bot-token-here>` where `<your-discord-bot-token-here>` is your discord bot token that you can find under the Bot section of the discord developer portal. **Do not share this value with anyone.**
+    3. You can also provide `IMGUR_CLIENT_ID` if you would like the anime detector module to backup images to imgur before it removes them. You can follow the instructions [here](https://api.imgur.com/oauth2/addclient) to create the required credentials.
 
 ### Set up Docker and Kubernetes
 
@@ -45,10 +46,12 @@
 #### Linux
 
 1. Run `yarn` to install dependencies for your IDE
-2. Install docker and [minikube](https://minikube.sigs.k8s.io/docs/) using your distro's package manager (`apt`/`pacman`/etc.)
+2. Install docker and [minikube](https://minikube.sigs.k8s.io/docs/) using your distro's package manager (`apt`/`pacman`/etc.).
 3. Install helm by following https://helm.sh/docs/intro/install/
 4. Set the `LOCAL_KUBE_CONTEXT` environment variable to `minikube`
 5. Start a local kubernetes cluster by running `minikube start`
+
+You can also set up a local cluster with [kind](https://kind.sigs.k8s.io/docs/user/quick-start/) if you prefer. You can then set the `LOCAL_KUBE_CONTEXT` environment variable to the name of your cluster.
 
 ### Running tests
 

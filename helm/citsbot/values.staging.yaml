@@ -10,6 +10,8 @@ secrets:
     properties:
       - name: token
         key: projects.citsbot.staging.token
+      - name: imgurClientId
+        key: projects.citsbot.staging.imgurClientId
 
 botConfig:
   prefix: "!"

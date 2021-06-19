@@ -9,7 +9,7 @@
   "scripts": {
     "watch": "ts-node-dev --unhandled-rejections=strict ./src/start.ts",
     "build": "tsc --outDir ./dist/",
-    "test": "yarn jest",
+    "test": "yarn jest ./src",
     "lint": "eslint \"src/**/*.ts\" --fix"
   },
   "dependencies": {

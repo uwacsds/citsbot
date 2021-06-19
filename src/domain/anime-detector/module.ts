@@ -4,12 +4,23 @@ import { BotAction, BotActionType } from '../action-types';
 import { AnimeDetectorModule, ModuleType } from '../module-types';
 import { AnimeDetectorEmitter } from './metrics';
 import { AnimeDetectorService } from './detector-service';
+import { ImageUploaderService } from './upload-image-service';
 
 export const animeDetectorModule = (
   { log }: LoggingService,
   emitter: AnimeDetectorEmitter,
   detectAnime: AnimeDetectorService,
+  uploadImage: ImageUploaderService,
 ): AnimeDetectorModule => {
+
+  const backupImage = async (url: string) => {
+    try {
+      return await uploadImage(url);
+    } catch (error) {
+      log(`warning`, `Failed to backup image`, { title: `Image Backup Failed`, image: url, data: { url, error: String(error) } });
+      return undefined;
+    }
+  };
 
   const onMessage = async (message: DiscordMessage): Promise<BotAction[]> => {
     for (const url of parseAllUrls(message)) {
@@ -18,7 +29,8 @@ export const animeDetectorModule = (
       emitter.imageScanned(message.author.tag ?? `UNKNOWN`, verdict);
     
       if (verdict) {
-        log(`notice`, `Message removed`, { title: `Anime Purged`, image: url, data: { user: message.author.tag, keywords: keywordCounts, url } });
+        const backedUpImageUrl = await backupImage(url);
+        log(`notice`, `Message removed`, { title: `Anime Purged`, image: backedUpImageUrl ?? url, data: { user: message.author.tag, keywords: keywordCounts, originalImageUrl: url, backedUpImageUrl } });
         return [{ type: BotActionType.RemoveMessage, channelId: message.channel.id, messageId: message.id }];
       }
     }

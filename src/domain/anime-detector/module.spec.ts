@@ -1,5 +1,4 @@
 import { DiscordUser, DiscordMessageAttachment, DiscordMessage } from '../../discord/types';
-import { mockLogger } from '../../utils/logging';
 import { BotActionType } from '../action-types';
 import { animeDetectorModule } from './module';
 import { AnimeDetectorResult } from './detector-service';
@@ -42,12 +41,35 @@ describe(`anime detector module`, () => {
     return Promise.resolve(testUrls[url]);
   };
 
+  const log = jest.fn();
   const mockImageScannedEmitter = jest.fn();
   const detectAnime = jest.fn(mockDetectAnimeImplementation);
-  const { onMessage } = animeDetectorModule(mockLogger(), { imageScanned: mockImageScannedEmitter }, detectAnime);
+  const uploadImage = jest.fn();
+  const { onMessage } = animeDetectorModule({ log, initialise: jest.fn() }, { imageScanned: mockImageScannedEmitter }, detectAnime, uploadImage);
 
+  beforeEach(() => {
+    mockImageScannedEmitter.mockReset();
+    detectAnime.mockReset().mockImplementation(mockDetectAnimeImplementation);
+    uploadImage.mockReset();
+  });
+  
   test(`given message with no attachments and no image links > on message > should do nothing`, async () => {
     await expect(onMessage(MESSAGE)).resolves.toEqual([]);
+  });
+
+  test(`given image backup fails > on message > should revert to original url`, async () => {
+    uploadImage.mockRejectedValue(Error(`Imgur is down!`));
+    await onMessage({ ...MESSAGE, content: `https://i.imgur.com/anime.png` });
+    expect(uploadImage).toHaveBeenCalledWith(`https://i.imgur.com/anime.png`);
+    expect(log).toHaveBeenCalledWith(`warning`, `Failed to backup image`, { title: `Image Backup Failed`, image: `https://i.imgur.com/anime.png`, data: { url: `https://i.imgur.com/anime.png`, error: `Error: Imgur is down!` } });
+    expect(log).toHaveBeenCalledWith(`notice`, `Message removed`, { title: `Anime Purged`, image: `https://i.imgur.com/anime.png`, data: { user: MESSAGE.author.tag, keywords: { [`anime`]: 234 }, originalImageUrl: `https://i.imgur.com/anime.png`, backedUpImageUrl: undefined } });
+  });
+
+  test(`given image backup succeeds > on message > should log with backed up image url`, async () => {
+    uploadImage.mockResolvedValue(`http://imgur.local/backup.png`);
+    await onMessage({ ...MESSAGE, content: `https://i.imgur.com/anime.png` });
+    expect(uploadImage).toHaveBeenCalledWith(`https://i.imgur.com/anime.png`);
+    expect(log).toHaveBeenCalledWith(`notice`, `Message removed`, { title: `Anime Purged`, image: `http://imgur.local/backup.png`, data: { user: MESSAGE.author.tag, keywords: { [`anime`]: 234 }, originalImageUrl: `https://i.imgur.com/anime.png`, backedUpImageUrl: `http://imgur.local/backup.png` } });
   });
 
   test.each([
@@ -58,6 +80,8 @@ describe(`anime detector module`, () => {
   ])(`given imgur links in message content %p > on message > should come to correct verdict and emit metric`, async (url, actions, verdict) => {
     await expect(onMessage({ ...MESSAGE, content: url })).resolves.toEqual(actions);
     expect(mockImageScannedEmitter).toHaveBeenCalledWith(`user#1234`, verdict);
+    if (verdict) expect(uploadImage).toHaveBeenCalled();
+    else expect(uploadImage).not.toHaveBeenCalled();
   });
 
   test.each([
@@ -78,6 +102,8 @@ describe(`anime detector module`, () => {
   ])(`given standard links with various extensions in message content %p > on message > should come to correct verdict and emit metric`, async (url, actions, verdict) => {
     await expect(onMessage({ ...MESSAGE, content: url })).resolves.toEqual(actions);
     expect(mockImageScannedEmitter).toHaveBeenCalledWith(`user#1234`, verdict);
+    if (verdict) expect(uploadImage).toHaveBeenCalledWith(url);
+    else expect(uploadImage).not.toHaveBeenCalled();
   });
 
   test.each([
@@ -86,5 +112,7 @@ describe(`anime detector module`, () => {
   ])(`given images attached > on message > should come to correct verdict`, async (url, actions, verdict) => {
     await expect(onMessage({ ...MESSAGE, attachments: [{ ...ATTACHMENT, url }] })).resolves.toEqual(actions);
     expect(mockImageScannedEmitter).toHaveBeenCalledWith(`user#1234`, verdict);
+    if (verdict) expect(uploadImage).toHaveBeenCalledWith(url);
+    else expect(uploadImage).not.toHaveBeenCalled();
   });
 });
