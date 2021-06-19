@@ -4,6 +4,7 @@ environment: local
 
 localSecrets:
   token: placeholder
+  imgurClientId: placeholder
 
 botConfig:
   prefix: "!"

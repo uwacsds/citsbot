@@ -27,6 +27,11 @@ spec:
                 secretKeyRef:
                   name: citsbot.config.{{ $.Values.environment }}
                   key: token
+            - name: IMGUR_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: citsbot.config.{{ $.Values.environment }}
+                  key: imgurClientId
             - name: CONFIG
               value: {{ .Values.botConfig | toJson | quote }}
       terminationGracePeriodSeconds: 5

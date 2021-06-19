@@ -16,12 +16,14 @@ import { animeDetectorService } from './domain/anime-detector/detector-service';
 import { validateAnimeDetectorConfig } from './domain/anime-detector/config';
 import { reverseImageSearchService } from './domain/anime-detector/reverse-image-search';
 import { keywordCounterService } from './domain/anime-detector/keyword-counter';
+import { imgurImageUploaderService } from './domain/anime-detector/upload-image-service';
 
 const env = {
   environment: process.env.ENVIRONMENT as string,
   pushgatewayUrl: process.env.PUSHGATEWAY_URL,
   config: JSON.parse(process.env.CONFIG ?? `{}`),
   discordToken: process.env.DISCORD_TOKEN as string,
+  imgurClientId: process.env.IMGUR_CLIENT_ID as string,
 };
 
 const start = async () => {
@@ -33,7 +35,7 @@ const start = async () => {
     welcomerModule(logger, welcomerEmitter(), validateWelcomerConfig(config.modules.welcomer)),
     cowsayModule(logger, config.prefix, cowsayFormatter(validateCowsayConfig(config.modules.cowsay))),
     reactRolesModule(logger, validateReactRolesConfig(config.modules.reactRoles,config.units), config.units),
-    animeDetectorModule(logger, animeDetectorEmitter(), animeDetectorService(validateAnimeDetectorConfig(config.modules.animeDetector), reverseImageSearchService(logger), keywordCounterService(logger))),
+    animeDetectorModule(logger, animeDetectorEmitter(), animeDetectorService(validateAnimeDetectorConfig(config.modules.animeDetector), reverseImageSearchService(logger), keywordCounterService(logger)), imgurImageUploaderService(env.imgurClientId)),
   ];
 
   const bot = discordBot(logger, env.config.guild, modules);
