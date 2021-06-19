@@ -3,7 +3,7 @@
 sh ./local-set-context.sh
 
 VERSION=$(cat ./helm/citsbot/Chart.yaml | grep version | awk '{ print $2 }')
-docker build -t citsbot:${VERSION} . --target dev
+docker build -t citsbot:${VERSION} .
 
 if [[ "$LOCAL_KUBE_CONTEXT" = "minikube" ]]; then
   # minikube uses a separate daemon to the host, so images built on the host need to be transferred to it

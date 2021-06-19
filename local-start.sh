@@ -12,4 +12,5 @@ BOT_CONFIG_FILE="config.local.json"
 sudo helm upgrade -i citsbot ./helm/citsbot \
   --namespace citsbot --create-namespace \
   -f ./helm/citsbot/values.local.yaml \
-  --set localSecrets.token=$DISCORD_TOKEN
+  --set localSecrets.token=$DISCORD_TOKEN \
+  --set localSecrets.imgurClientId=$IMGUR_CLIENT_ID
