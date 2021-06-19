@@ -6,7 +6,7 @@ on:
       - "*"
 
 jobs:
-  build:
+  build_and_push:
     name: Build and Push to GitHub Registry
     timeout-minutes: 10
     runs-on: ubuntu-latest
@@ -35,5 +35,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          target: prod
           tags: ghcr.io/uwacsds/citsbot:${{ steps.vars.outputs.tag }}
