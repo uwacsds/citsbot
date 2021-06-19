@@ -6,7 +6,7 @@ COPY tsconfig.json /app
 COPY src/ /app/src/
 RUN yarn build
 
-FROM node:14-alpine as prod
+FROM node:14-alpine
 WORKDIR /app
 COPY package.json yarn.lock ./
 RUN yarn install --pure-lockfile --network-timeout 600000 --prod
