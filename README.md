@@ -26,7 +26,7 @@
 
     1. You will need to update `botConfig` in `helm/citsbot/values.local.yaml` with values from your own test server. Please try avoid committing your changes to this file or revert them before you submit your pull request.
     2. To get IDs go to your discord settings and enable developer mode. The toggle can be found at the bottom of the "Appearance" section under Advanced.
-    3. You can now right click on channels, users, roles, etc. to copy their ID which you can put in your `config.local.json` file
+    3. You can now right click on channels, users, roles, etc. to copy their ID which you can put in your local botConfig
 
 2. Set up environment variables
 
