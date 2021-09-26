@@ -19,7 +19,6 @@ import { keywordCounterService } from './domain/anime-detector/keyword-counter';
 import { imgurImageUploaderService } from './domain/anime-detector/upload-image-service';
 
 const env = {
-  environment: process.env.ENVIRONMENT as string,
   pushgatewayUrl: process.env.PUSHGATEWAY_URL,
   config: JSON.parse(process.env.CONFIG ?? `{}`),
   discordToken: process.env.DISCORD_TOKEN as string,
@@ -27,7 +26,7 @@ const env = {
 };
 
 const start = async () => {
-  initPushgateway(env.environment, env.pushgatewayUrl);
+  initPushgateway(env.pushgatewayUrl);
   const logger = discordChannelLogger(env.config.logChannel);
   const config = validateBotConfig(env.config);
 

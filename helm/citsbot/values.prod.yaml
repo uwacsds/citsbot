@@ -1,17 +1,15 @@
 image: ghcr.io/uwacsds/citsbot
 
-environment: prod
-
 pushgatewayUrl: http://prometheus-pushgateway.metrics:9091
 
 secrets:
-  - name: citsbot.config.prod
-    ref: prod/cluster/json
-    properties:
-      - name: token
-        key: projects.citsbot.prod.token
-      - name: imgurClientId
-        key: projects.citsbot.prod.imgurClientId
+- name: citsbot.config
+  ref: /prod/citsbot
+  properties:
+  - name: token
+    key: discordToken
+  - name: imgurClientId
+    key: imgurClientId
 
 botConfig:
   prefix: "!"
