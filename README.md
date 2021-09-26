@@ -36,22 +36,10 @@
 
 ### Set up Docker and Kubernetes
 
-#### Windows and macOS
-
 1. Run `yarn` to install dependencies for your IDE
-2. Install docker and docker-compose from https://www.docker.com/products/docker-desktop
+2. Install docker and [kind](https://kind.sigs.k8s.io/docs/user/quick-start).
 3. Install helm by following https://helm.sh/docs/intro/install/
-4. Enable Kubernetes in the Docker Desktop preferences
-
-#### Linux
-
-1. Run `yarn` to install dependencies for your IDE
-2. Install docker and [minikube](https://minikube.sigs.k8s.io/docs/) using your distro's package manager (`apt`/`pacman`/etc.).
-3. Install helm by following https://helm.sh/docs/intro/install/
-4. Set the `LOCAL_KUBE_CONTEXT` environment variable to `minikube`
-5. Start a local kubernetes cluster by running `minikube start`
-
-You can also set up a local cluster with [kind](https://kind.sigs.k8s.io/docs/user/quick-start/) if you prefer. You can then set the `LOCAL_KUBE_CONTEXT` environment variable to the name of your cluster.
+5. Start a local kubernetes cluster by running `kind create cluster --name tim-local`
 
 ### Running tests
 
