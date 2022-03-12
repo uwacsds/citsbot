@@ -24,12 +24,12 @@ spec:
             - name: DISCORD_TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: citsbot.config
+                  name: "{{ $instance.name }}-citsbot.config"
                   key: token
             - name: IMGUR_CLIENT_ID
               valueFrom:
                 secretKeyRef:
-                  name: citsbot.config
+                  name: "{{ $instance.name }}-citsbot.config"
                   key: imgurClientId
             - name: CONFIG
               value: {{ $instance.botConfig | toJson | quote }}
