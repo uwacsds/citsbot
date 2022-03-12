@@ -55,7 +55,7 @@ instances:
             - role: '952102132746706954'
               emoji: "newzealand"
 
-  - server: uwacsds
+  - name: uwacsds
     secrets:
     - name: citsbot.config
       ref: /prod/citsbot
