@@ -31,8 +31,10 @@ export const validateBotConfig = (rawConfig: Record<string, unknown>): BotConfig
   validateValue(rawConfig, `guild`, `string`);
   validateValue(rawConfig, `logChannel`, `string`);
 
-  if (Object.keys(config.units).length <= 0) throw Error(`Config Validation: No units found`);
-  Object.entries(config.units).forEach(validateUnitConfig);
+  if (config.units !== undefined) {
+    if (Object.keys(config.units).length <= 0) throw Error(`Config Validation: No units found`);
+    Object.entries(config.units).forEach(validateUnitConfig);
+  }
 
   return config;
 };
