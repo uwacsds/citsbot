@@ -6,11 +6,11 @@ export type BotConfig = {
   logChannel: string;
   units: Record<string, UnitConfig>;
   modules: {
-    cowsay: Record<string, unknown>;
-    welcomer: Record<string, unknown>;
-    announcer: Record<string, unknown>;
-    reactRoles: Record<string, unknown>;
-    animeDetector: Record<string, unknown>;
+    cowsay?: Record<string, unknown>;
+    welcomer?: Record<string, unknown>;
+    announcer?: Record<string, unknown>;
+    reactRoles?: Record<string, unknown>;
+    animeDetector?: Record<string, unknown>;
   };
 }
 
