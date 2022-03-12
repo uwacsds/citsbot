@@ -1,18 +1,19 @@
+{{- range $key, $instance := .Values.instances -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ $.Chart.Name }}
+  name: "{{ $.Chart.Name }}-{{ $instance.name }}"
 spec:
   strategy:
     type: Recreate
   replicas: 1
   selector:
     matchLabels:
-      app: citsbot
+      app: "{{ $.Chart.Name }}-{{ $instance.name }}"
   template:
     metadata:
       labels:
-        app: citsbot
+        app: "{{ $.Chart.Name }}-{{ $instance.name }}"
     spec:
       containers:
         - name: citsbot
@@ -31,5 +32,7 @@ spec:
                   name: citsbot.config
                   key: imgurClientId
             - name: CONFIG
-              value: {{ .Values.botConfig | toJson | quote }}
+              value: {{ $instance.botConfig | toJson | quote }}
       terminationGracePeriodSeconds: 5
+---
+{{- end }}
