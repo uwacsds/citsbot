@@ -4,7 +4,7 @@ export type BotConfig = {
   prefix: string;
   guild: string;
   logChannel: string;
-  units: Record<string, UnitConfig>;
+  units?: Record<string, UnitConfig>;
   modules: {
     cowsay?: Record<string, unknown>;
     welcomer?: Record<string, unknown>;

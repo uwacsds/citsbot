@@ -35,7 +35,7 @@ export const initialiseModules = (
 
   const initialiseReactRoles = () =>
     config.modules.reactRoles !== undefined
-      ? [reactRolesModule(logger, validateReactRolesConfig(config.modules.reactRoles, config.units), config.units)]
+      ? [reactRolesModule(logger, validateReactRolesConfig(config.modules.reactRoles, config.units ?? {}), config.units ?? {})]
       : [];
 
   const initialiseAnimeDetector = () =>
