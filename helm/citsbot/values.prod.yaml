@@ -20,12 +20,11 @@ instances:
         cowsay:
           lineMaxLen: 40
           cowArt: |
-
-                \   ^__^
-                \  (oo)\_______
-                    (__)\       )\/\
-                        ||----w |
-                        ||     ||
+                   \    ^__^
+                    \   (oo)\_______
+                        (__)\       )\/\
+                            ||----w |
+                            ||     ||
         reactRoles:
           messages:
           - id: '952093570880405534'
@@ -307,12 +306,11 @@ instances:
         cowsay:
           lineMaxLen: 40
           cowArt: |
-
-                \   ^__^
-                \  (oo)\_______
-                    (__)\       )\/\
-                        ||----w |
-                        ||     ||
+                   \    ^__^
+                    \   (oo)\_______
+                        (__)\       )\/\
+                            ||----w |
+                            ||     ||
         welcomer:
           channel: '690144646344736853'
           newMemberDm:
