@@ -1,10 +1,14 @@
 import { DiscordMessage, DiscordMessageAttachment } from '../../discord/types';
 import { LoggingService } from '../../utils/logging';
 import { BotAction, BotActionType } from '../action-types';
-import { AnimeDetectorModule, ModuleType } from '../module-types';
+import { BotModule } from '../types';
 import { AnimeDetectorEmitter } from './metrics';
 import { AnimeDetectorService } from './detector-service';
 import { ImageUploaderService } from './upload-image-service';
+
+export interface AnimeDetectorModule extends BotModule {
+  onMessage: (message: DiscordMessage) => Promise<BotAction[]>;
+}
 
 export const animeDetectorModule = (
   { log }: LoggingService,
@@ -37,7 +41,7 @@ export const animeDetectorModule = (
     return [];
   };
   
-  return { type: ModuleType.AnimeDetector, onMessage };
+  return { onMessage };
 };
 
 const PATTERN_GENERIC_IMAGE = /\w*?(https?:\/\/[^ ]+?\.(jpg|jpeg|png|tif|bmp|gif|webp))\w*?/gi;

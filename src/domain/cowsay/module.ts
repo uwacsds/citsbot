@@ -1,8 +1,12 @@
 import { DiscordMessage } from '../../discord/types';
 import { LoggingService } from '../../utils/logging';
 import { BotAction, BotActionType } from '../action-types';
-import { CowsayModule, ModuleType } from '../module-types';
+import { BotModule } from '../types';
 import { CowsayFormatter } from './formatter';
+
+export interface CowsayModule extends BotModule {
+  onMessage: (message: DiscordMessage) => Promise<BotAction[]>;
+}
 
 export const cowsayModule = (
   { log }: LoggingService,
@@ -20,5 +24,5 @@ export const cowsayModule = (
     return [{ type: BotActionType.Message, channelId: message.channel.id, messageContent: formattedMessage }];
   };
 
-  return { type: ModuleType.Cowsay, onMessage };
+  return { onMessage };
 };
