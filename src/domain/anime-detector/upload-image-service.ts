@@ -16,7 +16,8 @@ export const imgurImageUploaderService = (
 
     if (!response.ok) throw Error(`Failed to upload image to imgur. Got non-200 response code: ${response.status}, ${await response.text()}`);
 
-    const data = await response.json();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const data: any = await response.json();
     const imgurLink = data?.data?.link;
     if (typeof imgurLink !== `string`) throw Error(`Failed to upload image to imgur. Link not present in response body: ${JSON.stringify(data)}`);
 

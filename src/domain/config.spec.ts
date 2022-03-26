@@ -57,4 +57,9 @@ describe(`bot config`, () => {
     const rawConfig = { ...validConfig, units: { [`TEST1001`]: { ...validUnitConfig, channels: { ...validUnitConfig.channels, resources: undefined } } } };
     expect(() => validateBotConfig(rawConfig)).toThrowError(`Config Validation: units[TEST1001].channels: Expected 'resources' to have type 'string', got 'undefined'`);
   });
+
+  test(`given config does not contain units > when validate > should not throw`, () => {
+    const rawConfig = { ...validConfig, units: undefined };
+    expect(() => validateBotConfig(rawConfig)).not.toThrow();
+  });
 });

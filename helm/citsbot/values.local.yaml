@@ -1,69 +1,87 @@
 image: citsbot
 
-environment: local
-
 localSecrets:
   token: placeholder
   imgurClientId: placeholder
 
-botConfig:
-  prefix: "!"
-  guild: '702939230783012867'
-  logChannel: '702939231785320519'
-  units:
-    TEST1001:
-      name: Test Unit 1
-      role: '772773357568786452'
-      channels:
-        general: '702939234893299742'
-        resources: '702939234893299743'
-    TEST2002:
-      name: Test Unit 2
-      role: '772773360081174558'
-      channels:
-        general: '702939234893299745'
-        resources: '702939234893299747'
-  modules:
-    cowsay:
-      lineMaxLen: 40
-      cowArt: |
+instances:
+  - name: local
+    secrets: []
+    botConfig:
+      prefix: "!"
+      guild: '702939230783012867'
+      logChannel: '702939231785320519'
+      units:
+        TEST1001:
+          name: Test Unit 1
+          role: '772773357568786452'
+          channels:
+            general: '702939234893299742'
+            resources: '702939234893299743'
+        TEST2002:
+          name: Test Unit 2
+          role: '772773360081174558'
+          channels:
+            general: '702939234893299745'
+            resources: '702939234893299747'
+      modules:
+        cowsay:
+          lineMaxLen: 40
+          cowArt: |
+                   \    ^__^
+                    \   (oo)\_______
+                        (__)\       )\/\
+                            ||----w |
+                            ||     ||
+        welcomer:
+          channel: '702939230996922382'
+          newMemberDm:
+            delay: 10000
+            roleThreshold: 1
+            instantAccountAge: 7
+            message: |-
+              Hey {name}, welcome to the UWA Computer and Data Science discord server! I noticed that you haven't selected any roles yet. To gain access to unit channels you need to react to the messages in #overview.
 
-            \   ^__^
-             \  (oo)\_______
-                (__)\       )\/\
-                    ||----w |
-                    ||     ||
-    welcomer:
-      channel: '702939230996922382'
-      newMemberDm:
-        delay: 10000
-        roleThreshold: 1
-        instantAccountAge: 7
-        message: |-
-          Hey {name}, welcome to the UWA Computer and Data Science discord server! I noticed that you haven't selected any roles yet. To gain access to unit channels you need to react to the messages in #overview.
+              Have a read of the rules and click the emoji reactions for the unit channels you want to see. https://i.imgur.com/W2CHMEM.gif
+        announcer:
+          channel: '702939230996922381'
+          crontab: 0 0 * * mon
+          disclaimer: "⚠️ This information is provided as a guide only and may be incomplete
+            and/or inaccurate. Please consult official UWA sources. Do not rely solely on
+            this list."
+          image: https://i.imgur.com/2cQttpX.png
+          colour: "#2598d9"
+        reactRoles:
+          messages:
+          - id: '772772517656002570'
+            channel: '702939230996922380'
+            reactions:
+            - role: '705800518517391378'
+              emoji: github
+            - unit: TEST1001
+              emoji: bluej
+            - unit: TEST2002
+              emoji: "\U0001F4DD"
+        animeDetector:
+          keywords:
+          - anime
+          - manga
+          keywordCountThreshold: 5
+        threadEnforcer:
+          channels:
+            - channelId: '957264516327018516'
+              channelName: '#project-showcase'
+              topicSingular: 'project'
+              topicPlural: 'projects'
+            - channelId: '957223775269703701'
+              channelName: '#job-opportunities'
+              topicSingular: 'job opportunity'
+              topicPlural: 'job opportunities'
+          ruleBreakDm: |-
+            Hey {username} 👋, I deleted your message in {channelName} because all discussions about individual {topicPlural} should take place in threads 🧵.
 
-          Have a read of the rules and click the emoji reactions for the unit channels you want to see. https://i.imgur.com/W2CHMEM.gif
-    announcer:
-      channel: '702939230996922381'
-      crontab: 0 0 * * mon
-      disclaimer: "⚠️ This information is provided as a guide only and may be incomplete
-        and/or inaccurate. Please consult official UWA sources. Do not rely solely on
-        this list."
-      image: https://i.imgur.com/2cQttpX.png
-      colour: "#2598d9"
-    reactRoles:
-      messages:
-      - id: '772772517656002570'
-        channel: '702939230996922380'
-        reactions:
-        - role: '705800518517391378'
-          emoji: github
-        - unit: TEST1001
-          emoji: bluej
-        - unit: TEST2002
-          emoji: "\U0001F4DD"
-    animeDetector:
-      keywords:
-      - anime
-      - manga
-      keywordCountThreshold: 5
+            ℹ️ Enforcing the use of threads ensures that the {topicPlural} you and everyone else share stay as visible as possible for as long as possible. You can create a new thread by right clicking or long pressing on a message and selecting "Create Thread". Please see this article for more about Discord's threads feature: https://support.discord.com/hc/en-us/articles/4403205878423.
+
+            💡 If you are trying to share a new {topicSingular}, please ensure you include a link to it in your message.
+
+            🚩 If you believe this action was taken in error, please reach out to one of the server moderators.

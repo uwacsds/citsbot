@@ -7,7 +7,7 @@ import { discordEmitter, DiscordEmitter } from './metrics';
 import { LoggingService } from '../utils/logging';
 import { discordApi } from './discord-api';
 import { DiscordBot, DiscordAPI, DiscordChannel, DiscordEmoji, DiscordMessage, DiscordMessageAttachment, DiscordReaction, DiscordUser } from './types';
-import { BotModule } from '../domain/module-types';
+import { BotModule } from '../domain/types';
 
 const parseUser = (user: User | PartialUser): DiscordUser => ({
   id: user.id,
