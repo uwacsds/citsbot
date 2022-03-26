@@ -8,7 +8,7 @@ export const cowsayFormatter = (
   config: CowsayConfig
 ): CowsayFormatter =>
   message => {
-    const sanitizedMessage = message.replace(/`/g, `'`);
+    const sanitizedMessage = message.replaceAll(`\``, `'`);
     const lines = wrapText(sanitizedMessage, config.lineMaxLen);
     let maxLineLen = -1;
     lines.forEach(line => {

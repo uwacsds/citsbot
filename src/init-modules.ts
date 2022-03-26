@@ -9,13 +9,16 @@ import { BotConfig } from './domain/config';
 import { validateCowsayConfig } from './domain/cowsay/config';
 import { cowsayFormatter } from './domain/cowsay/formatter';
 import { cowsayModule } from './domain/cowsay/module';
-import { BotModule } from './domain/module-types';
+import { BotModule } from './domain/types';
 import { validateReactRolesConfig } from './domain/react-roles/config';
 import { reactRolesModule } from './domain/react-roles/module';
 import { validateWelcomerConfig } from './domain/welcomer/config';
 import { welcomerEmitter } from './domain/welcomer/metrics';
 import { welcomerModule } from './domain/welcomer/module';
 import { LoggingService } from './utils/logging';
+import { threadEnforcerModule } from './domain/thread-enforcer/module';
+import { threadEnforcerEmitter } from './domain/thread-enforcer/metrics';
+import { validateThreadEnforcerConfig } from './domain/thread-enforcer/config';
 
 export const initialiseModules = (
   config: BotConfig,
@@ -43,10 +46,16 @@ export const initialiseModules = (
       ? [animeDetectorModule(logger, animeDetectorEmitter(), animeDetectorService(validateAnimeDetectorConfig(config.modules.animeDetector), reverseImageSearchService(logger), keywordCounterService(logger)), imgurImageUploaderService(imgurClientId))]
       : [];
 
+  const initialiseThreadEnforcer = () =>
+    config.modules.threadEnforcer !== undefined
+      ? [threadEnforcerModule(logger, threadEnforcerEmitter(), validateThreadEnforcerConfig(config.modules.threadEnforcer))]
+      : [];
+  
   return [
     ...initialiseWelcomer(),
     ...initialiseCowsay(),
     ...initialiseReactRoles(),
     ...initialiseAnimeDetector(),
+    ...initialiseThreadEnforcer(),
   ];
 };

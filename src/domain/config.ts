@@ -11,6 +11,7 @@ export type BotConfig = {
     announcer?: Record<string, unknown>;
     reactRoles?: Record<string, unknown>;
     animeDetector?: Record<string, unknown>;
+    threadEnforcer?: Record<string, unknown>;
   };
 }
 

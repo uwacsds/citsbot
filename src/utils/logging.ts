@@ -66,7 +66,7 @@ class DiscordLogTransport extends Transport {
     const formatContextData = (context?: LogMessageContext) => {
       const str = JSON.stringify(context?.data) ?? ``;
       if (str === ``) return undefined;
-      return `\`\`\`json\n${str.slice(0, 1000).replace(/`/g, `\\\``)}\`\`\``;
+      return `\`\`\`json\n${str.slice(0, 1000).replaceAll(`\``, `\\\``)}\`\`\``;
     };
     const action: BotEmbeddedMessageAction = {
       type: BotActionType.EmbeddedMessage,

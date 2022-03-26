@@ -2,8 +2,14 @@ import { DiscordMessage, DiscordReaction, DiscordUser } from '../../discord/type
 import { LoggingService } from '../../utils/logging';
 import { BotAction, BotActionType, BotAddReactionAction, BotCacheMessageAction } from '../action-types';
 import { UnitConfig } from '../config';
-import { ModuleType, ReactRolesModule } from '../module-types';
+import { BotModule } from '../types';
 import { ReactRolesConfig } from './config';
+
+export interface ReactRolesModule extends BotModule {
+  onBotStart: () => Promise<BotAction[]>;
+  onReactionAdd: (reaction: DiscordReaction, user: DiscordUser) => Promise<BotAction[]>;
+  onReactionRemove: (reaction: DiscordReaction, user: DiscordUser) => Promise<BotAction[]>;
+}
 
 export const reactRolesModule = (
   { log }: LoggingService,
@@ -39,7 +45,7 @@ export const reactRolesModule = (
     return [{ type: BotActionType.RoleRevoke, user, role }];
   };
 
-  return { type: ModuleType.ReactRoles, onBotStart, onReactionAdd, onReactionRemove };
+  return { onBotStart, onReactionAdd, onReactionRemove };
 };
 
 const isMessageTracked = (config: ReactRolesConfig, message: DiscordMessage) => getMessage(config, message) !== undefined;

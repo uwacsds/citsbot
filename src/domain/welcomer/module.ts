@@ -2,9 +2,14 @@ import { DiscordUser, DiscordMessage } from '../../discord/types';
 import { daysBetween } from '../../utils/date';
 import { LoggingService } from '../../utils/logging';
 import { BotAction, BotActionType } from '../action-types';
-import { ModuleType, WelcomerModule } from '../module-types';
+import { BotModule } from '../types';
 import { WelcomerConfig } from './config';
 import { WelcomerEmitter } from './metrics';
+
+export interface WelcomerModule extends BotModule {
+  onMemberJoin: (user: DiscordUser) => Promise<BotAction[]>;
+  onMessage: (message: DiscordMessage) => Promise<BotAction[]>;
+}
 
 export const welcomerModule = (
   { log }: LoggingService,
@@ -34,7 +39,7 @@ export const welcomerModule = (
       {
         type: BotActionType.DirectMessage,
         userId: user.id,
-        messageContent: config.newMemberDm.message.replace(`{name}`, user.username ?? ``),
+        messageContent: config.newMemberDm.message.replaceAll(`{name}`, user.username ?? ``),
         delay: isNewUser ? 0 : config.newMemberDm.delay,
         condition: async ({ fetchMember }) => {
           const member = await fetchMember(user.id);
@@ -60,6 +65,5 @@ export const welcomerModule = (
     ];
   };
 
-  return { type: ModuleType.Welcomer, onMemberJoin, onMessage };
+  return { onMemberJoin, onMessage };
 };
- 

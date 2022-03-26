@@ -37,7 +37,7 @@ describe(`welcomer module`, () => {
       {
         type: BotActionType.DirectMessage,
         userId: user.id,
-        messageContent: config.newMemberDm.message.replace(`{name}`, user.username ?? ``),
+        messageContent: config.newMemberDm.message.replaceAll(`{name}`, user.username ?? ``),
         delay: config.newMemberDm.delay,
         condition: expect.any(Function), // TODO: test this callback
       },
@@ -63,7 +63,7 @@ describe(`welcomer module`, () => {
       {
         type: BotActionType.DirectMessage,
         userId: user.id,
-        messageContent: config.newMemberDm.message.replace(`{name}`, user.username ?? ``),
+        messageContent: config.newMemberDm.message.replaceAll(`{name}`, user.username ?? ``),
         delay: 0,
         condition: expect.any(Function), // TODO: test this callback
       },
