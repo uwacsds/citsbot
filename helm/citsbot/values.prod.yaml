@@ -412,3 +412,21 @@ instances:
           - anime
           - manga
           keywordCountThreshold: 5
+        threadEnforcer:
+          channels:
+            - channelId: '862342865270472704'
+              channelName: '#project-showcase'
+              topicSingular: 'project'
+              topicPlural: 'projects'
+            - channelId: '910432145217028136'
+              channelName: '#job-opportunities'
+              topicSingular: 'job opportunity'
+              topicPlural: 'job opportunities'
+          ruleBreakDm: |-
+            Hey {username} 👋, I deleted your message in {channelName} because all discussions about individual {topicPlural} should take place in threads 🧵.
+
+            ℹ️ Enforcing the use of threads ensures that the {topicPlural} you and everyone else share stay as visible as possible for as long as possible. You can create a new thread by right clicking or long pressing on a message and selecting "Create Thread". Please see this article for more about Discord's threads feature: https://support.discord.com/hc/en-us/articles/4403205878423.
+
+            💡 If you are trying to share a new {topicSingular}, please ensure you include a link to it in your message.
+
+            🚩 If you believe this action was taken in error, please reach out to one of the server moderators.
