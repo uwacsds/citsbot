@@ -19,6 +19,8 @@ spec:
         - name: citsbot
           image: "{{ $.Values.image }}:{{ $.Chart.Version }}"
           env:
+            - name: INSTANCE_NAME
+              value: "{{ $instance.name }}"
             - name: PUSHGATEWAY_URL
               value: "{{ $.Values.pushgatewayUrl }}"
             - name: DISCORD_TOKEN

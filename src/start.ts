@@ -9,12 +9,14 @@ const env = {
   config: JSON.parse(process.env.CONFIG ?? `{}`),
   discordToken: process.env.DISCORD_TOKEN as string,
   imgurClientId: process.env.IMGUR_CLIENT_ID as string,
+  instanceName: process.env.INSTANCE_NAME as string,
 };
 
 const start = async () => {
-  initPushgateway(env.pushgatewayUrl);
   const logger = discordChannelLogger(env.config.logChannel);
   const config = validateBotConfig(env.config);
+
+  initPushgateway(env.pushgatewayUrl, env.instanceName, config.guild);
 
   const modules = initialiseModules(config, logger, env.imgurClientId);
   const bot = discordBot(logger, env.config.guild, modules);
