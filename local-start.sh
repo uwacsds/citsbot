@@ -1,8 +1,8 @@
 #!/bin/bash
 
-sh ./local-set-context.sh
+./local-set-context.sh
 
-. .env
+source .env
 if [ -z "$DISCORD_TOKEN" ]; then
   echo "DISCORD_TOKEN is not set in .env"
   exit 1
