@@ -39,7 +39,7 @@
 1. Run `yarn` to install dependencies for your IDE
 2. Install docker and [kind](https://kind.sigs.k8s.io/docs/user/quick-start).
 3. Install helm by following https://helm.sh/docs/intro/install/
-5. Start a local kubernetes cluster by running `kind create cluster --name tim-local`
+4. Start a local kubernetes cluster by running `kind create cluster --name <cluster-name-here>` where `<cluster-name-here>` is any string (e.g. `local`)
 
 ### Running tests
 
@@ -56,4 +56,4 @@ Script | Description
 `./local-build.sh` | Builds the bot using docker
 `./local-start.sh` | Installs the bot's helm chart
 `./local-stop.sh` | Uninstalls the bot's helm chart
-`./local-tail.sh` | Tails the bot's pod's logs
+`./local-tail.sh` | View the bot's logs
