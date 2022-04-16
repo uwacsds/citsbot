@@ -22,7 +22,8 @@ export const threadEnforcerModule = (
 
   const containsHttpUrl = (text: string) => /https?:\/\/(.+)\.(.+)/ig.exec(text) !== null;
 
-  const isMessageInViolation = ({ channel, content }: DiscordMessage) =>
+  const isMessageInViolation = ({ channel, content, isSystemMessage }: DiscordMessage) =>
+    !isSystemMessage &&
     isEnforcementEnabledForChannel(channel) &&
     !containsHttpUrl(content);
 

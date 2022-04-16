@@ -8,7 +8,7 @@ describe(`anime detector module`, () => {
 
   const USER: DiscordUser = { avatar: ``, bot: false, id: `user1`, createdAt: now, discriminator: `1234`, tag: `user#1234`, username: `user` };
   const ATTACHMENT: DiscordMessageAttachment = { id: `att1`, width: 1, height: 1, size: 8, url: `` };
-  const MESSAGE: DiscordMessage = { id: `msg1`, content: ``, author: USER, attachments: [], channel: { id: `ch1`, type: `text`, createdAt: now }, deletable: false, createdAt: now };
+  const MESSAGE: DiscordMessage = { id: `msg1`, content: ``, author: USER, attachments: [], channel: { id: `ch1`, type: `text`, createdAt: now }, deletable: false, createdAt: now, isSystemMessage: false };
   const ACTION_REMOVE = { type: BotActionType.RemoveMessage, channelId: MESSAGE.channel.id, messageId: MESSAGE.id };
 
   const mockDetectAnimeImplementation = (url: string): Promise<AnimeDetectorResult> => {

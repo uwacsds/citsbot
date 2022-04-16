@@ -71,7 +71,7 @@ describe(`welcomer module`, () => {
   });
 
   test(`given welcome channel > when message > should dispatch add reaction`, async () => {
-    const message: DiscordMessage = { author: undefined as never, channel: { id: config.channel, createdAt: now, type: `text` }, content: `welcome to the server!`, createdAt: now, deletable: true, id: `msg1`,attachments: [] };
+    const message: DiscordMessage = { author: undefined as never, channel: { id: config.channel, createdAt: now, type: `text` }, content: `welcome to the server!`, createdAt: now, deletable: true, id: `msg1`,attachments: [], isSystemMessage: false };
     await expect(welcomer.onMessage(message)).resolves.toEqual([
       {
         type: BotActionType.AddReaction,

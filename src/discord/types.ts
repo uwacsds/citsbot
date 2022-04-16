@@ -46,6 +46,7 @@ export interface DiscordMessage {
   createdAt: Date;
   deletable: boolean;
   attachments: DiscordMessageAttachment[];
+  isSystemMessage: boolean;
 }
 
 export interface DiscordEmoji {
