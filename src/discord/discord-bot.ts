@@ -41,6 +41,7 @@ const parseMessage = (message: Message): DiscordMessage => ({
   deletable: message.deletable,
   id: message.id,
   attachments: message.attachments.map(parseAttachment),
+  isSystemMessage: message.system,
 });
 
 const parseEmoji = ({ id, name }: GuildEmoji | ReactionEmoji): DiscordEmoji => ({ id: id ?? name, name });

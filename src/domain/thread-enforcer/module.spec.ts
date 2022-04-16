@@ -18,7 +18,7 @@ describe(`thread enforcer module`, () => {
   const message: DiscordMessage = {
     id: `1`, createdAt: now(), deletable: true, content: ``, attachments: [], 
     author: { avatar: `avatar1`, bot: false, createdAt: now(), discriminator: `discriminator1`, id: `user1`, tag: `tag1`, username: `user1` },
-    channel: { createdAt: now(), type: `text`, id: `channel-123` },
+    channel: { createdAt: now(), type: `text`, id: `channel-123` }, isSystemMessage: false,
   };
   
   const emitter = { messageDeleted: jest.fn() };
@@ -60,5 +60,14 @@ describe(`thread enforcer module`, () => {
       },
     ]);
     expect(emitter.messageDeleted).toHaveBeenCalledWith(`#project-showcase`);
+  });
+
+  test(`given rule breaking message, but message is system message > when message > should dispatch no actions`, async () => {
+    await expect(threadChannelEnforcer.onMessage({
+      ...message,
+      content: `Cool project thread`,
+      channel: { ...message.channel, id: `channel-123` },
+      isSystemMessage: true,
+    })).resolves.toEqual([]);
   });
 });
