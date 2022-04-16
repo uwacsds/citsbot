@@ -17,7 +17,7 @@ describe(`cowsay-module`, () => {
   const message: DiscordMessage = {
     id: `1`, createdAt: now(), deletable: true, content: ``, attachments: [], 
     author: { avatar: `avatar1`, bot: false, createdAt: now(), discriminator: `discriminator1`, id: `user1`, tag: `tag1`, username: `user1` },
-    channel: { createdAt: now(), type: `text`, id: `ch1` },
+    channel: { createdAt: now(), type: `text`, id: `ch1` }, isSystemMessage: false,
   };
 
   test(`given correct global and module prefix > when handle message > should dispatch message action`, async () => {
