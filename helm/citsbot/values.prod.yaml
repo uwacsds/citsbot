@@ -314,7 +314,7 @@ instances:
         welcomer:
           channel: '690144646344736853'
           newMemberDm:
-            delay: 300000
+            delay: 600000
             roleThreshold: 1
             instantAccountAge: 7
             message: |-
