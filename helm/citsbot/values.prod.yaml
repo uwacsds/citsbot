@@ -318,7 +318,7 @@ instances:
             roleThreshold: 1
             instantAccountAge: 7
             message: |-
-              Hey {name}, welcome to the UWA Computer and Data Science discord server! I noticed that you haven't selected any roles yet. To gain access to unit channels you need to react to the messages in #overview.
+              Hey {name}, welcome to the UWA Computer and Data Science discord server! I noticed that you haven't selected any roles yet. To gain access to unit channels you need to react to the messages in <#702884352408682597>.
 
               Have a read of the rules and click the emoji reactions for the unit channels you want to see. https://i.imgur.com/W2CHMEM.gif
         announcer:
