@@ -32,7 +32,7 @@ export const welcomerModule = (
           description: `Hey, ${user.username}`,
           colour: `#0864a5`,
           thumbnail: user.avatar,
-          fields: [{ name: `Hot tip`, value: `Check out the rules at #overview` }],
+          fields: [{ name: `Hot tip`, value: `Check out the rules at <#702884352408682597>` }],
           footer: { iconUrl: user.avatar, text: `Joined • ${new Date().toDateString()}` },
         },
       },
