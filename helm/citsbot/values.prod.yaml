@@ -110,6 +110,12 @@ instances:
           channels:
             general: '782579723016208404'
             resources: '782579758621523968'
+        CITS2005:
+          name: Object Oriented Programming
+          role: '1068865477734039582'
+          channels:
+            general: '1068865380245843988'
+            resources: '1068865421677174844'
         CITS2200:
           name: Data Structures and Algorithms
           role: '703255360231833660'
@@ -364,6 +370,8 @@ instances:
               emoji: c_
             - unit: CITS2003
               emoji: "\U0001F6E0️"
+            - unit: CITS2005
+              emoji: "📦"
             - unit: CITS2200
               emoji: tree
             - unit: CITS2211
